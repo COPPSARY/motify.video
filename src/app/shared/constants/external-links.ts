@@ -7,7 +7,7 @@ export const EXTERNAL_LINKS = {
   github: 'https://github.com/COPPSARY/Motify',
   docs: 'https://motify.mintlify.app/',
   npm: 'https://www.npmjs.com/package/@coppsary/motify',
-  editor: 'https://app.motify.site/',
+  editor: 'https://app.motify.video/',
   contactProfile: 'https://github.com/COPPSARY',
   contactEmail: 'mailto:coppsary@gmail.com',
 } as const;

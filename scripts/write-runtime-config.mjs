@@ -6,7 +6,7 @@ const development = process.argv.includes('--development');
 const values = { ...(await readDotEnv(resolve(root, '.env'))), ...process.env };
 const config = {
   motifyApiUrl: values.MOTIFY_API_URL || (development ? 'http://localhost:3000' : 'https://motify-backend.onrender.com'),
-  motifyEditorUrl: values.MOTIFY_EDITOR_URL || (development ? 'http://localhost:5173/' : 'https://app.motify.site/'),
+  motifyEditorUrl: values.MOTIFY_EDITOR_URL || (development ? 'http://localhost:5173/' : 'https://app.motify.video/'),
 };
 
 await writeFile(

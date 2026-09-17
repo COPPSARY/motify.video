@@ -9,8 +9,6 @@ declare global {
   }
 }
 
-const LOCAL_API_URL = 'http://localhost:3000';
-const PRODUCTION_API_URL = 'https://motify-backend.onrender.com';
 const LOCAL_EDITOR_URL = 'http://localhost:5173/';
 const PRODUCTION_EDITOR_URL = 'https://app.motify.video/';
 
@@ -23,7 +21,10 @@ export function motifyApiUrl(): string {
   const configured = typeof window === 'undefined'
     ? undefined
     : window.__MOTIFY_CONFIG__?.motifyApiUrl;
-  return trimTrailingSlash(configured || (isLocalBrowser() ? LOCAL_API_URL : PRODUCTION_API_URL));
+  if (!configured?.trim()) {
+    throw new Error('MOTIFY_API_URL is missing from the runtime configuration.');
+  }
+  return trimTrailingSlash(configured.trim());
 }
 
 export function motifyEditorUrl(prompt?: string): string {

@@ -4,8 +4,12 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const development = process.argv.includes('--development');
 const values = { ...(await readDotEnv(resolve(root, '.env'))), ...process.env };
+const apiUrl = values.MOTIFY_API_URL?.trim();
+if (!apiUrl) {
+  throw new Error('MOTIFY_API_URL must be set in .env or the build environment.');
+}
 const config = {
-  motifyApiUrl: values.MOTIFY_API_URL || (development ? 'http://localhost:3000' : 'https://motify-backend.onrender.com'),
+  motifyApiUrl: apiUrl,
   motifyEditorUrl: values.MOTIFY_EDITOR_URL || (development ? 'http://localhost:5173/' : 'https://app.motify.video/'),
 };
 

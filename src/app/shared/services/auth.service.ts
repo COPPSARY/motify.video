@@ -23,7 +23,10 @@ const PENDING_RETURN_KEY = 'motify-pending-return-url';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
-  readonly apiUrl = motifyApiUrl();
+
+  get apiUrl(): string {
+    return motifyApiUrl();
+  }
 
   async currentUser(): Promise<MotifyUser | null> {
     try {

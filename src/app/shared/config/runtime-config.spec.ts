@@ -19,6 +19,10 @@ describe('Motify runtime config', () => {
     expect(motifyEditorUrl()).toBe('https://editor.example.test/app');
   });
 
+  it('fails clearly when the API URL is missing', () => {
+    expect(() => motifyApiUrl()).toThrowError(/MOTIFY_API_URL/);
+  });
+
   it('carries Unicode prompts to the editor without changing their content', () => {
     window.__MOTIFY_CONFIG__ = {
       motifyEditorUrl: 'https://editor.example.test/',

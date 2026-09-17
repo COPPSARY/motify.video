@@ -1,38 +1,38 @@
 import {
   editorUrlForReturnPath,
-  motionlyApiUrl,
-  motionlyEditorUrl,
+  motifyApiUrl,
+  motifyEditorUrl,
 } from './runtime-config';
 
-describe('Motionly runtime config', () => {
+describe('Motify runtime config', () => {
   afterEach(() => {
-    delete window.__MOTIONLY_CONFIG__;
+    delete window.__MOTIFY_CONFIG__;
   });
 
   it('uses configured API and editor origins', () => {
-    window.__MOTIONLY_CONFIG__ = {
-      motionlyApiUrl: 'https://api.example.test/',
-      motionlyEditorUrl: 'https://editor.example.test/app',
+    window.__MOTIFY_CONFIG__ = {
+      motifyApiUrl: 'https://api.example.test/',
+      motifyEditorUrl: 'https://editor.example.test/app',
     };
 
-    expect(motionlyApiUrl()).toBe('https://api.example.test');
-    expect(motionlyEditorUrl()).toBe('https://editor.example.test/app');
+    expect(motifyApiUrl()).toBe('https://api.example.test');
+    expect(motifyEditorUrl()).toBe('https://editor.example.test/app');
   });
 
   it('carries Unicode prompts to the editor without changing their content', () => {
-    window.__MOTIONLY_CONFIG__ = {
-      motionlyEditorUrl: 'https://editor.example.test/',
+    window.__MOTIFY_CONFIG__ = {
+      motifyEditorUrl: 'https://editor.example.test/',
     };
     const prompt = 'Create a launch — សួស្តី & crisp typography';
 
-    const target = new URL(motionlyEditorUrl(prompt));
+    const target = new URL(motifyEditorUrl(prompt));
 
     expect(target.searchParams.get('prompt')).toBe(prompt);
   });
 
   it('rebuilds a safe editor URL after login', () => {
-    window.__MOTIONLY_CONFIG__ = {
-      motionlyEditorUrl: 'https://editor.example.test/',
+    window.__MOTIFY_CONFIG__ = {
+      motifyEditorUrl: 'https://editor.example.test/',
     };
 
     expect(editorUrlForReturnPath('/editor?prompt=Make%20it%20move')).toBe(

@@ -14,7 +14,7 @@
 main {
   display: flex;
   flex-direction: column;
-  gap: var(--motionly-section-gap);
+  gap: var(--motify-section-gap);
 }
 
 main > app-features-section,
@@ -24,7 +24,7 @@ main > app-showcase-section {
 
 main > app-spatial-showcase-section {
   display: block;
-  margin-top: calc(-1 * var(--motionly-section-gap));
+  margin-top: calc(-1 * var(--motify-section-gap));
 }
 
 .problem {
@@ -42,8 +42,8 @@ main > app-spatial-showcase-section {
 .problem h2 {
   max-width: 18ch;
   margin: 0;
-  color: var(--motionly-text-primary);
-  font-size: var(--motionly-type-section);
+  color: var(--motify-text-primary);
+  font-size: var(--motify-type-section);
   line-height: 1.02;
   text-align: center;
 }
@@ -55,7 +55,7 @@ main > app-spatial-showcase-section {
 .problem__lead {
   max-width: 44rem;
   margin: 0;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   font-size: 1.15rem;
   line-height: 1.6;
   text-align: center;
@@ -63,37 +63,37 @@ main > app-spatial-showcase-section {
 
 .workflow { padding: 6rem 1.5rem 7rem; }
 .workflow__heading { display: grid; justify-items: center; gap: 0.8rem; max-width: 44rem; margin: 0 auto 4rem; text-align: center; }
-.workflow__eyebrow { margin: 0; color: var(--motionly-logo-end); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.18em; text-transform: uppercase; }
-.workflow__heading h2 { margin: 0; color: var(--motionly-text-primary); font-size: var(--motionly-type-section); line-height: 1; letter-spacing: -0.025em; }
-.workflow__heading > p:last-child { max-width: 32rem; margin: 0; color: var(--motionly-text-secondary); line-height: 1.6; }
+.workflow__eyebrow { margin: 0; color: var(--motify-logo-end); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.18em; text-transform: uppercase; }
+.workflow__heading h2 { margin: 0; color: var(--motify-text-primary); font-size: var(--motify-type-section); line-height: 1; letter-spacing: -0.025em; }
+.workflow__heading > p:last-child { max-width: 32rem; margin: 0; color: var(--motify-text-secondary); line-height: 1.6; }
 .workflow__timeline { position: relative; display: grid; gap: 3.5rem; width: min(68rem, 100%); margin: 0 auto; }
-.workflow__line { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: linear-gradient(180deg, transparent, var(--motionly-border-strong) 12%, var(--motionly-border-strong) 88%, transparent); transform: translateX(-50%); }
-.workflow__line span { position: sticky; top: 50%; display: block; width: 0.45rem; height: 0.45rem; margin-left: -0.18rem; border-radius: 50%; background: var(--motionly-logo-end); box-shadow: 0 0 1.2rem var(--motionly-logo-end); }
+.workflow__line { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: linear-gradient(180deg, transparent, var(--motify-border-strong) 12%, var(--motify-border-strong) 88%, transparent); transform: translateX(-50%); }
+.workflow__line span { position: sticky; top: 50%; display: block; width: 0.45rem; height: 0.45rem; margin-left: -0.18rem; border-radius: 50%; background: var(--motify-logo-end); box-shadow: 0 0 1.2rem var(--motify-logo-end); }
 .workflow__step { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; }
 .workflow__step--reverse .workflow__visual { grid-column: 2; grid-row: 1; }
 .workflow__step--reverse .workflow__copy { grid-column: 1; grid-row: 1; text-align: right; }
-.workflow__visual { position: relative; display: grid; width: min(100%, 23rem); height: 10rem; place-items: center; justify-self: end; overflow: hidden; border: 1px solid var(--motionly-border); border-radius: 1rem; background: rgba(8, 9, 11, 0.42); box-shadow: var(--motionly-shell-shadow); }
+.workflow__visual { position: relative; display: grid; width: min(100%, 23rem); height: 10rem; place-items: center; justify-self: end; overflow: hidden; border: 1px solid var(--motify-border); border-radius: 1rem; background: rgba(8, 9, 11, 0.42); box-shadow: var(--motify-shell-shadow); }
 .workflow__copy { max-width: 20rem; justify-self: start; }
-.workflow__number { color: var(--motionly-text-muted); font: 0.72rem monospace; letter-spacing: 0.14em; }
-.workflow__copy h3 { margin: 0.65rem 0 0.55rem; color: var(--motionly-text-primary); font-size: 1.35rem; }
-.workflow__copy p { margin: 0; color: var(--motionly-text-secondary); line-height: 1.6; }
+.workflow__number { color: var(--motify-text-muted); font: 0.72rem monospace; letter-spacing: 0.14em; }
+.workflow__copy h3 { margin: 0.65rem 0 0.55rem; color: var(--motify-text-primary); font-size: 1.35rem; }
+.workflow__copy p { margin: 0; color: var(--motify-text-secondary); line-height: 1.6; }
 .workflow__visual--story { align-content: center; gap: 0.55rem; padding: 1.5rem; justify-items: start; }
-.workflow__story-line { display: block; width: 75%; height: 0.45rem; border-radius: 1rem; background: linear-gradient(90deg, var(--motionly-logo-start), transparent); animation: workflow-line-in 3.5s ease-in-out infinite; }
+.workflow__story-line { display: block; width: 75%; height: 0.45rem; border-radius: 1rem; background: linear-gradient(90deg, var(--motify-logo-start), transparent); animation: workflow-line-in 3.5s ease-in-out infinite; }
 .workflow__story-line:nth-child(2) { width: 55%; animation-delay: -0.6s; }
 .workflow__story-line:nth-child(3) { width: 66%; animation-delay: -1.2s; }
-.workflow__visual--story b { color: var(--motionly-text-primary); font-size: 0.72rem; font-weight: 600; }
+.workflow__visual--story b { color: var(--motify-text-primary); font-size: 0.72rem; font-weight: 600; }
 .workflow__visual--direction { display: flex; align-items: center; justify-content: center; gap: 0.7rem; }
-.workflow__visual--direction i { display: block; width: 2.5rem; height: 2.5rem; border: 1px solid var(--motionly-logo-start); border-radius: 50%; animation: workflow-orbit 4s ease-in-out infinite; }
-.workflow__visual--direction i:nth-child(2) { width: 4rem; height: 4rem; border-color: var(--motionly-logo-end); animation-delay: -1.3s; }
+.workflow__visual--direction i { display: block; width: 2.5rem; height: 2.5rem; border: 1px solid var(--motify-logo-start); border-radius: 50%; animation: workflow-orbit 4s ease-in-out infinite; }
+.workflow__visual--direction i:nth-child(2) { width: 4rem; height: 4rem; border-color: var(--motify-logo-end); animation-delay: -1.3s; }
 .workflow__visual--direction i:nth-child(3) { width: 1.6rem; height: 1.6rem; border-color: #ff86d9; animation-delay: -2.6s; }
 .workflow__visual--timeline { align-content: center; gap: 0.65rem; padding: 1.5rem; justify-items: start; }
 .workflow__visual--timeline i { display: block; width: 72%; height: 0.55rem; border-radius: 1rem; background: linear-gradient(90deg, #8ab4ff 0 42%, rgba(255, 255, 255, 0.08) 42%); animation: workflow-track 4s ease-in-out infinite; }
 .workflow__visual--timeline i:nth-child(2) { width: 55%; background: linear-gradient(90deg, #7cf7c5 0 68%, rgba(255, 255, 255, 0.08) 68%); animation-delay: -1s; }
 .workflow__visual--timeline i:nth-child(3) { width: 64%; background: linear-gradient(90deg, #ff86d9 0 52%, rgba(255, 255, 255, 0.08) 52%); animation-delay: -2s; }
-.workflow__visual--timeline b { position: absolute; top: 1.2rem; bottom: 1.2rem; left: 46%; width: 1px; background: var(--motionly-text-primary); box-shadow: 0 0 0.6rem var(--motionly-logo-start); animation: workflow-playhead 4s ease-in-out infinite; }
+.workflow__visual--timeline b { position: absolute; top: 1.2rem; bottom: 1.2rem; left: 46%; width: 1px; background: var(--motify-text-primary); box-shadow: 0 0 0.6rem var(--motify-logo-start); animation: workflow-playhead 4s ease-in-out infinite; }
 .workflow__visual--launch { background: radial-gradient(circle at 50% 48%, rgba(124, 247, 197, 0.2), transparent 28%), rgba(8, 9, 11, 0.42); }
-.workflow__visual--launch span { width: 4.5rem; height: 4.5rem; border: 1px solid var(--motionly-logo-end); border-radius: 1.2rem; box-shadow: 0 0 2rem rgba(124, 247, 197, 0.2); animation: workflow-launch 3.5s ease-in-out infinite; }
-.workflow__visual--launch b { position: absolute; right: 1rem; bottom: 0.8rem; color: var(--motionly-logo-end); font: 0.6rem monospace; letter-spacing: 0.14em; }
+.workflow__visual--launch span { width: 4.5rem; height: 4.5rem; border: 1px solid var(--motify-logo-end); border-radius: 1.2rem; box-shadow: 0 0 2rem rgba(124, 247, 197, 0.2); animation: workflow-launch 3.5s ease-in-out infinite; }
+.workflow__visual--launch b { position: absolute; right: 1rem; bottom: 0.8rem; color: var(--motify-logo-end); font: 0.6rem monospace; letter-spacing: 0.14em; }
 @keyframes workflow-line-in { 50% { transform: translateX(0.6rem); opacity: 0.55; } }
 @keyframes workflow-orbit { 50% { transform: translateY(-0.45rem) scale(1.08); } }
 @keyframes workflow-track { 50% { transform: scaleX(0.82); transform-origin: left; opacity: 0.65; } }
@@ -103,7 +103,7 @@ main > app-spatial-showcase-section {
 .testimonials {
   display: flex;
   justify-content: center;
-  padding: var(--motionly-space-12) var(--motionly-content-padding) var(--motionly-space-16);
+  padding: var(--motify-space-12) var(--motify-content-padding) var(--motify-space-16);
 }
 
 .testimonials__content {
@@ -112,19 +112,19 @@ main > app-spatial-showcase-section {
 }
 
 .testimonials__eyebrow {
-  margin: 0 0 var(--motionly-space-4);
-  color: var(--motionly-logo-end);
-  font-size: var(--motionly-type-small);
-  font-weight: var(--motionly-weight-bold);
+  margin: 0 0 var(--motify-space-4);
+  color: var(--motify-logo-end);
+  font-size: var(--motify-type-small);
+  font-weight: var(--motify-weight-bold);
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .testimonials h2 {
   margin: 0;
-  color: var(--motionly-text-primary);
-  font-size: var(--motionly-type-subheading);
-  font-weight: var(--motionly-weight-bold);
+  color: var(--motify-text-primary);
+  font-size: var(--motify-type-subheading);
+  font-weight: var(--motify-weight-bold);
   letter-spacing: -0.015em;
 }
 
@@ -134,14 +134,14 @@ main > app-spatial-showcase-section {
 
 .testimonials__think {
   position: relative;
-  display: inline-flex;
+  display: inline-grid;
   align-items: baseline;
-  gap: 0.35em;
   vertical-align: baseline;
 }
 
 .testimonials__think-word,
 .testimonials__think-icon {
+  grid-area: 1 / 1;
   flex: 0 0 auto;
   transition: opacity 220ms ease, transform 220ms ease;
 }
@@ -151,10 +151,12 @@ main > app-spatial-showcase-section {
 }
 
 .testimonials__think-icon {
-  width: 1.55em;
-  height: 1.35em;
+  width: 1.25em;
+  height: 1.1em;
+  align-self: center;
+  justify-self: center;
   vertical-align: middle;
-  color: var(--motionly-logo-end);
+  color: var(--motify-logo-end);
   opacity: 0;
   transform: scale(0.7) rotate(-8deg);
 }
@@ -190,10 +192,10 @@ main > app-spatial-showcase-section {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   place-items: center;
-  margin-top: var(--motionly-space-10);
-  padding: var(--motionly-space-8) var(--motionly-space-6);
-  border-top: 1px solid var(--motionly-border);
-  border-bottom: 1px solid var(--motionly-border);
+  margin-top: var(--motify-space-10);
+  padding: var(--motify-space-8) var(--motify-space-6);
+  border-top: 1px solid var(--motify-border);
+  border-bottom: 1px solid var(--motify-border);
 }
 
 .testimonials__stage > button {
@@ -202,18 +204,18 @@ main > app-spatial-showcase-section {
   height: 2.25rem;
   place-items: center;
   padding: 0;
-  border: 1px solid var(--motionly-border-strong);
+  border: 1px solid var(--motify-border-strong);
   border-radius: 50%;
   background: transparent;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   cursor: pointer;
   transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
 .testimonials__stage > button:hover,
 .testimonials__stage > button:focus-visible {
-  border-color: var(--motionly-logo-end);
-  color: var(--motionly-logo-end);
+  border-color: var(--motify-logo-end);
+  color: var(--motify-logo-end);
   transform: translateY(-2px);
 }
 
@@ -225,32 +227,32 @@ main > app-spatial-showcase-section {
 .testimonials blockquote {
   max-width: 48rem;
   margin: 0;
-  padding: 0 var(--motionly-space-6);
+  padding: 0 var(--motify-space-6);
 }
 
 .testimonials blockquote p {
   margin: 0;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-size: clamp(1.15rem, 2.2vw, 1.65rem);
   line-height: 1.5;
   letter-spacing: -0.01em;
-  animation: testimonial-arrive 500ms var(--motionly-ease-standard) both;
+  animation: testimonial-arrive 500ms var(--motify-ease-standard) both;
 }
 
 .testimonials footer {
   display: grid;
   gap: 0.2rem;
-  margin-top: var(--motionly-space-6);
+  margin-top: var(--motify-space-6);
 }
 
 .testimonials footer strong {
-  color: var(--motionly-text-primary);
-  font-weight: var(--motionly-weight-semibold);
+  color: var(--motify-text-primary);
+  font-weight: var(--motify-weight-semibold);
 }
 
 .testimonials footer span {
-  color: var(--motionly-text-muted);
-  font-size: var(--motionly-type-small);
+  color: var(--motify-text-muted);
+  font-size: var(--motify-type-small);
 }
 
 @keyframes testimonial-arrive {
@@ -269,7 +271,7 @@ main > app-spatial-showcase-section {
 
 .team-love h2 {
   margin: 0;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-size: clamp(1.45rem, 3vw, 2rem);
   letter-spacing: 0;
 }
@@ -284,7 +286,7 @@ main > app-spatial-showcase-section {
   position: relative;
   display: inline-flex;
   margin-right: -0.75rem;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   text-decoration: none;
   transition: transform 0.18s ease, z-index 0.18s ease;
 }
@@ -305,7 +307,7 @@ main > app-spatial-showcase-section {
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
-  background: var(--motionly-shell);
+  background: var(--motify-shell);
   object-fit: cover;
 }
 
@@ -316,11 +318,11 @@ main > app-spatial-showcase-section {
   display: grid;
   min-width: max-content;
   padding: 0.5rem 0.75rem;
-  border: 1px solid var(--motionly-border);
-  border-radius: var(--motionly-radius-sm);
+  border: 1px solid var(--motify-border);
+  border-radius: var(--motify-radius-sm);
   background: rgba(8, 9, 11, 0.92);
-  box-shadow: var(--motionly-shell-shadow);
-  color: var(--motionly-text-primary);
+  box-shadow: var(--motify-shell-shadow);
+  color: var(--motify-text-primary);
   opacity: 0;
   pointer-events: none;
   transform: translateX(-50%) translateY(0.4rem) scale(0.94);
@@ -334,8 +336,8 @@ main > app-spatial-showcase-section {
   width: 0.55rem;
   height: 0.55rem;
   background: rgba(8, 9, 11, 0.92);
-  border-right: 1px solid var(--motionly-border);
-  border-bottom: 1px solid var(--motionly-border);
+  border-right: 1px solid var(--motify-border);
+  border-bottom: 1px solid var(--motify-border);
   content: '';
   transform: translate(-50%, -50%) rotate(45deg);
 }
@@ -345,7 +347,7 @@ main > app-spatial-showcase-section {
 }
 
 .team-love__tooltip span {
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   font-size: 0.75rem;
 }
 
@@ -372,7 +374,7 @@ main > app-spatial-showcase-section {
 }
 
 .team-love__contribute p {
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
 }
 
 .team-love__contribute a {
@@ -381,12 +383,12 @@ main > app-spatial-showcase-section {
   gap: 0.6rem;
   margin-top: 0.5rem;
   padding: 0.55rem 0.75rem 0.55rem 0.9rem;
-  border: 1px solid var(--motionly-border);
+  border: 1px solid var(--motify-border);
   border-radius: 0.7rem;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.035),
     0 14px 34px rgba(0, 0, 0, 0.24);
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
@@ -398,7 +400,7 @@ main > app-spatial-showcase-section {
 }
 
 .team-love__contribute a:hover {
-  color: var(--motionly-accent);
+  color: var(--motify-accent);
 }
 
 .team-love__partnership {
@@ -407,9 +409,9 @@ main > app-spatial-showcase-section {
   gap: 0.55rem;
   margin-top: 1.5rem;
   padding: 0.55rem 0.85rem;
-  border: 1px solid var(--motionly-border);
+  border: 1px solid var(--motify-border);
   border-radius: 999px;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   font-size: 0.82rem;
   text-decoration: none;
   transition: border-color 180ms ease, transform 180ms ease;
@@ -417,7 +419,7 @@ main > app-spatial-showcase-section {
 
 .team-love__partnership:hover,
 .team-love__partnership:focus-visible {
-  border-color: var(--motionly-logo-end);
+  border-color: var(--motify-logo-end);
   transform: translateY(-2px);
   outline: none;
 }
@@ -430,8 +432,8 @@ main > app-spatial-showcase-section {
 }
 
 .team-love__partnership strong {
-  color: var(--motionly-text-primary);
-  font-weight: var(--motionly-weight-semibold);
+  color: var(--motify-text-primary);
+  font-weight: var(--motify-weight-semibold);
 }
 
 @media (max-width: 640px) {
@@ -582,19 +584,19 @@ main > app-spatial-showcase-section {
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  color: var(--motionly-text-muted);
+  color: var(--motify-text-muted);
   font-size: 0.62rem;
   letter-spacing: 0.06em;
 }
-.workflow__prompt-top { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--motionly-border); }
-.workflow__prompt-top i { width: 0.3rem; height: 0.3rem; margin-left: auto; border-radius: 50%; background: var(--motionly-border-strong); }
+.workflow__prompt-top { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--motify-border); }
+.workflow__prompt-top i { width: 0.3rem; height: 0.3rem; margin-left: auto; border-radius: 50%; background: var(--motify-border-strong); }
 .workflow__prompt-top i + i { margin-left: -0.2rem; }
-.workflow__prompt-dot { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--motionly-logo-end); box-shadow: 0 0 0.7rem var(--motionly-logo-end); }
-.workflow__prompt-body { min-height: 5.5rem; padding: 1rem 1rem 0.7rem; color: var(--motionly-text-primary); font-size: 0.9rem; line-height: 1.5; text-align: left; }
+.workflow__prompt-dot { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--motify-logo-end); box-shadow: 0 0 0.7rem var(--motify-logo-end); }
+.workflow__prompt-body { min-height: 5.5rem; padding: 1rem 1rem 0.7rem; color: var(--motify-text-primary); font-size: 0.9rem; line-height: 1.5; text-align: left; }
 .workflow__prompt-text { display: block; width: fit-content; max-width: 100%; overflow: hidden; white-space: nowrap; animation: workflow-type 6s steps(52, end) infinite; }
-.workflow__prompt-caret { display: inline-block; width: 1px; height: 1rem; margin-left: 0.15rem; vertical-align: -0.15rem; background: var(--motionly-logo-end); animation: workflow-caret 0.8s steps(1) infinite; }
-.workflow__prompt-footer { justify-content: flex-end; padding: 0.7rem 0.9rem; border-top: 1px solid var(--motionly-border); }
-.workflow__prompt-footer strong { display: grid; width: 1.8rem; height: 1.8rem; place-items: center; border-radius: 50%; background: linear-gradient(135deg, var(--motionly-logo-start), var(--motionly-logo-end)); color: #08090b; font-size: 1rem; }
+.workflow__prompt-caret { display: inline-block; width: 1px; height: 1rem; margin-left: 0.15rem; vertical-align: -0.15rem; background: var(--motify-logo-end); animation: workflow-caret 0.8s steps(1) infinite; }
+.workflow__prompt-footer { justify-content: flex-end; padding: 0.7rem 0.9rem; border-top: 1px solid var(--motify-border); }
+.workflow__prompt-footer strong { display: grid; width: 1.8rem; height: 1.8rem; place-items: center; border-radius: 50%; background: linear-gradient(135deg, var(--motify-logo-start), var(--motify-logo-end)); color: #08090b; font-size: 1rem; }
 @keyframes workflow-prompt-breathe { 50% { transform: translateY(-0.25rem); box-shadow: 0 1.2rem 3.5rem rgba(0, 0, 0, 0.3), 0 0 2.5rem rgba(138, 180, 255, 0.14); } }
 @keyframes workflow-type { 0%, 8% { max-width: 0; } 48%, 70% { max-width: 100%; } 100% { max-width: 0; } }
 @keyframes workflow-caret { 50% { opacity: 0; } }
@@ -630,19 +632,19 @@ main > app-spatial-showcase-section {
 
 /* Reference-inspired storyboard treatment: numbered copy left, process card right. */
 .workflow {
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   background: transparent;
 }
 .workflow__pin { padding-block: clamp(2rem, 5vw, 4.5rem); }
 .workflow__heading { gap: 0.7rem; }
-.workflow__eyebrow { color: var(--motionly-logo-start); }
-.workflow__heading h2 { color: var(--motionly-text-primary); }
+.workflow__eyebrow { color: var(--motify-logo-start); }
+.workflow__heading h2 { color: var(--motify-text-primary); }
 .workflow__heading h2 .heading-accent {
   display: inline-block;
   padding-inline-end: 0.08em;
   overflow: visible;
 }
-.workflow__heading > p:last-child { color: var(--motionly-text-secondary); }
+.workflow__heading > p:last-child { color: var(--motify-text-secondary); }
 .workflow__timeline { padding-inline: 14vw; gap: clamp(2rem, 5vw, 5rem); }
 .workflow__step,
 .workflow__step--reverse,
@@ -679,15 +681,15 @@ main > app-spatial-showcase-section {
 .workflow__step,
 .workflow__step--reverse,
 .workflow__step--idea { margin-left: 5vw; }
-.workflow__number { color: var(--motionly-logo-start); }
-.workflow__copy h3 { color: var(--motionly-text-primary); font-size: clamp(1.8rem, 3vw, 2.45rem); letter-spacing: -0.015em; }
-.workflow__copy p { color: var(--motionly-text-secondary); }
-.workflow__prompt-card { background: rgba(8, 9, 11, 0.8); border-color: rgba(138, 180, 255, 0.45); box-shadow: var(--motionly-shell-shadow); }
+.workflow__number { color: var(--motify-logo-start); }
+.workflow__copy h3 { color: var(--motify-text-primary); font-size: clamp(1.8rem, 3vw, 2.45rem); letter-spacing: -0.015em; }
+.workflow__copy p { color: var(--motify-text-secondary); }
+.workflow__prompt-card { background: rgba(8, 9, 11, 0.8); border-color: rgba(138, 180, 255, 0.45); box-shadow: var(--motify-shell-shadow); }
 .workflow__prompt-top,
-.workflow__prompt-footer { color: var(--motionly-text-muted); }
-.workflow__prompt-top { border-color: var(--motionly-border); }
-.workflow__prompt-body { color: var(--motionly-text-primary); }
-.workflow__prompt-footer { border-color: var(--motionly-border); }
+.workflow__prompt-footer { color: var(--motify-text-muted); }
+.workflow__prompt-top { border-color: var(--motify-border); }
+.workflow__prompt-body { color: var(--motify-text-primary); }
+.workflow__prompt-footer { border-color: var(--motify-border); }
 .workflow__visual--direction,
 .workflow__visual--timeline,
 .workflow__visual--launch { background: rgba(8, 9, 11, 0.42); }
@@ -736,19 +738,19 @@ main > app-spatial-showcase-section {
 .workflow__visual--direction i { grid-row: 1; justify-self: center; }
 .workflow__visual--direction i:nth-child(2) { align-self: center; }
 .workflow__visual--direction i:nth-child(3) { align-self: end; }
-.workflow__visual--direction span { position: absolute; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--motionly-logo-end); box-shadow: 0 0 1rem var(--motionly-logo-end); animation: workflow-direction-cursor 4s ease-in-out infinite; }
-.workflow__visual--direction b { grid-row: 2; color: var(--motionly-text-muted); font: 0.6rem monospace; letter-spacing: 0.1em; text-align: center; text-transform: uppercase; }
+.workflow__visual--direction span { position: absolute; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--motify-logo-end); box-shadow: 0 0 1rem var(--motify-logo-end); animation: workflow-direction-cursor 4s ease-in-out infinite; }
+.workflow__visual--direction b { grid-row: 2; color: var(--motify-text-muted); font: 0.6rem monospace; letter-spacing: 0.1em; text-align: center; text-transform: uppercase; }
 .workflow__visual--launch { display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; gap: 0.8rem; overflow: visible; background: transparent; }
 .workflow__launch-frame { position: relative; display: grid; min-width: 17rem; min-height: 9rem; place-items: center; overflow: hidden; border: 1px solid rgba(124, 247, 197, 0.35); border-radius: 0.9rem; background: linear-gradient(135deg, rgba(138, 180, 255, 0.12), rgba(124, 247, 197, 0.04)); box-shadow: 0 0 2rem rgba(124, 247, 197, 0.08); }
 .workflow__launch-frame::before { position: absolute; inset: 0; content: ''; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.16) 50%, transparent 65%); transform: translateX(-100%); animation: workflow-launch-sheen 4s ease-in-out infinite; }
-.workflow__launch-play { display: grid; width: 3rem; height: 3rem; place-items: center; padding-left: 0.15rem; border: 1px solid var(--motionly-logo-end); border-radius: 50%; color: var(--motionly-logo-end); font-size: 0.8rem; box-shadow: 0 0 1.2rem rgba(124, 247, 197, 0.2); }
-.workflow__launch-frame i { position: absolute; right: 1rem; left: 1rem; height: 0.3rem; border-radius: 1rem; background: linear-gradient(90deg, var(--motionly-logo-start), transparent); opacity: 0.7; }
+.workflow__launch-play { display: grid; width: 3rem; height: 3rem; place-items: center; padding-left: 0.15rem; border: 1px solid var(--motify-logo-end); border-radius: 50%; color: var(--motify-logo-end); font-size: 0.8rem; box-shadow: 0 0 1.2rem rgba(124, 247, 197, 0.2); }
+.workflow__launch-frame i { position: absolute; right: 1rem; left: 1rem; height: 0.3rem; border-radius: 1rem; background: linear-gradient(90deg, var(--motify-logo-start), transparent); opacity: 0.7; }
 .workflow__launch-frame i:nth-of-type(1) { top: 1.2rem; width: 36%; }
 .workflow__launch-frame i:nth-of-type(2) { right: 2rem; bottom: 1.4rem; width: 44%; background: linear-gradient(90deg, #ff86d9, transparent); }
-.workflow__launch-frame i:nth-of-type(3) { right: 3rem; bottom: 2.1rem; width: 27%; background: linear-gradient(90deg, var(--motionly-logo-end), transparent); }
+.workflow__launch-frame i:nth-of-type(3) { right: 3rem; bottom: 2.1rem; width: 27%; background: linear-gradient(90deg, var(--motify-logo-end), transparent); }
 .workflow__launch-formats { display: grid; align-content: center; gap: 0.5rem; }
-.workflow__launch-formats b { padding: 0.45rem 0.55rem; border: 1px solid var(--motionly-border-strong); border-radius: 0.45rem; color: var(--motionly-text-muted); font: 0.58rem monospace; }
-.workflow__visual--launch > strong { grid-column: 1 / -1; justify-self: end; color: var(--motionly-logo-end); font: 0.62rem monospace; letter-spacing: 0.12em; }
+.workflow__launch-formats b { padding: 0.45rem 0.55rem; border: 1px solid var(--motify-border-strong); border-radius: 0.45rem; color: var(--motify-text-muted); font: 0.58rem monospace; }
+.workflow__visual--launch > strong { grid-column: 1 / -1; justify-self: end; color: var(--motify-logo-end); font: 0.62rem monospace; letter-spacing: 0.12em; }
 @keyframes workflow-direction-cursor { 50% { transform: translate(2.6rem, -1rem); } }
 @keyframes workflow-launch-sheen { 55%, 100% { transform: translateX(100%); } }
 
@@ -778,23 +780,23 @@ main > app-spatial-showcase-section {
 .workflow__export-top,
 .workflow__export-file,
 .workflow__export-bottom { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.workflow__export-top { color: var(--motionly-text-muted); font: 0.58rem monospace; letter-spacing: 0.12em; }
-.workflow__export-top b { padding: 0.25rem 0.4rem; border: 1px solid var(--motionly-border-strong); border-radius: 0.35rem; color: var(--motionly-logo-start); font: inherit; }
-.workflow__export-file strong { color: var(--motionly-text-primary); font-size: 1rem; }
-.workflow__export-file span { color: var(--motionly-text-muted); font: 0.62rem monospace; }
+.workflow__export-top { color: var(--motify-text-muted); font: 0.58rem monospace; letter-spacing: 0.12em; }
+.workflow__export-top b { padding: 0.25rem 0.4rem; border: 1px solid var(--motify-border-strong); border-radius: 0.35rem; color: var(--motify-logo-start); font: inherit; }
+.workflow__export-file strong { color: var(--motify-text-primary); font-size: 1rem; }
+.workflow__export-file span { color: var(--motify-text-muted); font: 0.62rem monospace; }
 .workflow__export-progress { height: 0.4rem; overflow: hidden; border-radius: 1rem; background: rgba(255,255,255,0.08); }
-.workflow__export-progress i { display: block; width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--motionly-logo-start), var(--motionly-logo-end)); transform-origin: left; animation: workflow-export-progress 3.5s ease-in-out infinite; }
-.workflow__export-bottom { color: var(--motionly-logo-end); font: 0.62rem monospace; }
-.workflow__export-bottom b { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid var(--motionly-logo-end); border-radius: 50%; font-size: 1.1rem; box-shadow: 0 0 1rem rgba(124,247,197,0.2); }
+.workflow__export-progress i { display: block; width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--motify-logo-start), var(--motify-logo-end)); transform-origin: left; animation: workflow-export-progress 3.5s ease-in-out infinite; }
+.workflow__export-bottom { color: var(--motify-logo-end); font: 0.62rem monospace; }
+.workflow__export-bottom b { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid var(--motify-logo-end); border-radius: 50%; font-size: 1.1rem; box-shadow: 0 0 1rem rgba(124,247,197,0.2); }
 .workflow__visual--launch > strong { grid-column: 1; justify-self: center; }
 @keyframes workflow-export-progress { 0%, 15% { transform: scaleX(0.12); } 65%, 100% { transform: scaleX(1); } }
 
 /* Keep the final-step visual compact: a clear export action, not another editor panel. */
 .workflow__visual--launch { grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; gap: 0.8rem; }
 .workflow__launch-frame { min-width: 17rem; min-height: 9rem; }
-.workflow__launch-export { display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid var(--motionly-logo-end); border-radius: 50%; color: var(--motionly-logo-end); font-size: 1.5rem; box-shadow: 0 0 1.2rem rgba(124,247,197,0.2); animation: workflow-export-bob 2.8s ease-in-out infinite; }
+.workflow__launch-export { display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid var(--motify-logo-end); border-radius: 50%; color: var(--motify-logo-end); font-size: 1.5rem; box-shadow: 0 0 1.2rem rgba(124,247,197,0.2); animation: workflow-export-bob 2.8s ease-in-out infinite; }
 .workflow__launch-formats { display: grid; align-content: center; gap: 0.5rem; }
-.workflow__launch-formats b { padding: 0.45rem 0.55rem; border: 1px solid var(--motionly-border-strong); border-radius: 0.45rem; color: var(--motionly-text-muted); font: 0.58rem monospace; }
+.workflow__launch-formats b { padding: 0.45rem 0.55rem; border: 1px solid var(--motify-border-strong); border-radius: 0.45rem; color: var(--motify-text-muted); font: 0.58rem monospace; }
 .workflow__visual--launch > strong { grid-column: 1 / -1; justify-self: end; }
 @keyframes workflow-export-bob { 50% { transform: translateY(-0.25rem); } }
 
@@ -863,7 +865,7 @@ main > app-spatial-showcase-section {
 }
 .faq__eyebrow {
   margin: 0 0 0.75rem;
-  color: var(--motionly-logo-end);
+  color: var(--motify-logo-end);
   font-size: 0.72rem;
   font-weight: 750;
   letter-spacing: 0.16em;
@@ -872,21 +874,21 @@ main > app-spatial-showcase-section {
 }
 .faq h2 {
   margin: 0 0 2.5rem;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-size: clamp(2.2rem, 5vw, 4rem);
   letter-spacing: -0.025em;
   text-align: center;
 }
-.faq__list { border-top: 1px solid var(--motionly-border-strong); }
+.faq__list { border-top: 1px solid var(--motify-border-strong); }
 .faq__list {
   overflow: hidden;
-  border: 1px solid var(--motionly-border-strong);
+  border: 1px solid var(--motify-border-strong);
   border-radius: 1.5rem;
   background: rgba(12, 14, 18, 0.78);
-  box-shadow: var(--motionly-shell-shadow);
+  box-shadow: var(--motify-shell-shadow);
   padding-inline: 1.8rem;
 }
-.faq details { border-bottom: 1px solid var(--motionly-border); }
+.faq details { border-bottom: 1px solid var(--motify-border); }
 .faq details:last-child { border-bottom: 0; }
 .faq summary {
   display: flex;
@@ -894,16 +896,16 @@ main > app-spatial-showcase-section {
   justify-content: space-between;
   gap: 1rem;
   padding: 1.45rem 0;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   cursor: pointer;
   font-size: 1.05rem;
   font-weight: 650;
   list-style: none;
 }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: '⌄'; color: var(--motionly-text-muted); font-size: 1.1rem; font-weight: 400; transition: color 200ms ease, transform 200ms ease; }
-.faq details[open] summary::after { color: var(--motionly-logo-end); transform: rotate(180deg); }
-.faq details p { max-width: 42rem; margin: -0.4rem 2.5rem 1.35rem 0; color: var(--motionly-text-secondary); line-height: 1.65; }
+.faq summary::after { content: '⌄'; color: var(--motify-text-muted); font-size: 1.1rem; font-weight: 400; transition: color 200ms ease, transform 200ms ease; }
+.faq details[open] summary::after { color: var(--motify-logo-end); transform: rotate(180deg); }
+.faq details p { max-width: 42rem; margin: -0.4rem 2.5rem 1.35rem 0; color: var(--motify-text-secondary); line-height: 1.65; }
 
 @media (max-width: 640px) {
   .faq { padding-inline: 1rem; }
@@ -940,7 +942,7 @@ main > app-spatial-showcase-section {
   left: 1.1rem;
   height: 1px;
   content: '';
-  background: var(--motionly-border-strong);
+  background: var(--motify-border-strong);
   opacity: 0.7;
   z-index: 0;
   pointer-events: none;
@@ -953,8 +955,8 @@ main > app-spatial-showcase-section {
   height: 1px;
   max-width: calc(100% - 2.2rem);
   content: '';
-  background: linear-gradient(90deg, var(--motionly-logo-start), var(--motionly-logo-end));
-  box-shadow: 0 0 0.65rem var(--motionly-logo-end);
+  background: linear-gradient(90deg, var(--motify-logo-start), var(--motify-logo-end));
+  box-shadow: 0 0 0.65rem var(--motify-logo-end);
   transform: translateY(-50%);
   transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
@@ -966,12 +968,12 @@ main > app-spatial-showcase-section {
   width: 2.2rem;
   height: 2.2rem;
   place-items: center;
-  border: 1px solid var(--motionly-border-strong);
+  border: 1px solid var(--motify-border-strong);
   border-radius: 50%;
   padding: 0;
   appearance: none;
   background: #0a0b0e;
-  color: var(--motionly-text-muted);
+  color: var(--motify-text-muted);
   font: 0.65rem monospace;
   letter-spacing: 0.06em;
   transition: border-color 300ms ease, color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
@@ -979,14 +981,14 @@ main > app-spatial-showcase-section {
   pointer-events: auto;
 }
 .workflow__roadmap-step--past {
-  border-color: var(--motionly-logo-start);
-  color: var(--motionly-logo-start);
+  border-color: var(--motify-logo-start);
+  color: var(--motify-logo-start);
   box-shadow: 0 0 0.8rem rgba(138, 180, 255, 0.18);
 }
 .workflow__roadmap-step--active {
-  border-color: var(--motionly-logo-end);
-  background: var(--motionly-accent-gradient);
-  color: var(--motionly-accent-contrast);
+  border-color: var(--motify-logo-end);
+  background: var(--motify-accent-gradient);
+  color: var(--motify-accent-contrast);
   box-shadow: 0 0 1.4rem rgba(124, 247, 197, 0.55), 0 0 2.5rem rgba(138, 180, 255, 0.25);
   transform: scale(1.14);
 }
@@ -1041,14 +1043,14 @@ main > app-spatial-showcase-section {
 .workflow__heading { display: grid; grid-template-columns: 1fr auto; align-items: end; justify-items: stretch; gap: 2rem; width: 100%; max-width: none; margin: 0 0 2rem; text-align: left; }
 .workflow__heading h2 { margin: 0; font-size: clamp(2.5rem, 5vw, 4.5rem); }
 .workflow__heading > p:last-child { margin: 0 0 0.3rem; text-align: right; }
-.workflow__cards { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0; width: 100%; border-top: 1px solid var(--motionly-border); border-left: 1px solid var(--motionly-border); }
-.workflow__step { position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr auto; gap: 1.5rem; width: auto; min-width: 0; min-height: 27rem; overflow: hidden; padding: 2.5rem 2rem 2rem; border-right: 1px solid var(--motionly-border); border-bottom: 1px solid var(--motionly-border); border-radius: 0; background: transparent; box-shadow: none; }
+.workflow__cards { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0; width: 100%; border-top: 1px solid var(--motify-border); border-left: 1px solid var(--motify-border); }
+.workflow__step { position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr auto; gap: 1.5rem; width: auto; min-width: 0; min-height: 27rem; overflow: hidden; padding: 2.5rem 2rem 2rem; border-right: 1px solid var(--motify-border); border-bottom: 1px solid var(--motify-border); border-radius: 0; background: transparent; box-shadow: none; }
 .workflow__step:nth-of-type(1) { grid-column: span 7; }
 .workflow__step:nth-of-type(2) { grid-column: span 5; }
 .workflow__step:nth-of-type(3) { grid-column: span 5; }
 .workflow__step:nth-of-type(4) { grid-column: span 7; }
 .workflow__step--reverse > *, .workflow__step--idea > * { grid-column: 1; grid-row: auto; text-align: left; }
-.workflow__step-index { position: absolute; top: 0.9rem; left: 1rem; color: var(--motionly-text-muted); font: 0.56rem monospace; letter-spacing: 0.12em; }
+.workflow__step-index { position: absolute; top: 0.9rem; left: 1rem; color: var(--motify-text-muted); font: 0.56rem monospace; letter-spacing: 0.12em; }
 .workflow__visual { flex: 0 0 auto; width: 100%; height: 18rem; min-height: 0; overflow: hidden; justify-self: stretch; }
 .workflow__prompt-card { width: 100%; }
 .workflow__visual--story .workflow__prompt-card { width: min(100%, 28rem); margin: 0 auto; transform: scale(0.8); transform-origin: center; }
@@ -1068,7 +1070,7 @@ main > app-spatial-showcase-section {
   .workflow__visual { height: 14rem; }
 }
 
-/* AI pipeline cards: the section explains Motionly's internal process, not a user's editing steps. */
+/* AI pipeline cards: the section explains Motify's internal process, not a user's editing steps. */
 .workflow__cards { width: 100%; max-width: none; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(7rem, auto)); gap: 0.65rem; margin: 0; border: 0; }
 .workflow__step { display: flex; flex-direction: column; justify-content: space-between; min-height: 0; margin-left: 0; padding: 1.5rem; border: 1px solid #2f293a; border-radius: 20px; background: #101217; font-weight: 300; transition: all 300ms ease; box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
 .workflow__step:nth-of-type(1) { background: radial-gradient(circle at 85% 15%, rgba(138, 180, 255, 0.16), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }

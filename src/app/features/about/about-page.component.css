@@ -34,7 +34,7 @@
 
 .about__eyebrow {
   margin: 0;
-  color: var(--motionly-text-muted);
+  color: var(--motify-text-muted);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -44,7 +44,7 @@
 .about h1 {
   max-width: 15ch;
   margin: 0;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-size: clamp(2.6rem, 7vw, 4.5rem);
   line-height: 0.98;
   letter-spacing: 0;
@@ -53,7 +53,7 @@
 .about__hero p {
   max-width: 45rem;
   margin: 0;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   font-size: 1.15rem;
   line-height: 1.7;
 }
@@ -77,7 +77,7 @@
 }
 
 .about code {
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
 }
 
 .about__grid {
@@ -88,20 +88,20 @@
 
 .about__grid article {
   padding: 1.25rem;
-  border: 1px solid var(--motionly-border);
-  border-radius: var(--motionly-radius-md);
+  border: 1px solid var(--motify-border);
+  border-radius: var(--motify-radius-md);
   background: rgba(255, 255, 255, 0.035);
 }
 
 .about__grid h2 {
   margin: 0 0 0.75rem;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-size: 1.05rem;
 }
 
 .about__grid p {
   margin: 0;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   line-height: 1.65;
 }
 
@@ -114,7 +114,7 @@
 
 .about__team h2 {
   margin: 0;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-size: clamp(1.45rem, 3vw, 2rem);
 }
 
@@ -128,7 +128,7 @@
   position: relative;
   display: inline-flex;
   margin-right: -0.75rem;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   text-decoration: none;
   transition: transform 0.18s ease, z-index 0.18s ease;
 }
@@ -149,7 +149,7 @@
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
-  background: var(--motionly-shell);
+  background: var(--motify-shell);
   object-fit: cover;
 }
 
@@ -160,10 +160,10 @@
   display: grid;
   min-width: max-content;
   padding: 0.5rem 0.75rem;
-  border: 1px solid var(--motionly-border);
-  border-radius: var(--motionly-radius-sm);
+  border: 1px solid var(--motify-border);
+  border-radius: var(--motify-radius-sm);
   background: rgba(8, 9, 11, 0.92);
-  box-shadow: var(--motionly-shell-shadow);
+  box-shadow: var(--motify-shell-shadow);
   opacity: 0;
   pointer-events: none;
   transform: translateX(-50%) translateY(0.4rem) scale(0.94);
@@ -177,8 +177,8 @@
   width: 0.55rem;
   height: 0.55rem;
   background: rgba(8, 9, 11, 0.92);
-  border-right: 1px solid var(--motionly-border);
-  border-bottom: 1px solid var(--motionly-border);
+  border-right: 1px solid var(--motify-border);
+  border-bottom: 1px solid var(--motify-border);
   content: '';
   transform: translate(-50%, -50%) rotate(45deg);
 }
@@ -188,7 +188,7 @@
 }
 
 .about__team-tooltip span {
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   font-size: 0.75rem;
 }
 
@@ -209,10 +209,10 @@
   align-items: center;
   min-height: 2.55rem;
   padding: 0 0.9rem;
-  border: 1px solid var(--motionly-border);
+  border: 1px solid var(--motify-border);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.04);
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-weight: 700;
   text-decoration: none;
 }

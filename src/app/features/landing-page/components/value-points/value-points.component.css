@@ -28,7 +28,7 @@
 .problem__point h3 {
   margin: 0;
   padding-right: 1.75rem;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-size: clamp(1.2rem, 1.6vw, 1.4rem);
 }
 
@@ -36,7 +36,7 @@
   max-width: 22rem;
   margin: 0;
   padding-right: 1.75rem;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -63,7 +63,7 @@
   border-bottom: 0;
   border-top-left-radius: 0.8rem;
   background: #0c0d11;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   font-size: 0.8rem;
 }
 
@@ -75,13 +75,13 @@
 }
 
 .problem__panel-head strong {
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   font-size: 0.92rem;
-  font-weight: var(--motionly-weight-medium);
+  font-weight: var(--motify-weight-medium);
 }
 
 .problem__panel-head span {
-  color: var(--motionly-text-muted);
+  color: var(--motify-text-muted);
   font-size: 0.72rem;
 }
 
@@ -90,7 +90,7 @@
   border: 1px solid rgba(138, 180, 255, 0.35);
   border-radius: 0.6rem;
   background: rgba(138, 180, 255, 0.06);
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
 }
 
 .problem__caret {
@@ -99,7 +99,7 @@
   height: 0.9em;
   margin-left: 0.15rem;
   vertical-align: -0.1em;
-  background: var(--motionly-logo-start);
+  background: var(--motify-logo-start);
   animation: problem-caret 1s steps(1) infinite;
 }
 
@@ -120,7 +120,7 @@
 .problem__steps time {
   margin-left: auto;
   padding-right: 1rem;
-  color: var(--motionly-text-muted);
+  color: var(--motify-text-muted);
   font: 0.7rem monospace;
 }
 
@@ -132,8 +132,8 @@
 }
 
 .problem__dot--live {
-  background: var(--motionly-logo-end);
-  box-shadow: 0 0 0.6rem var(--motionly-logo-end);
+  background: var(--motify-logo-end);
+  box-shadow: 0 0 0.6rem var(--motify-logo-end);
 }
 
 .problem__timeline {
@@ -171,7 +171,7 @@
   left: 41%;
   z-index: 1;
   width: 1px;
-  background: var(--motionly-text-primary);
+  background: var(--motify-text-primary);
 }
 
 .problem__row {
@@ -183,8 +183,8 @@
 
 .problem__row b {
   margin-left: auto;
-  color: var(--motionly-text-primary);
-  font-weight: var(--motionly-weight-medium);
+  color: var(--motify-text-primary);
+  font-weight: var(--motify-weight-medium);
 }
 
 .problem__slider {
@@ -201,7 +201,7 @@
   inset: 0 auto 0 0;
   width: var(--value);
   border-radius: inherit;
-  background: var(--motionly-logo-start);
+  background: var(--motify-logo-start);
 }
 
 .problem__slider span::after {
@@ -211,7 +211,7 @@
   width: 0.7rem;
   height: 0.7rem;
   border-radius: 50%;
-  background: var(--motionly-text-primary);
+  background: var(--motify-text-primary);
   content: '';
   transform: translateY(-50%);
 }
@@ -221,7 +221,7 @@
   padding: 0.3rem 0.6rem;
   border: 1px solid rgba(245, 247, 250, 0.12);
   border-radius: 0.45rem;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
 }
 
 .problem__swatches {
@@ -243,7 +243,7 @@
   height: 1.1rem;
   margin-left: auto;
   border-radius: 1rem;
-  background: var(--motionly-logo-end);
+  background: var(--motify-logo-end);
 }
 
 .problem__toggle::after {

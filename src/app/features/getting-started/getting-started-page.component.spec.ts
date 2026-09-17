@@ -19,7 +19,7 @@ describe('GettingStartedPageComponent', () => {
     expect(video).withContext('installation video should render near the top').not.toBeNull();
 
     const text = compiled.textContent ?? '';
-    expect(text).toContain('git clone https://github.com/COPPSARY/Motionly.git');
+    expect(text).toContain('git clone https://github.com/COPPSARY/Motify.git');
     expect(text).toContain('npm install && npm run dev');
     expect(text).toContain('assets/');
 

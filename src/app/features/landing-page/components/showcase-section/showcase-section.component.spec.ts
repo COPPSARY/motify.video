@@ -18,8 +18,8 @@ describe('ShowcaseSectionComponent', () => {
 
     const skillLink = compiled.querySelector<HTMLAnchorElement>('.showcase__subheading a');
     expect(skillLink?.textContent).toContain('documentation');
-    expect(skillLink?.href).toContain('motionly.mintlify.app');
-    expect(compiled.textContent).not.toContain('npx @coppsary/motionly skills add');
+    expect(skillLink?.href).toContain('motify.mintlify.app');
+    expect(compiled.textContent).not.toContain('npx @coppsary/motify skills add');
     expect(compiled.querySelector('.showcase__step')).toBeNull();
     expect(compiled.querySelector('.showcase__install')).toBeNull();
     expect(compiled.querySelector('.showcase__agent')).toBeNull();

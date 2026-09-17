@@ -17,9 +17,8 @@ describe('app.routes', () => {
    * Property 7: No dead route
    * Validates: Requirements 10.2
    *
-   * For any path other than '', navigating to that path resolves to the
-   * landing page route (via the wildcard redirect) rather than a blank/404
-   * state.
+   * For any unknown path, navigating to that path resolves to the landing
+   * page route (via the wildcard redirect) rather than a blank/404 state.
    */
   it('resolves any unknown path to the landing page (Property 7)', async () => {
     // RouterTestingHarness only allows a single instance per test, so it is
@@ -33,7 +32,7 @@ describe('app.routes', () => {
       fc.asyncProperty(
         fc
           .stringMatching(/^[a-zA-Z0-9_-]+$/)
-          .filter((s) => s.length > 0 && s !== 'login'),
+          .filter((s) => s.length > 0 && !['login', 'about', 'getting-started', 'pricing'].includes(s)),
         async (path) => {
           const activatedComponent = await harness.navigateByUrl(`/${path}`);
 

@@ -30,7 +30,7 @@ yarn-error.log
 
 # Miscellaneous
 /.env
-/public/motionly-config.js
+/public/motify-config.js
 /.angular/cache
 .sass-cache/
 /connect.lock

@@ -1,13 +1,13 @@
 .ph-badge {
   display: inline-flex;
   line-height: 0;
-  border-radius: var(--motionly-radius-sm);
+  border-radius: var(--motify-radius-sm);
   transition: box-shadow 0.15s ease;
 }
 
 .ph-badge:hover,
 .ph-badge:focus-visible {
-  box-shadow: var(--motionly-accent-glow);
+  box-shadow: var(--motify-accent-glow);
 }
 
 .ph-badge img {
@@ -15,7 +15,7 @@
   width: 250px;
   max-width: 100%;
   height: auto;
-  border-radius: var(--motionly-radius-sm);
+  border-radius: var(--motify-radius-sm);
 }
 
 .ph-badge--compact img {

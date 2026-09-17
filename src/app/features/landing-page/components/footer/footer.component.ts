@@ -34,5 +34,7 @@ export class FooterComponent {
   readonly links: readonly ResourceLink[] = RESOURCE_LINKS;
   readonly contactProfileUrl = EXTERNAL_LINKS.contactProfile;
   readonly contactEmailUrl = EXTERNAL_LINKS.contactEmail;
+  readonly businessInquiryUrl =
+    'https://mail.google.com/mail/?view=cm&fs=1&to=prumsereyreaksa%40gmail.com&su=Motify%20partnership%20or%20business%20inquiry';
   readonly year = new Date().getFullYear();
 }

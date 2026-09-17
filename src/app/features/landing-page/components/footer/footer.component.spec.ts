@@ -54,7 +54,20 @@ describe('FooterComponent', () => {
 
     expect(logoImg).withContext('footer logo <img> should exist').not.toBeNull();
     expect(logoImg?.getAttribute('src')).toBe('logo.svg');
-    expect(compiled.textContent).toContain('HTML, CSS, and GSAP motion graphics editor.');
+    expect(compiled.textContent).toContain('AI tool that makes SaaS explainers and launch videos.');
     expect(logoImg?.src.endsWith('logo.svg')).withContext('resolved src should end with logo.svg').toBe(true);
+  });
+
+  it('should provide a partnership and business inquiry Gmail link', () => {
+    const fixture = TestBed.createComponent(FooterComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const inquiryLink = compiled.querySelector<HTMLAnchorElement>('.footer__business-link');
+
+    expect(inquiryLink).withContext('business inquiry link should exist').not.toBeNull();
+    expect(inquiryLink?.getAttribute('href')).toContain('mail.google.com/mail/');
+    expect(inquiryLink?.getAttribute('href')).toContain('to=prumsereyreaksa%40gmail.com');
+    expect(inquiryLink?.getAttribute('target')).toBe('_blank');
+    expect(inquiryLink?.getAttribute('rel')).toBe('noopener noreferrer');
   });
 });

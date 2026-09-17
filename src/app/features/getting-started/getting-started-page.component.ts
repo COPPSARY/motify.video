@@ -19,34 +19,34 @@ interface Faq {
 
 const FAQS: readonly Faq[] = [
   {
-    question: 'What do I need before installing Motionly?',
+    question: 'What do I need before installing Motify?',
     answer:
       'Node.js 20.19.0 or newer, npm, Chrome or Chromium, and FFmpeg available on your PATH for video rendering.',
   },
   {
-    question: 'Do I need to install Motionly globally?',
+    question: 'Do I need to install Motify globally?',
     answer:
-      'No. Motionly runs locally from a normal Vite project. Clone the repository, install dependencies, and start the editor with npm.',
+      'No. Motify runs locally from a normal Vite project. Clone the repository, install dependencies, and start the editor with npm.',
   },
   {
-    question: 'Where does Motionly store my animation project?',
+    question: 'Where does Motify store my animation project?',
     answer:
       'A composition uses an HTML template, scoped CSS, a GSAP timeline, and a small TypeScript adapter. Keep those files and any media assets together in Git.',
   },
   {
-    question: 'Can I edit a Motionly project with a coding agent?',
+    question: 'Can I edit a Motify project with a coding agent?',
     answer:
       'Yes. The source is plain HTML, CSS, JavaScript, and TypeScript, so any coding agent can inspect and adjust a scene or timeline directly.',
   },
   {
     question: 'How do I export my animation to MP4?',
     answer:
-      'Run npm run render:video after installing Chrome/Chromium and FFmpeg. Motionly seeks the browser composition frame by frame and pipes PNG frames into FFmpeg locally.',
+      'Run npm run render:video after installing Chrome/Chromium and FFmpeg. Motify seeks the browser composition frame by frame and pipes PNG frames into FFmpeg locally.',
   },
   {
-    question: 'Is Motionly free and open source?',
+    question: 'Is Motify free and open source?',
     answer:
-      'Motionly is open source and available on GitHub. You can run the editor locally, inspect the source, and contribute to the project.',
+      'Motify is open source and available on GitHub. You can run the editor locally, inspect the source, and contribute to the project.',
   },
 ];
 
@@ -71,33 +71,31 @@ export class GettingStartedPageComponent {
   readonly docsUrl = EXTERNAL_LINKS.docs;
   readonly demoUrl = EXTERNAL_LINKS.editor;
   readonly githubUrl = EXTERNAL_LINKS.github;
-  readonly installCommand = 'git clone https://github.com/COPPSARY/Motionly.git';
+  readonly installCommand = 'git clone https://github.com/COPPSARY/Motify.git';
   readonly devCommand = 'npm install && npm run dev';
   readonly editorCommand = 'npm run render:video';
   readonly faqs = FAQS;
 
   constructor() {
     inject(SeoService).apply({
-      title: 'Install Motionly - HTML and GSAP Motion Editor',
+      title: 'Install Motify - HTML and GSAP Motion Editor',
       description:
-        'Clone Motionly, run the local HTML and GSAP motion graphics editor, author compositions, and render video with Chrome and FFmpeg.',
+        'Clone Motify, run the local HTML and GSAP motion graphics editor, author compositions, and render video with Chrome and FFmpeg.',
       path: '/getting-started',
-      keywords:
-        'install Motionly, HTML animation editor, GSAP timeline, local motion graphics editor, browser rendering, FFmpeg animation export',
       jsonLd: {
         '@context': 'https://schema.org',
         '@graph': [
           {
             '@type': 'HowTo',
-            name: 'Install Motionly and export your first animation',
+            name: 'Install Motify and export your first animation',
             description:
-              'Clone Motionly, run the local editor, author a composition, and export the animation to MP4.',
-            url: 'https://www.motionly.site/getting-started',
+              'Clone Motify, run the local editor, author a composition, and export the animation to MP4.',
+            url: 'https://motify.video/getting-started',
             step: [
               {
                 '@type': 'HowToStep',
                 name: 'Create a project',
-                text: 'Clone the Motionly repository and install its dependencies.',
+                text: 'Clone the Motify repository and install its dependencies.',
               },
               {
                 '@type': 'HowToStep',

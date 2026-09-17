@@ -1,7 +1,7 @@
 .guide {
   min-height: 100vh;
-  background: var(--motionly-bg);
-  color: var(--motionly-text-primary);
+  background: var(--motify-bg);
+  color: var(--motify-text-primary);
 }
 
 .guide__nav {
@@ -13,7 +13,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.75rem max(1rem, calc((100vw - 72rem) / 2));
-  border-bottom: 1px solid var(--motionly-border);
+  border-bottom: 1px solid var(--motify-border);
   background: rgba(5, 6, 8, 0.82);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
@@ -31,7 +31,7 @@
 .guide__back,
 .guide__nav-links a {
   min-height: 2.25rem;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   font-weight: 600;
 }
 
@@ -75,7 +75,7 @@
 
 .guide__eyebrow {
   margin: 0;
-  color: var(--motionly-text-muted);
+  color: var(--motify-text-muted);
   font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -105,7 +105,7 @@ h3 {
 
 p,
 li {
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   line-height: 1.65;
 }
 
@@ -124,26 +124,26 @@ li {
   justify-content: center;
   min-height: 2.8rem;
   padding: 0 1rem;
-  border-radius: var(--motionly-radius-sm);
+  border-radius: var(--motify-radius-sm);
   font-weight: 700;
 }
 
 .btn--primary {
-  background: var(--motionly-text-primary);
+  background: var(--motify-text-primary);
   color: #05070a;
 }
 
 .btn--secondary {
-  border: 1px solid var(--motionly-border-strong);
-  color: var(--motionly-text-primary);
+  border: 1px solid var(--motify-border-strong);
+  color: var(--motify-text-primary);
 }
 
 .guide__video {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border: 1px solid var(--motionly-border-strong);
-  border-radius: var(--motionly-radius-md);
+  border: 1px solid var(--motify-border-strong);
+  border-radius: var(--motify-radius-md);
   background: #000;
 }
 
@@ -157,9 +157,9 @@ li {
 .guide__intro > div,
 .guide__steps article,
 .guide__structure {
-  border: 1px solid var(--motionly-border);
-  border-radius: var(--motionly-radius-md);
-  background: var(--motionly-surface);
+  border: 1px solid var(--motify-border);
+  border-radius: var(--motify-radius-md);
+  background: var(--motify-surface);
 }
 
 .guide__intro > div,
@@ -195,9 +195,9 @@ li {
 
 .guide__faq details {
   padding: 1rem 1.25rem;
-  border: 1px solid var(--motionly-border);
-  border-radius: var(--motionly-radius-md);
-  background: var(--motionly-surface);
+  border: 1px solid var(--motify-border);
+  border-radius: var(--motify-radius-md);
+  background: var(--motify-surface);
 }
 
 .guide__faq summary {
@@ -216,7 +216,7 @@ li {
 
 .guide__faq summary::after {
   content: '+';
-  color: var(--motionly-text-muted);
+  color: var(--motify-text-muted);
   font-size: 1.25rem;
   line-height: 1;
 }
@@ -237,7 +237,7 @@ li {
 
 .guide__section {
   padding: 4rem 0;
-  border-top: 1px solid var(--motionly-border);
+  border-top: 1px solid var(--motify-border);
 }
 
 .guide__section-heading {
@@ -250,7 +250,7 @@ li {
   width: 1.4rem;
   height: 1.4rem;
   margin-top: 0.4rem;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
 }
 
 .guide__code-grid,
@@ -281,12 +281,12 @@ pre {
   margin: 0;
   padding: 1rem;
   overflow: auto;
-  border-radius: var(--motionly-radius-sm);
+  border-radius: var(--motify-radius-sm);
   background: #070a0f;
 }
 
 code {
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
 }
 
 .guide__agent-row {
@@ -300,10 +300,10 @@ code {
   align-items: center;
   gap: 0.55rem;
   padding: 0 0.85rem;
-  border: 1px solid var(--motionly-border);
-  border-radius: var(--motionly-radius-sm);
-  background: var(--motionly-surface);
-  color: var(--motionly-text-primary);
+  border: 1px solid var(--motify-border);
+  border-radius: var(--motify-radius-sm);
+  background: var(--motify-surface);
+  color: var(--motify-text-primary);
 }
 
 .guide__agent img {

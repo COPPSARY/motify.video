@@ -16,7 +16,7 @@
 
 .features__eyebrow {
   grid-column: 1 / -1;
-  color: var(--motionly-text-muted);
+  color: var(--motify-text-muted);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -77,12 +77,12 @@
   gap: 1.25rem;
   overflow: hidden;
   padding: 1.5rem;
-  border: 1px solid var(--motionly-border);
+  border: 1px solid var(--motify-border);
   border-radius: 1rem;
   background:
     radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.08), transparent 52%),
     rgba(8, 9, 11, 0.72);
-  box-shadow: var(--motionly-shell-shadow);
+  box-shadow: var(--motify-shell-shadow);
 }
 
 .feature-card:first-child {
@@ -112,7 +112,7 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
 }
 
 .feature-card__icon-svg {
@@ -133,13 +133,13 @@
   font-size: 1.05rem;
   font-weight: 600;
   margin: 0;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
 }
 
 .feature-card__description {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
   margin: 0;
 }
 

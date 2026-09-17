@@ -2,10 +2,10 @@ import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
-export const SITE_ORIGIN = 'https://www.motionly.site';
+export const SITE_ORIGIN = 'https://motify.video';
 
 const DEFAULT_IMAGE = `${SITE_ORIGIN}/social-preview.png`;
-const JSON_LD_ID = 'motionly-page-jsonld';
+const JSON_LD_ID = 'motify-page-jsonld';
 
 export interface PageSeo {
   /** Browser + search result title. Keep under ~60 characters. */
@@ -14,8 +14,9 @@ export interface PageSeo {
   readonly description: string;
   /** Route path starting with a slash, e.g. '/' or '/about'. */
   readonly path: string;
-  readonly keywords?: string;
   readonly image?: string;
+  /** Robots directive for pages that should not appear in search results. */
+  readonly robots?: string;
   /** Optional schema.org payload rendered as a JSON-LD script tag. */
   readonly jsonLd?: Record<string, unknown>;
 }
@@ -36,18 +37,17 @@ export class SeoService {
 
     this.title.setTitle(page.title);
     this.meta.updateTag({ name: 'description', content: page.description });
-
-    if (page.keywords) {
-      this.meta.updateTag({ name: 'keywords', content: page.keywords });
-    }
+    this.meta.updateTag({ name: 'robots', content: page.robots ?? 'index, follow' });
 
     this.meta.updateTag({ property: 'og:title', content: page.title });
     this.meta.updateTag({ property: 'og:description', content: page.description });
     this.meta.updateTag({ property: 'og:url', content: url });
     this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ property: 'og:image:alt', content: page.title });
     this.meta.updateTag({ name: 'twitter:title', content: page.title });
     this.meta.updateTag({ name: 'twitter:description', content: page.description });
     this.meta.updateTag({ name: 'twitter:image', content: image });
+    this.meta.updateTag({ name: 'twitter:image:alt', content: page.title });
 
     this.setCanonical(url);
     this.setJsonLd(page.jsonLd);

@@ -1,8 +1,8 @@
 .spatial-showcase { --tile-width: clamp(15rem, 24vw, 34rem); --tile-gap: 1.25rem; position: relative; display: grid; padding-top: 3rem; overflow: hidden; }
 .spatial-showcase__heading { position: relative; z-index: 1; display: grid; gap: 0.6rem; width: min(74rem, 100% - 3rem); margin: 0 auto; pointer-events: none; }
-.spatial-showcase__heading h2 { margin: 0; color: var(--motionly-text-primary); font-size: var(--motionly-type-section); line-height: 1.02; }
+.spatial-showcase__heading h2 { margin: 0; color: var(--motify-text-primary); font-size: var(--motify-type-section); line-height: 1.02; }
 .spatial-showcase__heading h2 .heading-accent { font-size: inherit; font-weight: inherit; line-height: inherit; letter-spacing: inherit; }
-.spatial-showcase__heading p { margin: 0; color: var(--motionly-text-secondary); font-size: 1.15rem; line-height: 1.5; }
+.spatial-showcase__heading p { margin: 0; color: var(--motify-text-secondary); font-size: 1.15rem; line-height: 1.5; }
 /* A flat, isometric wall: rows run up and to the right and fade out at every edge. */
 .spatial-showcase__stage { position: relative; width: min(74rem, 100% - 3rem); height: clamp(22rem, 42vw, 36rem); margin: clamp(-3rem, -3vw, -1rem) auto 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent), linear-gradient(180deg, transparent, #000 5%, #000 93%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent), linear-gradient(180deg, transparent, #000 5%, #000 93%, transparent); mask-composite: intersect; }
 /* Pivot one set in from the start: a row slides a full set per loop, so this keeps a set of cover on both sides of centre. */

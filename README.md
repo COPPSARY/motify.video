@@ -58,7 +58,7 @@ https://motify.mintlify.app/
 - **Product Hunt**: https://www.producthunt.com/products/motify
   Support the launch, see the product listing, and share feedback.
 
-- **Live editor**: https://motify-tau.vercel.app/editor
+- **Live editor**: https://app.motify.video
   Try Motify directly in the browser.
 
 - **Documentation**: https://motify.mintlify.app/

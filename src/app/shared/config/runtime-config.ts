@@ -12,7 +12,7 @@ declare global {
 const LOCAL_API_URL = 'http://localhost:3000';
 const PRODUCTION_API_URL = 'https://motify-backend.onrender.com';
 const LOCAL_EDITOR_URL = 'http://localhost:5173/';
-const PRODUCTION_EDITOR_URL = 'https://app.motify.site/';
+const PRODUCTION_EDITOR_URL = 'https://app.motify.video/';
 
 function isLocalBrowser(): boolean {
   return typeof window !== 'undefined' &&

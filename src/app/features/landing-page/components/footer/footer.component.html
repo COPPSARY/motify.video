@@ -1,11 +1,11 @@
 <footer class="footer">
   <div class="footer__content" [appScrollReveal]="0">
     <div class="footer__brand">
-      <a class="footer__brand-link" routerLink="/" aria-label="Motionly home">
+      <a class="footer__brand-link" routerLink="/" aria-label="Motify home">
         <img class="footer__logo" [src]="logoSrc" alt="" width="28" height="28" />
-        <span>Motionly</span>
+        <span>Motify</span>
       </a>
-      <p>Motion ads for builders who ship.</p>
+      <p>AI tool that makes SaaS explainers and launch videos.</p>
     </div>
 
     <div class="footer__columns">
@@ -64,8 +64,23 @@
           </li>
         </ul>
       </div>
+
+      <div class="footer__business">
+        <h2>Partnerships &amp; business</h2>
+        <p>Want to partner with Motify or discuss a business opportunity?</p>
+        <a
+          class="footer__business-link"
+          [href]="businessInquiryUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Send a partnership or business inquiry in Gmail"
+        >
+          <svg lucideMail aria-hidden="true"></svg>
+          Send inquiry
+        </a>
+      </div>
     </div>
 
-    <p class="footer__copyright">© {{ year }} Motionly. All rights reserved.</p>
+    <p class="footer__copyright">© {{ year }} Motify. All rights reserved.</p>
   </div>
 </footer>

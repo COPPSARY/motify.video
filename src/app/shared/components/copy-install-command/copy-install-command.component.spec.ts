@@ -31,7 +31,7 @@ describe('CopyInstallCommandComponent', () => {
             applyClipboardOutcome(outcome);
 
             const fixture = TestBed.createComponent(CopyInstallCommandComponent);
-            fixture.componentInstance.command = 'npm install @coppsary/motionly';
+            fixture.componentInstance.command = 'npm install @coppsary/motify';
             fixture.detectChanges();
 
             let thrown: unknown;
@@ -71,7 +71,7 @@ describe('CopyInstallCommandComponent', () => {
       applyClipboardOutcome('resolve');
 
       const fixture = TestBed.createComponent(CopyInstallCommandComponent);
-      fixture.componentInstance.command = 'npm install @coppsary/motionly';
+      fixture.componentInstance.command = 'npm install @coppsary/motify';
       fixture.detectChanges();
 
       (fixture.componentInstance as any).onCopyClick();
@@ -102,7 +102,7 @@ describe('CopyInstallCommandComponent', () => {
       applyClipboardOutcome('resolve');
 
       const fixture = TestBed.createComponent(CopyInstallCommandComponent);
-      fixture.componentInstance.command = 'npm install @coppsary/motionly';
+      fixture.componentInstance.command = 'npm install @coppsary/motify';
       fixture.detectChanges();
 
       const instance = fixture.componentInstance as any;

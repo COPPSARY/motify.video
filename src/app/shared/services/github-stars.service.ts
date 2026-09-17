@@ -9,7 +9,7 @@ interface GithubRepoResponse {
 }
 
 /**
- * Fetches and caches the live GitHub star count for the Motionly repository
+ * Fetches and caches the live GitHub star count for the Motify repository
  * (parsed from `EXTERNAL_LINKS.github`) via the public GitHub REST API.
  *
  * Fails silently: on error, on a non-numeric response, or when the repo URL

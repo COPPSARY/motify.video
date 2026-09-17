@@ -27,14 +27,14 @@ export class LoginPageComponent {
 
   constructor() {
     inject(SeoService).apply({
-      title: 'Log in to Motionly',
-      description: 'Sign in to create and refine HTML, CSS, and GSAP motion graphics with Motionly.',
+      title: 'Log in to Motify',
+      description: 'Sign in to create and refine HTML, CSS, and GSAP motion graphics with Motify.',
       path: '/login',
-      keywords: 'Motionly login, motion graphics editor, GSAP animation editor',
+      robots: 'noindex, nofollow',
     });
   }
 
-  async continueToMotionly(): Promise<void> {
+  async continueToMotify(): Promise<void> {
     if (!this.email || !this.password) {
       this.error.set('Enter your email and password to continue.');
       return;

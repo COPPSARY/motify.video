@@ -13,7 +13,7 @@ import { formatStarCount } from '../../utils/format-count';
 export type GithubStarBadgeSize = 'compact' | 'default';
 
 /**
- * Displays a GitHub icon link with a live star count for the Motionly repo.
+ * Displays a GitHub icon link with a live star count for the Motify repo.
  *
  * SSR-safe: the star count is fetched only in the browser (via
  * `afterNextRender`), so the server always renders the icon-only resting

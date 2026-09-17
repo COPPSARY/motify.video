@@ -15,7 +15,7 @@ import {
 } from '@lucide/angular';
 import { GithubStarBadgeComponent } from '../../../../shared/components/github-star-badge/github-star-badge.component';
 import { ProductHuntBadgeComponent } from '../../../../shared/components/product-hunt-badge/product-hunt-badge.component';
-import { EXTERNAL_LINKS, motionlyEditorUrl } from '../../../../shared/constants/external-links';
+import { EXTERNAL_LINKS, motifyEditorUrl } from '../../../../shared/constants/external-links';
 
 @Component({
   selector: 'app-navbar',
@@ -53,7 +53,7 @@ export class NavbarComponent {
   openEditor(event: MouseEvent): void {
     event.preventDefault();
     this.closeMenu();
-    window.location.href = motionlyEditorUrl();
+    window.location.href = motifyEditorUrl();
   }
 
   constructor() {

@@ -1,7 +1,7 @@
 import { afterNextRender, ChangeDetectionStrategy, Component, inject, OnDestroy, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LucideArrowUp, LucidePlus, LucideSparkles } from '@lucide/angular';
-import { motionlyEditorUrl } from '../../../../shared/constants/external-links';
+import { motifyEditorUrl } from '../../../../shared/constants/external-links';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 
 @Component({
@@ -89,7 +89,7 @@ export class HeroSectionComponent implements OnDestroy {
   }
 
   async submitPrompt(): Promise<void> {
-    window.location.href = `${motionlyEditorUrl()}?prompt=${encodeURIComponent(this.prompt.trim())}`;
+    window.location.href = `${motifyEditorUrl()}?prompt=${encodeURIComponent(this.prompt.trim())}`;
   }
 
   enhancePrompt(): void {

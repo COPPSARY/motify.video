@@ -3,7 +3,7 @@
   align-items: center;
   gap: 0.6rem;
   padding: 0.45rem 0.5rem 0.45rem 0.8rem;
-  border: 1px solid var(--motionly-border);
+  border: 1px solid var(--motify-border);
   border-radius: 0.7rem;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.035),
@@ -13,7 +13,7 @@
 }
 
 .copy-install__prompt {
-  color: var(--motionly-text-muted);
+  color: var(--motify-text-muted);
   font-family: monospace;
   font-size: 0.9rem;
 }
@@ -22,7 +22,7 @@
   flex: 1 1 12rem;
   font-family: monospace;
   font-size: 0.88rem;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   overflow-wrap: break-word;
   word-break: break-all;
   min-width: 0;
@@ -39,7 +39,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
   opacity: 0.78;
   transition: color 0.15s ease, opacity 0.15s ease, filter 0.15s ease;
 }
@@ -57,7 +57,7 @@
 
 .copy-install__button:hover,
 .copy-install__button:focus-visible {
-  color: var(--motionly-accent);
+  color: var(--motify-accent);
   opacity: 1;
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.16));
   outline: none;
@@ -68,5 +68,5 @@
 }
 
 .copy-install--unavailable {
-  border-color: var(--motionly-border-strong);
+  border-color: var(--motify-border-strong);
 }

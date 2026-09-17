@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LucideArrowUp, LucidePlus, LucideSparkles } from '@lucide/angular';
 import { ExternalLinkCardComponent } from '../../../../shared/components/external-link-card/external-link-card.component';
-import { RESOURCE_LINKS, motionlyEditorUrl } from '../../../../shared/constants/external-links';
+import { RESOURCE_LINKS, motifyEditorUrl } from '../../../../shared/constants/external-links';
 import { ResourceLink } from '../../../../shared/models/landing.models';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 
@@ -52,6 +52,6 @@ export class ResourcesSectionComponent {
   }
 
   async submitPrompt(): Promise<void> {
-    window.location.href = `${motionlyEditorUrl()}?prompt=${encodeURIComponent(this.prompt.trim())}`;
+    window.location.href = `${motifyEditorUrl()}?prompt=${encodeURIComponent(this.prompt.trim())}`;
   }
 }

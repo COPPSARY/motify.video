@@ -23,20 +23,20 @@ const COPPSARY_MEMBERS = [
 const TESTIMONIALS = [
   {
     quote:
-      'I spent hours looking for the right starting point for a feature promotion. Motionly helps me create the direction, then shape the details until it feels right.',
+      'I spent hours looking for the right starting point for a feature promotion. Motify helps me create the direction, then shape the details until it feels right.',
     author: 'Prom Sereyreaksa',
-    role: 'Founder, Motionly',
+    role: 'Founder, Motify',
   },
   {
     quote:
       'The best part is that the first generation is not the finish line. I can adjust the scenes and pacing directly instead of rewriting the same prompt.',
-    author: 'Early Motionly user',
+    author: 'Early Motify user',
     role: 'Product team',
   },
   {
     quote:
-      'Motionly gives the speed of generative video without taking away the decisions that make a launch feel like your product.',
-    author: 'Motionly community',
+      'Motify gives the speed of generative video without taking away the decisions that make a launch feel like your product.',
+    author: 'Motify community',
     role: 'Early access feedback',
   },
 ] as const;
@@ -79,22 +79,20 @@ export class LandingPageComponent implements OnDestroy {
 
   constructor() {
     inject(SeoService).apply({
-      title: 'Motionly - HTML and GSAP Motion Graphics Editor',
+      title: 'Motify — AI Video Generator for SaaS Marketing',
       description:
-        'Open source HTML and GSAP motion graphics editor. Author editable compositions, refine them visually on a timeline, and render video locally.',
+        'Create editable AI explainer videos, SaaS launch videos, product demos, promotional videos, and motion graphics from a prompt.',
       path: '/',
-      keywords:
-        'HTML motion graphics editor, GSAP animation tool, visual timeline editor, SVG animation, browser rendering, MP4 export',
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        name: 'Motionly',
+        name: 'Motify',
         applicationCategory: 'MultimediaApplication',
         operatingSystem: 'macOS, Windows, Linux',
-        url: 'https://www.motionly.site/',
-        image: 'https://www.motionly.site/social-preview.png',
+        url: 'https://motify.video/',
+        image: 'https://motify.video/social-preview.png',
         description:
-          'Motionly is an open source HTML and GSAP motion graphics editor for editable animation projects, visual timeline editing, and local video rendering.',
+          'Motify is an AI explainer and SaaS launch video generator for product demos, promotional videos, feature announcements, and editable motion graphics.',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         creator: {
           '@type': 'Organization',

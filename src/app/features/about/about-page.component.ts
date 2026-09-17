@@ -33,19 +33,17 @@ export class AboutPageComponent {
 
   constructor() {
     inject(SeoService).apply({
-      title: 'About Motionly - Open Source Motion Editor',
+      title: 'About Motify | AI Motion Graphics Generator',
       description:
-        'Motionly is an open source HTML, CSS, and GSAP motion graphics editor by COPPSARY for editable compositions and local video rendering.',
+        'Learn how Motify turns product ideas into editable AI motion graphics, promotional videos, SaaS explainers, and product launch videos.',
       path: '/about',
-      keywords:
-        'about Motionly, COPPSARY, open source motion graphics editor, HTML CSS GSAP animation, video rendering',
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'AboutPage',
-        name: 'About Motionly',
-        url: 'https://www.motionly.site/about',
+        name: 'About Motify',
+        url: 'https://motify.video/about',
         description:
-        'Motionly is an open source HTML, CSS, and GSAP motion graphics editor built by COPPSARY for editable animation projects and local rendering.',
+        'Motify is an AI motion graphics generator and open source editor built by COPPSARY for editable product videos and animations.',
         publisher: {
           '@type': 'Organization',
           name: 'COPPSARY',

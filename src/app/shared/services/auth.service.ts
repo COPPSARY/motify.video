@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { motionlyApiUrl } from '../config/runtime-config';
+import { motifyApiUrl } from '../config/runtime-config';
 
-export interface MotionlyUser {
+export interface MotifyUser {
   readonly id: string;
   readonly email: string;
   readonly emailVerified: boolean;
@@ -13,19 +13,19 @@ export interface MotionlyUser {
 
 interface AuthResponse {
   readonly data: {
-    readonly user: MotionlyUser;
+    readonly user: MotifyUser;
     readonly csrfToken: string;
   };
 }
 
-const PENDING_RETURN_KEY = 'motionly-pending-return-url';
+const PENDING_RETURN_KEY = 'motify-pending-return-url';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
-  readonly apiUrl = motionlyApiUrl();
+  readonly apiUrl = motifyApiUrl();
 
-  async currentUser(): Promise<MotionlyUser | null> {
+  async currentUser(): Promise<MotifyUser | null> {
     try {
       const response = await firstValueFrom(
         this.http.get<AuthResponse>(`${this.apiUrl}/v1/auth/me`, { withCredentials: true }),
@@ -36,7 +36,7 @@ export class AuthService {
     }
   }
 
-  async login(email: string, password: string): Promise<MotionlyUser> {
+  async login(email: string, password: string): Promise<MotifyUser> {
     const response = await firstValueFrom(
       this.http.post<AuthResponse>(
         `${this.apiUrl}/v1/auth/login`,

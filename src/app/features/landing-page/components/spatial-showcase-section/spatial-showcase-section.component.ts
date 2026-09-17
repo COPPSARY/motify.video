@@ -25,7 +25,7 @@ export class SpatialShowcaseSectionComponent {
     [
       { src: 'assets/showcase/relay.mp4', poster: 'assets/showcase/posters/relay.jpg', label: 'Relay' },
       { src: 'assets/showcase/tessera.mp4', poster: 'assets/showcase/posters/tessera.jpg', label: 'Tessera' },
-      { src: 'assets/motionly-web.mp4', poster: 'assets/showcase/posters/motionly-web.jpg', label: 'Motionly web' },
+      { src: 'assets/motify-web.mp4', poster: 'assets/showcase/posters/motify-web.jpg', label: 'Motify web' },
     ],
   ];
 

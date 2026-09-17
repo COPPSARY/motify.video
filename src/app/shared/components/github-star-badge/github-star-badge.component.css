@@ -3,11 +3,11 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.4rem 0.7rem;
-  border-radius: var(--motionly-radius-sm);
-  border: 1px solid var(--motionly-border);
-  background: var(--motionly-shell);
-  box-shadow: var(--motionly-shell-shadow);
-  color: var(--motionly-text-secondary);
+  border-radius: var(--motify-radius-sm);
+  border: 1px solid var(--motify-border);
+  background: var(--motify-shell);
+  box-shadow: var(--motify-shell-shadow);
+  color: var(--motify-text-secondary);
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 600;
@@ -17,9 +17,9 @@
 
 .star-badge:hover,
 .star-badge:focus-visible {
-  border-color: var(--motionly-border-strong);
-  color: var(--motionly-text-primary);
-  box-shadow: var(--motionly-accent-glow);
+  border-color: var(--motify-border-strong);
+  color: var(--motify-text-primary);
+  box-shadow: var(--motify-accent-glow);
 }
 
 .star-badge__icon {
@@ -31,12 +31,12 @@
   align-items: center;
   gap: 0.2rem;
   padding-left: 0.4rem;
-  border-left: 1px solid var(--motionly-border);
-  color: var(--motionly-text-primary);
+  border-left: 1px solid var(--motify-border);
+  color: var(--motify-text-primary);
 }
 
 .star-badge__star-icon {
-  color: var(--motionly-accent);
+  color: var(--motify-accent);
 }
 
 .star-badge__count {

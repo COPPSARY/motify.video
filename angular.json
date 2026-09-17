@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "motionly": {
+    "motify": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/motionly",
+            "outputPath": "dist/motify",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "motionly:build:production"
+              "buildTarget": "motify:build:production"
             },
             "development": {
-              "buildTarget": "motionly:build:development"
+              "buildTarget": "motify:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -3,7 +3,7 @@
   align-items: flex-start;
   gap: 0.75rem;
   padding: 1.15rem 0;
-  border-top: 1px solid var(--motionly-border);
+  border-top: 1px solid var(--motify-border);
   background: transparent;
   text-decoration: none;
   color: inherit;
@@ -12,14 +12,14 @@
 
 .link-card:hover,
 .link-card:focus-visible {
-  border-color: var(--motionly-border-strong);
+  border-color: var(--motify-border-strong);
   background: transparent;
   box-shadow: none;
 }
 
 .link-card__icon {
   flex-shrink: 0;
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
 }
 
 .link-card__icon-svg {
@@ -36,9 +36,9 @@
 
 .link-card__title {
   font-weight: 600;
-  color: var(--motionly-text-primary);
+  color: var(--motify-text-primary);
 }
 
 .link-card__description {
-  color: var(--motionly-text-secondary);
+  color: var(--motify-text-secondary);
 }

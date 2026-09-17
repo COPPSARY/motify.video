@@ -59,7 +59,7 @@ describe('NavbarComponent', () => {
    * Property 12: Brand asset usage
    * Validates: Requirements 3.5, 15.4
    *
-   * The navbar renders the Motionly wordmark as an <img> whose source resolves
+   * The navbar renders the Motify wordmark as an <img> whose source resolves
    * to the supplied `logo.svg` asset (served at the site root).
    */
   it('renders the brand as an <img> whose src resolves to logo.svg (Property 12)', () => {

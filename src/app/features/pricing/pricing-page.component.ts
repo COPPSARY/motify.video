@@ -14,10 +14,10 @@ import { SeoService } from '../../shared/services/seo.service';
 export class PricingPageComponent {
   constructor() {
     inject(SeoService).apply({
-      title: 'Pricing - Motionly',
-      description: 'Explore Motionly plans for creating, refining, and shipping polished motion graphics.',
+      title: 'AI Video Generator Pricing | Motify',
+      description:
+        'Compare Motify plans for creating AI product videos, promotional videos, SaaS explainers, motion graphics, and campaign variations.',
       path: '/pricing',
-      keywords: 'Motionly pricing, motion graphics plans, video creation pricing',
     });
   }
 }

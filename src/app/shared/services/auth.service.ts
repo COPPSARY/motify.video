@@ -50,8 +50,35 @@ export class AuthService {
     return response.data.user;
   }
 
+  /**
+   * Creates the account. The API answers 202 and mails a verification link, so
+   * there is no session yet: the user signs in by following that link.
+   */
+  async signUp(email: string, password: string): Promise<void> {
+    await firstValueFrom(
+      this.http.post(
+        `${this.apiUrl}/v1/auth/sign-up`,
+        { email, password, returnTo: this.returnToUrl() },
+        { withCredentials: true },
+      ),
+    );
+  }
+
   googleLoginUrl(): string {
-    return `${this.apiUrl}/v1/auth/google`;
+    const url = new URL(`${this.apiUrl}/v1/auth/google`);
+    const returnTo = this.returnToUrl();
+    if (returnTo) url.searchParams.set('returnTo', returnTo);
+    return url.toString();
+  }
+
+  /**
+   * Where the API sends the browser once the round trip finishes. The site and
+   * the editor are separate front ends, so a login has to say which one it
+   * started from or it lands on the wrong one.
+   */
+  private returnToUrl(): string | undefined {
+    if (typeof window === 'undefined') return undefined;
+    return window.location.origin + '/';
   }
 
   setPendingReturnUrl(url: string): void {

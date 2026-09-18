@@ -99,6 +99,16 @@
   flex: 0 0 auto;
 }
 
+.navbar__link--cta {
+  padding: 0 var(--motify-space-3);
+  border: 1px solid var(--motify-border-strong);
+  color: var(--motify-text-primary);
+}
+
+.navbar__link--cta:hover {
+  border-color: var(--motify-logo-end);
+}
+
 .navbar__account {
   display: inline-flex;
   align-items: center;

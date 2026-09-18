@@ -91,6 +91,21 @@
 }
 .login-divider::before, .login-divider::after { flex: 1; height: 1px; background: var(--motify-border); content: ''; }
 .login-form__error { margin: 0.25rem 0; color: #ff9d9d; font-size: 0.72rem; }
+.login-switch {
+  display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 0.25rem; margin-top: 1.4rem;
+  padding: 0.25rem; border: 1px solid var(--motify-border); border-radius: 0.65rem;
+  background: rgba(8, 9, 12, 0.52);
+}
+.login-switch__tab {
+  min-height: 2.35rem; border: 0; border-radius: 0.45rem; background: transparent;
+  color: var(--motify-text-secondary); font: inherit; font-size: 0.8rem; font-weight: 650; cursor: pointer;
+}
+.login-switch__tab--active { background: rgba(255, 255, 255, 0.09); color: var(--motify-text-primary); }
+.login-switch__button {
+  min-height: 2.6rem; margin-top: 1.4rem; padding: 0 1.1rem; border: 1px solid var(--motify-border-strong);
+  border-radius: 0.55rem; background: transparent; color: var(--motify-text-primary);
+  font: inherit; font-size: 0.82rem; font-weight: 650; cursor: pointer;
+}
 .login-page__orb {
   position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.2;
   pointer-events: none; animation: login-float 8s ease-in-out infinite;

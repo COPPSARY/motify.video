@@ -17,6 +17,12 @@ export const routes: Routes = [
     title: 'Log in to Motify',
   },
   {
+    path: 'signup',
+    component: LoginPageComponent,
+    data: { mode: 'signup' },
+    title: 'Sign up for Motify',
+  },
+  {
     path: 'about',
     component: AboutPageComponent,
     title: 'About Motify | AI Motion Graphics Generator',

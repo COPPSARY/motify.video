@@ -78,7 +78,12 @@ export class AuthService {
    */
   private returnToUrl(): string | undefined {
     if (typeof window === 'undefined') return undefined;
-    return window.location.origin + '/';
+    const pendingReturnUrl = sessionStorage.getItem(PENDING_RETURN_KEY);
+    if (!pendingReturnUrl?.startsWith('/editor')) return window.location.origin + '/';
+
+    const url = new URL('/login', window.location.origin);
+    url.searchParams.set('returnUrl', pendingReturnUrl);
+    return url.toString();
   }
 
   setPendingReturnUrl(url: string): void {

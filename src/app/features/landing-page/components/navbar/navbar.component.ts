@@ -15,7 +15,7 @@ import {
 } from '@lucide/angular';
 import { GithubStarBadgeComponent } from '../../../../shared/components/github-star-badge/github-star-badge.component';
 import { ProductHuntBadgeComponent } from '../../../../shared/components/product-hunt-badge/product-hunt-badge.component';
-import { EXTERNAL_LINKS, motifyEditorUrl } from '../../../../shared/constants/external-links';
+import { EDITOR_AUTH_PATH } from '../../../../shared/config/runtime-config';
 
 @Component({
   selector: 'app-navbar',
@@ -36,7 +36,7 @@ import { EXTERNAL_LINKS, motifyEditorUrl } from '../../../../shared/constants/ex
 })
 export class NavbarComponent {
   readonly logoSrc = 'logo.svg';
-  readonly links = EXTERNAL_LINKS;
+  readonly editorAuthPath = EDITOR_AUTH_PATH;
 
   /** Whether the page has been scrolled past the "condense" threshold. Drives the scrolled background/border. */
   protected readonly scrolled = signal(false);
@@ -48,12 +48,6 @@ export class NavbarComponent {
 
   protected toggleMenu(): void {
     this.menuOpen.update((open) => !open);
-  }
-
-  openEditor(event: MouseEvent): void {
-    event.preventDefault();
-    this.closeMenu();
-    window.location.href = motifyEditorUrl();
   }
 
   constructor() {

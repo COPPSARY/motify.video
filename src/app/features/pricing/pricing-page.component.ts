@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { SeoService } from '../../shared/services/seo.service';
+import { EDITOR_AUTH_PATH } from '../../shared/config/runtime-config';
 
 @Component({
   selector: 'app-pricing-page',
@@ -12,6 +13,7 @@ import { SeoService } from '../../shared/services/seo.service';
   styleUrl: './pricing-page.component.css',
 })
 export class PricingPageComponent {
+  readonly editorAuthPath = EDITOR_AUTH_PATH;
   constructor() {
     inject(SeoService).apply({
       title: 'AI Video Generator Pricing | Motify',

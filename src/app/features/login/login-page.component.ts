@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -22,7 +22,9 @@ export class LoginPageComponent {
   private readonly route = inject(ActivatedRoute);
   readonly auth = inject(AuthService);
 
-  readonly returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+  readonly returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/editor';
+  readonly hasPendingPrompt = this.returnUrl.startsWith('/editor?') &&
+    new URL(this.returnUrl, 'https://motify.invalid').searchParams.has('prompt');
   readonly loading = signal(false);
   readonly error = signal('');
   readonly mode = signal<AuthMode>(
@@ -42,6 +44,14 @@ export class LoginPageComponent {
         : 'Sign in to create and refine HTML, CSS, and GSAP motion graphics with Motify.',
       path: signingUp ? '/signup' : '/login',
       robots: 'noindex, nofollow',
+    });
+
+    afterNextRender(() => {
+      void this.auth.currentUser().then((user) => {
+        if (user && this.returnUrl.startsWith('/editor')) {
+          window.location.href = editorUrlForReturnPath(this.returnUrl);
+        }
+      });
     });
   }
 
@@ -64,6 +74,7 @@ export class LoginPageComponent {
     this.error.set('');
     try {
       if (this.mode() === 'signup') {
+        this.auth.setPendingReturnUrl(this.returnUrl);
         await this.auth.signUp(this.email, this.password);
         this.verificationSentTo.set(this.email.trim());
         this.password = '';

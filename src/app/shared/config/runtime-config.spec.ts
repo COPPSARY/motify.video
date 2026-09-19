@@ -1,4 +1,5 @@
 import {
+  editorReturnPath,
   editorUrlForReturnPath,
   motifyApiUrl,
   motifyEditorUrl,
@@ -32,6 +33,15 @@ describe('Motify runtime config', () => {
     const target = new URL(motifyEditorUrl(prompt));
 
     expect(target.searchParams.get('prompt')).toBe(prompt);
+  });
+
+  it('preserves a landing page prompt through sign in', () => {
+    window.__MOTIFY_CONFIG__ = { motifyEditorUrl: 'https://editor.example.test/' };
+    const prompt = 'Launch — សួស្តី & motion';
+    const returnPath = editorReturnPath(prompt);
+
+    expect(new URL(returnPath, 'https://motify.invalid').searchParams.get('prompt')).toBe(prompt);
+    expect(new URL(editorUrlForReturnPath(returnPath)).searchParams.get('prompt')).toBe(prompt);
   });
 
   it('rebuilds a safe editor URL after login', () => {

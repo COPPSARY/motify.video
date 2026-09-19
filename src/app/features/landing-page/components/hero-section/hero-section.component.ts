@@ -1,7 +1,8 @@
 import { afterNextRender, ChangeDetectionStrategy, Component, inject, OnDestroy, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LucideArrowUp, LucidePlus, LucideSparkles } from '@lucide/angular';
-import { motifyEditorUrl } from '../../../../shared/constants/external-links';
+import { editorReturnPath } from '../../../../shared/config/runtime-config';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 
 @Component({
@@ -19,6 +20,7 @@ import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reve
   styleUrl: './hero-section.component.css',
 })
 export class HeroSectionComponent implements OnDestroy {
+  private readonly router = inject(Router);
   prompt = '';
   assetMenuOpen = false;
   selectedAsset = '';
@@ -89,7 +91,9 @@ export class HeroSectionComponent implements OnDestroy {
   }
 
   async submitPrompt(): Promise<void> {
-    window.location.href = `${motifyEditorUrl()}?prompt=${encodeURIComponent(this.prompt.trim())}`;
+    await this.router.navigate(['/signup'], {
+      queryParams: { returnUrl: editorReturnPath(this.prompt) },
+    });
   }
 
   enhancePrompt(): void {

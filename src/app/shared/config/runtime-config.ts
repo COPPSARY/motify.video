@@ -11,6 +11,7 @@ declare global {
 
 const LOCAL_EDITOR_URL = 'http://localhost:5173/';
 const PRODUCTION_EDITOR_URL = 'https://app.motify.video/';
+export const EDITOR_AUTH_PATH = '/login?returnUrl=%2Feditor';
 
 function isLocalBrowser(): boolean {
   return typeof window !== 'undefined' &&
@@ -35,6 +36,13 @@ export function motifyEditorUrl(prompt?: string): string {
   const normalizedPrompt = prompt?.trim();
   if (normalizedPrompt) url.searchParams.set('prompt', normalizedPrompt);
   return url.toString();
+}
+
+export function editorReturnPath(prompt?: string): string {
+  const url = new URL('/editor', 'https://motify.invalid');
+  const normalizedPrompt = prompt?.trim();
+  if (normalizedPrompt) url.searchParams.set('prompt', normalizedPrompt);
+  return `${url.pathname}${url.search}`;
 }
 
 export function editorUrlForReturnPath(returnUrl: string): string {

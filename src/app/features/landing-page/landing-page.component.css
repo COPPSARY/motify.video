@@ -175,15 +175,14 @@ main > app-spatial-showcase-section {
 }
 
 @keyframes testimonials-think-word {
-  0%, 48% { opacity: 1; transform: scale(1); }
-  58%, 88% { opacity: 0; transform: scale(0.72); }
-  100% { opacity: 1; transform: scale(1); }
+  0%, 42%, 94%, 100% { opacity: 1; transform: scale(1); }
+  49%, 87% { opacity: 0; transform: translateY(-0.08em) scale(0.88); }
 }
 
 @keyframes testimonials-think-icon {
-  0%, 48% { opacity: 0; transform: scale(0.7) rotate(-8deg); }
-  58%, 88% { opacity: 1; transform: scale(1) rotate(0); }
-  100% { opacity: 0; transform: scale(0.7) rotate(8deg); }
+  0%, 49% { opacity: 0; transform: translateY(0.12em) scale(0.8); }
+  56%, 80% { opacity: 1; transform: translateY(0) scale(1); }
+  87%, 100% { opacity: 0; transform: translateY(-0.1em) scale(0.8); }
 }
 
 .testimonials__stage {
@@ -714,8 +713,8 @@ main > app-spatial-showcase-section {
 
 @media (prefers-reduced-motion: reduce) {
   .testimonials__title,
-  .testimonials__think-word,
-  .testimonials__think-icon {
+  .testimonials__title .testimonials__think-word,
+  .testimonials__title .testimonials__think-icon {
     animation: none;
   }
 
@@ -1119,10 +1118,23 @@ main > app-spatial-showcase-section {
 @media (max-width: 640px) {
   .workflow__cards { display: grid; grid-template-columns: 1fr; grid-template-rows: none; }
   .workflow__step:nth-of-type(1), .workflow__step:nth-of-type(2), .workflow__step:nth-of-type(3), .workflow__step:nth-of-type(4), .workflow__step:nth-of-type(5) { grid-column: auto; grid-row: auto; }
-  .workflow__copy { width: min(62%, 22rem); }
+  .workflow__step { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem; min-height: 0; padding: 1.5rem; }
+  .workflow__copy,
+  .workflow__step:nth-of-type(4) .workflow__copy { position: relative; top: auto; left: auto; grid-row: 1; width: 100%; }
   .workflow__pipeline-image,
   .workflow__step:nth-of-type(1) .workflow__pipeline-image,
-  .workflow__step:nth-of-type(4) .workflow__pipeline-image { width: min(40%, 11rem); max-height: 9rem; }
+  .workflow__step:nth-of-type(2) .workflow__pipeline-image,
+  .workflow__step:nth-of-type(3) .workflow__pipeline-image,
+  .workflow__step:nth-of-type(4) .workflow__pipeline-image,
+  .workflow__step:nth-of-type(5) .workflow__pipeline-image {
+    position: static;
+    grid-row: 2;
+    width: min(35%, 7rem);
+    max-width: 100%;
+    max-height: 7rem;
+    margin: 0;
+    justify-self: end;
+  }
 }
 
 @media (min-width: 641px) {

@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 import { EXTERNAL_LINKS } from '../../../../shared/constants/external-links';
+import { EDITOR_AUTH_PATH } from '../../../../shared/config/runtime-config';
 
 describe('NavbarComponent', () => {
   beforeEach(async () => {
@@ -33,26 +34,15 @@ describe('NavbarComponent', () => {
     expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
   });
 
-  it('should render the primary links and Product Hunt badge', () => {
+  it('routes Editor through the site login page', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
+    const editorLink = Array.from(compiled.querySelectorAll<HTMLAnchorElement>('a'))
+      .find((link) => link.textContent?.trim() === 'Editor');
 
-    const aboutLink = compiled.querySelector<HTMLAnchorElement>('a[href="/about"]');
-    const getStartedLink = compiled.querySelector<HTMLAnchorElement>('a[href="/getting-started"]');
-    const docsLink = compiled.querySelector<HTMLAnchorElement>(`a[href="${EXTERNAL_LINKS.docs}"]`);
-    const productHuntLink = compiled.querySelector<HTMLAnchorElement>(
-      `a[href="${EXTERNAL_LINKS.productHuntEmbed}"]`,
-    );
-    const demoLink = compiled.querySelector<HTMLAnchorElement>(`a[href="${EXTERNAL_LINKS.editor}"]`);
-
-    expect(compiled.querySelector<HTMLAnchorElement>('a[href="#features"]')).toBeNull();
-    expect(aboutLink).withContext('/about link should exist').not.toBeNull();
-    expect(getStartedLink).withContext('/getting-started link should exist').not.toBeNull();
-    expect(docsLink).withContext('docs link should exist').not.toBeNull();
-    expect(productHuntLink).withContext('Product Hunt link should exist').not.toBeNull();
-    expect(demoLink).withContext('editor link should exist').not.toBeNull();
-    expect(compiled.querySelector('details.navbar__menu')).toBeNull();
+    expect(editorLink?.getAttribute('href')).toBe(EDITOR_AUTH_PATH);
+    expect(compiled.querySelector<HTMLAnchorElement>(`a[href="${EXTERNAL_LINKS.editor}"]`)).toBeNull();
   });
 
   /**

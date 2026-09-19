@@ -10,6 +10,7 @@ import {
 import { CopyInstallCommandComponent } from '../../shared/components/copy-install-command/copy-install-command.component';
 import { ProductHuntBadgeComponent } from '../../shared/components/product-hunt-badge/product-hunt-badge.component';
 import { EXTERNAL_LINKS } from '../../shared/constants/external-links';
+import { EDITOR_AUTH_PATH } from '../../shared/config/runtime-config';
 import { SeoService } from '../../shared/services/seo.service';
 
 interface Faq {
@@ -69,7 +70,7 @@ const FAQS: readonly Faq[] = [
 })
 export class GettingStartedPageComponent {
   readonly docsUrl = EXTERNAL_LINKS.docs;
-  readonly demoUrl = EXTERNAL_LINKS.editor;
+  readonly demoUrl = EDITOR_AUTH_PATH;
   readonly githubUrl = EXTERNAL_LINKS.github;
   readonly installCommand = 'git clone https://github.com/COPPSARY/Motify.git';
   readonly devCommand = 'npm install && npm run dev';

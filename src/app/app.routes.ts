@@ -5,6 +5,9 @@ import { LandingPageComponent } from './features/landing-page/landing-page.compo
 import { LoginPageComponent } from './features/login/login-page.component';
 import { PricingPageComponent } from './features/pricing/pricing-page.component';
 
+const loadLegalPage = () =>
+  import('./features/legal/legal-page.component').then((module) => module.LegalPageComponent);
+
 export const routes: Routes = [
   {
     path: '',
@@ -36,6 +39,24 @@ export const routes: Routes = [
     path: 'pricing',
     component: PricingPageComponent,
     title: 'AI Video Generator Pricing | Motify',
+  },
+  {
+    path: 'terms',
+    loadComponent: loadLegalPage,
+    data: { document: 'terms' },
+    title: 'Terms and Conditions | Motify',
+  },
+  {
+    path: 'privacy',
+    loadComponent: loadLegalPage,
+    data: { document: 'privacy' },
+    title: 'Privacy Policy | Motify',
+  },
+  {
+    path: 'refund-policy',
+    loadComponent: loadLegalPage,
+    data: { document: 'refund' },
+    title: 'Refund Policy | Motify',
   },
   { path: '**', redirectTo: '' },
 ];

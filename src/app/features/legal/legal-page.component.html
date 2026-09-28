@@ -1,0 +1,459 @@
+<div class="legal-shell">
+  <app-navbar />
+  <main class="legal-page">
+    <header class="legal-hero">
+      <p class="legal-hero__eyebrow">Motify legal</p>
+      @switch (documentType) {
+        @case ('terms') {
+          <h1>Terms &amp; Conditions</h1>
+          <p>The rules that keep Motify fair, safe, and useful for everyone.</p>
+        }
+        @case ('privacy') {
+          <h1>Privacy Policy</h1>
+          <p>How we collect, use, share, and protect information when you use Motify.</p>
+        }
+        @case ('refund') {
+          <h1>Refund Policy</h1>
+          <p>Clear guidance for refund requests, subscription cancellations, and billing support.</p>
+        }
+      }
+      <p class="legal-hero__updated">Effective and last updated: {{ lastUpdated }}</p>
+    </header>
+
+    <div class="legal-layout">
+      <aside class="legal-nav" aria-label="Legal documents">
+        <p>Legal documents</p>
+        <nav>
+          <a routerLink="/terms" [class.legal-nav__active]="documentType === 'terms'">Terms &amp; Conditions</a>
+          <a routerLink="/privacy" [class.legal-nav__active]="documentType === 'privacy'">Privacy Policy</a>
+          <a routerLink="/refund-policy" [class.legal-nav__active]="documentType === 'refund'">Refund Policy</a>
+        </nav>
+        <div class="legal-nav__contact">
+          <span>Need help?</span>
+          <a href="mailto:support@motify.video">support&#64;motify.video</a>
+          <a href="mailto:billing@motify.video">billing&#64;motify.video</a>
+        </div>
+      </aside>
+
+      <article class="legal-document">
+        @switch (documentType) {
+          @case ('terms') {
+            <p class="legal-document__intro">
+              These Terms &amp; Conditions (“Terms”) are an agreement between you and COPPSARY,
+              operating the Motify product and service (“Motify,” “we,” “us,” or “our”). By
+              creating an account, accessing Motify, or purchasing a subscription, you agree to
+              these Terms and our <a routerLink="/privacy">Privacy Policy</a> and
+              <a routerLink="/refund-policy">Refund Policy</a>.
+            </p>
+
+            <section>
+              <h2>1. About Motify</h2>
+              <p>
+                Motify is an AI-assisted, web-native motion graphics service for creating and
+                editing product videos, explainers, launch content, and related assets. Features,
+                generation limits, model availability, and output quality may evolve as the
+                service improves.
+              </p>
+            </section>
+
+            <section>
+              <h2>2. Eligibility and accounts</h2>
+              <p>
+                You must be legally capable of entering into a binding contract in your country.
+                If you use Motify for an organization, you confirm that you are authorized to bind
+                that organization to these Terms. You are responsible for accurate account details,
+                protecting your credentials, and all activity under your account. Notify
+                <a href="mailto:support@motify.video">support&#64;motify.video</a> promptly if you
+                suspect unauthorized use.
+              </p>
+            </section>
+
+            <section>
+              <h2>3. Plans, credits, and service limits</h2>
+              <p>
+                Paid plans provide the credits and features shown on our
+                <a routerLink="/pricing">Pricing page</a> or at checkout. Video counts are estimates;
+                actual credit use may vary with project length, complexity, selected model, and
+                output settings. Credits are service units, not money, and cannot be transferred,
+                resold, or redeemed for cash. We may apply reasonable technical and usage limits to
+                protect the service and other customers.
+              </p>
+            </section>
+
+            <section>
+              <h2>4. Billing and Paddle</h2>
+              <div class="legal-callout">
+                Our order process is conducted by our online reseller Paddle.com. Paddle is the
+                Merchant of Record and manages payment-related customer service and returns.
+              </div>
+              <p>
+                Prices, billing frequency, applicable taxes, and the total charge are shown before
+                you complete a purchase. Paid monthly subscriptions automatically renew each month
+                until canceled. You authorize Paddle to charge the payment method associated with
+                your purchase for each renewal. Paddle’s
+                <a href="https://www.paddle.com/legal/buyer-terms" target="_blank" rel="noopener noreferrer">Buyer Terms</a>
+                also apply to purchases processed by Paddle.
+              </p>
+            </section>
+
+            <section>
+              <h2>5. Cancellation</h2>
+              <p>
+                You may cancel at any time through the Paddle Customer Portal linked in your
+                purchase or renewal email, or through <a href="https://paddle.net" target="_blank" rel="noopener noreferrer">Paddle buyer support</a>.
+                Cancellation takes effect at the end of the current billing period. You retain
+                access until then and will not be charged for another renewal. Cancellation does
+                not automatically create a refund; refund eligibility is explained in our
+                <a routerLink="/refund-policy">Refund Policy</a>.
+              </p>
+            </section>
+
+            <section>
+              <h2>6. Your content and AI-generated output</h2>
+              <p>
+                You retain any rights you hold in prompts, uploads, brand materials, and other
+                content you submit. You grant us a limited license to host, process, reproduce, and
+                transform that content only as needed to operate, secure, support, and improve the
+                service. You are responsible for ensuring that you have permission to use submitted
+                content and for reviewing output before publishing it.
+              </p>
+              <p>
+                AI output may be inaccurate, incomplete, similar to output generated for others, or
+                unsuitable for a particular purpose. We do not guarantee that output is unique or
+                free of third-party rights. You are responsible for legal, factual, and brand review
+                of your final work.
+              </p>
+            </section>
+
+            <section>
+              <h2>7. Acceptable use</h2>
+              <p>You must not use Motify to:</p>
+              <ul>
+                <li>break the law, violate another person’s rights, or create deceptive or fraudulent content;</li>
+                <li>upload malware, bypass security, probe vulnerabilities, or disrupt the service;</li>
+                <li>generate abusive, exploitative, hateful, or sexually explicit content involving minors;</li>
+                <li>impersonate others or misrepresent AI-generated material in a harmful way;</li>
+                <li>resell access, scrape the service, or reverse engineer non-open-source portions except where law permits; or</li>
+                <li>use automated means that create unreasonable load or evade plan and credit limits.</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>8. Motify intellectual property</h2>
+              <p>
+                Motify, its hosted service, branding, interface, and proprietary materials are owned
+                by or licensed to COPPSARY. These Terms do not transfer those rights to you. Any
+                separately released open-source software remains governed by its applicable
+                open-source license.
+              </p>
+            </section>
+
+            <section>
+              <h2>9. Third-party services</h2>
+              <p>
+                Motify may connect to third-party services, AI providers, authentication providers,
+                hosting platforms, integrations, or websites. Their own terms and privacy policies
+                govern their services. We are not responsible for third-party services outside our
+                control.
+              </p>
+            </section>
+
+            <section>
+              <h2>10. Availability, changes, and termination</h2>
+              <p>
+                We work to keep Motify available but do not promise uninterrupted or error-free
+                operation. We may update, suspend, or discontinue features, or restrict access when
+                reasonably necessary for maintenance, security, legal compliance, non-payment, or a
+                material breach of these Terms. Where practical, we will give reasonable notice of
+                material changes that adversely affect paid use.
+              </p>
+            </section>
+
+            <section>
+              <h2>11. Disclaimers</h2>
+              <p>
+                To the extent permitted by law, Motify is provided “as is” and “as available.” We
+                disclaim implied warranties of merchantability, fitness for a particular purpose,
+                non-infringement, and uninterrupted availability. Nothing in these Terms limits a
+                warranty or consumer right that cannot legally be excluded.
+              </p>
+            </section>
+
+            <section>
+              <h2>12. Limitation of liability</h2>
+              <p>
+                To the extent permitted by law, COPPSARY and its team will not be liable for
+                indirect, incidental, special, consequential, or punitive damages, or lost profits,
+                data, goodwill, or business opportunities. Our total liability arising from Motify
+                will not exceed the amount you paid for the service during the 12 months before the
+                event giving rise to the claim. These limits do not apply where liability cannot be
+                limited by law.
+              </p>
+            </section>
+
+            <section>
+              <h2>13. Governing law and disputes</h2>
+              <p>
+                These Terms are governed by the laws of Cambodia, without regard to conflict-of-law
+                rules, except where mandatory consumer law gives you additional rights. Before
+                filing a formal claim, please contact
+                <a href="mailto:hello@motify.video">hello&#64;motify.video</a> so we can try to
+                resolve the issue informally.
+              </p>
+            </section>
+
+            <section>
+              <h2>14. Changes and contact</h2>
+              <p>
+                We may update these Terms as the service or law changes. We will post the revised
+                version and update the date above. If a change materially affects your rights, we
+                will provide additional notice where required. Questions about these Terms may be
+                sent to <a href="mailto:hello@motify.video">hello&#64;motify.video</a>.
+              </p>
+            </section>
+          }
+
+          @case ('privacy') {
+            <p class="legal-document__intro">
+              This Privacy Policy explains how COPPSARY, operator of Motify (“Motify,” “we,” “us,”
+              or “our”), handles personal information when you visit our website, create an
+              account, use the editor, contact us, or purchase a subscription.
+            </p>
+
+            <section>
+              <h2>1. Information we collect</h2>
+              <h3>Information you provide</h3>
+              <ul>
+                <li>Account information such as your email address, display name, password credentials, and profile image.</li>
+                <li>Prompts, uploaded assets, Brand DNA materials, projects, settings, and content you create.</li>
+                <li>Support, billing, feedback, and other communications you send us.</li>
+              </ul>
+              <h3>Information collected automatically</h3>
+              <ul>
+                <li>Device, browser, IP address, approximate location, pages viewed, and diagnostic logs.</li>
+                <li>Feature interactions, credit usage, generation activity, and performance information.</li>
+                <li>Cookies, local storage, session storage, and similar technologies needed for authentication, preferences, security, and site operation.</li>
+              </ul>
+              <h3>Transaction information</h3>
+              <p>
+                Paddle processes purchases as Merchant of Record. We may receive transaction ID,
+                subscription status, plan, amount, currency, country, tax status, and limited buyer
+                details. We do not receive or store your complete payment-card number.
+              </p>
+            </section>
+
+            <section>
+              <h2>2. How we use information</h2>
+              <ul>
+                <li>provide accounts, the editor, AI generation, exports, credits, and requested features;</li>
+                <li>process subscriptions, confirm entitlements, and provide billing support;</li>
+                <li>secure Motify, prevent fraud and abuse, and enforce our terms;</li>
+                <li>diagnose problems, analyze performance, and improve features and models;</li>
+                <li>respond to support requests and send essential service messages;</li>
+                <li>send marketing communications where you consent or where law otherwise permits, with an unsubscribe option; and</li>
+                <li>comply with law, legal process, and valid government requests.</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>3. Legal bases</h2>
+              <p>
+                Where data protection law requires a legal basis, we process information to perform
+                our contract with you, pursue legitimate interests such as service security and
+                improvement, comply with legal obligations, and act on consent where applicable.
+                You may withdraw consent at any time, without affecting earlier processing.
+              </p>
+            </section>
+
+            <section>
+              <h2>4. How we share information</h2>
+              <p>We may share information only as reasonably necessary with:</p>
+              <ul>
+                <li>Paddle for checkout, tax, invoicing, fraud prevention, subscription management, and buyer support;</li>
+                <li>hosting, authentication, email, storage, analytics, security, support, and AI service providers acting for us;</li>
+                <li>integrations you choose to connect or recipients you direct us to share with;</li>
+                <li>professional advisers, authorities, or other parties when required to protect rights, safety, and legal compliance; and</li>
+                <li>a successor in connection with a merger, financing, acquisition, or sale of assets, subject to appropriate safeguards.</li>
+              </ul>
+              <p>We do not sell your personal information for money.</p>
+            </section>
+
+            <section>
+              <h2>5. Paddle and payment privacy</h2>
+              <p>
+                Paddle independently handles buyer and payment information under its own
+                <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Notice</a>.
+                Payment questions can be directed to
+                <a href="https://paddle.net" target="_blank" rel="noopener noreferrer">Paddle buyer support</a>
+                or <a href="mailto:billing@motify.video">billing&#64;motify.video</a>.
+              </p>
+            </section>
+
+            <section>
+              <h2>6. International transfers</h2>
+              <p>
+                Motify and its providers may process information in countries other than your own.
+                Where required, we use recognized safeguards for international transfers, such as
+                contractual protections, and take steps designed to protect information wherever it
+                is processed.
+              </p>
+            </section>
+
+            <section>
+              <h2>7. Data retention</h2>
+              <p>
+                We keep personal information only as long as reasonably necessary for the purposes
+                described here, including providing your account, meeting tax and accounting duties,
+                resolving disputes, preventing abuse, and enforcing agreements. Retention periods
+                vary by data type. We may retain limited records after account deletion when law or
+                legitimate security needs require it.
+              </p>
+            </section>
+
+            <section>
+              <h2>8. Security</h2>
+              <p>
+                We use reasonable technical and organizational safeguards designed to protect
+                personal information. No online service can guarantee absolute security. You should
+                use a unique password, protect your devices, and contact us if you suspect account
+                compromise.
+              </p>
+            </section>
+
+            <section>
+              <h2>9. Your privacy choices and rights</h2>
+              <p>
+                Depending on where you live, you may have rights to access, correct, delete, or
+                receive a copy of your information; object to or restrict certain processing;
+                withdraw consent; and complain to a data protection authority. To make a request,
+                email <a href="mailto:support@motify.video">support&#64;motify.video</a>. We may need
+                to verify your identity before completing it.
+              </p>
+            </section>
+
+            <section>
+              <h2>10. Children</h2>
+              <p>
+                Motify is not directed to children under 16, and we do not knowingly collect their
+                personal information. If you believe a child has provided information to us, contact
+                us so we can investigate and delete it where appropriate.
+              </p>
+            </section>
+
+            <section>
+              <h2>11. Changes and contact</h2>
+              <p>
+                We may update this policy as our practices or legal obligations change. We will post
+                the updated version here and change the date above. Privacy questions and requests
+                may be sent to
+                <a href="mailto:support@motify.video">support&#64;motify.video</a>.
+              </p>
+            </section>
+          }
+
+          @case ('refund') {
+            <p class="legal-document__intro">
+              This policy applies to paid Motify subscriptions purchased through Paddle. It should
+              be read with our <a routerLink="/terms">Terms &amp; Conditions</a> and any mandatory
+              consumer rights that apply where you live. Paddle’s
+              <a href="https://www.paddle.com/legal/refund-policy" target="_blank" rel="noopener noreferrer">Refund Policy</a>
+              also applies to transactions it processes as Merchant of Record.
+            </p>
+
+            <section>
+              <h2>1. Request window</h2>
+              <div class="legal-callout">
+                You may request a refund within 14 calendar days of your initial subscription
+                purchase. Requests are reviewed based on usage, the reason for the request, and
+                applicable law.
+              </div>
+              <p>
+                A request within this window does not automatically guarantee a refund where the
+                service has been substantially used, except when mandatory law gives you a right to
+                one. Paddle, as Merchant of Record, processes and issues approved refunds.
+              </p>
+            </section>
+
+            <section>
+              <h2>2. When a refund may be approved</h2>
+              <p>We generally support reasonable refund requests involving:</p>
+              <ul>
+                <li>a duplicate charge or an incorrect amount;</li>
+                <li>an unauthorized transaction, subject to verification;</li>
+                <li>a persistent technical failure that prevents access to a purchased service and cannot be resolved within a reasonable time; or</li>
+                <li>a right to refund or withdraw that applies under consumer law.</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>3. Requests that may be declined</h2>
+              <p>Unless required by law, a refund may be declined when:</p>
+              <ul>
+                <li>the request is made after the 14-day initial purchase window;</li>
+                <li>the subscription, credits, generations, or exports have been substantially used;</li>
+                <li>you changed your mind after receiving and using the service;</li>
+                <li>the issue results from unsupported hardware, software, or third-party services outside Motify’s control;</li>
+                <li>your access was limited for fraud, abuse, or a material breach of our Terms; or</li>
+                <li>the charge is a renewal you did not cancel before the renewal date.</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2>4. Subscription renewals and cancellation</h2>
+              <p>
+                Subscriptions renew automatically until canceled. You may cancel at any time, and
+                cancellation takes effect at the end of the current paid period. You will keep access
+                until that date and will not be charged again. Unused time in a billing period is not
+                normally refunded. This does not limit any mandatory right that applies to you.
+              </p>
+            </section>
+
+            <section>
+              <h2>5. How to request a refund or cancel</h2>
+              <ol>
+                <li>Open the purchase or renewal email sent by Paddle.</li>
+                <li>Use its “Manage subscription” or transaction support link to open the Paddle Customer Portal.</li>
+                <li>Select the refund, withdrawal, or cancellation option available for your transaction.</li>
+              </ol>
+              <p>
+                You can also visit <a href="https://paddle.net" target="_blank" rel="noopener noreferrer">paddle.net</a>
+                or email <a href="mailto:billing@motify.video">billing&#64;motify.video</a>. Include
+                the email used for purchase, your Paddle transaction number, purchase date, and a
+                short explanation. Never send complete card details by email.
+              </p>
+            </section>
+
+            <section>
+              <h2>6. Processing time</h2>
+              <p>
+                Paddle returns approved refunds to the original payment method where possible.
+                Processing time depends on the payment method and financial institution. Eligible
+                statutory withdrawals are handled within the time required by applicable law.
+              </p>
+            </section>
+
+            <section>
+              <h2>7. Chargebacks</h2>
+              <p>
+                Please contact Paddle or our billing team before starting a chargeback so we have an
+                opportunity to resolve the issue. Fraudulent or abusive refund or chargeback activity
+                may result in account restriction, without limiting your lawful rights.
+              </p>
+            </section>
+
+            <section>
+              <h2>8. Policy changes and contact</h2>
+              <p>
+                We may update this policy for future purchases. The version in effect at the time of
+                your transaction will be considered alongside applicable Paddle terms and law. For
+                billing questions, email
+                <a href="mailto:billing@motify.video">billing&#64;motify.video</a>.
+              </p>
+            </section>
+          }
+        }
+      </article>
+    </div>
+  </main>
+  <app-footer />
+</div>

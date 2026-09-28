@@ -1,86 +1,80 @@
 <footer class="footer">
+  <div class="footer__wordmark" aria-hidden="true">MOTIFY</div>
+
   <div class="footer__content" [appScrollReveal]="0">
     <div class="footer__brand">
       <a class="footer__brand-link" routerLink="/" aria-label="Motify home">
-        <img class="footer__logo" [src]="logoSrc" alt="" width="28" height="28" />
+        <img class="footer__logo" [src]="logoSrc" alt="" width="30" height="30" />
         <span>Motify</span>
       </a>
-      <p>AI tool that makes SaaS explainers and launch videos.</p>
-    </div>
+      <p>AI-powered product videos, built for modern teams.</p>
 
-    <div class="footer__columns">
-      <div>
-        <h2>Links</h2>
-        <ul class="footer__links">
-          <li>
-            <a class="footer__link" href="#about">
-              <svg lucideInfo aria-hidden="true"></svg>
-              About
-            </a>
-          </li>
-          @for (link of links; track link.id) {
-            <li>
-              <a
-                class="footer__link"
-                [href]="link.url"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                @switch (link.icon) {
-                  @case ('book') {
-                    <svg lucideBookOpen aria-hidden="true"></svg>
-                  }
-                  @case ('github') {
-                    <svg lucideGitBranch aria-hidden="true"></svg>
-                  }
-                  @case ('rocket') {
-                    <svg lucideRocket aria-hidden="true"></svg>
-                  }
-                  @case ('package') {
-                    <svg lucidePackage aria-hidden="true"></svg>
-                  }
-                }
-                {{ link.title }}
-              </a>
-            </li>
-          }
-        </ul>
-      </div>
-
-      <div>
-        <h2>Contact</h2>
-        <ul class="footer__links">
-          <li>
-            <a class="footer__link" [href]="contactProfileUrl" target="_blank" rel="noopener noreferrer">
-              <svg lucideGitBranch aria-hidden="true"></svg>
-              GitHub organization
-            </a>
-          </li>
-          <li>
-            <a class="footer__link" [href]="contactEmailUrl">
-              <svg lucideMail aria-hidden="true"></svg>
-              coppsary&#64;gmail.com
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer__business">
-        <h2>Partnerships &amp; business</h2>
-        <p>Want to partner with Motify or discuss a business opportunity?</p>
-        <a
-          class="footer__business-link"
-          [href]="businessInquiryUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Send a partnership or business inquiry in Gmail"
-        >
-          <svg lucideMail aria-hidden="true"></svg>
-          Send inquiry
+      <div class="footer__socials" aria-label="Motify social profiles">
+        <a [href]="githubUrl" target="_blank" rel="noopener noreferrer" aria-label="Motify on GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 .7a11.5 11.5 0 0 0-3.64 22.42c.58.1.79-.25.79-.56v-2.24c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.74-1.55-2.57-.3-5.27-1.29-5.27-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.71 5.39-5.29 5.68.42.36.79 1.06.79 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z" />
+          </svg>
+        </a>
+        <a [href]="facebookUrl" target="_blank" rel="noopener noreferrer" aria-label="Motify on Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.03 1.79-4.7 4.53-4.7 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07Z" />
+          </svg>
+        </a>
+        <a [href]="tiktokUrl" target="_blank" rel="noopener noreferrer" aria-label="Motify on TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.9 2.9 0 1 1-2-2.76V9.4a6.34 6.34 0 1 0 5.45 6.27V8.73a8.16 8.16 0 0 0 4.77 1.52V6.82c-.34 0-.67-.04-1-.13Z" />
+          </svg>
         </a>
       </div>
     </div>
 
-    <p class="footer__copyright">© {{ year }} Motify. All rights reserved.</p>
+    <nav class="footer__columns" aria-label="Footer navigation">
+      <div>
+        <h2>Product</h2>
+        <a [href]="editorUrl">Open editor</a>
+        <a routerLink="/pricing">Pricing</a>
+        <a routerLink="/getting-started">Getting started</a>
+      </div>
+
+      <div>
+        <h2>Resources</h2>
+        <a [href]="docsUrl" target="_blank" rel="noopener noreferrer">Documentation</a>
+        <a [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a [href]="npmUrl" target="_blank" rel="noopener noreferrer">npm package</a>
+        <a [href]="productHuntUrl" target="_blank" rel="noopener noreferrer">Product Hunt</a>
+      </div>
+
+      <div>
+        <h2>Company</h2>
+        <a routerLink="/about">About</a>
+      </div>
+
+      <div class="footer__contact-column">
+        <h2>Contact</h2>
+        <a href="mailto:hello@motify.video">
+          <span>Inquiries</span>
+          <strong>hello&#64;motify.video</strong>
+        </a>
+        <a href="mailto:support@motify.video">
+          <span>Support</span>
+          <strong>support&#64;motify.video</strong>
+        </a>
+        <a href="mailto:billing@motify.video">
+          <span>Billing</span>
+          <strong>billing&#64;motify.video</strong>
+        </a>
+      </div>
+
+      <div>
+        <h2>Legal</h2>
+        <a routerLink="/terms">Terms &amp; Conditions</a>
+        <a routerLink="/privacy">Privacy Policy</a>
+        <a routerLink="/refund-policy">Refund Policy</a>
+      </div>
+    </nav>
+
+    <div class="footer__bottom">
+      <p class="footer__copyright">© {{ year }} Motify. All rights reserved.</p>
+    </div>
   </div>
 </footer>

@@ -9,7 +9,7 @@ export const EXTERNAL_LINKS = {
   npm: 'https://www.npmjs.com/package/@coppsary/motify',
   editor: 'https://app.motify.video/',
   contactProfile: 'https://github.com/COPPSARY',
-  contactEmail: 'mailto:coppsary@gmail.com',
+  contactEmail: 'mailto:support@motify.video',
 } as const;
 
 export function motifyEditorUrl(): string {

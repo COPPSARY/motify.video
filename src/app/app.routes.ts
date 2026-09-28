@@ -4,6 +4,7 @@ import { GettingStartedPageComponent } from './features/getting-started/getting-
 import { LandingPageComponent } from './features/landing-page/landing-page.component';
 import { LoginPageComponent } from './features/login/login-page.component';
 import { PricingPageComponent } from './features/pricing/pricing-page.component';
+import { NotFoundPageComponent } from './features/not-found/not-found-page.component';
 
 const loadLegalPage = () =>
   import('./features/legal/legal-page.component').then((module) => module.LegalPageComponent);
@@ -58,5 +59,14 @@ export const routes: Routes = [
     data: { document: 'refund' },
     title: 'Refund Policy | Motify',
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: '404',
+    component: NotFoundPageComponent,
+    title: 'Page Not Found | Motify',
+  },
+  {
+    path: '**',
+    component: NotFoundPageComponent,
+    title: 'Page Not Found | Motify',
+  },
 ];

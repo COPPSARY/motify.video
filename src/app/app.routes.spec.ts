@@ -32,7 +32,20 @@ describe('app.routes', () => {
       fc.asyncProperty(
         fc
           .stringMatching(/^[a-zA-Z0-9_-]+$/)
-          .filter((s) => s.length > 0 && !['login', 'signup', 'about', 'getting-started', 'pricing'].includes(s)),
+          .filter(
+            (s) =>
+              s.length > 0 &&
+              ![
+                'login',
+                'signup',
+                'about',
+                'getting-started',
+                'pricing',
+                'terms',
+                'privacy',
+                'refund-policy',
+              ].includes(s),
+          ),
         async (path) => {
           const activatedComponent = await harness.navigateByUrl(`/${path}`);
 

@@ -2,63 +2,99 @@
   <app-navbar />
   <main class="pricing-page" aria-labelledby="pricing-title">
     <section class="pricing-page__intro">
-      <h1 id="pricing-title">High-quality motion. Simple pricing.</h1>
-      <div class="pricing-page__intro-row">
-        <p>Start with a polished first direction, then scale<br />your motion workflow as your ideas grow.</p>
-        <div class="pricing-toggle" aria-label="Billing period">
-          <button class="pricing-toggle__option pricing-toggle__option--active" type="button">MONTHLY</button>
-          <button class="pricing-toggle__option" type="button">YEARLY</button>
-        </div>
-      </div>
+      <p class="pricing-page__eyebrow">Simple monthly pricing</p>
+      <h1 id="pricing-title">Choose the plan that fits your workflow.</h1>
+      <p class="pricing-page__lead">
+        From your first product video to a full content pipeline, scale when you are ready.
+      </p>
     </section>
 
     <section class="pricing-grid" aria-label="Motify pricing plans">
       <article class="pricing-card">
-        <p class="pricing-card__price"><strong>$5</strong><span>/month</span></p>
-        <h2>Starter</h2>
-        <p class="pricing-card__description">Everything you need to turn an idea into your first polished motion piece.</p>
-        <ul>
-          <li>50 credits each month</li><li>About 3 videos</li><li>Core motion templates</li><li>Personal workspace</li>
-        </ul>
-        <a class="pricing-card__button" [href]="editorAuthPath">Choose plan</a>
+        <div class="pricing-card__header">
+          <div class="pricing-card__plan-row">
+            <h2 class="pricing-card__plan">Starter</h2>
+          </div>
+          <p class="pricing-card__price"><strong>$10</strong><span>/ month</span></p>
+          <p class="pricing-card__credits"><strong>150 credits</strong><span>About 5 videos</span></p>
+        </div>
+        <p class="pricing-card__description">Perfect for founders getting started with product video.</p>
+        <div class="pricing-card__features">
+          <p>What’s included</p>
+          <ul>
+            <li>Brand DNA</li>
+            <li>HD MP4 exports</li>
+            <li>Version history</li>
+            <li>No watermark</li>
+            <li>Priority support</li>
+          </ul>
+        </div>
+        <a class="pricing-card__button" [href]="editorAuthPath">Get started</a>
       </article>
 
       <article class="pricing-card pricing-card--featured">
-        <span class="pricing-card__badge">Most popular</span>
-        <p class="pricing-card__price"><strong>$10</strong><span>/month</span></p>
-        <h2>Professional</h2>
-        <p class="pricing-card__description">For builders creating regularly and refining every detail before they ship.</p>
-        <ul>
-          <li>150 credits each month</li><li>About 10 videos</li><li>Everything in Starter</li><li>Shared team workspace</li><li>Priority rendering</li>
-        </ul>
-        <a class="pricing-card__button" [href]="editorAuthPath">Choose plan</a>
+        <div class="pricing-card__header">
+          <div class="pricing-card__plan-row">
+            <h2 class="pricing-card__plan">Pro</h2>
+            <span class="pricing-card__badge">Popular</span>
+          </div>
+          <p class="pricing-card__price"><strong>$20</strong><span>/ month</span></p>
+          <p class="pricing-card__credits"><strong>300 credits</strong><span>About 10 videos</span></p>
+        </div>
+        <p class="pricing-card__description">Built for growing businesses and founders creating videos regularly.</p>
+        <div class="pricing-card__features">
+          <p>Everything in Starter, plus</p>
+          <ul>
+            <li>AI voiceovers</li>
+            <li>Multi-format exports</li>
+            <li>Templates and reference videos</li>
+            <li>Site Intelligence</li>
+          </ul>
+        </div>
+        <a class="pricing-card__button" [href]="editorAuthPath">Upgrade now</a>
       </article>
 
-      <article class="pricing-card">
-        <p class="pricing-card__price"><strong>$20</strong><span>/month</span></p>
-        <h2>Company</h2>
-        <p class="pricing-card__description">A flexible content engine for teams producing launch videos and campaign variations.</p>
-        <ul>
-          <li>500 credits each month</li><li>30+ videos for active campaigns</li><li>Everything in Professional</li><li>Unlimited team members</li><li>Advanced workspace controls</li><li>Dedicated support</li>
-        </ul>
-        <a class="pricing-card__button" href="mailto:coppsary@gmail.com">Choose plan</a>
+      <article class="pricing-card pricing-card--coming-soon">
+        <div class="pricing-card__header">
+          <div class="pricing-card__plan-row">
+            <h2 class="pricing-card__plan">Studio</h2>
+          </div>
+          <p class="pricing-card__price"><strong>$50</strong><span>/ month</span></p>
+          <p class="pricing-card__credits"><strong>750 credits</strong><span>About 25 videos</span></p>
+        </div>
+        <p class="pricing-card__description">For teams producing product content at scale.</p>
+        <div class="pricing-card__features">
+          <p>Everything in Pro, plus</p>
+          <ul>
+            <li>Multiple Brand DNAs</li>
+            <li>Team workspace</li>
+            <li>MCP and integrations</li>
+            <li>Better AI models</li>
+          </ul>
+        </div>
+        <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">Coming soon</span>
       </article>
     </section>
+
+    <aside class="payment-note" aria-label="Accepted payment method">
+      <img src="/1607185380032.png" alt="" width="32" height="32" aria-hidden="true" />
+      <span>We accept <strong>Bakong KHQR</strong></span>
+    </aside>
 
     <section class="pricing-faq" aria-labelledby="pricing-faq-title">
       <h2 id="pricing-faq-title">Questions before you start?</h2>
       <div class="pricing-faq__list">
         <details>
-          <summary>What counts as a video?</summary>
-          <p>Credits cover the generation and rendering work behind each motion video. The exact amount depends on the project and output you create.</p>
+          <summary>How many credits does a video use?</summary>
+          <p>Credit use depends on the length and complexity of your project. The video counts above are practical estimates to help you compare plans.</p>
         </details>
         <details>
           <summary>Can I change my plan later?</summary>
-          <p>Yes. Choose the level that fits your current workflow and adjust as your team and content needs grow.</p>
+          <p>Yes. Start with the plan that fits your current workflow and upgrade as your content needs grow.</p>
         </details>
         <details>
           <summary>Can I use the videos commercially?</summary>
-          <p>Yes. Your finished Motify videos are made for product launches, social content, campaigns, and other commercial uses.</p>
+          <p>Yes. Your finished Motify videos can be used for product launches, social content, campaigns, and other commercial work.</p>
         </details>
       </div>
     </section>

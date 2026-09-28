@@ -54,20 +54,37 @@ describe('FooterComponent', () => {
 
     expect(logoImg).withContext('footer logo <img> should exist').not.toBeNull();
     expect(logoImg?.getAttribute('src')).toBe('logo.svg');
-    expect(compiled.textContent).toContain('AI tool that makes SaaS explainers and launch videos.');
+    expect(compiled.textContent).toContain('AI-powered product videos, built for modern teams.');
     expect(logoImg?.src.endsWith('logo.svg')).withContext('resolved src should end with logo.svg').toBe(true);
   });
 
-  it('should provide a partnership and business inquiry Gmail link', () => {
+  it('should provide the public support, billing, and inquiry email links', () => {
     const fixture = TestBed.createComponent(FooterComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const inquiryLink = compiled.querySelector<HTMLAnchorElement>('.footer__business-link');
 
-    expect(inquiryLink).withContext('business inquiry link should exist').not.toBeNull();
-    expect(inquiryLink?.getAttribute('href')).toContain('mail.google.com/mail/');
-    expect(inquiryLink?.getAttribute('href')).toContain('to=prumsereyreaksa%40gmail.com');
-    expect(inquiryLink?.getAttribute('target')).toBe('_blank');
-    expect(inquiryLink?.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(compiled.querySelector('a[href="mailto:hello@motify.video"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="mailto:support@motify.video"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="mailto:billing@motify.video"]')).not.toBeNull();
+  });
+
+  it('should link the GitHub, Facebook, and TikTok social profiles', () => {
+    const fixture = TestBed.createComponent(FooterComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelector('a[aria-label="Motify on GitHub"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="https://facebook.com/motify.video/"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="https://www.tiktok.com/@motify855"]')).not.toBeNull();
+  });
+
+  it('should make every legal policy available in footer navigation', () => {
+    const fixture = TestBed.createComponent(FooterComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelector('a[href="/terms"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/privacy"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/refund-policy"]')).not.toBeNull();
   });
 });

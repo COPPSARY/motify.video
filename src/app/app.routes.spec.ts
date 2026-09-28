@@ -4,7 +4,7 @@ import { provideRouter, Router } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import * as fc from 'fast-check';
 import { routes } from './app.routes';
-import { LandingPageComponent } from './features/landing-page/landing-page.component';
+import { NotFoundPageComponent } from './features/not-found/not-found-page.component';
 
 describe('app.routes', () => {
   beforeEach(() => {
@@ -17,10 +17,10 @@ describe('app.routes', () => {
    * Property 7: No dead route
    * Validates: Requirements 10.2
    *
-   * For any unknown path, navigating to that path resolves to the landing
-   * page route (via the wildcard redirect) rather than a blank/404 state.
+   * For any unknown path, navigating to that path resolves to the dedicated
+   * not-found page rather than the homepage or a blank state.
    */
-  it('resolves any unknown path to the landing page (Property 7)', async () => {
+  it('resolves any unknown path to the not-found page (Property 7)', async () => {
     // RouterTestingHarness only allows a single instance per test, so it is
     // created once and reused across all property runs (the harness's root
     // component with its RouterOutlet is designed to be reused across
@@ -44,6 +44,7 @@ describe('app.routes', () => {
                 'terms',
                 'privacy',
                 'refund-policy',
+                '404',
               ].includes(s),
           ),
         async (path) => {
@@ -52,8 +53,10 @@ describe('app.routes', () => {
           expect(activatedComponent)
             .withContext(`expected a component to be activated for path "/${path}"`)
             .not.toBeNull();
-          expect(activatedComponent).toBeInstanceOf(LandingPageComponent);
-          expect(router.url).withContext(`expected router to resolve to root for path "/${path}"`).toBe('/');
+          expect(activatedComponent).toBeInstanceOf(NotFoundPageComponent);
+          expect(router.url)
+            .withContext(`expected router to preserve the missing path "/${path}"`)
+            .toBe(`/${path}`);
         },
       ),
       { numRuns: 25 },

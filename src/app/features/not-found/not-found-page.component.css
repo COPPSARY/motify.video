@@ -1,0 +1,121 @@
+.not-found-shell {
+  min-height: 100svh;
+  background: var(--motify-bg);
+  color: var(--motify-text-primary);
+}
+
+.not-found {
+  position: relative;
+  display: grid;
+  min-height: 43rem;
+  padding: 10rem 1.5rem 8rem;
+  overflow: hidden;
+  place-content: center;
+  text-align: center;
+}
+
+.not-found__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(48rem, 90vw);
+  height: min(30rem, 65vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(138, 180, 255, 0.12), rgba(124, 247, 197, 0.035) 45%, transparent 72%);
+  filter: blur(18px);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.not-found > *:not(.not-found__glow) {
+  position: relative;
+  z-index: 1;
+}
+
+.not-found__code {
+  margin: 0;
+  color: transparent;
+  background: var(--motify-accent-gradient);
+  background-clip: text;
+  font-size: clamp(6rem, 20vw, 13rem);
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  line-height: 0.75;
+  -webkit-background-clip: text;
+}
+
+.not-found h1 {
+  margin: 2.3rem 0 0;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  letter-spacing: -0.045em;
+}
+
+.not-found__copy {
+  max-width: 34rem;
+  margin: 1.25rem auto 0;
+  color: var(--motify-text-secondary);
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+
+.not-found__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.not-found__actions a {
+  padding: 0.82rem 1.2rem;
+  border: 1px solid var(--motify-border-strong);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: filter 180ms ease, transform 180ms ease, background-color 180ms ease;
+}
+
+.not-found__primary {
+  border-color: transparent !important;
+  background: var(--motify-text-primary);
+  color: #07080a;
+}
+
+.not-found__secondary {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--motify-text-primary);
+}
+
+.not-found__actions a:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.not-found__actions a:focus-visible {
+  outline: 2px solid var(--motify-logo-start);
+  outline-offset: 4px;
+}
+
+@media (max-width: 480px) {
+  .not-found {
+    min-height: 38rem;
+  }
+
+  .not-found__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .not-found__actions a {
+    transition: none;
+  }
+
+  .not-found__actions a:hover {
+    transform: none;
+  }
+}

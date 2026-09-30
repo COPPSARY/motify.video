@@ -25,4 +25,17 @@ describe('AuthService return URL', () => {
     expect(returnTo.pathname).toBe('/login');
     expect(returnTo.searchParams.get('returnUrl')).toBe(returnPath);
   });
+
+  it('keeps a pending pricing checkout in the Google callback URL', () => {
+    const auth = TestBed.inject(AuthService);
+    const returnPath = '/pricing?checkout=pro';
+    auth.setPendingReturnUrl(returnPath);
+
+    const googleUrl = new URL(auth.googleLoginUrl());
+    const returnTo = new URL(googleUrl.searchParams.get('returnTo')!);
+
+    expect(returnTo.origin).toBe(window.location.origin);
+    expect(returnTo.pathname).toBe('/login');
+    expect(returnTo.searchParams.get('returnUrl')).toBe(returnPath);
+  });
 });

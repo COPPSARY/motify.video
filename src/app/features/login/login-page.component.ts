@@ -48,9 +48,7 @@ export class LoginPageComponent {
 
     afterNextRender(() => {
       void this.auth.currentUser().then((user) => {
-        if (user && this.returnUrl.startsWith('/editor')) {
-          window.location.href = editorUrlForReturnPath(this.returnUrl);
-        }
+        if (user) this.finishLogin();
       });
     });
   }
@@ -87,16 +85,23 @@ export class LoginPageComponent {
       this.loading.set(false);
       return;
     }
-    if (this.returnUrl.startsWith('/editor')) {
-      window.location.href = editorUrlForReturnPath(this.returnUrl);
-      return;
-    }
-    void this.router.navigateByUrl(this.returnUrl.startsWith('/') ? this.returnUrl : '/');
+    this.finishLogin();
   }
 
   loginWithGoogle(): void {
     this.auth.setPendingReturnUrl(this.returnUrl);
     window.location.href = this.auth.googleLoginUrl();
+  }
+
+  private finishLogin(): void {
+    if (this.returnUrl.startsWith('/editor')) {
+      window.location.href = editorUrlForReturnPath(this.returnUrl);
+      return;
+    }
+    const destination = this.returnUrl.startsWith('/') && !this.returnUrl.startsWith('//')
+      ? this.returnUrl
+      : '/';
+    void this.router.navigateByUrl(destination);
   }
 
   private messageFor(error: unknown): string {

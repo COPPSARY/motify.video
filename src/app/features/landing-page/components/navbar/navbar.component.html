@@ -15,17 +15,58 @@
       </svg>
       <span>Pricing</span>
     </a>
-    <a class="navbar__link" [href]="editorAuthPath" (click)="closeMenu()">
+    <a class="navbar__link" [href]="editorHref()" (click)="closeMenu()">
       <span>Editor</span>
       <svg lucideArrowUpRight aria-hidden="true"></svg>
     </a>
-    <a class="navbar__link" routerLink="/login" (click)="closeMenu()">
-      <svg lucideLogIn aria-hidden="true"></svg>
-      <span>Log in</span>
-    </a>
-    <a class="navbar__link navbar__link--cta" routerLink="/signup" (click)="closeMenu()">
-      <span>Sign up</span>
-    </a>
+    @if (auth.user(); as user) {
+      <div class="navbar__account-wrap" (click)="$event.stopPropagation()">
+        <button
+          class="navbar__account"
+          type="button"
+          [attr.aria-expanded]="accountMenuOpen()"
+          aria-haspopup="menu"
+          (click)="toggleAccountMenu($event)"
+        >
+          <span class="navbar__avatar" aria-hidden="true">
+            @if (user.avatarUrl) {
+              <img [src]="user.avatarUrl" alt="" width="28" height="28" />
+            } @else {
+              {{ userInitials(user) }}
+            }
+          </span>
+          <span class="navbar__account-name">{{ user.displayName || user.email }}</span>
+          @if (activePlan(); as plan) {
+            <span class="navbar__plan-badge">{{ plan }}</span>
+          }
+          <svg lucideChevronDown aria-hidden="true"></svg>
+        </button>
+        @if (accountMenuOpen()) {
+          <div class="navbar__account-menu" role="menu">
+            <div class="navbar__account-identity">
+              <strong>{{ user.displayName || 'Motify account' }}</strong>
+              <span>{{ user.email }}</span>
+            </div>
+            <a class="navbar__account-item" role="menuitem" [href]="editorHref()" (click)="closeMenu()">
+              <span>Open Editor</span>
+              <svg lucideArrowUpRight aria-hidden="true"></svg>
+            </a>
+            <button class="navbar__account-item navbar__account-item--danger" role="menuitem" type="button" [disabled]="loggingOut()" (click)="logoutAccount()">
+              <svg lucideLogOut aria-hidden="true"></svg>
+              <span>{{ loggingOut() ? 'Logging out…' : 'Log out' }}</span>
+            </button>
+          </div>
+        }
+      </div>
+    } @else {
+      <a class="navbar__link" routerLink="/login" (click)="closeMenu()">
+        <svg lucideLogIn aria-hidden="true"></svg>
+        <span>Log in</span>
+      </a>
+      <a class="navbar__link navbar__link--cta" routerLink="/signup" (click)="closeMenu()">
+        <span>Sign up</span>
+      </a>
+    }
     <div class="navbar__mobile-badges">
       <app-product-hunt-badge size="compact" />
       <app-github-star-badge size="compact" />

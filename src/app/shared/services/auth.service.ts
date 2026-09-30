@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { motifyApiUrl } from '../config/runtime-config';
 
@@ -23,19 +23,39 @@ const PENDING_RETURN_KEY = 'motify-pending-return-url';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
+  private csrfTokenValue: string | null = null;
+  private currentUserRequest: Promise<MotifyUser | null> | null = null;
+
+  readonly user = signal<MotifyUser | null>(null);
+  readonly sessionResolved = signal(false);
 
   get apiUrl(): string {
     return motifyApiUrl();
   }
 
-  async currentUser(): Promise<MotifyUser | null> {
+  currentUser(): Promise<MotifyUser | null> {
+    if (this.sessionResolved()) return Promise.resolve(this.user());
+    if (this.currentUserRequest) return this.currentUserRequest;
+
+    this.currentUserRequest = this.fetchCurrentUser();
+    return this.currentUserRequest;
+  }
+
+  private async fetchCurrentUser(): Promise<MotifyUser | null> {
     try {
       const response = await firstValueFrom(
         this.http.get<AuthResponse>(`${this.apiUrl}/v1/auth/me`, { withCredentials: true }),
       );
-      return response.data.user;
+      this.csrfTokenValue = response.data.csrfToken;
+      this.user.set(response.data.user);
+      return this.user();
     } catch {
+      this.csrfTokenValue = null;
+      this.user.set(null);
       return null;
+    } finally {
+      this.sessionResolved.set(true);
+      this.currentUserRequest = null;
     }
   }
 
@@ -47,7 +67,31 @@ export class AuthService {
         { withCredentials: true },
       ),
     );
+    this.csrfTokenValue = response.data.csrfToken;
+    this.user.set(response.data.user);
+    this.sessionResolved.set(true);
     return response.data.user;
+  }
+
+  async logout(): Promise<void> {
+    if (!this.csrfTokenValue) throw new Error('Cannot log out without an active session.');
+    await firstValueFrom(
+      this.http.post<void>(
+        `${this.apiUrl}/v1/auth/logout`,
+        {},
+        {
+          withCredentials: true,
+          headers: { 'X-CSRF-Token': this.csrfTokenValue },
+        },
+      ),
+    );
+    this.csrfTokenValue = null;
+    this.user.set(null);
+    this.sessionResolved.set(true);
+  }
+
+  csrfToken(): string | null {
+    return this.csrfTokenValue;
   }
 
   /**
@@ -79,7 +123,7 @@ export class AuthService {
   private returnToUrl(): string | undefined {
     if (typeof window === 'undefined') return undefined;
     const pendingReturnUrl = sessionStorage.getItem(PENDING_RETURN_KEY);
-    if (!pendingReturnUrl?.startsWith('/editor')) return window.location.origin + '/';
+    if (!isSafeReturnPath(pendingReturnUrl)) return window.location.origin + '/';
 
     const url = new URL('/login', window.location.origin);
     url.searchParams.set('returnUrl', pendingReturnUrl);
@@ -87,7 +131,9 @@ export class AuthService {
   }
 
   setPendingReturnUrl(url: string): void {
-    if (typeof sessionStorage !== 'undefined') sessionStorage.setItem(PENDING_RETURN_KEY, url);
+    if (typeof sessionStorage !== 'undefined' && isSafeReturnPath(url)) {
+      sessionStorage.setItem(PENDING_RETURN_KEY, url);
+    }
   }
 
   consumePendingReturnUrl(): string | null {
@@ -96,4 +142,8 @@ export class AuthService {
     sessionStorage.removeItem(PENDING_RETURN_KEY);
     return url;
   }
+}
+
+function isSafeReturnPath(value: string | null | undefined): value is string {
+  return Boolean(value?.startsWith('/') && !value.startsWith('//'));
 }

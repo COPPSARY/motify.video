@@ -109,26 +109,161 @@
   border-color: var(--motify-logo-end);
 }
 
+.navbar__account-wrap {
+  position: relative;
+}
+
 .navbar__account {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  max-width: 11rem;
-  overflow: hidden;
+  max-width: 12rem;
+  min-height: 2.25rem;
+  padding: 0.2rem 0.45rem 0.2rem 0.25rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
   color: var(--motify-text-secondary);
+  cursor: pointer;
   font-size: 0.82rem;
-  font-weight: 650;
+  font-weight: var(--motify-weight-medium);
+  white-space: nowrap;
+}
+
+.navbar__account svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: 0 0 auto;
+  color: var(--motify-text-muted);
+  stroke-width: 1.8;
+}
+
+.navbar__account:hover,
+.navbar__account[aria-expanded='true'] {
+  border-color: var(--motify-border-strong);
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--motify-text-primary);
+}
+
+.navbar__avatar {
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: 0 0 auto;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(138, 180, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(138, 180, 255, 0.12);
+  color: var(--motify-text-primary);
+  font-size: 0.68rem;
+  font-weight: var(--motify-weight-bold);
+}
+
+.navbar__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navbar__account-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar__plan-badge {
+  flex: 0 0 auto;
+  padding: 0.16rem 0.38rem;
+  border: 1px solid rgba(124, 247, 197, 0.2);
+  border-radius: 999px;
+  background: rgba(124, 247, 197, 0.09);
+  color: var(--motify-logo-end);
+  font-size: 0.62rem;
+  font-weight: var(--motify-weight-bold);
+  letter-spacing: 0.035em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.navbar__account-menu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  display: grid;
+  width: 15rem;
+  overflow: hidden;
+  padding: 0.45rem;
+  border: 1px solid var(--motify-border-strong);
+  border-radius: var(--motify-radius-md);
+  background: rgba(8, 9, 11, 0.97);
+  box-shadow: var(--motify-shell-shadow);
+  backdrop-filter: blur(18px);
+}
+
+.navbar__account-identity {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+  padding: 0.65rem 0.7rem 0.75rem;
+  border-bottom: 1px solid var(--motify-border);
+}
+
+.navbar__account-identity strong,
+.navbar__account-identity span {
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.navbar__account-dot {
-  width: 0.45rem;
-  height: 0.45rem;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--motify-logo-end);
-  box-shadow: 0 0 0.7rem var(--motify-logo-end);
+.navbar__account-identity strong {
+  color: var(--motify-text-primary);
+  font-size: 0.86rem;
+  font-weight: var(--motify-weight-bold);
+}
+
+.navbar__account-identity span {
+  color: var(--motify-text-muted);
+  font-size: 0.75rem;
+}
+
+.navbar__account-item {
+  display: flex;
+  width: 100%;
+  min-height: 2.3rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+  padding: 0 0.7rem;
+  border: 0;
+  border-radius: 0.45rem;
+  background: transparent;
+  color: var(--motify-text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  text-align: left;
+  text-decoration: none;
+}
+
+.navbar__account-item:hover {
+  background: rgba(255, 255, 255, 0.055);
+  color: var(--motify-text-primary);
+}
+
+.navbar__account-item svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.navbar__account-item--danger {
+  justify-content: flex-start;
+  color: #e7a0a7;
+}
+
+.navbar__account-item:disabled {
+  cursor: wait;
+  opacity: 0.65;
 }
 
 .navbar__actions {
@@ -208,6 +343,19 @@
   .navbar__link {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .navbar__account-wrap,
+  .navbar__account {
+    width: 100%;
+    max-width: none;
+  }
+
+  .navbar__account-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.35rem;
+    box-shadow: none;
   }
 
   .navbar__actions {

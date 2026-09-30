@@ -5,6 +5,8 @@ import { provideRouter } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 import { EXTERNAL_LINKS } from '../../../../shared/constants/external-links';
 import { EDITOR_AUTH_PATH } from '../../../../shared/config/runtime-config';
+import { AuthService } from '../../../../shared/services/auth.service';
+import { BillingService } from '../../../../shared/services/billing.service';
 
 describe('NavbarComponent', () => {
   beforeEach(async () => {
@@ -43,6 +45,71 @@ describe('NavbarComponent', () => {
 
     expect(editorLink?.getAttribute('href')).toBe(EDITOR_AUTH_PATH);
     expect(compiled.querySelector<HTMLAnchorElement>(`a[href="${EXTERNAL_LINKS.editor}"]`)).toBeNull();
+  });
+
+  it('opens the editor directly when the account session is already resolved', () => {
+    const auth = TestBed.inject(AuthService);
+    auth.user.set({
+      id: 'user-1',
+      email: 'founder@motify.video',
+      emailVerified: true,
+      displayName: 'Motify Founder',
+      avatarUrl: null,
+    });
+    auth.sessionResolved.set(true);
+
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const editorLinks = Array.from(compiled.querySelectorAll<HTMLAnchorElement>('a'))
+      .filter((link) => ['Editor', 'Open Editor'].includes(link.textContent?.trim() ?? ''));
+
+    expect(editorLinks.length).toBe(1);
+    expect(editorLinks.every((link) => link.href === 'http://localhost:5173/')).toBe(true);
+  });
+
+  it('shows the signed-in identity instead of login and signup actions', () => {
+    const auth = TestBed.inject(AuthService);
+    auth.user.set({
+      id: 'user-1',
+      email: 'founder@motify.video',
+      emailVerified: true,
+      displayName: 'Motify Founder',
+      avatarUrl: null,
+    });
+    auth.sessionResolved.set(true);
+
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelector('.navbar__account-name')?.textContent?.trim()).toBe('Motify Founder');
+    expect(compiled.querySelector('a[href="/login"]')).toBeNull();
+    expect(compiled.querySelector('a[href="/signup"]')).toBeNull();
+  });
+
+  it('shows the active paid plan beside the signed-in identity', () => {
+    const auth = TestBed.inject(AuthService);
+    const billing = TestBed.inject(BillingService);
+    auth.user.set({
+      id: 'user-1',
+      email: 'founder@motify.video',
+      emailVerified: true,
+      displayName: 'Motify Founder',
+      avatarUrl: null,
+    });
+    auth.sessionResolved.set(true);
+    billing.subscription.set({
+      status: 'active',
+      plan: 'pro',
+      currentPeriodStart: '2026-09-30T00:00:00.000Z',
+      currentPeriodEnd: '2026-10-30T00:00:00.000Z',
+    });
+
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+
+    expect((fixture.nativeElement as HTMLElement).querySelector('.navbar__plan-badge')?.textContent?.trim()).toBe('Pro');
   });
 
   /**

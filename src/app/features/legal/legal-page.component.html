@@ -14,7 +14,7 @@
         }
         @case ('refund') {
           <h1>Refund Policy</h1>
-          <p>Clear guidance for refund requests, subscription cancellations, and billing support.</p>
+          <p>Clear guidance for refund requests, plan purchases, and billing support.</p>
         }
       }
       <p class="legal-hero__updated">Effective and last updated: {{ lastUpdated }}</p>
@@ -41,7 +41,7 @@
             <p class="legal-document__intro">
               These Terms &amp; Conditions (“Terms”) are an agreement between you and COPPSARY,
               operating the Motify product and service (“Motify,” “we,” “us,” or “our”). By
-              creating an account, accessing Motify, or purchasing a subscription, you agree to
+              creating an account, accessing Motify, or purchasing a plan or credit pack, you agree to
               these Terms and our <a routerLink="/privacy">Privacy Policy</a> and
               <a routerLink="/refund-policy">Refund Policy</a>.
             </p>
@@ -75,35 +75,34 @@
                 <a routerLink="/pricing">Pricing page</a> or at checkout. Video counts are estimates;
                 actual credit use may vary with project length, complexity, selected model, and
                 output settings. Credits are service units, not money, and cannot be transferred,
-                resold, or redeemed for cash. We may apply reasonable technical and usage limits to
+                resold, or redeemed for cash. Plan credits expire on the expiry date assigned to
+                each plan grant and do not roll over. Welcome credits and separately purchased
+                credit packs do not expire. We may apply reasonable technical and usage limits to
                 protect the service and other customers.
               </p>
             </section>
 
             <section>
-              <h2>4. Billing and Paddle</h2>
+              <h2>4. Billing and Bakong KHQR</h2>
               <div class="legal-callout">
-                Our order process is conducted by our online reseller Paddle.com. Paddle is the
-                Merchant of Record and manages payment-related customer service and returns.
+                Paid plans and credit packs are purchased with a Bakong KHQR code through a
+                supported banking app. Each checkout is a one-time payment.
               </div>
               <p>
-                Prices, billing frequency, applicable taxes, and the total charge are shown before
-                you complete a purchase. Paid monthly subscriptions automatically renew each month
-                until canceled. You authorize Paddle to charge the payment method associated with
-                your purchase for each renewal. Paddle’s
-                <a href="https://www.paddle.com/legal/buyer-terms" target="_blank" rel="noopener noreferrer">Buyer Terms</a>
-                also apply to purchases processed by Paddle.
+                The plan or credit pack, price, currency, credit amount, and plan duration are shown
+                before you complete a purchase. KHQR purchases do not renew automatically. To extend
+                an active plan or renew an expired plan, you must create and pay for a new checkout.
+                Your bank or payment application may apply its own terms and processing rules.
               </p>
             </section>
 
             <section>
-              <h2>5. Cancellation</h2>
+              <h2>5. Plan expiry and renewal</h2>
               <p>
-                You may cancel at any time through the Paddle Customer Portal linked in your
-                purchase or renewal email, or through <a href="https://paddle.net" target="_blank" rel="noopener noreferrer">Paddle buyer support</a>.
-                Cancellation takes effect at the end of the current billing period. You retain
-                access until then and will not be charged for another renewal. Cancellation does
-                not automatically create a refund; refund eligibility is explained in our
+                A paid plan remains active through the end date shown in your account and then
+                expires without another charge. Paying for the same active plan extends it. Changing
+                to a different plan activates the new plan immediately and unused time on the prior
+                plan is not carried over. Refund eligibility is explained in our
                 <a routerLink="/refund-policy">Refund Policy</a>.
               </p>
             </section>
@@ -217,7 +216,7 @@
             <p class="legal-document__intro">
               This Privacy Policy explains how COPPSARY, operator of Motify (“Motify,” “we,” “us,”
               or “our”), handles personal information when you visit our website, create an
-              account, use the editor, contact us, or purchase a subscription.
+              account, use the editor, contact us, or purchase a plan or credit pack.
             </p>
 
             <section>
@@ -236,9 +235,11 @@
               </ul>
               <h3>Transaction information</h3>
               <p>
-                Paddle processes purchases as Merchant of Record. We may receive transaction ID,
-                subscription status, plan, amount, currency, country, tax status, and limited buyer
-                details. We do not receive or store your complete payment-card number.
+                When you pay with Bakong KHQR, we store the checkout and transaction information
+                needed to verify and support the purchase, including a transaction hash, payer
+                account identifier, workspace, purchased plan or credit pack, amount, currency,
+                status, and relevant timestamps. We do not receive or store your banking password,
+                PIN, or complete payment-card number.
               </p>
             </section>
 
@@ -246,7 +247,7 @@
               <h2>2. How we use information</h2>
               <ul>
                 <li>provide accounts, the editor, AI generation, exports, credits, and requested features;</li>
-                <li>process subscriptions, confirm entitlements, and provide billing support;</li>
+                <li>process purchases, confirm entitlements, and provide billing support;</li>
                 <li>secure Motify, prevent fraud and abuse, and enforce our terms;</li>
                 <li>diagnose problems, analyze performance, and improve features and models;</li>
                 <li>respond to support requests and send essential service messages;</li>
@@ -269,7 +270,7 @@
               <h2>4. How we share information</h2>
               <p>We may share information only as reasonably necessary with:</p>
               <ul>
-                <li>Paddle for checkout, tax, invoicing, fraud prevention, subscription management, and buyer support;</li>
+                <li>Bakong, participating banks, and payment infrastructure involved in creating, verifying, supporting, or refunding a KHQR transaction;</li>
                 <li>hosting, authentication, email, storage, analytics, security, support, and AI service providers acting for us;</li>
                 <li>integrations you choose to connect or recipients you direct us to share with;</li>
                 <li>professional advisers, authorities, or other parties when required to protect rights, safety, and legal compliance; and</li>
@@ -279,13 +280,13 @@
             </section>
 
             <section>
-              <h2>5. Paddle and payment privacy</h2>
+              <h2>5. Bakong KHQR and payment privacy</h2>
               <p>
-                Paddle independently handles buyer and payment information under its own
-                <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Notice</a>.
-                Payment questions can be directed to
-                <a href="https://paddle.net" target="_blank" rel="noopener noreferrer">Paddle buyer support</a>
-                or <a href="mailto:billing@motify.video">billing&#64;motify.video</a>.
+                Your bank, payment application, and Bakong independently process information under
+                their own privacy terms. Motify receives only the transaction information needed to
+                match a payment to a checkout, activate the purchase, prevent fraud, and provide
+                billing support. Payment questions may be sent to
+                <a href="mailto:billing@motify.video">billing&#64;motify.video</a>.
               </p>
             </section>
 
@@ -353,24 +354,23 @@
 
           @case ('refund') {
             <p class="legal-document__intro">
-              This policy applies to paid Motify subscriptions purchased through Paddle. It should
-              be read with our <a routerLink="/terms">Terms &amp; Conditions</a> and any mandatory
-              consumer rights that apply where you live. Paddle’s
-              <a href="https://www.paddle.com/legal/refund-policy" target="_blank" rel="noopener noreferrer">Refund Policy</a>
-              also applies to transactions it processes as Merchant of Record.
+              This policy applies to Motify plans and credit packs purchased with Bakong KHQR. It
+              should be read with our <a routerLink="/terms">Terms &amp; Conditions</a> and any
+              mandatory consumer rights that apply where you live.
             </p>
 
             <section>
               <h2>1. Request window</h2>
               <div class="legal-callout">
-                You may request a refund within 14 calendar days of your initial subscription
+                You may request a refund within 14 calendar days of your initial plan or credit-pack
                 purchase. Requests are reviewed based on usage, the reason for the request, and
                 applicable law.
               </div>
               <p>
                 A request within this window does not automatically guarantee a refund where the
                 service has been substantially used, except when mandatory law gives you a right to
-                one. Paddle, as Merchant of Record, processes and issues approved refunds.
+                one. COPPSARY reviews requests and coordinates approved refunds with the relevant
+                payment provider where possible.
               </p>
             </section>
 
@@ -390,52 +390,50 @@
               <p>Unless required by law, a refund may be declined when:</p>
               <ul>
                 <li>the request is made after the 14-day initial purchase window;</li>
-                <li>the subscription, credits, generations, or exports have been substantially used;</li>
+                <li>the purchased credits, generations, or exports have been substantially used;</li>
                 <li>you changed your mind after receiving and using the service;</li>
                 <li>the issue results from unsupported hardware, software, or third-party services outside Motify’s control;</li>
                 <li>your access was limited for fraud, abuse, or a material breach of our Terms; or</li>
-                <li>the charge is a renewal you did not cancel before the renewal date.</li>
+                <li>the payment was authorized and the purchased plan or credits were delivered as described.</li>
               </ul>
             </section>
 
             <section>
-              <h2>4. Subscription renewals and cancellation</h2>
+              <h2>4. Plan expiry and renewal</h2>
               <p>
-                Subscriptions renew automatically until canceled. You may cancel at any time, and
-                cancellation takes effect at the end of the current paid period. You will keep access
-                until that date and will not be charged again. Unused time in a billing period is not
-                normally refunded. This does not limit any mandatory right that applies to you.
+                Bakong KHQR purchases are one-time payments and do not renew automatically. A plan
+                stays active through its stated end date, after which you can choose whether to buy
+                another period. Unused time is not normally refundable, and switching plans does not
+                carry remaining time forward. This does not limit any mandatory right that applies to you.
               </p>
             </section>
 
             <section>
-              <h2>5. How to request a refund or cancel</h2>
+              <h2>5. How to request a refund</h2>
               <ol>
-                <li>Open the purchase or renewal email sent by Paddle.</li>
-                <li>Use its “Manage subscription” or transaction support link to open the Paddle Customer Portal.</li>
-                <li>Select the refund, withdrawal, or cancellation option available for your transaction.</li>
+                <li>Email <a href="mailto:billing@motify.video">billing&#64;motify.video</a> from the address associated with your Motify account.</li>
+                <li>Include the workspace, purchase date, amount, currency, and Motify bill number if available.</li>
+                <li>Briefly explain the issue. Never send a banking password, PIN, one-time code, or complete card details.</li>
               </ol>
               <p>
-                You can also visit <a href="https://paddle.net" target="_blank" rel="noopener noreferrer">paddle.net</a>
-                or email <a href="mailto:billing@motify.video">billing&#64;motify.video</a>. Include
-                the email used for purchase, your Paddle transaction number, purchase date, and a
-                short explanation. Never send complete card details by email.
+                We may ask for additional transaction information needed to locate and verify the
+                payment before deciding the request.
               </p>
             </section>
 
             <section>
               <h2>6. Processing time</h2>
               <p>
-                Paddle returns approved refunds to the original payment method where possible.
-                Processing time depends on the payment method and financial institution. Eligible
-                statutory withdrawals are handled within the time required by applicable law.
+                Approved refunds are returned through the available payment channel where possible.
+                Processing time depends on Bakong, the participating banks, and the financial
+                institution. Eligible statutory withdrawals are handled within the time required by applicable law.
               </p>
             </section>
 
             <section>
               <h2>7. Chargebacks</h2>
               <p>
-                Please contact Paddle or our billing team before starting a chargeback so we have an
+                Please contact our billing team before starting a payment dispute so we have an
                 opportunity to resolve the issue. Fraudulent or abusive refund or chargeback activity
                 may result in account restriction, without limiting your lawful rights.
               </p>
@@ -445,7 +443,7 @@
               <h2>8. Policy changes and contact</h2>
               <p>
                 We may update this policy for future purchases. The version in effect at the time of
-                your transaction will be considered alongside applicable Paddle terms and law. For
+                your transaction will be considered alongside applicable payment-provider terms and law. For
                 billing questions, email
                 <a href="mailto:billing@motify.video">billing&#64;motify.video</a>.
               </p>

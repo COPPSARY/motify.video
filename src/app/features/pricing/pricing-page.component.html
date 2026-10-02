@@ -2,7 +2,7 @@
   <app-navbar />
   <main class="pricing-page" aria-labelledby="pricing-title">
     <section class="pricing-page__intro">
-      <h1 id="pricing-title">Plans and Pricing</h1>
+      <h1 id="pricing-title">Pricing</h1>
     </section>
 
     @if (subscription()?.status === 'active') {
@@ -14,16 +14,29 @@
           <span>Active through {{ subscriptionEnd() }}</span>
         </div>
       </aside>
+    } @else if (subscription()?.status === 'expired') {
+      <aside class="subscription-banner subscription-banner--expired" aria-label="Expired subscription">
+        <span class="subscription-banner__status" aria-hidden="true"></span>
+        <div>
+          <p>Plan expired</p>
+          <strong>{{ plan(subscription()!.plan!).name }}</strong>
+          <span>Expired {{ subscriptionEnd() }}. Renew below to restore plan access.</span>
+        </div>
+      </aside>
     }
 
     <section class="pricing-grid" aria-label="Motify pricing plans">
       <article class="pricing-card">
         <div class="pricing-card__header">
           <div class="pricing-card__plan-row">
-            <h2 class="pricing-card__plan">Starter</h2>
+            <h2 class="pricing-card__plan">{{ plan('starter').name }}</h2>
           </div>
-          <p class="pricing-card__price"><strong>${{ plan('starter').price }}</strong><span>/ 30 days</span></p>
-          <p class="pricing-card__credits"><strong>{{ plan('starter').credits }} credits</strong><span>About 5 videos</span></p>
+          @if (planCatalogStatus() === 'ready') {
+            <p class="pricing-card__price"><strong>{{ formatMoney(plan('starter').price, plan('starter').currency) }}</strong><span>/ {{ plan('starter').periodDays }} days</span></p>
+            <p class="pricing-card__credits"><strong>{{ plan('starter').credits }} credits</strong><span>About {{ estimatedVideos('starter') }} complete videos</span></p>
+          } @else {
+            <p class="pricing-card__price"><strong>—</strong><span>{{ planCatalogMessage() }}</span></p>
+          }
         </div>
         <p class="pricing-card__description">Perfect for founders getting started with product video.</p>
         <div class="pricing-card__features">
@@ -40,7 +53,7 @@
           class="pricing-card__button"
           type="button"
           [class.pricing-card__button--current]="isActivePlan('starter')"
-          [disabled]="initializing() || checkoutState() === 'creating'"
+          [disabled]="planCatalogStatus() !== 'ready' || initializing() || checkoutState() === 'creating'"
           (click)="beginCheckout('starter')"
         >{{ planButtonLabel('starter') }}</button>
       </article>
@@ -48,11 +61,15 @@
       <article class="pricing-card pricing-card--featured">
         <div class="pricing-card__header">
           <div class="pricing-card__plan-row">
-            <h2 class="pricing-card__plan">Pro</h2>
+            <h2 class="pricing-card__plan">{{ plan('pro').name }}</h2>
             <span class="pricing-card__badge">Recommended</span>
           </div>
-          <p class="pricing-card__price"><strong>${{ plan('pro').price }}</strong><span>/ 30 days</span></p>
-          <p class="pricing-card__credits"><strong>{{ plan('pro').credits }} credits</strong><span>About 10 videos</span></p>
+          @if (planCatalogStatus() === 'ready') {
+            <p class="pricing-card__price"><strong>{{ formatMoney(plan('pro').price, plan('pro').currency) }}</strong><span>/ {{ plan('pro').periodDays }} days</span></p>
+            <p class="pricing-card__credits"><strong>{{ plan('pro').credits }} credits</strong><span>About {{ estimatedVideos('pro') }} complete videos</span></p>
+          } @else {
+            <p class="pricing-card__price"><strong>—</strong><span>{{ planCatalogMessage() }}</span></p>
+          }
         </div>
         <p class="pricing-card__description">Built for growing businesses and founders creating videos regularly.</p>
         <div class="pricing-card__features">
@@ -68,7 +85,7 @@
           class="pricing-card__button"
           type="button"
           [class.pricing-card__button--current]="isActivePlan('pro')"
-          [disabled]="initializing() || checkoutState() === 'creating'"
+          [disabled]="planCatalogStatus() !== 'ready' || initializing() || checkoutState() === 'creating'"
           (click)="beginCheckout('pro')"
         >{{ planButtonLabel('pro') }}</button>
       </article>
@@ -76,10 +93,14 @@
       <article class="pricing-card pricing-card--coming-soon">
         <div class="pricing-card__header">
           <div class="pricing-card__plan-row">
-            <h2 class="pricing-card__plan">Studio</h2>
+            <h2 class="pricing-card__plan">{{ plan('studio').name }}</h2>
           </div>
-          <p class="pricing-card__price"><strong>${{ plan('studio').price }}</strong><span>/ 30 days</span></p>
-          <p class="pricing-card__credits"><strong>{{ plan('studio').credits }} credits</strong><span>About 25 videos</span></p>
+          @if (planCatalogStatus() === 'ready') {
+            <p class="pricing-card__price"><strong>{{ formatMoney(plan('studio').price, plan('studio').currency) }}</strong><span>/ {{ plan('studio').periodDays }} days</span></p>
+            <p class="pricing-card__credits"><strong>{{ plan('studio').credits }} credits</strong><span>About {{ estimatedVideos('studio') }} complete videos</span></p>
+          } @else {
+            <p class="pricing-card__price"><strong>—</strong><span>{{ planCatalogMessage() }}</span></p>
+          }
         </div>
         <p class="pricing-card__description">For teams producing product content at scale.</p>
         <div class="pricing-card__features">
@@ -91,17 +112,48 @@
             <li>Better AI models</li>
           </ul>
         </div>
-        @if (plan('studio').available) {
-          <button class="pricing-card__button" type="button" (click)="beginCheckout('studio')">Select plan</button>
+        @if (planCatalogStatus() !== 'ready') {
+          <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">{{ planCatalogMessage() }}</span>
+        } @else if (plan('studio').available) {
+          <button class="pricing-card__button" type="button" (click)="beginCheckout('studio')">{{ planButtonLabel('studio') }}</button>
         } @else {
           <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">Coming soon</span>
         }
       </article>
     </section>
 
+    <p class="pricing-disclaimer">
+      A typical AI generation uses about 10 credits; a complete video commonly takes about three generations. Actual usage varies.
+      Plan credits expire on their individual expiry dates and do not roll over.
+      <a routerLink="/terms">Terms &amp; Conditions apply.</a>
+    </p>
+
+    @if (packCatalogStatus() === 'ready' && creditPacks().length) {
+      <section class="credit-packs" aria-labelledby="credit-packs-title">
+        <h2 class="credit-packs__title" id="credit-packs-title">Credit packs</h2>
+        <div class="credit-packs__grid">
+          @for (pack of creditPacks(); track pack.id) {
+            <article class="credit-pack">
+              <div class="pricing-card__header">
+                <div class="pricing-card__plan-row">
+                  <h3 class="pricing-card__plan">{{ pack.credits }} credits</h3>
+                </div>
+                <p class="pricing-card__price">
+                  <strong>{{ formatMoney(pack.price, pack.currency) }}</strong>
+                </p>
+              </div>
+              <button class="pricing-card__button" type="button" (click)="beginCreditPackCheckout(pack)">
+                Buy now
+              </button>
+            </article>
+          }
+        </div>
+      </section>
+    }
+
     <aside class="payment-note" aria-label="Accepted payment method">
       <img src="/1607185380032.png" alt="" width="32" height="32" aria-hidden="true" />
-      <span>We accept <strong>Bakong KHQR</strong></span>
+      <span>We accept <strong>Bakong KHQR</strong> for one-time payments</span>
     </aside>
 
     @if (!initializing() && !user()) {
@@ -119,11 +171,19 @@
       <div class="pricing-faq__list">
         <details>
           <summary>How many credits does a video use?</summary>
-          <p>Credit use depends on the length and complexity of your project. The video counts above are practical estimates to help you compare plans.</p>
+          <p>A typical generation uses about 10 credits, and a complete video commonly takes around three generations. Length, complexity, revisions, and model usage affect the final cost.</p>
+        </details>
+        <details>
+          <summary>Do credits expire?</summary>
+          <p>Plan credits expire on the date attached to each plan grant. Welcome credits and separately purchased credit packs do not expire. Motify spends credits with the nearest expiry first.</p>
         </details>
         <details>
           <summary>Can I change my plan later?</summary>
-          <p>Yes. Start with the plan that fits your current workflow and upgrade as your content needs grow.</p>
+          <p>Yes. Renewing the same active plan extends it. Switching to a different plan starts the new plan immediately, so remaining access time on the previous plan is not carried over.</p>
+        </details>
+        <details>
+          <summary>Does my plan renew automatically?</summary>
+          <p>No. Bakong KHQR purchases are one-time payments. Renew by creating a new checkout when you want another plan period.</p>
         </details>
         <details>
           <summary>Can I use the videos commercially?</summary>
@@ -147,33 +207,45 @@
       >
         <button class="checkout-dialog__close" type="button" aria-label="Close checkout" (click)="closeCheckout()">×</button>
 
-        @if (checkoutState() === 'confirming') {
+        @if (checkoutState() === 'confirming' && selection(); as selected) {
           <form class="checkout-confirm" (submit)="$event.preventDefault(); confirmCheckout()">
-            <h2 id="checkout-title">Review your plan</h2>
-            <p>Confirm your plan and choose how you’d like to pay.</p>
+            <h2 id="checkout-title">Review your purchase</h2>
+            <p>Confirm what you’re buying and where the plan should apply.</p>
             <div class="checkout-confirm__plan">
               <div class="checkout-confirm__heading">
-                <strong>{{ plan(payment()!.plan).name }}</strong>
-                <span>${{ plan(payment()!.plan).price }} USD</span>
+                <strong>{{ selected.label }}</strong>
+                <span>{{ formatMoney(selected.amount, selected.currency) }}</span>
               </div>
               <dl>
-                <div><dt>Credits</dt><dd>{{ plan(payment()!.plan).credits }}</dd></div>
-                <div><dt>Access</dt><dd>{{ plan(payment()!.plan).periodDays }} days</dd></div>
+                <div><dt>Credits added</dt><dd>{{ selected.credits }}</dd></div>
+                @if (selected.periodDays !== null) {
+                  <div><dt>Plan access</dt><dd>{{ selected.periodDays }} days</dd></div>
+                  <div><dt>Credit expiry</dt><dd>At this plan grant’s expiry date</dd></div>
+                } @else {
+                  <div><dt>Credit expiry</dt><dd>Never</dd></div>
+                }
               </dl>
             </div>
+
+            <label class="checkout-workspace">
+              <span>{{ selected.kind === 'PLAN' ? 'Workspace receiving the plan' : 'Account workspace' }}</span>
+              <select (change)="selectWorkspace($event)">
+                @for (workspaceOption of eligibleWorkspaces(); track workspaceOption.id) {
+                  <option [value]="workspaceOption.id" [selected]="workspace()?.id === workspaceOption.id">
+                    {{ workspaceOption.name }}{{ workspaceOption.kind === 'personal' ? ' — Personal' : ' — Team' }}
+                  </option>
+                }
+              </select>
+            </label>
+
+            @if (purchaseChangesActivePlan()) {
+              <p class="checkout-warning">Switching plans activates the new plan immediately. Remaining access time on your current plan will not carry over; existing credit grants keep their own expiry dates.</p>
+            }
+
             <fieldset class="payment-methods">
-              <legend>Choose a payment method</legend>
-              <label
-                class="payment-method"
-                [class.payment-method--selected]="selectedPaymentMethod() === 'bakong-khqr'"
-              >
-                <input
-                  type="radio"
-                  name="payment-method"
-                  value="bakong-khqr"
-                  [checked]="selectedPaymentMethod() === 'bakong-khqr'"
-                  (change)="selectPaymentMethod('bakong-khqr')"
-                />
+              <legend>Payment method</legend>
+              <label class="payment-method payment-method--selected">
+                <input type="radio" name="payment-method" value="bakong-khqr" checked />
                 <span class="payment-method__brand payment-method__brand--khqr" aria-hidden="true">
                   <img src="/assets/khqr/khqr-logo-white.svg" alt="" width="58" height="14" />
                 </span>
@@ -183,7 +255,6 @@
                 </span>
                 <span class="payment-method__check" aria-hidden="true">✓</span>
               </label>
-              <p class="payment-methods__future">Visa, Mastercard, and more payment methods are coming soon.</p>
             </fieldset>
             <p class="checkout-confirm__note">
               This is a <strong>one-time payment</strong> and <strong>will not renew automatically</strong>.
@@ -202,7 +273,7 @@
           </div>
         }
 
-        @if (checkoutState() === 'pending') {
+        @if (checkoutState() === 'pending' && payment(); as pendingPayment) {
           <div class="khqr-checkout" aria-live="polite">
             <h2 id="checkout-title" class="sr-only">Pay with Bakong KHQR</h2>
             <div class="khqr-card">
@@ -210,11 +281,11 @@
                 <img src="/assets/khqr/khqr-logo-white.svg" alt="KHQR" width="166" height="40" />
               </header>
               <div class="khqr-card__payment">
-                <p>Motify</p>
+                <p>Motify · {{ pendingPayment.credits }} credits</p>
                 <div>
-                  @if (payment()!.currency === 'USD') { <span class="khqr-card__symbol">$</span> }
-                  <strong>{{ payment()!.amount }}</strong>
-                  @if (payment()!.currency === 'KHR') { <span>KHR</span> }
+                  @if (pendingPayment.currency === 'USD') { <span class="khqr-card__symbol">$</span> }
+                  <strong>{{ pendingPayment.amount }}</strong>
+                  @if (pendingPayment.currency === 'KHR') { <span>KHR</span> }
                 </div>
               </div>
               <div class="khqr-card__divider" aria-hidden="true"></div>
@@ -231,24 +302,40 @@
               <div>
                 <strong>{{ secondsRemaining() > 0 ? 'Waiting for payment' : 'Checking payment' }}</strong>
                 <span>
-                @if (secondsRemaining() > 0) {
-                    Expires in {{ countdownLabel() }}
-                } @else {
-                    Confirming the final status…
-                }
+                  @if (secondsRemaining() > 0) { Expires in {{ countdownLabel() }} }
+                  @else { Confirming the final status… }
                 </span>
               </div>
             </div>
             @if (pollingNotice()) { <p class="checkout-notice">{{ pollingNotice() }}</p> }
+            @if (pendingPayment.mode === 'sandbox') {
+              <div class="sandbox-controls" aria-label="Sandbox payment controls">
+                <strong>Development sandbox</strong>
+                <div>
+                  <button type="button" [disabled]="simulating()" (click)="simulateSandbox('paid')">Paid</button>
+                  <button type="button" [disabled]="simulating()" (click)="simulateSandbox('failed')">Failed</button>
+                  <button type="button" [disabled]="simulating()" (click)="simulateSandbox('wrong_amount')">Wrong amount</button>
+                  <button type="button" [disabled]="simulating()" (click)="simulateSandbox('expired')">Expired</button>
+                </div>
+              </div>
+            }
             <p class="khqr-checkout__help">Scan with Bakong or any banking app that supports KHQR</p>
           </div>
         }
 
-        @if (checkoutState() === 'paid') {
+        @if (checkoutState() === 'paid' && payment(); as paidPayment) {
           <div class="checkout-state checkout-state--success" aria-live="polite">
             <span class="checkout-state__icon" aria-hidden="true">✓</span>
-            <h2 id="checkout-title">Your {{ plan(payment()!.plan).name }} plan is active</h2>
-            <p>Bakong confirmed your payment. Your workspace is covered through {{ subscriptionEnd() }}.</p>
+            @if (paidPayment.kind === 'PLAN') {
+              <h2 id="checkout-title">Your {{ paymentItemLabel() }} plan is active</h2>
+              <p>Bakong confirmed your payment and added {{ paidPayment.credits }} credits. Your workspace is covered through {{ subscriptionEnd() }}.</p>
+            } @else {
+              <h2 id="checkout-title">{{ paidPayment.credits }} credits added</h2>
+              <p>Bakong confirmed your payment. These purchased credits do not expire.</p>
+            }
+            @if (paidPayment.creditBalance !== null && paidPayment.creditBalance !== undefined) {
+              <p class="checkout-balance">New balance: <strong>{{ paidPayment.creditBalance }} credits</strong></p>
+            }
             <button class="checkout-primary" type="button" (click)="closeCheckout()">Done</button>
           </div>
         }
@@ -257,7 +344,7 @@
           <div class="checkout-state" aria-live="polite">
             <span class="checkout-state__icon checkout-state__icon--muted" aria-hidden="true">!</span>
             <h2 id="checkout-title">{{ checkoutState() === 'expired' ? 'This QR code expired' : 'The payment could not be verified' }}</h2>
-            <p>No plan was activated. Create a fresh QR code when you are ready to try again.</p>
+            <p>No purchase was activated. Create a fresh QR code when you are ready to try again.</p>
             <button class="checkout-primary" type="button" (click)="retryCheckout()">Generate a new QR</button>
           </div>
         }

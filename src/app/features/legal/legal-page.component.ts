@@ -19,7 +19,7 @@ const LEGAL_PAGE_META: Record<LegalDocument, { title: string; description: strin
   },
   refund: {
     title: 'Refund Policy | Motify',
-    description: 'Read the Motify refund, subscription cancellation, and Paddle payment support policy.',
+    description: 'Read the Motify refund and Bakong KHQR payment support policy.',
     path: '/refund-policy',
   },
 };
@@ -34,7 +34,7 @@ const LEGAL_PAGE_META: Record<LegalDocument, { title: string; description: strin
 })
 export class LegalPageComponent {
   readonly documentType = inject(ActivatedRoute).snapshot.data['document'] as LegalDocument;
-  readonly lastUpdated = 'September 29, 2026';
+  readonly lastUpdated = 'October 2, 2026';
 
   constructor() {
     inject(SeoService).apply(LEGAL_PAGE_META[this.documentType]);

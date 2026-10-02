@@ -1,49 +1,72 @@
 <main class="login-page">
-  <div class="login-page__orb login-page__orb--pink" aria-hidden="true"></div>
-  <div class="login-page__orb login-page__orb--blue" aria-hidden="true"></div>
-  <div class="login-page__orb login-page__orb--green" aria-hidden="true"></div>
   <a class="login-page__brand" routerLink="/" aria-label="Motify home">
-    <img src="logo.svg" alt="" width="34" height="34" />
+    <img src="logo.svg" alt="" width="30" height="30" />
     <span>Motify</span>
   </a>
   <section class="login-card" aria-labelledby="login-title">
-    <div class="login-card__mark"><img src="logo.svg" alt="" width="54" height="54" /></div>
+    <a class="login-card__skip" routerLink="/">Back</a>
+    <div class="login-card__mark"><img src="logo.svg" alt="" width="30" height="30" /></div>
 
     @if (verificationSentTo(); as address) {
-      <h1 id="login-title">Check your inbox.</h1>
-      <p class="login-card__subtitle">
-        We sent a verification link to <strong>{{ address }}</strong>. Open it to finish setting up
-        your account — you will land back here signed in.
-      </p>
-      <button class="login-switch__button" type="button" (click)="setMode('signin')">
-        Back to log in
-      </button>
+      <header class="login-card__head">
+        <h1 id="login-title">Check your inbox</h1>
+        <p>
+          We sent a verification link to <strong>{{ address }}</strong>. Open it to finish setting up
+          your account — you'll land back here signed in.
+        </p>
+      </header>
+      <button class="login-card__button" type="button" (click)="setMode('signin')">Back to log in</button>
     } @else {
-      <h1 id="login-title">{{ hasPendingPrompt ? 'Your prompt is ready.' : mode() === 'signup' ? 'Create your account.' : 'Log in to Motify.' }}</h1>
-      <p class="login-card__subtitle">{{ hasPendingPrompt ? 'Sign in or create an account to continue in the editor.' : 'Start turning your ideas into polished motion.' }}</p>
+      <header class="login-card__head">
+        <small>{{ mode() === 'signup' ? 'Welcome to Motify' : 'Welcome back' }}</small>
+        <h1 id="login-title">
+          {{ hasPendingPrompt ? 'Your prompt is waiting' : mode() === 'signup' ? 'Create your account' : 'Log in to your account' }}
+        </h1>
+        @if (hasPendingPrompt) {
+          <p>Log in or create an account and Tiffy starts on it right away.</p>
+        }
+      </header>
 
-      <div class="login-switch" role="tablist" aria-label="Account">
-        <button
-          class="login-switch__tab"
-          type="button"
-          role="tab"
-          [class.login-switch__tab--active]="mode() === 'signin'"
-          [attr.aria-selected]="mode() === 'signin'"
-          (click)="setMode('signin')"
-        >
-          Log in
+      <form class="login-form" (ngSubmit)="continueToMotify()">
+        <label class="login-field" for="login-email">
+          <span>Email</span>
+          <input id="login-email" name="email" type="email" placeholder="you@studio.com" autocomplete="email" [(ngModel)]="email" required />
+        </label>
+        <label class="login-field" for="login-password">
+          <span>Password</span>
+          <span class="login-field__password">
+            <input
+              id="login-password"
+              name="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              [placeholder]="mode() === 'signup' ? 'At least 8 characters' : 'Your password'"
+              [autocomplete]="mode() === 'signup' ? 'new-password' : 'current-password'"
+              minlength="8"
+              [(ngModel)]="password"
+              required
+            />
+            <button
+              class="login-field__reveal"
+              type="button"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+              [attr.aria-pressed]="showPassword()"
+              (click)="showPassword.set(!showPassword())"
+            >
+              @if (showPassword()) { <svg lucideEyeOff aria-hidden="true"></svg> } @else { <svg lucideEye aria-hidden="true"></svg> }
+            </button>
+          </span>
+        </label>
+        @if (error()) { <p class="login-form__error" role="alert">{{ error() }}</p> }
+        <button class="login-card__button" type="submit" [disabled]="loading()">
+          @if (mode() === 'signup') {
+            {{ loading() ? 'Creating account…' : 'Create account' }}
+          } @else {
+            {{ loading() ? 'Logging in…' : 'Log in' }}
+          }
         </button>
-        <button
-          class="login-switch__tab"
-          type="button"
-          role="tab"
-          [class.login-switch__tab--active]="mode() === 'signup'"
-          [attr.aria-selected]="mode() === 'signup'"
-          (click)="setMode('signup')"
-        >
-          Sign up
-        </button>
-      </div>
+      </form>
+
+      <div class="login-divider"><span>Or</span></div>
 
       <button class="login-google" type="button" (click)="loginWithGoogle()">
         <svg class="login-google__logo" viewBox="0 0 24 24" aria-hidden="true">
@@ -52,33 +75,16 @@
           <path fill="#FBBC05" d="M6.39 13.91A6 6 0 0 1 6.08 12c0-.66.11-1.3.31-1.91V7.5H3.06A10 10 0 0 0 2 12c0 1.61.39 3.13 1.06 4.5l3.33-2.59Z" />
           <path fill="#EA4335" d="M12 5.96c1.47 0 2.79.51 3.83 1.51l2.87-2.87C16.96 2.96 14.7 2 12 2a9.98 9.98 0 0 0-8.94 5.5l3.33 2.59C7.18 7.72 9.39 5.96 12 5.96Z" />
         </svg>
-        Continue with Google
+        {{ mode() === 'signup' ? 'Sign up with Google' : 'Log in with Google' }}
       </button>
-      <div class="login-divider"><span>or</span></div>
-      <form class="login-form" (ngSubmit)="continueToMotify()">
-        <label for="login-email">Email</label>
-        <input id="login-email" name="email" type="email" placeholder="Email" autocomplete="email" [(ngModel)]="email" required />
-        <label for="login-password">Password</label>
-        <input
-          id="login-password"
-          name="password"
-          type="password"
-          [placeholder]="mode() === 'signup' ? 'At least 8 characters' : 'Password'"
-          [autocomplete]="mode() === 'signup' ? 'new-password' : 'current-password'"
-          minlength="8"
-          [(ngModel)]="password"
-          required
-        />
-        @if (error()) { <p class="login-form__error" role="alert">{{ error() }}</p> }
-        <button class="login-card__button" type="submit" [disabled]="loading()">
-          @if (mode() === 'signup') {
-            {{ loading() ? 'Creating account…' : 'Create account' }}
-          } @else {
-            {{ loading() ? 'Signing in…' : 'Sign in' }}
-          }
-          <svg lucideArrowRight aria-hidden="true"></svg>
-        </button>
-      </form>
+
+      <p class="login-switch">
+        @if (mode() === 'signup') {
+          Already have an account? <button type="button" (click)="setMode('signin')">Log in</button>
+        } @else {
+          Don't have an account? <button type="button" (click)="setMode('signup')">Create account</button>
+        }
+      </p>
     }
   </section>
 </main>

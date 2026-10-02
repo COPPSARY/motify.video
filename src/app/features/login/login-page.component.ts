@@ -2,7 +2,7 @@ import { afterNextRender, ChangeDetectionStrategy, Component, inject, signal } f
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { LucideArrowRight } from '@lucide/angular';
+import { LucideEye, LucideEyeOff } from '@lucide/angular';
 import { AuthService } from '../../shared/services/auth.service';
 import { SeoService } from '../../shared/services/seo.service';
 import { editorUrlForReturnPath } from '../../shared/config/runtime-config';
@@ -12,7 +12,7 @@ type AuthMode = 'signin' | 'signup';
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [FormsModule, RouterLink, LucideArrowRight],
+  imports: [FormsModule, RouterLink, LucideEye, LucideEyeOff],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
@@ -32,6 +32,7 @@ export class LoginPageComponent {
   );
   /** Set once the verification mail is on its way, which replaces the form. */
   readonly verificationSentTo = signal('');
+  readonly showPassword = signal(false);
   email = '';
   password = '';
 
@@ -113,7 +114,7 @@ export class LoginPageComponent {
     // failure: send the user to the sign-in tab rather than a dead end.
     if (code?.code === 'ACCOUNT_ALREADY_EXISTS') {
       this.mode.set('signin');
-      return 'That account already exists. Sign in instead.';
+      return 'That account already exists. Log in instead.';
     }
     if (code?.message) return code.message;
     return this.mode() === 'signup'

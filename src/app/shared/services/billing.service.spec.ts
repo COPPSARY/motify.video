@@ -30,14 +30,42 @@ describe('BillingService', () => {
     await expectAsync(result).toBeResolvedTo([jasmine.objectContaining({ id: 'starter', price: 10 })]);
   });
 
-  it('creates a credentialed checkout with the session CSRF token', async () => {
-    const result = billing.createCheckout('workspace-1', 'pro', 'csrf-token');
+  it('loads the public credit-pack catalog from the backend', async () => {
+    const result = billing.listCreditPacks();
+    const request = http.expectOne('https://api.example.test/v1/billing/credit-packs');
+    expect(request.request.method).toBe('GET');
+    expect(request.request.withCredentials).toBeFalse();
+    request.flush({ data: [{ id: 'credits-65', price: 5, currency: 'USD', credits: 65 }] });
+    await expectAsync(result).toBeResolvedTo([jasmine.objectContaining({ id: 'credits-65', credits: 65 })]);
+  });
+
+  it('creates a credentialed plan checkout with the session CSRF token', async () => {
+    const result = billing.createCheckout('workspace-1', { plan: 'pro' }, 'csrf-token');
     const request = http.expectOne('https://api.example.test/v1/workspaces/workspace-1/billing/payments');
     expect(request.request.method).toBe('POST');
     expect(request.request.withCredentials).toBeTrue();
     expect(request.request.headers.get('X-CSRF-Token')).toBe('csrf-token');
     expect(request.request.body).toEqual({ plan: 'pro' });
-    request.flush({ data: { id: 'payment-1', workspaceId: 'workspace-1', plan: 'pro', amount: 20, currency: 'USD', billNumber: 'MTF-TEST', status: 'PENDING', qr: '000201', expiresAt: new Date().toISOString(), paidAt: null, createdAt: new Date().toISOString() } });
+    request.flush({ data: { id: 'payment-1', workspaceId: 'workspace-1', mode: 'live', kind: 'PLAN', plan: 'pro', creditPack: null, credits: 300, amount: 20, currency: 'USD', billNumber: 'MTF-TEST', status: 'PENDING', qr: '000201', expiresAt: new Date().toISOString(), paidAt: null, createdAt: new Date().toISOString() } });
     await expectAsync(result).toBeResolvedTo(jasmine.objectContaining({ id: 'payment-1', status: 'PENDING' }));
+  });
+
+  it('creates a credit-pack checkout using the backend pack id', async () => {
+    const result = billing.createCheckout('workspace/one', { creditPack: 'credits-65' }, 'csrf-token');
+    const request = http.expectOne('https://api.example.test/v1/workspaces/workspace%2Fone/billing/payments');
+    expect(request.request.body).toEqual({ creditPack: 'credits-65' });
+    request.flush({ data: { id: 'payment-2', workspaceId: 'workspace/one', mode: 'live', kind: 'CREDIT_PACK', plan: null, creditPack: 'credits-65', credits: 65, amount: 5, currency: 'USD', billNumber: 'MTF-PACK', status: 'PENDING', qr: '000201', expiresAt: new Date().toISOString(), paidAt: null, createdAt: new Date().toISOString() } });
+    await expectAsync(result).toBeResolvedTo(jasmine.objectContaining({ kind: 'CREDIT_PACK', credits: 65 }));
+  });
+
+  it('settles a sandbox checkout with CSRF protection', async () => {
+    const result = billing.simulatePayment('payment/1', 'paid', 'csrf-token');
+    const request = http.expectOne('https://api.example.test/v1/payments/payment%2F1/sandbox');
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual({ outcome: 'paid' });
+    expect(request.request.headers.get('X-CSRF-Token')).toBe('csrf-token');
+    request.flush({ data: { id: 'payment/1', workspaceId: 'workspace-1', mode: 'sandbox', kind: 'PLAN', plan: 'pro', creditPack: null, credits: 300, amount: 20, currency: 'USD', billNumber: 'MTF-TEST', status: 'PAID', qr: null, expiresAt: new Date().toISOString(), paidAt: new Date().toISOString(), createdAt: new Date().toISOString(), subscription: { status: 'active', plan: 'pro', currentPeriodStart: new Date().toISOString(), currentPeriodEnd: new Date().toISOString() }, creditBalance: 350 } });
+    await expectAsync(result).toBeResolvedTo(jasmine.objectContaining({ mode: 'sandbox', status: 'PAID', creditBalance: 350 }));
+    expect(billing.subscription()?.plan).toBe('pro');
   });
 });

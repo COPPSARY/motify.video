@@ -4,7 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 
 export const SITE_ORIGIN = 'https://motify.video';
 
-const DEFAULT_IMAGE = `${SITE_ORIGIN}/social-preview.png`;
+const DEFAULT_IMAGE = `${SITE_ORIGIN}/social-preview.jpg`;
 const JSON_LD_ID = 'motify-page-jsonld';
 
 export interface PageSeo {

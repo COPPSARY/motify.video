@@ -38,7 +38,6 @@
   display: grid; width: 3.5rem; height: 3.5rem; place-items: center; align-self: center;
   border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 0.9rem; background: #141415;
 }
-.login-card__mark img { border-radius: 0.5rem; }
 
 .login-card__head { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; text-align: center; }
 .login-card__head small { color: #9a9aa1; font-size: 0.9rem; font-weight: 500; }

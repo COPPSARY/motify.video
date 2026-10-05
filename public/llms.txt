@@ -1,0 +1,38 @@
+# Motify
+
+> Motify is a cloud AI video generator for SaaS marketing. Describe a product or paste a product link, and Motify generates an editable explainer, launch, demo, or promotional video that you can refine by prompting or editing the timeline, then export.
+
+Motify runs in the browser at https://app.motify.video. It is built for founders, marketers, and product teams who need product videos without motion-design experience.
+
+Key facts:
+
+- Videos it makes: SaaS explainer videos, product launch videos, feature announcements, product demos, motion ads, promotional videos, and short-form social videos.
+- How it works: start from a prompt or product link. An AI pipeline understands the intent, plans scenes and pacing as a creative director, sharpens the messaging (for example Problem → Agitation → Solution), generates the animation, and runs a quality check before returning it.
+- Everything stays editable: change the hook, pacing, scenes, voiceover, or visual direction by prompting, or edit scenes, timing, and transitions directly in the timeline editor. Manual timeline and minor text edits do not use credits.
+- Brand: a Brand DNA / brand kit (typeface, voice, logo) is applied to every scene.
+- Output: HD MP4 exports in vertical short-form and wider formats. Finished videos can be used commercially, including paid ads.
+- Pricing: credit-based plans (Starter, Pro, Studio). A typical AI generation uses about 10 credits; a complete video commonly takes about three generations. Free to start, no card required. Payments are one-time via Bakong KHQR and do not auto-renew.
+- Built by COPPSARY.
+
+## Product
+
+- [Home](https://motify.video/): What Motify does, the AI pipeline, and FAQ
+- [Pricing](https://motify.video/pricing): Plans, what each includes, and how credits work
+- [Open the editor](https://app.motify.video/): Sign up and create a video
+
+## Docs
+
+- [Documentation](https://motify.mintlify.app/): Guides and API reference
+
+## Company
+
+- [About](https://motify.video/about): Who builds Motify
+- Contact: hello@motify.video · Support: support@motify.video · Billing: billing@motify.video
+
+## Optional
+
+- [Terms & Conditions](https://motify.video/terms)
+- [Privacy Policy](https://motify.video/privacy)
+- [Refund Policy](https://motify.video/refund-policy)
+- [Product Hunt](https://www.producthunt.com/products/motify)
+- [GitHub](https://github.com/COPPSARY/Motify)

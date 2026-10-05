@@ -90,7 +90,7 @@ export class LandingPageComponent implements OnDestroy {
         applicationCategory: 'MultimediaApplication',
         operatingSystem: 'macOS, Windows, Linux',
         url: 'https://motify.video/',
-        image: 'https://motify.video/social-preview.jpg',
+        image: 'https://motify.video/social-preview.jpg?v=2',
         description:
           'Motify is an AI explainer and SaaS launch video generator for product demos, promotional videos, feature announcements, and editable motion graphics.',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },

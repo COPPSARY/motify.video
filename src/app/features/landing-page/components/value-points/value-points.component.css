@@ -9,7 +9,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   width: 100%;
   gap: 0.65rem;
-  margin-top: 2.5rem;
+  margin-top: 1rem;
 }
 
 .problem__point {
@@ -19,9 +19,9 @@
   height: 27rem;
   padding: 1.75rem 0 0 1.75rem;
   overflow: hidden;
-  border: 1px solid #2f293a;
+  border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 1.15rem;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(14, 17, 23, 0.86));
+  background: #111216;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
@@ -30,6 +30,10 @@
   padding-right: 1.75rem;
   color: var(--motify-text-primary);
   font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+}
+
+.problem__point h3 span {
+  color: var(--motify-cobalt);
 }
 
 .problem__point > p {
@@ -45,7 +49,7 @@
   flex: 1;
   margin: 1.4rem 0 0 0.25rem;
   padding: 0.7rem 0 0 0.7rem;
-  border: 1px solid #2f293a;
+  border: 1px solid rgba(255, 255, 255, 0.24);
   border-right: 0;
   border-bottom: 0;
   border-top-left-radius: 1.3rem;
@@ -62,7 +66,7 @@
   border-right: 0;
   border-bottom: 0;
   border-top-left-radius: 0.8rem;
-  background: #0c0d11;
+  background: #101115;
   color: var(--motify-text-secondary);
   font-size: 0.8rem;
 }
@@ -87,9 +91,9 @@
 
 .problem__prompt {
   padding: 0.65rem 0.75rem;
-  border: 1px solid rgba(138, 180, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0.6rem;
-  background: rgba(138, 180, 255, 0.06);
+  background: rgba(255, 255, 255, 0.025);
   color: var(--motify-text-primary);
 }
 
@@ -99,7 +103,7 @@
   height: 0.9em;
   margin-left: 0.15rem;
   vertical-align: -0.1em;
-  background: var(--motify-logo-start);
+  background: var(--motify-white);
   animation: problem-caret 1s steps(1) infinite;
 }
 
@@ -160,8 +164,8 @@
   border-radius: 0.3rem;
 }
 
-.problem__clip--blue { background: rgba(138, 180, 255, 0.55); }
-.problem__clip--green { background: rgba(124, 247, 197, 0.45); }
+.problem__clip--blue { background: rgba(255, 255, 255, 0.28); }
+.problem__clip--green { background: rgba(255, 255, 255, 0.45); }
 .problem__clip--muted { background: rgba(245, 247, 250, 0.14); }
 
 .problem__playhead {
@@ -201,7 +205,7 @@
   inset: 0 auto 0 0;
   width: var(--value);
   border-radius: inherit;
-  background: var(--motify-logo-start);
+  background: rgba(255, 255, 255, 0.68);
 }
 
 .problem__slider span::after {

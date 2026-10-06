@@ -1,8 +1,6 @@
 .legal-shell {
   min-height: 100svh;
-  background:
-    radial-gradient(circle at 82% 9%, rgba(138, 180, 255, 0.1), transparent 30rem),
-    var(--motify-bg);
+  background: var(--motify-bg);
   color: var(--motify-text-primary);
 }
 
@@ -170,7 +168,7 @@
 
 .legal-document a {
   color: var(--motify-text-primary);
-  text-decoration-color: rgba(124, 247, 197, 0.45);
+  text-decoration-color: rgba(255, 255, 255, 0.45);
   text-underline-offset: 0.18em;
 }
 
@@ -182,7 +180,7 @@
   margin: 1.1rem 0 1.25rem;
   padding: 1.15rem 1.25rem;
   border-left: 2px solid var(--motify-logo-end);
-  background: rgba(124, 247, 197, 0.055);
+  background: rgba(255, 255, 255, 0.055);
   color: var(--motify-text-primary);
   line-height: 1.65;
 }

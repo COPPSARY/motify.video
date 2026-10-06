@@ -8,14 +8,13 @@
 .resources__inner {
   display: grid;
   grid-template-columns: 0.7fr 1fr;
-  gap: 2rem;
+  gap: var(--motify-heading-content-gap);
   align-items: start;
   width: min(70rem, 100%);
 }
 
 .resources__copy {
-  position: sticky;
-  top: 7rem;
+  position: static;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -32,7 +31,7 @@
 
 .resources__copy h2 {
   margin: 0;
-  font-size: 2.55rem;
+  font-size: var(--motify-heading-section);
   line-height: 1.03;
   letter-spacing: 0;
 }
@@ -90,12 +89,11 @@
 .resources__composer {
   width: min(100%, 48rem);
   padding: 0.85rem 0.85rem 0.7rem;
-  border: 1px solid rgba(138, 180, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 1.25rem;
-  background: rgba(10, 11, 15, 0.76);
-  box-shadow: var(--motify-accent-glow), 0 22px 60px rgba(0, 0, 0, 0.35);
+  background: #111216;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
   text-align: left;
-  backdrop-filter: blur(18px);
 }
 
 .resources__composer textarea {
@@ -126,10 +124,10 @@
 .resources__round-button:hover { color: var(--motify-text-primary); background: rgba(255, 255, 255, 0.08); }
 .resources__round-button svg { width: 1rem; }
 .resources__enhance-button { display: inline-flex; align-items: center; padding: 0.45rem 0.6rem; border: 0; border-radius: 0.55rem; background: transparent; color: var(--motify-text-secondary); cursor: pointer; }
-.resources__enhance-button:hover { color: var(--motify-logo-end); background: rgba(124, 247, 197, 0.08); }
+.resources__enhance-button:hover { color: var(--motify-logo-end); background: rgba(255, 255, 255, 0.08); }
 .resources__enhance-button svg { width: 0.85rem; }
 .resources__submit { width: 2.35rem; height: 2.35rem; border: 0; border-radius: 50%; background: var(--motify-accent-gradient); color: var(--motify-accent-contrast); }
-.resources__submit:hover { transform: translateY(-2px) rotate(-4deg); box-shadow: 0 8px 22px rgba(124, 247, 197, 0.25); }
+.resources__submit:hover { transform: translateY(-2px) rotate(-4deg); box-shadow: 0 8px 22px rgba(255, 255, 255, 0.25); }
 .resources__submit svg { width: 1.1rem; }
 
 .resources__cta-link {
@@ -148,7 +146,7 @@
 }
 
 .resources__cta-link:hover {
-  box-shadow: 0 0 1.5rem rgba(124, 247, 197, 0.25);
+  box-shadow: 0 0 1.5rem rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
 }
 

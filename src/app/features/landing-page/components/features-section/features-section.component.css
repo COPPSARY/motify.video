@@ -26,20 +26,31 @@
 .features__workflow {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--motify-heading-content-gap);
 }
 
 .features__workflow-copy {
   display: grid;
-  grid-template-columns: 0.8fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   align-items: end;
 }
 
 .features__workflow-copy h2 {
   margin: 0;
-  font-size: 2.4rem;
+  font-size: var(--motify-heading-section);
   line-height: 1.04;
+}
+
+.features__title-line {
+  display: block;
+  white-space: nowrap;
+}
+
+@media (max-width: 820px) {
+  .features__title-line {
+    white-space: normal;
+  }
 }
 
 .features__grid {
@@ -168,7 +179,7 @@
 
 .feature-card--code {
   background:
-    radial-gradient(circle at 70% 100%, rgba(124, 247, 197, 0.14), transparent 52%),
+    radial-gradient(circle at 70% 100%, rgba(255, 255, 255, 0.14), transparent 52%),
     rgba(8, 9, 11, 0.72);
 }
 

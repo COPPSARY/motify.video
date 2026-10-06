@@ -21,7 +21,7 @@
   width: min(48rem, 90vw);
   height: min(30rem, 65vw);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(138, 180, 255, 0.12), rgba(124, 247, 197, 0.035) 45%, transparent 72%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035) 45%, transparent 72%);
   filter: blur(18px);
   pointer-events: none;
   transform: translate(-50%, -50%);
@@ -81,7 +81,7 @@
 .not-found__primary {
   border-color: transparent !important;
   background: var(--motify-text-primary);
-  color: #07080a;
+  color: #070b18;
 }
 
 .not-found__secondary {

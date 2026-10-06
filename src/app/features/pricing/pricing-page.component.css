@@ -2,10 +2,7 @@
   min-height: 100svh;
   color: var(--motify-text-primary);
   font-family: var(--motify-font-sans);
-  background:
-    radial-gradient(circle at 12% 18%, rgba(138, 180, 255, 0.13), transparent 30rem),
-    radial-gradient(circle at 88% 52%, rgba(124, 247, 197, 0.08), transparent 28rem),
-    var(--motify-bg);
+  background: var(--motify-bg);
 }
 
 .pricing-page {
@@ -29,6 +26,40 @@
   line-height: 0.98;
 }
 
+.billing-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 2rem;
+  padding: 0.3rem;
+  border: 1px solid var(--motify-border-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.billing-toggle button {
+  display: inline-flex;
+  width: 6.5rem;
+  min-height: 2.55rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--motify-text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--motify-type-small);
+  font-weight: var(--motify-weight-bold);
+}
+
+.billing-toggle .billing-toggle__option--active {
+  background: var(--motify-text-primary);
+  color: var(--motify-ink);
+}
+
 .subscription-banner {
   display: flex;
   width: min(42rem, 100%);
@@ -36,9 +67,9 @@
   gap: 1rem;
   margin: 2rem auto 0;
   padding: 1rem 1.15rem;
-  border: 1px solid rgba(124, 247, 197, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--motify-radius-md);
-  background: rgba(124, 247, 197, 0.055);
+  background: rgba(255, 255, 255, 0.055);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
   text-align: left;
 }
@@ -49,7 +80,7 @@
   flex: 0 0 auto;
   border-radius: 50%;
   background: var(--motify-logo-end);
-  box-shadow: 0 0 0 0.28rem rgba(124, 247, 197, 0.09), 0 0 1.2rem rgba(124, 247, 197, 0.3);
+  box-shadow: 0 0 0 0.28rem rgba(255, 255, 255, 0.09), 0 0 1.2rem rgba(255, 255, 255, 0.3);
 }
 
 .subscription-banner div {
@@ -63,6 +94,7 @@
 
 .subscription-banner p {
   width: 100%;
+  min-height: 10rem;
   margin: 0 0 -0.35rem;
   color: var(--motify-text-muted);
   font-size: 0.68rem;
@@ -93,7 +125,7 @@
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: stretch;
   gap: 0;
   margin-top: var(--motify-space-20);
@@ -109,7 +141,7 @@
   min-width: 0;
   min-height: 36rem;
   flex-direction: column;
-  padding: 2rem;
+  padding: 2.25rem 2.5rem;
   border: 0;
   border-right: 1px solid var(--motify-border-strong);
   background: transparent;
@@ -126,11 +158,11 @@
 
 .pricing-card--featured {
   background:
-    radial-gradient(circle at 50% 0%, rgba(138, 180, 255, 0.1), transparent 15rem),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.1), transparent 15rem),
     rgba(255, 255, 255, 0.04);
   box-shadow:
-    inset 0 2px 0 rgba(138, 180, 255, 0.85),
-    inset 0 0 3rem rgba(124, 247, 197, 0.025);
+    inset 0 2px 0 rgba(255, 255, 255, 0.85),
+    inset 0 0 3rem rgba(255, 255, 255, 0.025);
 }
 
 .pricing-card--featured .pricing-card__plan {
@@ -139,7 +171,25 @@
 
 .pricing-card--featured .pricing-card__badge {
   background: var(--motify-accent-gradient);
-  box-shadow: 0 0 1.25rem rgba(124, 247, 197, 0.16);
+  box-shadow: 0 0 1.25rem rgba(255, 255, 255, 0.16);
+  color: var(--motify-accent-contrast);
+}
+
+.pricing-card--enterprise {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.075), transparent 16rem),
+    rgba(255, 255, 255, 0.018);
+}
+
+.pricing-card--enterprise .pricing-card__plan,
+.pricing-card--enterprise .pricing-card__attention {
+  color: var(--motify-logo-end);
+}
+
+.pricing-card--enterprise .pricing-card__badge {
+  border: 0;
+  background: var(--motify-accent-gradient);
+  box-shadow: 0 0 1.25rem rgba(255, 255, 255, 0.16);
   color: var(--motify-accent-contrast);
 }
 
@@ -181,6 +231,12 @@
   margin: 0;
 }
 
+.pricing-card__price del {
+  color: var(--motify-text-muted);
+  font-size: 0.82rem;
+  text-decoration-thickness: 1px;
+}
+
 .pricing-card__price strong {
   color: var(--motify-text-primary);
   font-size: clamp(3rem, 4vw, 3.5rem);
@@ -189,9 +245,42 @@
   line-height: 1;
 }
 
+.pricing-card__price--custom strong {
+  font-size: clamp(2.5rem, 3.5vw, 3.15rem);
+}
+
 .pricing-card__price span {
   color: var(--motify-text-muted);
   font-size: var(--motify-type-small);
+}
+
+.pricing-card__billing-total {
+  margin: 0.45rem 0 0;
+  color: var(--motify-text-muted);
+  font-size: var(--motify-type-small);
+}
+
+.credit-pack__saving {
+  margin: 0.55rem 0 0;
+  color: var(--motify-logo-end);
+  font-size: var(--motify-type-small);
+  font-weight: var(--motify-weight-bold);
+}
+
+.credit-pack__bonus-amount {
+  margin-left: 0.2rem;
+  font-size: 1.25em;
+}
+
+.credit-pack__bonus-note {
+  margin: auto 0 0.75rem;
+  color: var(--motify-text-muted);
+  font-size: var(--motify-type-small);
+  line-height: 1.4;
+}
+
+.credit-pack__bonus-note + .pricing-card__button {
+  margin-top: 0;
 }
 
 .pricing-card__credits {
@@ -293,7 +382,7 @@
   height: 1.05rem;
   place-items: center;
   border-radius: 50%;
-  background: rgba(124, 247, 197, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   color: var(--motify-logo-end);
   content: '\2713';
   font-size: 0.65rem;
@@ -309,8 +398,8 @@
   padding: 0.7rem 1.05rem;
   border: 1px solid transparent;
   border-radius: 999px;
-  background: var(--motify-text-primary);
-  color: #07080a;
+  background: var(--motify-cobalt);
+  color: var(--motify-white);
   font-size: var(--motify-type-small);
   font-weight: var(--motify-weight-bold);
   letter-spacing: 0.02em;
@@ -328,8 +417,8 @@
 
 .pricing-card__button--current,
 .pricing-card__button--current:disabled {
-  border-color: rgba(124, 247, 197, 0.24);
-  background: rgba(124, 247, 197, 0.1);
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.1);
   color: var(--motify-logo-end);
   cursor: pointer;
   opacity: 1;
@@ -402,6 +491,7 @@
 }
 
 .credit-pack {
+  position: relative;
   display: flex;
   min-width: 0;
   min-height: 14rem;
@@ -438,6 +528,7 @@
 }
 
 .pricing-trial {
+  position: relative;
   display: flex;
   width: 100%;
   align-items: center;
@@ -445,9 +536,33 @@
   gap: var(--motify-space-8);
   margin: var(--motify-space-12) auto 0;
   padding: 2rem;
+  overflow: hidden;
   border: 1px solid var(--motify-border-strong);
   border-radius: 0.75rem;
   background: rgba(3, 4, 5, 0.84);
+  transition: background-color 180ms ease;
+}
+
+.pricing-trial::after {
+  position: absolute;
+  top: 50%;
+  left: -1.5rem;
+  width: 11rem;
+  height: 11rem;
+  background: url('/logo.svg') center / contain no-repeat;
+  content: '';
+  opacity: 0.055;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.pricing-trial > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-trial:hover {
+  background: rgba(255, 255, 255, 0.018);
 }
 
 .pricing-trial__copy {
@@ -455,23 +570,25 @@
 }
 
 .pricing-trial__copy h2 {
+  display: grid;
+  gap: 0.3rem;
   margin: 0;
   color: var(--motify-text-primary);
-  font-size: var(--motify-type-subheading);
   line-height: 1.1;
 }
 
-.pricing-trial__copy > span {
-  display: block;
-  margin-top: 0.7rem;
+.pricing-trial__copy h2 span {
   color: var(--motify-text-secondary);
   font-size: var(--motify-type-body);
-  line-height: 1.5;
+  font-weight: var(--motify-weight-medium);
+  letter-spacing: 0;
 }
 
-.pricing-trial__free {
-  color: var(--motify-logo-end);
-  font-weight: var(--motify-weight-bold);
+.pricing-trial__copy h2 strong {
+  color: var(--motify-text-primary);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: var(--motify-weight-heavy);
+  letter-spacing: -0.045em;
 }
 
 .pricing-trial__button {
@@ -479,10 +596,10 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  padding: 0.7rem 1.05rem;
+  padding: 0.65rem 0.95rem;
   border-radius: 999px;
-  background: var(--motify-text-primary);
-  color: #07080a;
+  background: var(--motify-cobalt);
+  color: var(--motify-white);
   font-size: var(--motify-type-small);
   font-weight: var(--motify-weight-bold);
   letter-spacing: 0.02em;
@@ -589,8 +706,8 @@
   border: 1px solid var(--motify-border-strong);
   border-radius: 1.35rem;
   background:
-    radial-gradient(circle at 15% 0%, rgba(138, 180, 255, 0.11), transparent 18rem),
-    radial-gradient(circle at 100% 100%, rgba(124, 247, 197, 0.08), transparent 18rem),
+    radial-gradient(circle at 15% 0%, rgba(255, 255, 255, 0.11), transparent 18rem),
+    radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.08), transparent 18rem),
     #090a0d;
   box-shadow: 0 2rem 7rem rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   animation: checkout-rise-in 220ms var(--motify-ease-standard);
@@ -673,6 +790,13 @@
   color: var(--motify-logo-end);
   font-size: 1rem;
   font-weight: var(--motify-weight-bold);
+}
+
+.checkout-confirm__heading del {
+  margin-right: 0.45rem;
+  color: var(--motify-text-muted);
+  font-size: var(--motify-type-small);
+  font-weight: var(--motify-weight-regular);
 }
 
 .checkout-confirm dl {
@@ -801,10 +925,10 @@ label.payment-method:hover,
   width: 1.2rem;
   height: 1.2rem;
   place-items: center;
-  border: 1px solid rgba(124, 247, 197, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   background: var(--motify-logo-end);
-  color: #07100d;
+  color: var(--motify-ink);
   font-size: 0.68rem;
   font-weight: var(--motify-weight-bold);
 }
@@ -1115,7 +1239,7 @@ label.payment-method:hover,
 .checkout-balance {
   padding: 0.75rem 1rem;
   border-radius: 999px;
-  background: rgba(124, 247, 197, 0.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .checkout-balance strong {
@@ -1136,11 +1260,11 @@ label.payment-method:hover,
   height: 4rem;
   place-items: center;
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(124, 247, 197, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 50%;
-  background: rgba(124, 247, 197, 0.09);
+  background: rgba(255, 255, 255, 0.09);
   color: var(--motify-logo-end);
-  box-shadow: 0 0 2.4rem rgba(124, 247, 197, 0.1);
+  box-shadow: 0 0 2.4rem rgba(255, 255, 255, 0.1);
   font-size: 1.6rem;
   font-weight: 700;
 }

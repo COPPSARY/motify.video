@@ -1,29 +1,55 @@
-<section class="spatial-showcase" aria-labelledby="spatial-showcase-title">
-  <header class="spatial-showcase__heading" [appScrollReveal]="0">
-    <h2 id="spatial-showcase-title">SaaS stories, in <span class="heading-accent">motion.</span></h2>
-    <p>AI-powered videos for product marketing, launches, and promos.</p>
+<section id="showcase" class="showcase-stories" aria-labelledby="showcase-stories-title">
+  <header class="showcase-stories__intro">
+    <h2 id="showcase-stories-title">Made with <span class="heading-accent">Motify.</span></h2>
   </header>
-  <div class="spatial-showcase__stage">
-    <div class="spatial-showcase__plane">
-      @for (row of rows; track $index; let r = $index) {
-        <div class="spatial-showcase__track" [class.spatial-showcase__track--reverse]="r === 1">
-          @for (copy of copies; track copy) {
-            @for (video of row; track video.src) {
-              <div class="spatial-showcase__tile" [attr.aria-hidden]="copy > 0 ? 'true' : null">
+
+  <div class="showcase-stories__layout">
+    <aside class="showcase-stories__rail" aria-label="Showcase categories">
+      <div class="showcase-stories__rail-inner">
+        <nav>
+          @for (story of stories; track story.id) {
+            <a
+              [href]="'#' + story.id"
+              [class.is-active]="activeStory() === story.id"
+              [attr.aria-current]="activeStory() === story.id ? 'true' : null"
+              (click)="selectStory(story.id)"
+            >
+              <span class="showcase-stories__rail-label">{{ story.category }}</span>
+            </a>
+          }
+        </nav>
+      </div>
+    </aside>
+
+    <div class="showcase-stories__chapters">
+      @for (story of stories; track story.id) {
+        <article
+          #storyPanel
+          [id]="story.id"
+          class="showcase-story"
+          [class.is-active]="activeStory() === story.id"
+          [attr.aria-label]="story.category"
+        >
+          <p class="showcase-story__description">{{ story.description }}</p>
+          <div class="showcase-story__gallery">
+            @for (video of story.videos; track video.src) {
+              <div class="showcase-story__media">
                 <video
+                  #showcaseVideo
                   [src]="video.src"
                   [poster]="video.poster"
-                  [attr.aria-label]="copy === 0 ? video.label : null"
+                  [attr.aria-label]="video.label"
                   autoplay
                   loop
-                  [muted]="true"
+                  muted
                   playsinline
                   preload="metadata"
+                  (canplay)="playVideo($event)"
                 ></video>
               </div>
             }
-          }
-        </div>
+          </div>
+        </article>
       }
     </div>
   </div>

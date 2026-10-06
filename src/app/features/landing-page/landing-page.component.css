@@ -33,38 +33,55 @@ main > app-spatial-showcase-section {
 
 .problem__inner {
   display: grid;
-  justify-items: center;
-  gap: 1.75rem;
+  justify-items: start;
+  gap: var(--motify-heading-content-gap);
   width: min(74rem, 100%);
   margin: 0 auto;
 }
 
+.problem__heading {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
 .problem h2 {
-  max-width: 18ch;
+  max-width: none;
   margin: 0;
   color: var(--motify-text-primary);
-  font-size: var(--motify-type-section);
+  font-size: var(--motify-heading-section);
   line-height: 1.02;
-  text-align: center;
+  text-align: left;
+}
+
+.problem__title-line {
+  display: block;
+  white-space: nowrap;
 }
 
 .problem h2 .heading-swipe {
   padding-bottom: 0.12em;
 }
 
+@media (max-width: 820px) {
+  .problem__title-line {
+    white-space: normal;
+  }
+}
+
 .problem__lead {
-  max-width: 44rem;
+  max-width: 36rem;
   margin: 0;
   color: var(--motify-text-secondary);
   font-size: 1.15rem;
   line-height: 1.6;
-  text-align: center;
+  text-align: left;
 }
 
 .workflow { padding: 6rem 1.5rem 7rem; }
-.workflow__heading { display: grid; justify-items: center; gap: 0.8rem; max-width: 44rem; margin: 0 auto 4rem; text-align: center; }
+.workflow__heading { display: grid; justify-items: center; gap: 0.8rem; max-width: 44rem; margin: 0 auto var(--motify-heading-content-gap); text-align: center; }
 .workflow__eyebrow { margin: 0; color: var(--motify-logo-end); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.18em; text-transform: uppercase; }
-.workflow__heading h2 { margin: 0; color: var(--motify-text-primary); font-size: var(--motify-type-section); line-height: 1; letter-spacing: -0.025em; }
+.workflow__heading h2 { margin: 0; color: var(--motify-text-primary); font-size: var(--motify-heading-section); line-height: 1; letter-spacing: -0.025em; }
 .workflow__heading > p:last-child { max-width: 32rem; margin: 0; color: var(--motify-text-secondary); line-height: 1.6; }
 .workflow__timeline { position: relative; display: grid; gap: 3.5rem; width: min(68rem, 100%); margin: 0 auto; }
 .workflow__line { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: linear-gradient(180deg, transparent, var(--motify-border-strong) 12%, var(--motify-border-strong) 88%, transparent); transform: translateX(-50%); }
@@ -85,14 +102,14 @@ main > app-spatial-showcase-section {
 .workflow__visual--direction { display: flex; align-items: center; justify-content: center; gap: 0.7rem; }
 .workflow__visual--direction i { display: block; width: 2.5rem; height: 2.5rem; border: 1px solid var(--motify-logo-start); border-radius: 50%; animation: workflow-orbit 4s ease-in-out infinite; }
 .workflow__visual--direction i:nth-child(2) { width: 4rem; height: 4rem; border-color: var(--motify-logo-end); animation-delay: -1.3s; }
-.workflow__visual--direction i:nth-child(3) { width: 1.6rem; height: 1.6rem; border-color: #ff86d9; animation-delay: -2.6s; }
+.workflow__visual--direction i:nth-child(3) { width: 1.6rem; height: 1.6rem; border-color: #ffffff; animation-delay: -2.6s; }
 .workflow__visual--timeline { align-content: center; gap: 0.65rem; padding: 1.5rem; justify-items: start; }
-.workflow__visual--timeline i { display: block; width: 72%; height: 0.55rem; border-radius: 1rem; background: linear-gradient(90deg, #8ab4ff 0 42%, rgba(255, 255, 255, 0.08) 42%); animation: workflow-track 4s ease-in-out infinite; }
-.workflow__visual--timeline i:nth-child(2) { width: 55%; background: linear-gradient(90deg, #7cf7c5 0 68%, rgba(255, 255, 255, 0.08) 68%); animation-delay: -1s; }
-.workflow__visual--timeline i:nth-child(3) { width: 64%; background: linear-gradient(90deg, #ff86d9 0 52%, rgba(255, 255, 255, 0.08) 52%); animation-delay: -2s; }
+.workflow__visual--timeline i { display: block; width: 72%; height: 0.55rem; border-radius: 1rem; background: linear-gradient(90deg, rgba(255, 255, 255, 0.72) 0 42%, rgba(255, 255, 255, 0.08) 42%); animation: workflow-track 4s ease-in-out infinite; }
+.workflow__visual--timeline i:nth-child(2) { width: 55%; background: linear-gradient(90deg, #ffffff 0 68%, rgba(255, 255, 255, 0.08) 68%); animation-delay: -1s; }
+.workflow__visual--timeline i:nth-child(3) { width: 64%; background: linear-gradient(90deg, #ffffff 0 52%, rgba(255, 255, 255, 0.08) 52%); animation-delay: -2s; }
 .workflow__visual--timeline b { position: absolute; top: 1.2rem; bottom: 1.2rem; left: 46%; width: 1px; background: var(--motify-text-primary); box-shadow: 0 0 0.6rem var(--motify-logo-start); animation: workflow-playhead 4s ease-in-out infinite; }
-.workflow__visual--launch { background: radial-gradient(circle at 50% 48%, rgba(124, 247, 197, 0.2), transparent 28%), rgba(8, 9, 11, 0.42); }
-.workflow__visual--launch span { width: 4.5rem; height: 4.5rem; border: 1px solid var(--motify-logo-end); border-radius: 1.2rem; box-shadow: 0 0 2rem rgba(124, 247, 197, 0.2); animation: workflow-launch 3.5s ease-in-out infinite; }
+.workflow__visual--launch { background: radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.2), transparent 28%), rgba(8, 9, 11, 0.42); }
+.workflow__visual--launch span { width: 4.5rem; height: 4.5rem; border: 1px solid var(--motify-logo-end); border-radius: 1.2rem; box-shadow: 0 0 2rem rgba(255, 255, 255, 0.2); animation: workflow-launch 3.5s ease-in-out infinite; }
 .workflow__visual--launch b { position: absolute; right: 1rem; bottom: 0.8rem; color: var(--motify-logo-end); font: 0.6rem monospace; letter-spacing: 0.14em; }
 @keyframes workflow-line-in { 50% { transform: translateX(0.6rem); opacity: 0.55; } }
 @keyframes workflow-orbit { 50% { transform: translateY(-0.45rem) scale(1.08); } }
@@ -402,11 +419,19 @@ main > app-spatial-showcase-section {
   color: var(--motify-accent);
 }
 
+.team-love__partnerships {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
 .team-love__partnership {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  margin-top: 1.5rem;
+  margin-top: 0;
   padding: 0.55rem 0.85rem;
   border: 1px solid var(--motify-border);
   border-radius: 999px;
@@ -428,6 +453,11 @@ main > app-spatial-showcase-section {
   width: 1.5rem;
   height: 1.5rem;
   object-fit: contain;
+}
+
+.team-love__partnership .team-love__google-logo {
+  width: 5.2rem;
+  height: auto;
 }
 
 .team-love__partnership strong {
@@ -572,10 +602,10 @@ main > app-spatial-showcase-section {
 .workflow__prompt-card {
   width: min(100%, 31rem);
   overflow: hidden;
-  border: 1px solid rgba(138, 180, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 1.1rem;
   background: rgba(8, 9, 11, 0.8);
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.25), 0 0 2rem rgba(138, 180, 255, 0.08);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.25), 0 0 2rem rgba(255, 255, 255, 0.08);
   animation: workflow-prompt-breathe 4s ease-in-out infinite;
 }
 .workflow__prompt-top,
@@ -596,7 +626,7 @@ main > app-spatial-showcase-section {
 .workflow__prompt-caret { display: inline-block; width: 1px; height: 1rem; margin-left: 0.15rem; vertical-align: -0.15rem; background: var(--motify-logo-end); animation: workflow-caret 0.8s steps(1) infinite; }
 .workflow__prompt-footer { justify-content: flex-end; padding: 0.7rem 0.9rem; border-top: 1px solid var(--motify-border); }
 .workflow__prompt-footer strong { display: grid; width: 1.8rem; height: 1.8rem; place-items: center; border-radius: 50%; background: linear-gradient(135deg, var(--motify-logo-start), var(--motify-logo-end)); color: #08090b; font-size: 1rem; }
-@keyframes workflow-prompt-breathe { 50% { transform: translateY(-0.25rem); box-shadow: 0 1.2rem 3.5rem rgba(0, 0, 0, 0.3), 0 0 2.5rem rgba(138, 180, 255, 0.14); } }
+@keyframes workflow-prompt-breathe { 50% { transform: translateY(-0.25rem); box-shadow: 0 1.2rem 3.5rem rgba(0, 0, 0, 0.3), 0 0 2.5rem rgba(255, 255, 255, 0.14); } }
 @keyframes workflow-type { 0%, 8% { max-width: 0; } 48%, 70% { max-width: 100%; } 100% { max-width: 0; } }
 @keyframes workflow-caret { 50% { opacity: 0; } }
 
@@ -683,7 +713,7 @@ main > app-spatial-showcase-section {
 .workflow__number { color: var(--motify-logo-start); }
 .workflow__copy h3 { color: var(--motify-text-primary); font-size: clamp(1.8rem, 3vw, 2.45rem); letter-spacing: -0.015em; }
 .workflow__copy p { color: var(--motify-text-secondary); }
-.workflow__prompt-card { background: rgba(8, 9, 11, 0.8); border-color: rgba(138, 180, 255, 0.45); box-shadow: var(--motify-shell-shadow); }
+.workflow__prompt-card { background: rgba(8, 9, 11, 0.8); border-color: rgba(255, 255, 255, 0.45); box-shadow: var(--motify-shell-shadow); }
 .workflow__prompt-top,
 .workflow__prompt-footer { color: var(--motify-text-muted); }
 .workflow__prompt-top { border-color: var(--motify-border); }
@@ -740,12 +770,12 @@ main > app-spatial-showcase-section {
 .workflow__visual--direction span { position: absolute; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--motify-logo-end); box-shadow: 0 0 1rem var(--motify-logo-end); animation: workflow-direction-cursor 4s ease-in-out infinite; }
 .workflow__visual--direction b { grid-row: 2; color: var(--motify-text-muted); font: 0.6rem monospace; letter-spacing: 0.1em; text-align: center; text-transform: uppercase; }
 .workflow__visual--launch { display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; gap: 0.8rem; overflow: visible; background: transparent; }
-.workflow__launch-frame { position: relative; display: grid; min-width: 17rem; min-height: 9rem; place-items: center; overflow: hidden; border: 1px solid rgba(124, 247, 197, 0.35); border-radius: 0.9rem; background: linear-gradient(135deg, rgba(138, 180, 255, 0.12), rgba(124, 247, 197, 0.04)); box-shadow: 0 0 2rem rgba(124, 247, 197, 0.08); }
+.workflow__launch-frame { position: relative; display: grid; min-width: 17rem; min-height: 9rem; place-items: center; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 0.9rem; background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)); box-shadow: 0 0 2rem rgba(255, 255, 255, 0.08); }
 .workflow__launch-frame::before { position: absolute; inset: 0; content: ''; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.16) 50%, transparent 65%); transform: translateX(-100%); animation: workflow-launch-sheen 4s ease-in-out infinite; }
-.workflow__launch-play { display: grid; width: 3rem; height: 3rem; place-items: center; padding-left: 0.15rem; border: 1px solid var(--motify-logo-end); border-radius: 50%; color: var(--motify-logo-end); font-size: 0.8rem; box-shadow: 0 0 1.2rem rgba(124, 247, 197, 0.2); }
+.workflow__launch-play { display: grid; width: 3rem; height: 3rem; place-items: center; padding-left: 0.15rem; border: 1px solid var(--motify-logo-end); border-radius: 50%; color: var(--motify-logo-end); font-size: 0.8rem; box-shadow: 0 0 1.2rem rgba(255, 255, 255, 0.2); }
 .workflow__launch-frame i { position: absolute; right: 1rem; left: 1rem; height: 0.3rem; border-radius: 1rem; background: linear-gradient(90deg, var(--motify-logo-start), transparent); opacity: 0.7; }
 .workflow__launch-frame i:nth-of-type(1) { top: 1.2rem; width: 36%; }
-.workflow__launch-frame i:nth-of-type(2) { right: 2rem; bottom: 1.4rem; width: 44%; background: linear-gradient(90deg, #ff86d9, transparent); }
+.workflow__launch-frame i:nth-of-type(2) { right: 2rem; bottom: 1.4rem; width: 44%; background: linear-gradient(90deg, #ffffff, transparent); }
 .workflow__launch-frame i:nth-of-type(3) { right: 3rem; bottom: 2.1rem; width: 27%; background: linear-gradient(90deg, var(--motify-logo-end), transparent); }
 .workflow__launch-formats { display: grid; align-content: center; gap: 0.5rem; }
 .workflow__launch-formats b { padding: 0.45rem 0.55rem; border: 1px solid var(--motify-border-strong); border-radius: 0.45rem; color: var(--motify-text-muted); font: 0.58rem monospace; }
@@ -771,10 +801,10 @@ main > app-spatial-showcase-section {
   gap: 1.15rem;
   width: min(100%, 28rem);
   padding: 1.35rem;
-  border: 1px solid rgba(124, 247, 197, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.38);
   border-radius: 1rem;
-  background: linear-gradient(135deg, rgba(138, 180, 255, 0.1), rgba(124, 247, 197, 0.04));
-  box-shadow: 0 0 2rem rgba(124, 247, 197, 0.08);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  box-shadow: 0 0 2rem rgba(255, 255, 255, 0.08);
 }
 .workflow__export-top,
 .workflow__export-file,
@@ -786,14 +816,14 @@ main > app-spatial-showcase-section {
 .workflow__export-progress { height: 0.4rem; overflow: hidden; border-radius: 1rem; background: rgba(255,255,255,0.08); }
 .workflow__export-progress i { display: block; width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--motify-logo-start), var(--motify-logo-end)); transform-origin: left; animation: workflow-export-progress 3.5s ease-in-out infinite; }
 .workflow__export-bottom { color: var(--motify-logo-end); font: 0.62rem monospace; }
-.workflow__export-bottom b { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid var(--motify-logo-end); border-radius: 50%; font-size: 1.1rem; box-shadow: 0 0 1rem rgba(124,247,197,0.2); }
+.workflow__export-bottom b { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid var(--motify-logo-end); border-radius: 50%; font-size: 1.1rem; box-shadow: 0 0 1rem rgba(255, 255, 255,0.2); }
 .workflow__visual--launch > strong { grid-column: 1; justify-self: center; }
 @keyframes workflow-export-progress { 0%, 15% { transform: scaleX(0.12); } 65%, 100% { transform: scaleX(1); } }
 
 /* Keep the final-step visual compact: a clear export action, not another editor panel. */
 .workflow__visual--launch { grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; gap: 0.8rem; }
 .workflow__launch-frame { min-width: 17rem; min-height: 9rem; }
-.workflow__launch-export { display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid var(--motify-logo-end); border-radius: 50%; color: var(--motify-logo-end); font-size: 1.5rem; box-shadow: 0 0 1.2rem rgba(124,247,197,0.2); animation: workflow-export-bob 2.8s ease-in-out infinite; }
+.workflow__launch-export { display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid var(--motify-logo-end); border-radius: 50%; color: var(--motify-logo-end); font-size: 1.5rem; box-shadow: 0 0 1.2rem rgba(255, 255, 255,0.2); animation: workflow-export-bob 2.8s ease-in-out infinite; }
 .workflow__launch-formats { display: grid; align-content: center; gap: 0.5rem; }
 .workflow__launch-formats b { padding: 0.45rem 0.55rem; border: 1px solid var(--motify-border-strong); border-radius: 0.45rem; color: var(--motify-text-muted); font: 0.58rem monospace; }
 .workflow__visual--launch > strong { grid-column: 1 / -1; justify-self: end; }
@@ -982,13 +1012,13 @@ main > app-spatial-showcase-section {
 .workflow__roadmap-step--past {
   border-color: var(--motify-logo-start);
   color: var(--motify-logo-start);
-  box-shadow: 0 0 0.8rem rgba(138, 180, 255, 0.18);
+  box-shadow: 0 0 0.8rem rgba(255, 255, 255, 0.18);
 }
 .workflow__roadmap-step--active {
   border-color: var(--motify-logo-end);
   background: var(--motify-accent-gradient);
   color: var(--motify-accent-contrast);
-  box-shadow: 0 0 1.4rem rgba(124, 247, 197, 0.55), 0 0 2.5rem rgba(138, 180, 255, 0.25);
+  box-shadow: 0 0 1.4rem rgba(255, 255, 255, 0.55), 0 0 2.5rem rgba(255, 255, 255, 0.25);
   transform: scale(1.14);
 }
 .workflow__timeline {
@@ -1039,7 +1069,7 @@ main > app-spatial-showcase-section {
 
 .workflow { position: relative; isolation: isolate; display: block; height: auto; min-height: 0; padding: 6rem 1.5rem 7rem; overflow: hidden; overscroll-behavior: auto; background: #07080a; }
 .workflow__pin { position: relative; z-index: 1; width: min(74rem, 100%); margin: 0 auto; padding: 0; }
-.workflow__heading { display: grid; grid-template-columns: 1fr auto; align-items: end; justify-items: stretch; gap: 2rem; width: 100%; max-width: none; margin: 0 0 2rem; text-align: left; }
+.workflow__heading { display: grid; grid-template-columns: 1fr auto; align-items: end; justify-items: stretch; gap: 2rem; width: 100%; max-width: none; margin: 0 0 var(--motify-heading-content-gap); text-align: left; }
 .workflow__heading h2 { margin: 0; font-size: clamp(2.5rem, 5vw, 4.5rem); }
 .workflow__heading > p:last-child { margin: 0 0 0.3rem; text-align: right; }
 .workflow__cards { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0; width: 100%; border-top: 1px solid var(--motify-border); border-left: 1px solid var(--motify-border); }
@@ -1071,12 +1101,12 @@ main > app-spatial-showcase-section {
 
 /* AI pipeline cards: the section explains Motify's internal process, not a user's editing steps. */
 .workflow__cards { width: 100%; max-width: none; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(7rem, auto)); gap: 0.65rem; margin: 0; border: 0; }
-.workflow__step { display: flex; flex-direction: column; justify-content: space-between; min-height: 0; margin-left: 0; padding: 1.5rem; border: 1px solid #2f293a; border-radius: 20px; background: #101217; font-weight: 300; transition: all 300ms ease; box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
-.workflow__step:nth-of-type(1) { background: radial-gradient(circle at 85% 15%, rgba(138, 180, 255, 0.16), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
-.workflow__step:nth-of-type(2) { background: radial-gradient(circle at 85% 20%, rgba(255, 134, 217, 0.14), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
-.workflow__step:nth-of-type(3) { background: radial-gradient(circle at 18% 85%, rgba(138, 180, 255, 0.14), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
-.workflow__step:nth-of-type(4) { background: radial-gradient(circle at 82% 82%, rgba(124, 247, 197, 0.14), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
-.workflow__step:nth-of-type(5) { background: radial-gradient(circle at 20% 18%, rgba(124, 247, 197, 0.14), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
+.workflow__step { display: flex; flex-direction: column; justify-content: space-between; min-height: 0; margin-left: 0; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 20px; background: #111216; font-weight: 300; transition: all 300ms ease; box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+.workflow__step:nth-of-type(1) { background: radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.16), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
+.workflow__step:nth-of-type(2) { background: radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.14), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
+.workflow__step:nth-of-type(3) { background: radial-gradient(circle at 18% 85%, rgba(255, 255, 255, 0.14), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
+.workflow__step:nth-of-type(4) { background: radial-gradient(circle at 82% 82%, rgba(255, 255, 255, 0.14), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
+.workflow__step:nth-of-type(5) { background: radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.14), transparent 42%), linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(14, 17, 23, 0.82)); }
 .workflow__step:nth-of-type(1),
 .workflow__step:nth-of-type(2),
 .workflow__step:nth-of-type(3),
@@ -1092,8 +1122,8 @@ main > app-spatial-showcase-section {
 .workflow__step:nth-of-type(3) .workflow__pipeline-image,
 .workflow__step:nth-of-type(5) .workflow__pipeline-image { width: min(100%, 9rem); max-height: 5.5rem; margin-bottom: 0.5rem; }
 .workflow__step { display: block; position: relative; overflow: visible; --glow-x: 50%; --glow-y: 50%; --glow-intensity: 0; --border-intensity: 0; --glow-radius: 150px; transition: all 300ms ease; }
-.workflow__step::before { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; padding: 6px; border-radius: inherit; background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y), rgba(124, 247, 197, calc(var(--glow-intensity) * 0.8)) 0%, rgba(124, 247, 197, calc(var(--glow-intensity) * 0.4)) 30%, transparent 60%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; opacity: 1; transition: opacity 300ms ease; }
-.workflow__step::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit; background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y), rgba(124, 247, 197, calc(var(--glow-intensity) * 0.16)), rgba(124, 247, 197, calc(var(--glow-intensity) * 0.06)) 36%, transparent 74%); opacity: var(--glow-intensity); transition: opacity 300ms ease, background 120ms ease; }
+.workflow__step::before { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; padding: 6px; border-radius: inherit; background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y), rgba(31, 69, 176, calc(var(--glow-intensity) * 0.8)) 0%, rgba(31, 69, 176, calc(var(--glow-intensity) * 0.4)) 30%, transparent 60%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; opacity: 1; transition: opacity 300ms ease; }
+.workflow__step::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit; background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y), rgba(31, 69, 176, calc(var(--glow-intensity) * 0.16)), rgba(31, 69, 176, calc(var(--glow-intensity) * 0.06)) 36%, transparent 74%); opacity: var(--glow-intensity); transition: opacity 300ms ease, background 120ms ease; }
 .workflow__copy { position: relative; top: 0; left: 0; z-index: 1; width: min(58%, 25rem); margin: 0; justify-self: start; align-self: start; text-align: left; }
 .workflow__pipeline-image { position: absolute; right: 1.5rem; bottom: 1.25rem; z-index: 0; width: min(42%, 17rem); height: auto; margin: 0; }
 .workflow__step:nth-of-type(1) .workflow__pipeline-image,
@@ -1112,7 +1142,7 @@ main > app-spatial-showcase-section {
 
 .workflow__step:hover {
   z-index: 3;
-  box-shadow: 0 4px 20px rgba(20, 70, 58, 0.4), 0 0 30px rgba(124, 247, 197, 0.14);
+  box-shadow: 0 4px 20px rgba(31, 69, 176, 0.42), 0 0 30px rgba(31, 69, 176, 0.28);
 }
 
 @media (max-width: 640px) {

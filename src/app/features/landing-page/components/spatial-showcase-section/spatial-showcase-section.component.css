@@ -1,17 +1,260 @@
-.spatial-showcase { --tile-width: clamp(15rem, 24vw, 34rem); --tile-gap: 1.25rem; position: relative; display: grid; padding-top: 3rem; overflow: hidden; }
-.spatial-showcase__heading { position: relative; z-index: 1; display: grid; gap: 0.6rem; width: min(74rem, 100% - 3rem); margin: 0 auto; pointer-events: none; }
-.spatial-showcase__heading h2 { margin: 0; color: var(--motify-text-primary); font-size: var(--motify-type-section); line-height: 1.02; }
-.spatial-showcase__heading h2 .heading-accent { font-size: inherit; font-weight: inherit; line-height: inherit; letter-spacing: inherit; }
-.spatial-showcase__heading p { margin: 0; color: var(--motify-text-secondary); font-size: 1.15rem; line-height: 1.5; }
-/* A flat, isometric wall: rows run up and to the right and fade out at every edge. */
-.spatial-showcase__stage { position: relative; width: min(74rem, 100% - 3rem); height: clamp(22rem, 42vw, 36rem); margin: clamp(-3rem, -3vw, -1rem) auto 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent), linear-gradient(180deg, transparent, #000 5%, #000 93%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent), linear-gradient(180deg, transparent, #000 5%, #000 93%, transparent); mask-composite: intersect; }
-/* Pivot one set in from the start: a row slides a full set per loop, so this keeps a set of cover on both sides of centre. */
-.spatial-showcase__plane { position: absolute; top: 50%; left: 50%; display: grid; gap: var(--tile-gap); transform: translate(-33.333%, -50%) rotateX(50deg) rotateZ(-32deg); transform-origin: 33.333% 50%; }
-.spatial-showcase__track { display: flex; gap: var(--tile-gap); width: max-content; padding-right: var(--tile-gap); animation: showcase-marquee 28s linear infinite; }
-.spatial-showcase__track--reverse { animation-direction: reverse; animation-delay: -5s; }
-.spatial-showcase__tile { flex: 0 0 var(--tile-width); overflow: hidden; border: 1px solid rgba(245, 247, 250, 0.1); border-radius: 1rem; background: #101217; box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.45); }
-.spatial-showcase__tile video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-@keyframes showcase-marquee { to { transform: translateX(calc(-100% / 3)); } }
-@media (max-width: 640px) { .spatial-showcase { --tile-width: 13rem; --tile-gap: 0.8rem; padding-top: 2rem; } .spatial-showcase__heading { width: calc(100% - 2rem); } .spatial-showcase__stage { width: calc(100% - 2rem); height: 22rem; margin-top: 0; } }
-/* Windows reports reduced motion whenever "Animation effects" is off, so the wall slows down instead of freezing. */
-@media (prefers-reduced-motion: reduce) { .spatial-showcase__track { animation-duration: 56s; } }
+:host {
+  display: block;
+}
+
+.showcase-stories {
+  position: relative;
+  padding: clamp(5rem, 10vw, 9rem) 1.5rem;
+  background: #08090b;
+}
+
+.showcase-stories::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  opacity: 0.12;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 0.6px, transparent 0.6px);
+  background-size: 14px 14px;
+  mask-image: linear-gradient(180deg, black, transparent 30%, transparent 75%, black);
+}
+
+.showcase-stories__intro,
+.showcase-stories__layout {
+  position: relative;
+  width: min(78rem, 100%);
+  margin-inline: auto;
+}
+
+.showcase-stories__intro {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: var(--motify-heading-content-gap);
+}
+
+.showcase-stories__intro h2 {
+  max-width: 18ch;
+  margin: 0;
+  font-size: var(--motify-heading-section);
+  line-height: 0.98;
+}
+
+.showcase-stories__intro > p:last-child {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--motify-text-secondary);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  line-height: 1.6;
+}
+
+.showcase-stories__layout {
+  display: flex;
+  gap: clamp(2.5rem, 7vw, 7rem);
+  align-items: start;
+}
+
+.showcase-stories__rail {
+  position: sticky;
+  z-index: 5;
+  top: 7rem;
+  flex: 0 0 18rem;
+  align-self: start;
+}
+
+.showcase-stories__rail-inner {
+  display: grid;
+  padding-top: 0.35rem;
+}
+
+.showcase-stories__rail nav {
+  display: grid;
+}
+
+.showcase-stories__rail a {
+  display: block;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--motify-border);
+  color: var(--motify-text-muted);
+  text-decoration: none;
+  transition:
+    color 260ms ease,
+    padding 340ms var(--motify-ease-standard);
+}
+
+.showcase-stories__rail-label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  transform-origin: left center;
+  transition:
+    color 260ms ease,
+    font-size 340ms var(--motify-ease-standard),
+    font-weight 260ms ease,
+    letter-spacing 340ms var(--motify-ease-standard);
+}
+
+.showcase-stories__rail a:hover,
+.showcase-stories__rail a:focus-visible,
+.showcase-stories__rail a.is-active {
+  color: var(--motify-text-primary);
+}
+
+.showcase-stories__rail a.is-active {
+  padding-block: 1.15rem;
+  color: var(--motify-text-primary);
+}
+
+.showcase-stories__rail a.is-active .showcase-stories__rail-label {
+  font-size: clamp(1.75rem, 2.5vw, 2.55rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--motify-text-primary);
+}
+
+.showcase-stories__chapters {
+  display: grid;
+  flex: 1 1 auto;
+  gap: clamp(6rem, 12vw, 11rem);
+  min-width: 0;
+}
+
+.showcase-story {
+  display: grid;
+  gap: 1.8rem;
+  scroll-margin-top: 8rem;
+}
+
+.showcase-story__gallery {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.showcase-story__media {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--motify-border);
+  border-radius: 0.35rem;
+  background: #111216;
+  box-shadow: 0 2.5rem 7rem rgba(0, 0, 0, 0.42);
+  transition: border-color 350ms ease, box-shadow 350ms ease;
+}
+
+.showcase-story.is-active .showcase-story__media {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 2.5rem 7rem rgba(0, 0, 0, 0.48), 0 0 3rem rgba(255, 255, 255, 0.06);
+}
+
+.showcase-story__media::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(2, 3, 5, 0.05), transparent 45%, rgba(2, 3, 5, 0.34));
+  content: '';
+}
+
+.showcase-story__media video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.showcase-story__description {
+  max-width: 42rem;
+  margin: 0;
+  color: rgba(245, 247, 250, 0.78);
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+  .showcase-stories {
+    padding-inline: 1rem;
+  }
+
+  .showcase-stories__layout {
+    display: block;
+  }
+
+  .showcase-stories__rail {
+    position: sticky;
+    z-index: 5;
+    top: 4.25rem;
+    width: auto;
+    margin-bottom: 2rem;
+    margin-inline: -1rem;
+    padding: 0.75rem 1rem;
+    overflow: hidden;
+    border-block: 1px solid var(--motify-border);
+    background: rgba(7, 8, 10, 0.9);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+
+  .showcase-stories__rail-inner {
+    position: static;
+    display: block;
+  }
+
+  .showcase-stories__rail nav {
+    display: flex;
+    gap: 0.45rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .showcase-stories__rail nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .showcase-stories__rail a {
+    display: block;
+    flex: 0 0 auto;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--motify-border);
+    border-radius: 999px;
+  }
+
+  .showcase-stories__rail-label {
+    font-size: 0.76rem;
+  }
+
+  .showcase-stories__rail a.is-active {
+    padding-left: 0.8rem;
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .showcase-stories__rail a.is-active .showcase-stories__rail-label {
+    font-size: 0.76rem;
+    letter-spacing: 0;
+  }
+
+  .showcase-stories__chapters {
+    gap: 6rem;
+  }
+
+  .showcase-story {
+    scroll-margin-top: 5rem;
+  }
+
+}
+
+@media (max-width: 620px) {
+  .showcase-stories__intro {
+    padding-bottom: 3.5rem;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase-story__media,
+  .showcase-stories__rail a,
+  .showcase-stories__rail a::before {
+    transition: none;
+  }
+}

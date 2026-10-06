@@ -14,11 +14,12 @@ import { NavbarComponent } from '../landing-page/components/navbar/navbar.compon
 import { AuthService, type MotifyUser } from '../../shared/services/auth.service';
 import {
   BillingService,
+  type BillingInterval,
   type BillingPayment,
   type BillingPlan,
+  type CheckoutInterval,
   type CreditPack,
   type MotifyWorkspace,
-  type PlanId,
   type Purchase,
   type SandboxOutcome,
   type WorkspaceSubscription,
@@ -34,18 +35,31 @@ interface CheckoutSelection {
   readonly kind: 'PLAN' | 'CREDIT_PACK';
   readonly label: string;
   readonly amount: number;
+  readonly listAmount: number;
+  readonly discount: number;
   readonly currency: 'USD';
   readonly credits: number;
+  readonly bonusCredits: number;
   readonly periodDays: number | null;
+  readonly interval: BillingInterval | null;
 }
 
-const ESTIMATED_CREDITS_PER_VIDEO = 30;
-const PLAN_IDS: readonly PlanId[] = ['starter', 'pro', 'studio'];
+type KnownPlanId = 'starter' | 'pro' | 'studio';
+const PLAN_IDS: readonly KnownPlanId[] = ['starter', 'pro', 'studio'];
+
+function fallbackPlan(id: KnownPlanId, name: string, price: number, credits: number, available: boolean): BillingPlan {
+  return {
+    id, name, price, currency: 'USD', periodDays: 30, credits, creditsPerMonth: credits,
+    yearDays: 365, discountPercent: 0, yearlyDiscountPercent: 20, available,
+    month: { listPrice: price, yearlyDiscount: 0, discount: 0, price },
+    year: { listPrice: price * 12, yearlyDiscount: price * 12 * 0.2, discount: 0, price: price * 12 * 0.8, credits: credits * 12 },
+  };
+}
 
 const FALLBACK_PLANS: readonly BillingPlan[] = [
-  { id: 'starter', name: 'Starter', price: 10, currency: 'USD', periodDays: 30, credits: 150, available: true },
-  { id: 'pro', name: 'Pro', price: 20, currency: 'USD', periodDays: 30, credits: 300, available: true },
-  { id: 'studio', name: 'Studio', price: 50, currency: 'USD', periodDays: 30, credits: 750, available: false },
+  fallbackPlan('starter', 'Starter', 10, 150, true),
+  fallbackPlan('pro', 'Pro', 20, 300, true),
+  fallbackPlan('studio', 'Studio', 50, 750, false),
 ];
 
 @Component({
@@ -79,6 +93,7 @@ export class PricingPageComponent implements OnDestroy {
   readonly checkoutError = signal('');
   readonly pollingNotice = signal('');
   readonly selectedPaymentMethod = signal<PaymentMethodId>('bakong-khqr');
+  readonly billingInterval = signal<CheckoutInterval>('month');
   readonly simulating = signal(false);
 
   private pollTimer?: number;
@@ -105,27 +120,76 @@ export class PricingPageComponent implements OnDestroy {
     if (this.checkoutState() !== 'idle') this.closeCheckout();
   }
 
-  plan(id: PlanId): BillingPlan {
+  plan(id: KnownPlanId): BillingPlan {
     return this.plans().find((plan) => plan.id === id)
       ?? FALLBACK_PLANS.find((plan) => plan.id === id)!;
   }
 
-  isActivePlan(id: PlanId): boolean {
+  isActivePlan(id: KnownPlanId): boolean {
     return this.subscription()?.status === 'active' && this.subscription()?.plan === id;
   }
 
-  planButtonLabel(id: PlanId): string {
+  planButtonLabel(id: KnownPlanId): string {
     if (this.planCatalogStatus() === 'loading') return 'Loading pricing…';
     if (this.planCatalogStatus() === 'unavailable') return 'Pricing unavailable';
+    if (this.yearlyPlanBlocks(id)) return 'Available after current year';
     if (this.subscription()?.status === 'expired' && this.subscription()?.plan === id) return `Renew ${this.plan(id).name}`;
-    if (this.isActivePlan(id)) return 'Extend plan';
+    if (this.isActivePlan(id) && this.subscription()?.interval === this.selectedBillingInterval()) return 'Extend plan';
     if (this.subscription()?.status === 'active') return 'Switch plan';
     return 'Select plan';
+  }
+
+  setBillingInterval(interval: CheckoutInterval): void {
+    this.billingInterval.set(interval);
+  }
+
+  selectedBillingInterval(): BillingInterval {
+    return this.billingInterval() === 'year' ? 'YEAR' : 'MONTH';
+  }
+
+  planQuote(id: KnownPlanId) {
+    const plan = this.plan(id);
+    return this.billingInterval() === 'year' ? plan.year : plan.month;
+  }
+
+  planDisplayPrice(id: KnownPlanId): number {
+    const quote = this.planQuote(id);
+    return this.billingInterval() === 'year' ? quote.price / 12 : quote.price;
+  }
+
+  planDisplayListPrice(id: KnownPlanId): number {
+    const quote = this.planQuote(id);
+    return this.billingInterval() === 'year' ? quote.listPrice / 12 : quote.listPrice;
+  }
+
+  planCredits(id: KnownPlanId): number {
+    const plan = this.plan(id);
+    return this.billingInterval() === 'year' ? plan.year.credits : plan.creditsPerMonth;
+  }
+
+  planPeriodLabel(id: KnownPlanId): string {
+    const plan = this.plan(id);
+    return this.billingInterval() === 'year' ? `${plan.yearDays} days` : `${plan.periodDays} days`;
+  }
+
+  canPurchasePlan(id: KnownPlanId): boolean {
+    return this.plan(id).available && !this.yearlyPlanBlocks(id);
+  }
+
+  private yearlyPlanBlocks(id: KnownPlanId): boolean {
+    const subscription = this.subscription();
+    if (subscription?.status !== 'active' || subscription.interval !== 'YEAR') return false;
+    return subscription.plan !== id || this.billingInterval() !== 'year';
   }
 
   subscriptionEnd(): string {
     const end = this.subscription()?.currentPeriodEnd;
     return end ? this.formatDate(end) : '';
+  }
+
+  subscriptionPlanName(): string {
+    const id = this.subscription()?.plan;
+    return id ? this.plans().find((plan) => plan.id === id)?.name ?? id : '';
   }
 
   countdownLabel(): string {
@@ -136,10 +200,6 @@ export class PricingPageComponent implements OnDestroy {
 
   planCatalogMessage(): string {
     return this.planCatalogStatus() === 'loading' ? 'Loading pricing…' : 'Pricing unavailable';
-  }
-
-  estimatedVideos(id: PlanId): number {
-    return Math.max(1, Math.round(this.plan(id).credits / ESTIMATED_CREDITS_PER_VIDEO));
   }
 
   formatMoney(amount: number, currency: string): string {
@@ -163,18 +223,24 @@ export class PricingPageComponent implements OnDestroy {
     void this.refreshSubscription();
   }
 
-  async beginCheckout(planId: PlanId): Promise<void> {
+  async beginCheckout(planId: KnownPlanId): Promise<void> {
     if (this.initializing() || this.planCatalogStatus() !== 'ready') return;
     const plan = this.plan(planId);
-    if (!plan.available) return;
+    if (!this.canPurchasePlan(planId)) return;
+    const quote = this.planQuote(planId);
+    const interval = this.selectedBillingInterval();
     await this.beginPurchase({
-      purchase: { plan: planId },
+      purchase: { plan: planId, interval: this.billingInterval() },
       kind: 'PLAN',
-      label: plan.name,
-      amount: plan.price,
+      label: `${plan.name} · ${interval === 'YEAR' ? 'Yearly' : 'Monthly'}`,
+      amount: quote.price,
+      listAmount: quote.listPrice,
+      discount: quote.listPrice - quote.price,
       currency: plan.currency,
-      credits: plan.credits,
-      periodDays: plan.periodDays,
+      credits: this.planCredits(planId),
+      bonusCredits: 0,
+      periodDays: interval === 'YEAR' ? plan.yearDays : plan.periodDays,
+      interval,
     });
   }
 
@@ -182,11 +248,15 @@ export class PricingPageComponent implements OnDestroy {
     await this.beginPurchase({
       purchase: { creditPack: pack.id },
       kind: 'CREDIT_PACK',
-      label: `${pack.credits} credits`,
+      label: pack.name,
       amount: pack.price,
+      listAmount: pack.listPrice,
+      discount: pack.discount,
       currency: pack.currency,
       credits: pack.credits,
+      bonusCredits: pack.bonusAvailable === false ? 0 : pack.firstPurchaseBonusCredits,
       periodDays: null,
+      interval: null,
     });
   }
 
@@ -233,12 +303,14 @@ export class PricingPageComponent implements OnDestroy {
   }
 
   purchaseChangesActivePlan(): boolean {
+    const selected = this.selection();
     const selectedPlan = this.selectedPlanId();
     const subscription = this.subscription();
-    return !!selectedPlan && subscription?.status === 'active' && subscription.plan !== selectedPlan;
+    return !!selectedPlan && subscription?.status === 'active'
+      && (subscription.plan !== selectedPlan || subscription.interval !== selected?.interval);
   }
 
-  selectedPlanId(): PlanId | null {
+  selectedPlanId(): string | null {
     const purchase = this.selection()?.purchase;
     return purchase && 'plan' in purchase ? purchase.plan : null;
   }
@@ -246,7 +318,18 @@ export class PricingPageComponent implements OnDestroy {
   paymentItemLabel(): string {
     const payment = this.payment();
     if (!payment) return this.selection()?.label ?? 'purchase';
-    return payment.kind === 'PLAN' && payment.plan ? this.plan(payment.plan).name : `${payment.credits} credits`;
+    return payment.kind === 'PLAN' && payment.plan
+      ? this.plans().find((plan) => plan.id === payment.plan)?.name ?? payment.plan
+      : `${payment.credits} credits`;
+  }
+
+  totalPackCredits(payment: BillingPayment): number {
+    return payment.credits + payment.bonusCredits;
+  }
+
+  paymentCreditLabel(payment: BillingPayment): string {
+    if (payment.kind === 'PLAN' && payment.interval === 'YEAR') return `${payment.credits} credits each month`;
+    return `${this.totalPackCredits(payment)} credits`;
   }
 
   private async beginPurchase(selection: CheckoutSelection): Promise<void> {
@@ -257,7 +340,7 @@ export class PricingPageComponent implements OnDestroy {
     }
     if (!currentUser) {
       const query = 'plan' in selection.purchase
-        ? `checkout=${selection.purchase.plan}`
+        ? `checkout=${selection.purchase.plan}&interval=${selection.purchase.interval}`
         : `pack=${encodeURIComponent(selection.purchase.creditPack)}`;
       const returnUrl = `/pricing?${query}`;
       this.auth.setPendingReturnUrl(returnUrl);
@@ -320,11 +403,16 @@ export class PricingPageComponent implements OnDestroy {
     if (user) {
       await this.loadBillingWorkspaces();
       await this.refreshSubscription();
+      if (this.subscription()?.interval === 'YEAR' && !this.route.snapshot.queryParamMap.has('interval')) {
+        this.billingInterval.set('year');
+      }
     }
     this.initializing.set(false);
 
     const requestedPlan = this.route.snapshot.queryParamMap.get('checkout');
-    if (this.isPlanId(requestedPlan) && this.planCatalogStatus() === 'ready' && this.plan(requestedPlan).available) {
+    const requestedInterval = this.route.snapshot.queryParamMap.get('interval');
+    if (requestedInterval === 'year' || requestedInterval === 'month') this.billingInterval.set(requestedInterval);
+    if (this.isPlanId(requestedPlan) && this.planCatalogStatus() === 'ready' && this.canPurchasePlan(requestedPlan)) {
       await this.beginCheckout(requestedPlan);
       return;
     }
@@ -405,7 +493,7 @@ export class PricingPageComponent implements OnDestroy {
         width: 300,
         margin: 2,
         errorCorrectionLevel: 'M',
-        color: { dark: '#07080a', light: '#ffffff' },
+        color: { dark: '#070b18', light: '#ffffff' },
       }));
     }
     this.countdownTimer = window.setInterval(() => this.updateCountdown(), 1_000);
@@ -473,14 +561,14 @@ export class PricingPageComponent implements OnDestroy {
     if (!this.route.snapshot.queryParamMap.has('checkout') && !this.route.snapshot.queryParamMap.has('pack')) return;
     void this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { checkout: null, pack: null },
+      queryParams: { checkout: null, pack: null, interval: null },
       queryParamsHandling: 'merge',
       replaceUrl: true,
     });
   }
 
-  private isPlanId(value: string | null): value is PlanId {
-    return value !== null && PLAN_IDS.includes(value as PlanId);
+  private isPlanId(value: string | null): value is KnownPlanId {
+    return value !== null && PLAN_IDS.includes(value as KnownPlanId);
   }
 
   private errorMessage(error: unknown, fallback: string): string {

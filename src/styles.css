@@ -3,38 +3,46 @@
 @font-face { font-family: 'SF Pro Display'; src: url('/fonts/sf-pro-display/SFPRODISPLAYMEDIUM.OTF') format('opentype'); font-style: normal; font-weight: 500; font-display: swap; }
 @font-face { font-family: 'SF Pro Display'; src: url('/fonts/sf-pro-display/SFPRODISPLAYBOLD.OTF') format('opentype'); font-style: normal; font-weight: 700; font-display: swap; }
 
-/* Motify design tokens: neutral dark UI, logo gradient only as a soft accent. */
+/* Motify brand system: cobalt, ink, and white. */
 :root {
   color-scheme: dark;
 
+  /* Brand */
+  --motify-cobalt: #1f45b0;
+  --motify-cobalt-light: var(--motify-cobalt);
+  --motify-ink: #07080a;
+  --motify-white: #ffffff;
+
   /* Backgrounds */
-  --motify-bg: linear-gradient(180deg, #111216 0%, #07080a 46%, #020203 100%);
+  --motify-bg: var(--motify-ink);
   --motify-bg-elevated: transparent;
-  --motify-surface: rgba(12, 14, 18, 0.78);
-  --motify-surface-hover: rgba(18, 21, 27, 0.9);
-  --motify-shell: rgba(10, 11, 13, 0.82);
+  --motify-surface: rgba(17, 18, 22, 0.82);
+  --motify-surface-hover: rgba(25, 26, 31, 0.92);
+  --motify-shell: rgba(7, 11, 24, 0.82);
 
   /* Borders */
   --motify-border: rgba(255, 255, 255, 0.08);
   --motify-border-strong: rgba(255, 255, 255, 0.16);
 
   /* Text */
-  --motify-text-primary: #f5f7fa;
-  --motify-text-secondary: rgba(245, 247, 250, 0.72);
-  --motify-text-muted: rgba(245, 247, 250, 0.5);
+  --motify-text-primary: var(--motify-white);
+  --motify-text-secondary: rgba(255, 255, 255, 0.72);
+  --motify-text-muted: rgba(255, 255, 255, 0.5);
 
-  --motify-accent: rgba(245, 247, 250, 0.84);
-  --motify-logo-start: #8ab4ff;
-  --motify-logo-end: #7cf7c5;
-  --motify-accent-gradient: linear-gradient(135deg, var(--motify-logo-start), var(--motify-logo-end));
-  --motify-accent-contrast: #050608;
+  --motify-accent: var(--motify-white);
+  /* Legacy accent consumers stay neutral; cobalt is reserved for intentional actions. */
+  --motify-logo-start: var(--motify-white);
+  --motify-logo-end: var(--motify-white);
+  --motify-accent-gradient: var(--motify-cobalt);
+  --motify-text-gradient: var(--motify-white);
+  --motify-accent-contrast: var(--motify-white);
 
   /* Shadows / glow */
   --motify-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --motify-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
   --motify-accent-glow:
-    0 0 0 1px rgba(138, 180, 255, 0.18),
-    0 0 26px rgba(124, 247, 197, 0.08);
+    0 0 0 1px rgba(255, 255, 255, 0.28),
+    0 0 26px rgba(255, 255, 255, 0.16);
   --motify-shell-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
     0 18px 42px rgba(0, 0, 0, 0.32);
@@ -45,6 +53,7 @@
     'Segoe UI Symbol';
   --motify-type-display: clamp(3rem, 8vw, 6.8rem);
   --motify-type-section: clamp(2.2rem, 5vw, 4.25rem);
+  --motify-heading-section: clamp(2.65rem, 5vw, 4.5rem);
   --motify-type-subheading: clamp(1.45rem, 3vw, 2.45rem);
   --motify-type-body: 1rem;
   --motify-type-small: 0.78rem;
@@ -69,6 +78,7 @@
   --motify-space-24: 6rem;
   --motify-space-28: 7rem;
   --motify-section-gap: clamp(3.5rem, 8vw, 7rem);
+  --motify-heading-content-gap: clamp(3rem, 6vw, 5rem);
   --motify-content-width: 70rem;
   --motify-content-padding: var(--motify-space-6);
   --motify-duration-fast: 180ms;
@@ -104,7 +114,8 @@ body {
   min-height: 100%;
   /* Safety net: no section should ever force horizontal scroll on the page. */
   max-width: 100%;
-  overflow-x: hidden;
+  /* `hidden` creates a scroll container and prevents nested sticky elements from sticking. */
+  overflow-x: clip;
 }
 
 html {
@@ -149,10 +160,10 @@ body {
 }
 
 .heading-accent {
-  color: transparent;
-  background: var(--motify-accent-gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: var(--motify-cobalt);
+  background: none;
+  text-decoration: none;
+  text-shadow: 0 0 1.2rem rgba(31, 69, 176, 0.22);
 }
 
 .heading-typed {
@@ -214,11 +225,7 @@ a {
 
 .motify-noise-bg::before {
   z-index: -2;
-  background:
-    radial-gradient(circle at 18% 12%, rgba(138, 180, 255, 0.16), transparent 34%),
-    radial-gradient(circle at 88% 28%, rgba(124, 247, 197, 0.12), transparent 32%),
-    radial-gradient(circle at 56% 100%, rgba(255, 255, 255, 0.07), transparent 40%),
-    rgba(8, 9, 11, 0.56);
+  background: rgba(7, 11, 24, 0.56);
 }
 
 .motify-noise-bg::after {

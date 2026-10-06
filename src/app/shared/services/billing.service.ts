@@ -3,13 +3,26 @@ import { Injectable, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { motifyApiUrl } from '../config/runtime-config';
 
-export type PlanId = 'starter' | 'pro' | 'studio';
+export type PlanId = string;
+export type BillingInterval = 'MONTH' | 'YEAR';
+export type CheckoutInterval = 'month' | 'year';
 export type PaymentStatus = 'PENDING' | 'PAID' | 'EXPIRED' | 'FAILED';
 export type SubscriptionStatus = 'none' | 'active' | 'expired';
 export type PaymentKind = 'PLAN' | 'CREDIT_PACK';
 export type PaymentMode = 'live' | 'sandbox';
 export type SandboxOutcome = 'paid' | 'failed' | 'wrong_amount' | 'expired';
-export type Purchase = { readonly plan: PlanId } | { readonly creditPack: string };
+export type Purchase = { readonly plan: PlanId; readonly interval: CheckoutInterval } | { readonly creditPack: string };
+
+export interface PriceQuote {
+  readonly listPrice: number;
+  readonly yearlyDiscount: number;
+  readonly discount: number;
+  readonly price: number;
+}
+
+export interface YearPriceQuote extends PriceQuote {
+  readonly credits: number;
+}
 
 export interface BillingPlan {
   readonly id: PlanId;
@@ -18,6 +31,12 @@ export interface BillingPlan {
   readonly currency: 'USD';
   readonly periodDays: number;
   readonly credits: number;
+  readonly creditsPerMonth: number;
+  readonly yearDays: number;
+  readonly discountPercent: number;
+  readonly yearlyDiscountPercent: number;
+  readonly month: PriceQuote;
+  readonly year: YearPriceQuote;
   readonly available: boolean;
 }
 
@@ -26,6 +45,14 @@ export interface CreditPack {
   readonly price: number;
   readonly currency: 'USD';
   readonly credits: number;
+  readonly name: string;
+  readonly listPrice: number;
+  readonly yearlyDiscount: number;
+  readonly discount: number;
+  readonly discountPercent: number;
+  readonly firstPurchaseBonusPercent: number;
+  readonly firstPurchaseBonusCredits: number;
+  readonly bonusAvailable: boolean | null;
 }
 
 export interface MotifyWorkspace {
@@ -39,6 +66,7 @@ export interface MotifyWorkspace {
 export interface WorkspaceSubscription {
   readonly status: SubscriptionStatus;
   readonly plan: PlanId | null;
+  readonly interval: BillingInterval | null;
   readonly currentPeriodStart: string | null;
   readonly currentPeriodEnd: string | null;
 }
@@ -49,8 +77,12 @@ export interface BillingPayment {
   readonly mode: PaymentMode;
   readonly kind: PaymentKind;
   readonly plan: PlanId | null;
+  readonly interval: BillingInterval | null;
   readonly creditPack: string | null;
   readonly credits: number;
+  readonly bonusCredits: number;
+  readonly listAmount: number;
+  readonly discount: number;
   readonly amount: number;
   readonly currency: 'USD' | 'KHR';
   readonly billNumber: string;
@@ -82,7 +114,9 @@ export class BillingService {
   }
 
   listCreditPacks(): Promise<readonly CreditPack[]> {
-    return this.get<readonly CreditPack[]>('/v1/billing/credit-packs', false);
+    // The endpoint is public, but a session lets it report whether each pack's
+    // one-time first-purchase bonus is still available to this user.
+    return this.get<readonly CreditPack[]>('/v1/billing/credit-packs');
   }
 
   listWorkspaces(): Promise<readonly MotifyWorkspace[]> {

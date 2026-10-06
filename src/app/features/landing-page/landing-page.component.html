@@ -5,14 +5,12 @@
     <app-spatial-showcase-section />
     <section id="about" class="problem" aria-labelledby="problem-title">
       <div class="problem__inner">
-        <h2 id="problem-title" [appScrollReveal]="0">
-          Your first draft
-          <span class="heading-accent heading-swipe">doesn’t have to be your final one.</span>
-        </h2>
-        <p class="problem__lead">
-          Create SaaS explainer videos, product launch videos, promotional videos, and feature announcements designed to market
-          your product—without giving up creative control.
-        </p>
+        <div class="problem__heading" [appScrollReveal]="0">
+          <h2 id="problem-title">
+            <span class="problem__title-line">Your first draft <span class="heading-accent">doesn’t have</span></span>
+            <span class="problem__title-line heading-swipe">to be your <span class="heading-accent">last one.</span></span>
+          </h2>
+        </div>
         <app-value-points />
       </div>
     </section>
@@ -98,11 +96,17 @@
           View repository
         </a>
       </div>
-      <a class="team-love__partnership" href="https://www.kiritts.com/?locale=en" target="_blank" rel="noopener noreferrer" aria-label="Supported by KiriTTS">
-        <span>Supported by</span>
-        <img src="/assets/kiritts-logo.svg" alt="KiriTTS" width="32" height="32" loading="lazy" />
-        <strong>KiriTTS</strong>
-      </a>
+      <div class="team-love__partnerships" aria-label="Supported by partners">
+        <a class="team-love__partnership" href="https://cloud.google.com/" target="_blank" rel="noopener noreferrer" aria-label="Recognized by Google Cloud">
+          <span>Recognized by</span>
+          <img class="team-love__google-logo" src="/assets/google-cloud-logo.png" alt="Google Cloud" width="82" height="15" loading="lazy" />
+        </a>
+        <a class="team-love__partnership" href="https://www.kiritts.com/?locale=en" target="_blank" rel="noopener noreferrer" aria-label="Supported by KiriTTS">
+          <span>Supported by</span>
+          <img src="/assets/kiritts-logo.svg" alt="KiriTTS" width="32" height="32" loading="lazy" />
+          <strong>KiriTTS</strong>
+        </a>
+      </div>
     </section>
     <section id="faq" class="faq" aria-labelledby="faq-title">
       <div class="faq__inner">

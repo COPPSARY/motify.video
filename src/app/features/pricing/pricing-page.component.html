@@ -3,6 +3,12 @@
   <main class="pricing-page" aria-labelledby="pricing-title">
     <section class="pricing-page__intro">
       <h1 id="pricing-title">Pricing</h1>
+      <div class="billing-toggle" role="group" aria-label="Billing period">
+        <button type="button" [class.billing-toggle__option--active]="billingInterval() === 'month'" (click)="setBillingInterval('month')">Monthly</button>
+        <button type="button" [class.billing-toggle__option--active]="billingInterval() === 'year'" (click)="setBillingInterval('year')">
+          Yearly
+        </button>
+      </div>
     </section>
 
     @if (subscription()?.status === 'active') {
@@ -10,8 +16,8 @@
         <span class="subscription-banner__status" aria-hidden="true"></span>
         <div>
           <p>Your current plan</p>
-          <strong>{{ plan(subscription()!.plan!).name }}</strong>
-          <span>Active through {{ subscriptionEnd() }}</span>
+          <strong>{{ subscriptionPlanName() }}</strong>
+          <span>{{ subscription()!.interval === 'YEAR' ? 'Yearly' : 'Monthly' }} · Active through {{ subscriptionEnd() }}</span>
         </div>
       </aside>
     } @else if (subscription()?.status === 'expired') {
@@ -19,7 +25,7 @@
         <span class="subscription-banner__status" aria-hidden="true"></span>
         <div>
           <p>Plan expired</p>
-          <strong>{{ plan(subscription()!.plan!).name }}</strong>
+          <strong>{{ subscriptionPlanName() }}</strong>
           <span>Expired {{ subscriptionEnd() }}. Renew below to restore plan access.</span>
         </div>
       </aside>
@@ -32,8 +38,12 @@
             <h2 class="pricing-card__plan">{{ plan('starter').name }}</h2>
           </div>
           @if (planCatalogStatus() === 'ready') {
-            <p class="pricing-card__price"><strong>{{ formatMoney(plan('starter').price, plan('starter').currency) }}</strong><span>/ {{ plan('starter').periodDays }} days</span></p>
-            <p class="pricing-card__credits"><strong>{{ plan('starter').credits }} credits</strong><span>About {{ estimatedVideos('starter') }} complete videos</span></p>
+            <p class="pricing-card__price">
+              @if (planDisplayListPrice('starter') > planDisplayPrice('starter')) { <del>{{ formatMoney(planDisplayListPrice('starter'), plan('starter').currency) }}</del> }
+              <strong>{{ formatMoney(planDisplayPrice('starter'), plan('starter').currency) }}</strong><span>/ month</span>
+            </p>
+            @if (billingInterval() === 'year') { <p class="pricing-card__billing-total">Billed yearly: {{ formatMoney(planQuote('starter').price, plan('starter').currency) }}</p> }
+            <p class="pricing-card__credits"><strong>{{ planCredits('starter') }} credits</strong></p>
           } @else {
             <p class="pricing-card__price"><strong>—</strong><span>{{ planCatalogMessage() }}</span></p>
           }
@@ -53,7 +63,7 @@
           class="pricing-card__button"
           type="button"
           [class.pricing-card__button--current]="isActivePlan('starter')"
-          [disabled]="planCatalogStatus() !== 'ready' || initializing() || checkoutState() === 'creating'"
+          [disabled]="planCatalogStatus() !== 'ready' || initializing() || checkoutState() === 'creating' || !canPurchasePlan('starter')"
           (click)="beginCheckout('starter')"
         >{{ planButtonLabel('starter') }}</button>
       </article>
@@ -65,8 +75,12 @@
             <span class="pricing-card__badge">Recommended</span>
           </div>
           @if (planCatalogStatus() === 'ready') {
-            <p class="pricing-card__price"><strong>{{ formatMoney(plan('pro').price, plan('pro').currency) }}</strong><span>/ {{ plan('pro').periodDays }} days</span></p>
-            <p class="pricing-card__credits"><strong>{{ plan('pro').credits }} credits</strong><span>About {{ estimatedVideos('pro') }} complete videos</span></p>
+            <p class="pricing-card__price">
+              @if (planDisplayListPrice('pro') > planDisplayPrice('pro')) { <del>{{ formatMoney(planDisplayListPrice('pro'), plan('pro').currency) }}</del> }
+              <strong>{{ formatMoney(planDisplayPrice('pro'), plan('pro').currency) }}</strong><span>/ month</span>
+            </p>
+            @if (billingInterval() === 'year') { <p class="pricing-card__billing-total">Billed yearly: {{ formatMoney(planQuote('pro').price, plan('pro').currency) }}</p> }
+            <p class="pricing-card__credits"><strong>{{ planCredits('pro') }} credits</strong></p>
           } @else {
             <p class="pricing-card__price"><strong>—</strong><span>{{ planCatalogMessage() }}</span></p>
           }
@@ -85,7 +99,7 @@
           class="pricing-card__button"
           type="button"
           [class.pricing-card__button--current]="isActivePlan('pro')"
-          [disabled]="planCatalogStatus() !== 'ready' || initializing() || checkoutState() === 'creating'"
+          [disabled]="planCatalogStatus() !== 'ready' || initializing() || checkoutState() === 'creating' || !canPurchasePlan('pro')"
           (click)="beginCheckout('pro')"
         >{{ planButtonLabel('pro') }}</button>
       </article>
@@ -96,8 +110,12 @@
             <h2 class="pricing-card__plan">{{ plan('studio').name }}</h2>
           </div>
           @if (planCatalogStatus() === 'ready') {
-            <p class="pricing-card__price"><strong>{{ formatMoney(plan('studio').price, plan('studio').currency) }}</strong><span>/ {{ plan('studio').periodDays }} days</span></p>
-            <p class="pricing-card__credits"><strong>{{ plan('studio').credits }} credits</strong><span>About {{ estimatedVideos('studio') }} complete videos</span></p>
+            <p class="pricing-card__price">
+              @if (planDisplayListPrice('studio') > planDisplayPrice('studio')) { <del>{{ formatMoney(planDisplayListPrice('studio'), plan('studio').currency) }}</del> }
+              <strong>{{ formatMoney(planDisplayPrice('studio'), plan('studio').currency) }}</strong><span>/ month</span>
+            </p>
+            @if (billingInterval() === 'year') { <p class="pricing-card__billing-total">Billed yearly: {{ formatMoney(planQuote('studio').price, plan('studio').currency) }}</p> }
+            <p class="pricing-card__credits"><strong>{{ planCredits('studio') }} credits</strong></p>
           } @else {
             <p class="pricing-card__price"><strong>—</strong><span>{{ planCatalogMessage() }}</span></p>
           }
@@ -115,16 +133,46 @@
         @if (planCatalogStatus() !== 'ready') {
           <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">{{ planCatalogMessage() }}</span>
         } @else if (plan('studio').available) {
-          <button class="pricing-card__button" type="button" (click)="beginCheckout('studio')">{{ planButtonLabel('studio') }}</button>
+          <button class="pricing-card__button" type="button" [disabled]="!canPurchasePlan('studio')" (click)="beginCheckout('studio')">{{ planButtonLabel('studio') }}</button>
         } @else {
           <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">Coming soon</span>
         }
       </article>
+
+      <article class="pricing-card pricing-card--enterprise">
+        <div class="pricing-card__header">
+          <div class="pricing-card__plan-row">
+            <h2 class="pricing-card__plan">Enterprise</h2>
+            <span class="pricing-card__badge">Best value</span>
+          </div>
+          <p class="pricing-card__price pricing-card__price--custom"><strong>Custom</strong></p>
+          <p class="pricing-card__billing-total">Personalized pricing for your team</p>
+          <p class="pricing-card__credits">
+            <strong>High-volume credits</strong>
+            <span>Our lowest cost per credit</span>
+          </p>
+        </div>
+        <p class="pricing-card__description">For organizations producing a high volume of video and looking for the most cost-efficient plan.</p>
+        <div class="pricing-card__features">
+          <p><span class="pricing-card__attention pricing-card__attention--accent">Everything in Studio</span>, plus</p>
+          <ul>
+            <li>Custom credit allowance</li>
+            <li>Volume pricing</li>
+            <li>Personalized onboarding</li>
+            <li>Priority team support</li>
+          </ul>
+        </div>
+        <a
+          class="pricing-card__button"
+          href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hello%40motify.video&amp;su=Motify%20Enterprise%20pricing"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Contact us</a>
+      </article>
     </section>
 
     <p class="pricing-disclaimer">
-      A typical AI generation uses about 10 credits; a complete video commonly takes about three generations. Actual usage varies.
-      Plan credits expire on their individual expiry dates and do not roll over.
+      Yearly plans are billed upfront and credits are delivered monthly. Plan credits expire on their individual expiry dates and do not roll over.
       <a routerLink="/terms">Terms &amp; Conditions apply.</a>
     </p>
 
@@ -136,12 +184,22 @@
             <article class="credit-pack">
               <div class="pricing-card__header">
                 <div class="pricing-card__plan-row">
-                  <h3 class="pricing-card__plan">{{ pack.credits }} credits</h3>
+                  <h3 class="pricing-card__plan">
+                    {{ pack.credits }} credits
+                    @if (pack.bonusAvailable !== false && pack.firstPurchaseBonusCredits > 0) {
+                      <span class="credit-pack__bonus-amount">+ {{ pack.firstPurchaseBonusCredits }} bonus</span>
+                    }
+                  </h3>
                 </div>
                 <p class="pricing-card__price">
+                  @if (pack.listPrice > pack.price) { <del>{{ formatMoney(pack.listPrice, pack.currency) }}</del> }
                   <strong>{{ formatMoney(pack.price, pack.currency) }}</strong>
                 </p>
+                @if (pack.discount > 0) { <p class="credit-pack__saving">Save {{ formatMoney(pack.discount, pack.currency) }}</p> }
               </div>
+              @if (pack.bonusAvailable !== false && pack.firstPurchaseBonusCredits > 0) {
+                <p class="credit-pack__bonus-note">Bonus credits apply to the first purchase only.</p>
+              }
               <button class="pricing-card__button" type="button" (click)="beginCreditPackCheckout(pack)">
                 Buy now
               </button>
@@ -159,10 +217,12 @@
     @if (!initializing() && !user()) {
       <section class="pricing-trial" aria-labelledby="pricing-trial-title">
         <div class="pricing-trial__copy">
-          <h2 id="pricing-trial-title">Not sure which plan is right?</h2>
-          <span>Create a <strong class="pricing-trial__free">free</strong> account, explore the workflow, and choose a plan when you’re ready.</span>
+          <h2 id="pricing-trial-title">
+            <span>Sign up now to get</span>
+            <strong>30 credits free!</strong>
+          </h2>
         </div>
-        <a class="pricing-trial__button" routerLink="/signup">Get Started Now</a>
+        <a class="pricing-trial__button" routerLink="/signup">Create your first video</a>
       </section>
     }
 
@@ -179,7 +239,7 @@
         </details>
         <details>
           <summary>Can I change my plan later?</summary>
-          <p>Yes. Renewing the same active plan extends it. Switching to a different plan starts the new plan immediately, so remaining access time on the previous plan is not carried over.</p>
+          <p>Monthly plans can switch immediately, without carrying unused access time forward. A yearly plan is prepaid and can only be extended as the same yearly plan until its current year ends.</p>
         </details>
         <details>
           <summary>Does my plan renew automatically?</summary>
@@ -214,13 +274,23 @@
             <div class="checkout-confirm__plan">
               <div class="checkout-confirm__heading">
                 <strong>{{ selected.label }}</strong>
-                <span>{{ formatMoney(selected.amount, selected.currency) }}</span>
+                <span>
+                  @if (selected.discount > 0) { <del>{{ formatMoney(selected.listAmount, selected.currency) }}</del> }
+                  {{ formatMoney(selected.amount, selected.currency) }}
+                </span>
               </div>
               <dl>
-                <div><dt>Credits added</dt><dd>{{ selected.credits }}</dd></div>
+                <div>
+                  <dt>{{ selected.interval === 'YEAR' ? 'Credits across the year' : 'Credits added' }}</dt>
+                  <dd>
+                    {{ selected.credits }}
+                    @if (selected.bonusCredits > 0) { <span>+ {{ selected.bonusCredits }} bonus</span> }
+                  </dd>
+                </div>
+                @if (selected.discount > 0) { <div><dt>You save</dt><dd>{{ formatMoney(selected.discount, selected.currency) }}</dd></div> }
                 @if (selected.periodDays !== null) {
                   <div><dt>Plan access</dt><dd>{{ selected.periodDays }} days</dd></div>
-                  <div><dt>Credit expiry</dt><dd>At this plan grant’s expiry date</dd></div>
+                  <div><dt>Credit delivery</dt><dd>{{ selected.interval === 'YEAR' ? 'Monthly for 12 months' : 'Added when payment clears' }}</dd></div>
                 } @else {
                   <div><dt>Credit expiry</dt><dd>Never</dd></div>
                 }
@@ -281,7 +351,7 @@
                 <img src="/assets/khqr/khqr-logo-white.svg" alt="KHQR" width="166" height="40" />
               </header>
               <div class="khqr-card__payment">
-                <p>Motify · {{ pendingPayment.credits }} credits</p>
+                <p>Motify · {{ paymentCreditLabel(pendingPayment) }}</p>
                 <div>
                   @if (pendingPayment.currency === 'USD') { <span class="khqr-card__symbol">$</span> }
                   <strong>{{ pendingPayment.amount }}</strong>
@@ -328,10 +398,14 @@
             <span class="checkout-state__icon" aria-hidden="true">✓</span>
             @if (paidPayment.kind === 'PLAN') {
               <h2 id="checkout-title">Your {{ paymentItemLabel() }} plan is active</h2>
-              <p>Bakong confirmed your payment and added {{ paidPayment.credits }} credits. Your workspace is covered through {{ subscriptionEnd() }}.</p>
+              <p>Bakong confirmed your payment and added {{ paidPayment.credits }} credits{{ paidPayment.interval === 'YEAR' ? ' for the first month; the next grants arrive monthly' : '' }}. Your workspace is covered through {{ subscriptionEnd() }}.</p>
             } @else {
-              <h2 id="checkout-title">{{ paidPayment.credits }} credits added</h2>
-              <p>Bakong confirmed your payment. These purchased credits do not expire.</p>
+              <h2 id="checkout-title">{{ totalPackCredits(paidPayment) }} credits added</h2>
+              <p>
+                Bakong confirmed your payment.
+                @if (paidPayment.bonusCredits > 0) { Your first-purchase bonus added {{ paidPayment.bonusCredits }} extra credits. }
+                These purchased credits do not expire.
+              </p>
             }
             @if (paidPayment.creditBalance !== null && paidPayment.creditBalance !== undefined) {
               <p class="checkout-balance">New balance: <strong>{{ paidPayment.creditBalance }} credits</strong></p>

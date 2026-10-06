@@ -1,23 +1,30 @@
 <section class="hero">
   <div class="hero__background" aria-hidden="true">
-    <div class="hero__background-glow hero__background-glow--blue"></div>
-    <div class="hero__background-glow hero__background-glow--pink"></div>
-    <div class="hero__background-glow hero__background-glow--green"></div>
-    <div class="hero__background-grid"></div>
-    <div class="hero__background-beam hero__background-beam--one"></div>
-    <div class="hero__background-beam hero__background-beam--two"></div>
-    <span class="hero__background-particle hero__background-particle--one"></span>
-    <span class="hero__background-particle hero__background-particle--two"></span>
-    <span class="hero__background-particle hero__background-particle--three"></span>
+    <app-pattern-waves
+      preset="silk"
+      color="#ffffff"
+      backgroundColor="#07080a"
+      fade="edges"
+      [interactive]="true"
+      [cursorSize]="50"
+      [cursorStrength]="0.6"
+      [spacing]="9"
+      [depth]="0.95"
+      [shine]="0.8"
+      [contrast]="1.2"
+      [speed]="0.35"
+      [scale]="1"
+      [direction]="20"
+      [opacity]="1"
+    />
   </div>
   <div class="hero__content" [appScrollReveal]="0">
     <h1 class="hero__headline">
       <span class="hero__headline-line">Create SaaS videos</span>
-      <span class="hero__headline-line heading-accent heading-swipe">that explain and sell.</span>
+      <span class="hero__headline-line heading-swipe">that explain and sell.</span>
     </h1>
     <p class="hero__subheadline">
-      Motify is an AI video generator for marketing teams creating SaaS
-      explainer videos, product launches, demos, and promotional videos.
+      AI video creation for SaaS teams. Make explainers, launches, demos, and ads.
     </p>
 
     <form class="hero__composer" (ngSubmit)="submitPrompt()">
@@ -45,28 +52,17 @@
         <button class="hero__submit" type="submit" aria-label="Start creating"><svg lucideArrowUp aria-hidden="true"></svg></button>
       </div>
     </form>
-    <p class="hero__fine-print">Start from a prompt. Refine the timeline. Export the finished frame or video.</p>
+    <div class="hero__trust" aria-label="Motify recognition">
+      <span class="hero__trust-label">Recognized by</span>
+      <span class="hero__trust-badge hero__trust-badge--google">
+        <img src="/assets/google-cloud-logo.png" alt="Google Cloud" width="82" height="15" />
+      </span>
+      <i aria-hidden="true"></i>
+      <span class="hero__trust-badge">
+        <img src="/assets/kiritts-logo.svg" alt="" width="18" height="18" />
+        <span>KiriTTS</span>
+      </span>
+    </div>
   </div>
 
-  <div class="hero__kinetic" aria-hidden="true" [appScrollReveal]="120">
-    <svg viewBox="0 0 800 150" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="motion-line-blue" x1="0" x2="1">
-          <stop offset="0" stop-color="#8ab4ff" stop-opacity="0" />
-          <stop offset="0.5" stop-color="#8ab4ff" />
-          <stop offset="1" stop-color="#7cf7c5" stop-opacity="0" />
-        </linearGradient>
-        <linearGradient id="motion-line-pink" x1="0" x2="1">
-          <stop offset="0" stop-color="#ff86d9" stop-opacity="0" />
-          <stop offset="0.5" stop-color="#ff86d9" />
-          <stop offset="1" stop-color="#8ab4ff" stop-opacity="0" />
-        </linearGradient>
-      </defs>
-      <path class="hero__kinetic-line hero__kinetic-line--one" d="M400 75 C350 25 300 15 250 45 C205 72 180 125 125 125 C80 125 45 105 30 75 C45 45 80 25 125 25 C180 25 205 78 250 105 C300 135 350 125 400 75 C450 25 500 15 550 45 C595 72 620 125 675 125 C720 125 755 105 770 75 C755 45 720 25 675 25 C620 25 595 78 550 105 C500 135 450 125 400 75" />
-      <path class="hero__kinetic-line hero__kinetic-line--two" d="M400 75 C350 25 300 15 250 45 C205 72 180 125 125 125 C80 125 45 105 30 75 C45 45 80 25 125 25 C180 25 205 78 250 105 C300 135 350 125 400 75 C450 25 500 15 550 45 C595 72 620 125 675 125 C720 125 755 105 770 75 C755 45 720 25 675 25 C620 25 595 78 550 105 C500 135 450 125 400 75" />
-      <path class="hero__kinetic-line hero__kinetic-line--three" d="M400 75 C350 25 300 15 250 45 C205 72 180 125 125 125 C80 125 45 105 30 75 C45 45 80 25 125 25 C180 25 205 78 250 105 C300 135 350 125 400 75 C450 25 500 15 550 45 C595 72 620 125 675 125 C720 125 755 105 770 75 C755 45 720 25 675 25 C620 25 595 78 550 105 C500 135 450 125 400 75" />
-      <circle class="hero__kinetic-orb hero__kinetic-orb--one" cx="190" cy="75" r="4" />
-      <circle class="hero__kinetic-orb hero__kinetic-orb--two" cx="610" cy="75" r="3" />
-    </svg>
-  </div>
 </section>

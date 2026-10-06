@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LucideArrowUp, LucidePlus, LucideSparkles } from '@lucide/angular';
 import { editorReturnPath } from '../../../../shared/config/runtime-config';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
+import { PatternWavesComponent } from '../../../../shared/components/pattern-waves/pattern-waves.component';
 
 @Component({
   selector: 'app-hero-section',
@@ -12,6 +13,7 @@ import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reve
   imports: [
     FormsModule,
     ScrollRevealDirective,
+    PatternWavesComponent,
     LucideArrowUp,
     LucidePlus,
     LucideSparkles,

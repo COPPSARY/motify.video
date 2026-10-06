@@ -160,40 +160,43 @@ body {
 }
 
 .heading-accent {
-  color: var(--motify-cobalt);
+  color: #fff;
   background: none;
   text-decoration: none;
-  text-shadow: 0 0 1.2rem rgba(31, 69, 176, 0.22);
+  text-shadow:
+    0 0 0.35rem rgba(255, 255, 255, 0.55),
+    0 0 0.9rem rgba(255, 255, 255, 0.28),
+    0 0 1.45rem rgba(31, 69, 176, 0.58),
+    0 0 2.5rem rgba(31, 69, 176, 0.34);
 }
 
 .heading-typed {
   display: inline-block;
-  overflow: hidden;
-  max-width: 0;
   vertical-align: bottom;
   white-space: nowrap;
+  clip-path: inset(-3em 100% -3em -3em);
   animation: heading-type 1.4s steps(12, end) 420ms forwards;
 }
 
 .heading-swipe {
   display: inline-block;
-  clip-path: inset(0 100% 0 0);
+  clip-path: inset(-3em 100% -3em -3em);
   transform: translateX(-1.25rem);
   animation: heading-swipe 900ms cubic-bezier(0.2, 0.75, 0.25, 1) 260ms forwards;
 }
 
 @keyframes heading-type {
-  from { max-width: 0; }
-  to { max-width: 22ch; }
+  from { clip-path: inset(-3em 100% -3em -3em); }
+  to { clip-path: inset(-3em); }
 }
 
 @keyframes heading-swipe {
   from {
-    clip-path: inset(0 100% 0 0);
+    clip-path: inset(-3em 100% -3em -3em);
     transform: translateX(-1.25rem);
   }
   to {
-    clip-path: inset(0 0 0 0);
+    clip-path: inset(-3em);
     transform: translateX(0);
   }
 }
@@ -307,7 +310,7 @@ video {
   }
 
   .heading-typed {
-    max-width: none;
+    clip-path: none;
     animation: none;
   }
 

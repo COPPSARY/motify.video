@@ -952,28 +952,6 @@ label.payment-method:hover,
   font-weight: var(--motify-weight-bold);
 }
 
-.checkout-workspace {
-  display: grid;
-  gap: 0.55rem;
-  margin-top: 1.25rem;
-}
-
-.checkout-workspace > span {
-  color: var(--motify-text-primary);
-  font-size: var(--motify-type-small);
-  font-weight: var(--motify-weight-bold);
-}
-
-.checkout-workspace select {
-  width: 100%;
-  padding: 0.75rem 0.85rem;
-  border: 1px solid var(--motify-border-strong);
-  border-radius: var(--motify-radius-md);
-  background: #111318;
-  color: var(--motify-text-primary);
-  font: inherit;
-}
-
 .checkout-warning {
   margin: 1rem 0 0;
   padding: 0.85rem;
@@ -1282,12 +1260,23 @@ label.payment-method:hover,
   border: 0;
   border-radius: 999px;
   background: var(--motify-text-primary);
-  color: var(--motify-accent-contrast);
+  color: var(--motify-ink);
   cursor: pointer;
   font-size: var(--motify-type-small);
   font-weight: var(--motify-weight-bold);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.checkout-primary:hover,
+.checkout-primary:focus-visible {
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--motify-ink);
+}
+
+.checkout-primary:focus-visible {
+  outline: 2px solid var(--motify-white);
+  outline-offset: 3px;
 }
 
 .checkout-spinner {

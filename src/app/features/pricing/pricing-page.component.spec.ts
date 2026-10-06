@@ -128,7 +128,7 @@ describe('PricingPageComponent', () => {
     expect(contactLink?.textContent).toContain('Contact us');
   });
 
-  it('allows only owner workspaces for plan purchases and any membership for packs', async () => {
+  it('automatically applies purchases to the personal workspace', async () => {
     const component = TestBed.createComponent(PricingPageComponent).componentInstance;
     component.workspaces.set(workspaces);
     component.initializing.set(false);
@@ -136,11 +136,13 @@ describe('PricingPageComponent', () => {
     component.plans.set(plans);
 
     await component.beginCheckout('pro');
-    expect(component.eligibleWorkspaces().map((workspace) => workspace.id)).toEqual(['personal-1', 'team-owner']);
+    expect(component.eligibleWorkspaces().map((workspace) => workspace.id)).toEqual(['personal-1']);
+    expect(component.workspace()?.id).toBe('personal-1');
 
     component.closeCheckout();
     await component.beginCreditPackCheckout(creditPack);
-    expect(component.eligibleWorkspaces().map((workspace) => workspace.id)).toEqual(['personal-1', 'team-editor', 'team-owner']);
+    expect(component.eligibleWorkspaces().map((workspace) => workspace.id)).toEqual(['personal-1']);
+    expect(component.workspace()?.id).toBe('personal-1');
   });
 
   it('labels an active-plan change as a switch and the same plan as an extension', () => {

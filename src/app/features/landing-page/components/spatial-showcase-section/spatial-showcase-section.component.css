@@ -4,7 +4,7 @@
 
 .showcase-stories {
   position: relative;
-  padding: clamp(5rem, 10vw, 9rem) 1.5rem;
+  padding: var(--motify-section-gap) 1.5rem clamp(5rem, 10vw, 9rem);
   background: #08090b;
 }
 
@@ -28,8 +28,60 @@
 
 .showcase-stories__intro {
   display: grid;
-  gap: 1rem;
   padding-bottom: var(--motify-heading-content-gap);
+}
+
+.showcase-stories__trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.35rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  color: var(--motify-text-muted);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: var(--motify-weight-semibold);
+  letter-spacing: normal;
+}
+
+.showcase-stories__trust-logos {
+  display: flex;
+  align-items: center;
+  gap: 1.35rem;
+}
+
+.showcase-stories__trust-logos a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--motify-text-primary);
+  text-decoration: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.showcase-stories__trust-logos a:hover,
+.showcase-stories__trust-logos a:focus-visible {
+  opacity: 0.82;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.showcase-stories__trust-logos img {
+  display: block;
+  width: 1.9rem;
+  height: 1.9rem;
+  object-fit: contain;
+}
+
+.showcase-stories__trust-logos .showcase-stories__google-logo {
+  width: 2.4rem;
+}
+
+.showcase-stories__trust-logos strong {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: var(--motify-weight-semibold);
+  letter-spacing: normal;
 }
 
 .showcase-stories__intro h2 {

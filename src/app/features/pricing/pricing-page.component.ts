@@ -211,16 +211,7 @@ export class PricingPageComponent implements OnDestroy {
   }
 
   eligibleWorkspaces(): readonly MotifyWorkspace[] {
-    const selection = this.selection();
-    return selection?.kind === 'PLAN'
-      ? this.workspaces().filter((workspace) => workspace.role === 'owner')
-      : this.workspaces();
-  }
-
-  selectWorkspace(event: Event): void {
-    const id = (event.target as HTMLSelectElement).value;
-    this.workspace.set(this.eligibleWorkspaces().find((workspace) => workspace.id === id) ?? null);
-    void this.refreshSubscription();
+    return this.workspaces().filter((workspace) => workspace.kind === 'personal' && workspace.role === 'owner');
   }
 
   async beginCheckout(planId: KnownPlanId): Promise<void> {
@@ -349,14 +340,10 @@ export class PricingPageComponent implements OnDestroy {
     }
 
     if (!this.workspaces().length) await this.loadBillingWorkspaces();
-    const eligible = selection.kind === 'PLAN'
-      ? this.workspaces().filter((workspace) => workspace.role === 'owner')
-      : this.workspaces();
+    const eligible = this.eligibleWorkspaces();
     if (!eligible.length) {
       this.selection.set(selection);
-      this.openError(selection.kind === 'PLAN'
-        ? 'We could not find a workspace you own. Open Motify once, then try again.'
-        : 'We could not find a workspace for this account. Open Motify once, then try again.');
+      this.openError('We could not find your personal workspace. Open Motify once, then try again.');
       return;
     }
 
@@ -459,8 +446,6 @@ export class PricingPageComponent implements OnDestroy {
 
   private preferredWorkspace(workspaces: readonly MotifyWorkspace[]): MotifyWorkspace | null {
     return workspaces.find((candidate) => candidate.kind === 'personal' && candidate.role === 'owner')
-      ?? workspaces.find((candidate) => candidate.role === 'owner')
-      ?? workspaces[0]
       ?? null;
   }
 

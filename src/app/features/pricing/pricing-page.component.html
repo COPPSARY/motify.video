@@ -270,7 +270,7 @@
         @if (checkoutState() === 'confirming' && selection(); as selected) {
           <form class="checkout-confirm" (submit)="$event.preventDefault(); confirmCheckout()">
             <h2 id="checkout-title">Review your purchase</h2>
-            <p>Confirm what you’re buying and where the plan should apply.</p>
+            <p>Confirm your purchase details before continuing.</p>
             <div class="checkout-confirm__plan">
               <div class="checkout-confirm__heading">
                 <strong>{{ selected.label }}</strong>
@@ -296,17 +296,6 @@
                 }
               </dl>
             </div>
-
-            <label class="checkout-workspace">
-              <span>{{ selected.kind === 'PLAN' ? 'Workspace receiving the plan' : 'Account workspace' }}</span>
-              <select (change)="selectWorkspace($event)">
-                @for (workspaceOption of eligibleWorkspaces(); track workspaceOption.id) {
-                  <option [value]="workspaceOption.id" [selected]="workspace()?.id === workspaceOption.id">
-                    {{ workspaceOption.name }}{{ workspaceOption.kind === 'personal' ? ' — Personal' : ' — Team' }}
-                  </option>
-                }
-              </select>
-            </label>
 
             @if (purchaseChangesActivePlan()) {
               <p class="checkout-warning">Switching plans activates the new plan immediately. Remaining access time on your current plan will not carry over; existing credit grants keep their own expiry dates.</p>

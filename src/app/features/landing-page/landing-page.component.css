@@ -419,52 +419,6 @@ main > app-spatial-showcase-section {
   color: var(--motify-accent);
 }
 
-.team-love__partnerships {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.65rem;
-  margin-top: 1.5rem;
-}
-
-.team-love__partnership {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-top: 0;
-  padding: 0.55rem 0.85rem;
-  border: 1px solid var(--motify-border);
-  border-radius: 999px;
-  color: var(--motify-text-secondary);
-  font-size: 0.82rem;
-  text-decoration: none;
-  transition: border-color 180ms ease, transform 180ms ease;
-}
-
-.team-love__partnership:hover,
-.team-love__partnership:focus-visible {
-  border-color: var(--motify-logo-end);
-  transform: translateY(-2px);
-  outline: none;
-}
-
-.team-love__partnership img {
-  display: block;
-  width: 1.5rem;
-  height: 1.5rem;
-  object-fit: contain;
-}
-
-.team-love__partnership .team-love__google-logo {
-  width: 5.2rem;
-  height: auto;
-}
-
-.team-love__partnership strong {
-  color: var(--motify-text-primary);
-  font-weight: var(--motify-weight-semibold);
-}
-
 @media (max-width: 640px) {
   .problem {
     padding: 4rem 1rem;

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   LucideCode2,
   LucideDownload,
@@ -14,6 +15,7 @@ import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reve
   selector: 'app-features-section',
   standalone: true,
   imports: [
+    RouterLink,
     ScrollRevealDirective,
     LucideCode2,
     LucideDownload,

@@ -7,18 +7,14 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   LucideArrowUpRight,
   LucideChevronDown,
-  LucideHome,
-  LucideMenu,
-  LucideLogIn,
   LucideLogOut,
+  LucideMenu,
   LucideX,
 } from '@lucide/angular';
-import { GithubStarBadgeComponent } from '../../../../shared/components/github-star-badge/github-star-badge.component';
-import { ProductHuntBadgeComponent } from '../../../../shared/components/product-hunt-badge/product-hunt-badge.component';
 import { EDITOR_AUTH_PATH, editorUrlForReturnPath } from '../../../../shared/config/runtime-config';
 import { AuthService, type MotifyUser } from '../../../../shared/services/auth.service';
 import { BillingService } from '../../../../shared/services/billing.service';
@@ -29,14 +25,11 @@ import { BillingService } from '../../../../shared/services/billing.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    GithubStarBadgeComponent,
-    ProductHuntBadgeComponent,
+    RouterLinkActive,
     LucideArrowUpRight,
     LucideChevronDown,
-    LucideHome,
-    LucideMenu,
-    LucideLogIn,
     LucideLogOut,
+    LucideMenu,
     LucideX,
   ],
   templateUrl: './navbar.component.html',
@@ -51,9 +44,9 @@ export class NavbarComponent {
     this.auth.user() ? editorUrlForReturnPath('/editor') : EDITOR_AUTH_PATH,
   );
 
-  /** Whether the page has been scrolled past the "condense" threshold. Drives the scrolled background/border. */
   protected readonly scrolled = signal(false);
   protected readonly menuOpen = signal(false);
+  protected readonly resourcesMenuOpen = signal(false);
   protected readonly accountMenuOpen = signal(false);
   protected readonly loggingOut = signal(false);
   protected readonly activePlan = computed(() => {
@@ -64,22 +57,45 @@ export class NavbarComponent {
 
   protected closeMenu(): void {
     this.menuOpen.set(false);
+    this.resourcesMenuOpen.set(false);
     this.accountMenuOpen.set(false);
   }
 
   protected toggleMenu(): void {
     this.accountMenuOpen.set(false);
+    this.resourcesMenuOpen.set(false);
     this.menuOpen.update((open) => !open);
+  }
+
+  protected toggleResourcesMenu(event: MouseEvent): void {
+    event.stopPropagation();
+    this.accountMenuOpen.set(false);
+    this.resourcesMenuOpen.update((open) => !open);
+  }
+
+  protected openResourcesMenu(): void {
+    this.accountMenuOpen.set(false);
+    this.resourcesMenuOpen.set(true);
+  }
+
+  protected closeResourcesMenu(): void {
+    this.resourcesMenuOpen.set(false);
   }
 
   protected toggleAccountMenu(event: MouseEvent): void {
     event.stopPropagation();
+    this.resourcesMenuOpen.set(false);
     this.accountMenuOpen.update((open) => !open);
   }
 
   protected userInitials(user: MotifyUser): string {
     const name = user.displayName.trim() || user.email.split('@')[0];
-    return name.split(/\s+/).slice(0, 2).map((part) => part.charAt(0)).join('').toUpperCase();
+    return name
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((part) => part.charAt(0))
+      .join('')
+      .toUpperCase();
   }
 
   protected async logoutAccount(): Promise<void> {
@@ -95,8 +111,9 @@ export class NavbarComponent {
   }
 
   @HostListener('document:click')
-  protected closeAccountMenu(): void {
+  protected closeDropdownMenus(): void {
     this.accountMenuOpen.set(false);
+    this.resourcesMenuOpen.set(false);
   }
 
   @HostListener('document:keydown.escape')
@@ -105,7 +122,6 @@ export class NavbarComponent {
   }
 
   constructor() {
-    // SSR-safe: afterNextRender runs only in the browser, after the first render — never on the server.
     afterNextRender(() => {
       void this.loadAccount();
       const onScroll = () => this.scrolled.set(window.scrollY > 8);
@@ -123,8 +139,9 @@ export class NavbarComponent {
 
     try {
       const workspaces = await this.billing.listWorkspaces();
-      const workspace = workspaces.find((candidate) => candidate.kind === 'personal' && candidate.role === 'owner')
-        ?? workspaces.find((candidate) => candidate.role === 'owner');
+      const workspace =
+        workspaces.find((candidate) => candidate.kind === 'personal' && candidate.role === 'owner') ??
+        workspaces.find((candidate) => candidate.role === 'owner');
       if (workspace) await this.billing.getSubscription(workspace.id);
     } catch {
       // The account control remains useful when billing is unavailable.

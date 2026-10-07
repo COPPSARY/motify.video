@@ -1,0 +1,57 @@
+<div id="top">
+  <app-navbar />
+  <main class="resource-hub">
+    <header class="resource-hub__hero">
+      <h1>Make the product story as strong as the product.</h1>
+      <p class="resource-hub__intro">
+        Practical guidance for turning product updates into clear, on-brand content—from the first brief to the final frame.
+      </p>
+      <div class="resource-hub__actions">
+        <a class="resource-hub__primary" routerLink="/resources/prompt-templates">Browse prompt templates</a>
+        <a routerLink="/resources/start-here">Start with the workflow</a>
+      </div>
+    </header>
+
+    <section class="resource-hub__featured" aria-labelledby="featured-title">
+      <div>
+        <h2 id="featured-title">A better brief creates a better first draft.</h2>
+      </div>
+      <p>
+        Start with the goal, audience, product context, customer problem, proof, brand direction, CTA, and output format. Our templates keep those decisions visible while you write.
+      </p>
+      <a routerLink="/resources/prompt-templates">Open the template library <span aria-hidden="true">↗</span></a>
+    </section>
+
+    <section class="resource-hub__library" aria-labelledby="library-title">
+      <div class="resource-hub__section-heading">
+        <h2 id="library-title">Learn by job, not by feature.</h2>
+      </div>
+      <div class="resource-hub__grid">
+        @for (category of categories; track category.id) {
+          <a class="resource-hub__card" [routerLink]="['/resources', category.id]">
+            <div class="resource-hub__card-content">
+              <h3>{{ category.title }}</h3>
+              <p>{{ category.description }}</p>
+            </div>
+            <small>{{ category.entries.length }} guides</small>
+          </a>
+        }
+        <a class="resource-hub__card resource-hub__card--prompt" routerLink="/resources/prompt-templates">
+          <div class="resource-hub__card-content">
+            <h3>Prompt Templates</h3>
+            <p>Structured prompts for launches, demos, explainers, social videos, comparisons, and more.</p>
+          </div>
+          <small>Interactive builder</small>
+        </a>
+        <a class="resource-hub__card" routerLink="/help">
+          <div class="resource-hub__card-content">
+            <h3>Help &amp; product guidance</h3>
+            <p>Account, credits, inputs, exports, rendering, troubleshooting, feature availability, and support.</p>
+          </div>
+          <small>Product help</small>
+        </a>
+      </div>
+    </section>
+  </main>
+  <app-footer />
+</div>

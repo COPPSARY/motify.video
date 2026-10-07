@@ -13,10 +13,7 @@ import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reve
 })
 export class FooterComponent {
   readonly logoSrc = 'logo.svg';
-  readonly docsUrl = EXTERNAL_LINKS.docs;
   readonly githubUrl = EXTERNAL_LINKS.github;
-  readonly npmUrl = EXTERNAL_LINKS.npm;
-  readonly productHuntUrl = EXTERNAL_LINKS.productHunt;
   readonly editorUrl = EXTERNAL_LINKS.editor;
   readonly facebookUrl = 'https://facebook.com/motify.video/';
   readonly tiktokUrl = 'https://www.tiktok.com/@motify855';

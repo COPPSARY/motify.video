@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
-import { EXTERNAL_LINKS } from '../../shared/constants/external-links';
 import { SeoService } from '../../shared/services/seo.service';
 
 const COPPSARY_MEMBERS = [
@@ -17,14 +15,12 @@ const COPPSARY_MEMBERS = [
 @Component({
   selector: 'app-about-page',
   standalone: true,
-  imports: [RouterLink, NavbarComponent, FooterComponent],
+  imports: [NavbarComponent, FooterComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.css',
 })
 export class AboutPageComponent {
-  readonly docsUrl = EXTERNAL_LINKS.docs;
-  readonly githubUrl = EXTERNAL_LINKS.github;
   readonly members = COPPSARY_MEMBERS.map((member) => ({
     ...member,
     url: `https://github.com/${member.github}`,
@@ -33,9 +29,9 @@ export class AboutPageComponent {
 
   constructor() {
     inject(SeoService).apply({
-      title: 'About Motify | AI Motion Graphics Generator',
+      title: 'About Motify | Product Marketing Content Workflow',
       description:
-        'Learn how Motify turns product ideas into editable AI motion graphics, promotional videos, SaaS explainers, and product launch videos.',
+        'Motify helps growing SaaS teams turn product updates and marketing goals into accurate, on-brand, production-ready content.',
       path: '/about',
       jsonLd: {
         '@context': 'https://schema.org',
@@ -43,7 +39,7 @@ export class AboutPageComponent {
         name: 'About Motify',
         url: 'https://motify.video/about',
         description:
-        'Motify is an AI motion graphics generator and open source editor built by COPPSARY for editable product videos and animations.',
+          'Motify is a product marketing content workflow for growing SaaS teams.',
         publisher: {
           '@type': 'Organization',
           name: 'COPPSARY',

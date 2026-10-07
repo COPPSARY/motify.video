@@ -21,19 +21,16 @@ describe('NavbarComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should render the GitHub link with EXTERNAL_LINKS.github, target="_blank" and rel="noopener noreferrer"', () => {
+  it('opens the resource mega menu with internal guides and templates', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
+    compiled.querySelector<HTMLElement>('.navbar__resources-wrap')?.dispatchEvent(new Event('mouseenter'));
+    fixture.detectChanges();
 
-    const githubLink = compiled.querySelector<HTMLAnchorElement>(
-      `a[href="${EXTERNAL_LINKS.github}"]`,
-    );
-
-    expect(githubLink).withContext('GitHub anchor should exist').not.toBeNull();
-    expect(githubLink?.getAttribute('href')).toBe(EXTERNAL_LINKS.github);
-    expect(githubLink?.getAttribute('target')).toBe('_blank');
-    expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(compiled.querySelector('a[href="/resources/prompt-templates"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/resources/brand-dna"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/help"]')).not.toBeNull();
   });
 
   it('routes Editor through the site login page', () => {
@@ -41,7 +38,7 @@ describe('NavbarComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const editorLink = Array.from(compiled.querySelectorAll<HTMLAnchorElement>('a'))
-      .find((link) => link.textContent?.trim() === 'Editor');
+      .find((link) => link.textContent?.trim() === 'Start creating');
 
     expect(editorLink?.getAttribute('href')).toBe(EDITOR_AUTH_PATH);
     expect(compiled.querySelector<HTMLAnchorElement>(`a[href="${EXTERNAL_LINKS.editor}"]`)).toBeNull();
@@ -61,8 +58,10 @@ describe('NavbarComponent', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
+    compiled.querySelector<HTMLButtonElement>('.navbar__account')?.click();
+    fixture.detectChanges();
     const editorLinks = Array.from(compiled.querySelectorAll<HTMLAnchorElement>('a'))
-      .filter((link) => ['Editor', 'Open Editor'].includes(link.textContent?.trim() ?? ''));
+      .filter((link) => link.textContent?.trim() === 'Open editor');
 
     expect(editorLinks.length).toBe(1);
     expect(editorLinks.every((link) => link.href === 'http://localhost:5173/')).toBe(true);
@@ -102,6 +101,7 @@ describe('NavbarComponent', () => {
     billing.subscription.set({
       status: 'active',
       plan: 'pro',
+      interval: 'MONTH',
       currentPeriodStart: '2026-09-30T00:00:00.000Z',
       currentPeriodEnd: '2026-10-30T00:00:00.000Z',
     });

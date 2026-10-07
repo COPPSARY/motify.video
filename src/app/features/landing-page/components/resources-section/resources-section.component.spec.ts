@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { ResourcesSectionComponent } from './resources-section.component';
-import { RESOURCE_LINKS } from '../../../../shared/constants/external-links';
 
 describe('ResourcesSectionComponent', () => {
   beforeEach(async () => {
@@ -11,14 +10,19 @@ describe('ResourcesSectionComponent', () => {
     }).compileComponents();
   });
 
-  it('should render exactly one app-external-link-card per entry in RESOURCE_LINKS', () => {
+  it('renders the featured internal resource destinations', () => {
     const fixture = TestBed.createComponent(ResourcesSectionComponent);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const cards = compiled.querySelectorAll('app-external-link-card');
+    const cards = compiled.querySelectorAll<HTMLAnchorElement>('.resources__card');
 
-    expect(cards.length).toBe(RESOURCE_LINKS.length);
+    expect(cards.length).toBe(3);
+    expect(Array.from(cards).map((card) => card.getAttribute('href'))).toEqual([
+      '/resources/prompt-templates',
+      '/resources/brand-dna',
+      '/resources/playbooks',
+    ]);
   });
 
   it('uses the same signup flow for a prompt from the resources composer', async () => {

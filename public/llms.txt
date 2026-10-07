@@ -20,9 +20,22 @@ Key facts:
 - [Pricing](https://motify.video/pricing): Plans, what each includes, and how credits work
 - [Open the editor](https://app.motify.video/): Sign up and create a video
 
-## Docs
+## Resources
 
-- [Documentation](https://motify.mintlify.app/): Guides and API reference
+- [Resource library](https://motify.video/resources): Product marketing guidance organized by job
+- [Start Here](https://motify.video/resources/start-here): From product update to publishable content
+- [Brand DNA](https://motify.video/resources/brand-dna): Brand assets, colors, fonts, voice, style, and audience
+- [Prompt Templates](https://motify.video/resources/prompt-templates): Copyable, editable prompts for launches, demos, social videos, and more
+- [Marketing Playbooks](https://motify.video/resources/playbooks): Repeatable workflows for product marketing teams
+- [Video Craft](https://motify.video/resources/video-craft): Hooks, scripts, pacing, UI, voiceover, formats, and CTAs
+- [Examples](https://motify.video/resources/examples): Goal-to-final-asset breakdowns and inspiration
+- [Help](https://motify.video/help): Accounts, credits, inputs, exports, rendering, troubleshooting, and feature availability
+  - [Account & credits](https://motify.video/help/account)
+  - [Brand DNA setup](https://motify.video/help/brand-dna)
+  - [Supported inputs](https://motify.video/help/inputs)
+  - [Export & rendering](https://motify.video/help/export)
+  - [Troubleshooting](https://motify.video/help/troubleshooting)
+  - [Feature availability](https://motify.video/help/availability)
 
 ## Company
 
@@ -34,5 +47,4 @@ Key facts:
 - [Terms & Conditions](https://motify.video/terms)
 - [Privacy Policy](https://motify.video/privacy)
 - [Refund Policy](https://motify.video/refund-policy)
-- [Product Hunt](https://www.producthunt.com/products/motify)
 - [GitHub](https://github.com/COPPSARY/Motify)

@@ -1,0 +1,232 @@
+.help-page {
+  width: min(100%, 78rem);
+  margin: 0 auto;
+  padding: 8.5rem 1.5rem 6rem;
+}
+
+.help-page__hero {
+  display: grid;
+  max-width: 52rem;
+  gap: 1.25rem;
+  padding: 1.5rem 0 3.25rem;
+}
+
+.help-page h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  color: var(--motify-text-primary);
+}
+
+.help-page__hero > p {
+  margin: 0;
+  color: var(--motify-text-secondary);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.help-page__hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.btn-hero-contact {
+  display: inline-flex;
+  min-height: 2.6rem;
+  align-items: center;
+  padding: 0 1.25rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #000000;
+  font-size: 0.88rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.12);
+}
+
+.btn-hero-contact:hover {
+  background: #e4e4e7;
+  transform: translateY(-1px);
+}
+
+.help-page__jump {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 3.5rem;
+}
+
+.help-jump-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  text-decoration: none;
+  transition: all 160ms ease;
+}
+
+.help-jump-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.help-jump-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.help-jump-card__header strong {
+  color: var(--motify-text-primary);
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.help-jump-card__arrow {
+  color: var(--motify-text-muted);
+  font-size: 0.95rem;
+  transition: transform 160ms ease, color 160ms ease;
+}
+
+.help-jump-card:hover .help-jump-card__arrow {
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.help-jump-card p {
+  margin: 0;
+  color: var(--motify-text-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.help-page__topics {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.help-topic {
+  padding: 2rem 2.25rem;
+  border: 1px solid var(--motify-border);
+  border-radius: 0.85rem;
+  background: rgba(14, 16, 21, 0.6);
+}
+
+.help-topic h2 {
+  margin: 0;
+  font-size: 1.22rem;
+  font-weight: 650;
+  line-height: 1.35;
+  color: var(--motify-text-primary);
+}
+
+.help-topic p {
+  margin: 0.75rem 0 0;
+  color: var(--motify-text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.help-topic__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.help-topic__read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.help-topic__read-more:hover {
+  text-decoration: underline;
+  transform: translateX(1px);
+}
+
+.help-topic__sublink {
+  color: var(--motify-text-muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.help-topic__sublink:hover {
+  color: var(--motify-text-primary);
+}
+
+.help-page__support {
+  margin-top: 4rem;
+  padding: 2.75rem 2.25rem;
+  border: 1px solid var(--motify-border);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.help-page__support h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 650;
+  color: var(--motify-text-primary);
+}
+
+.help-page__support p {
+  margin: 0.4rem 0 0;
+  color: var(--motify-text-secondary);
+  font-size: 0.92rem;
+}
+
+.btn-support-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.6rem;
+  padding: 0 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.55rem;
+  background: #ffffff;
+  color: #000000;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 160ms ease;
+}
+
+.btn-support-link:hover {
+  background: #e4e4e7;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .help-page {
+    padding: 7.5rem 1rem 4rem;
+  }
+
+  .help-topic {
+    padding: 1.5rem;
+  }
+
+  .help-page__support {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

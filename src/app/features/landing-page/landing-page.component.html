@@ -47,56 +47,6 @@
     <section>
       <app-features-section />
     </section>
-    <section class="testimonials" aria-labelledby="testimonials-title">
-      <div class="testimonials__content">
-        <h2 id="testimonials-title" class="testimonials__title">What people <span class="testimonials__think"><span class="testimonials__think-word heading-accent">think</span><svg class="testimonials__think-icon" lucideMessagesSquare aria-hidden="true"></svg></span> about Motify</h2>
-        <div class="testimonials__stage" aria-live="polite">
-          <button type="button" aria-label="Previous testimonial" (click)="previousTestimonial()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-          </button>
-          <blockquote>
-            <p>“{{ testimonials[activeTestimonial()].quote }}”</p>
-            <footer>
-              <strong>{{ testimonials[activeTestimonial()].author }}</strong>
-              <span>{{ testimonials[activeTestimonial()].role }}</span>
-            </footer>
-          </blockquote>
-          <button type="button" aria-label="Next testimonial" (click)="nextTestimonial()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-          </button>
-        </div>
-      </div>
-    </section>
-    <section class="team-love" aria-labelledby="team-love-title">
-      <h2 id="team-love-title" [appScrollReveal]="0">Built with love by COPPSARY</h2>
-      <div class="team-love__avatars" aria-label="COPPSARY members">
-        @for (member of members; track member.github) {
-          <a
-            class="team-love__member"
-            [href]="member.url"
-            target="_blank"
-            rel="noopener noreferrer"
-            [attr.aria-label]="member.name + ' on GitHub'"
-          >
-            <span class="team-love__tooltip" aria-hidden="true">
-              <strong>{{ member.name }}</strong>
-              <span>{{ member.github }}</span>
-            </span>
-            <img [src]="member.avatar" [alt]="member.name" width="56" height="56" loading="lazy" />
-          </a>
-        }
-      </div>
-      <div class="team-love__contribute">
-        <h3>Want to contribute?</h3>
-        <p>We welcome and appreciate contributions to the project.</p>
-        <a class="motify-noise-bg" [href]="repositoryUrl" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 0C5.373 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.016-2.04-3.338.725-4.042-1.61-4.042-1.61-.546-1.386-1.332-1.756-1.332-1.756-1.09-.744.082-.729.082-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.42-1.305.763-1.605-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.469-2.382 1.236-3.222-.124-.303-.535-1.524.117-3.176 0 0 1.008-.323 3.302 1.23A11.5 11.5 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.29-1.553 3.297-1.23 3.297-1.23.655 1.652.244 2.873.12 3.176.77.84 1.235 1.912 1.235 3.222 0 4.61-2.807 5.624-5.48 5.92.43.372.814 1.103.814 2.222 0 1.606-.015 2.898-.015 3.293 0 .32.216.694.825.576C20.565 21.795 24 17.3 24 12c0-6.627-5.373-12-12-12Z" />
-          </svg>
-          View repository
-        </a>
-      </div>
-    </section>
     <section id="faq" class="faq" aria-labelledby="faq-title">
       <div class="faq__inner">
         <h2 id="faq-title" [appScrollReveal]="0">Get to know Motify</h2>

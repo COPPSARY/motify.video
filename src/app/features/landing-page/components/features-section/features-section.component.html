@@ -47,5 +47,43 @@
         }
       </div>
     </div>
+
+    <section class="brand-dna-section" aria-labelledby="brand-dna-heading" [appScrollReveal]="100">
+      <div class="brand-dna-section__hero">
+        <h2 id="brand-dna-heading">
+          <span class="brand-dna-section__line">Teach your identity once.</span>
+          <span class="brand-dna-section__line">Bring your own brand.</span>
+        </h2>
+      </div>
+
+      <article class="brand-dna-card">
+        <div class="brand-dna-card__header">
+          <div class="brand-dna-card__intro">
+            <h3>Brand DNA</h3>
+            <p>
+              Your assets, colors, typefaces, voice, and target audience. Applied automatically across every scene without manual policing.
+            </p>
+          </div>
+          <a class="brand-dna-card__action" routerLink="/resources/brand-dna" aria-label="Explore Brand DNA guide">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17L17 7"></path>
+              <path d="M7 7h10v10"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="brand-dna-card__visual">
+          <div class="brand-dna-card__image-frame">
+            <img
+              src="/BRAND-DNA-UI.png"
+              alt="Motify Brand DNA interface showing brand basics, colors, typefaces, and product context"
+              width="1031"
+              height="441"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </article>
+    </section>
   </div>
 </section>

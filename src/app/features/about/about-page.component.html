@@ -2,52 +2,44 @@
   <app-navbar />
   <main class="about">
     <section class="about__hero" aria-labelledby="about-title">
-      <div class="about__hero-copy">
-        <img class="about__logo" src="favicon.svg" alt="Motify logo" width="72" height="72" />
-        <p class="about__eyebrow">About Motify</p>
-        <h1 id="about-title">Web-native motion graphics, kept editable.</h1>
-        <p>
-          Motify is a code-first motion graphics editor for creating
-          customizable animation projects with HTML, CSS, JavaScript, and GSAP.
-          Author the source, refine it on a canvas, adjust the timeline, and
-          render the result locally.
-        </p>
+      <div class="about__hero-main">
+        <h1 id="about-title">Motify turns what you ship into content that ships</h1>
       </div>
-      <div class="about__visual">
-        <img src="ui.png" alt="Motify editor interface" width="1200" height="1000" />
+      <div class="about__hero-aside">
+        <p>
+          Motify is the product marketing content workflow for SaaS teams. We turn product updates and marketing goals into accurate, on-brand, production-ready motion graphics and launch assets.
+        </p>
       </div>
     </section>
 
-    <section class="about__grid" aria-label="Motify overview">
-      <article>
-        <h2>The problem</h2>
-        <p>
-          Teams often need short product videos, feature launch animations,
-          social clips, and SVG motion graphics that feel specific to their
-          product. Motify keeps those compositions editable instead of final
-          and frozen.
+    <section class="about__quote-section" aria-label="Founder quote">
+      <blockquote class="about__quote">
+        <p class="about__quote-text">
+          “Teams should be able to focus on, and improve their products, Motify will handle announcing their great products”
         </p>
-      </article>
-      <article>
-        <h2>The workflow</h2>
-        <p>
-          Start with an HTML composition, inspect the result visually, move
-          elements on the canvas, tune timing on the GSAP timeline, then keep
-          iterating in source. The project stays local and version-friendly.
+        <cite class="about__quote-author">— Reaksa, Founder</cite>
+      </blockquote>
+    </section>
+
+    <section class="about__vm" aria-label="Vision and Mission">
+      <div class="about__vm-item">
+        <h2 class="about__vm-title">Vision</h2>
+        <p class="about__vm-text">
+          A world where teams can focus on building and improving their products while their marketing content keeps pace.
         </p>
-      </article>
-      <article>
-        <h2>COPPSARY</h2>
-        <p>
-          Motify is built by COPPSARY as an open source tool for practical
-          motion design with familiar web technologies for product teams,
-          developers, and creators.
+      </div>
+
+      <div class="about__vm-item">
+        <h2 class="about__vm-title">Mission</h2>
+        <p class="about__vm-text">
+          Motify turns product updates and marketing goals into clear, accurate, on-brand marketing content—without the usual production bottleneck.
         </p>
-      </article>
+      </div>
     </section>
 
     <section class="about__team" aria-labelledby="about-team-title">
-      <h2 id="about-team-title">Built with love by COPPSARY</h2>
+      <h2 id="about-team-title">Built by COPPSARY</h2>
+      <p class="about__team-subtitle">A focused team building for teams that need to move clearly and quickly.</p>
       <div class="about__team-avatars" aria-label="COPPSARY members">
         @for (member of members; track member.github) {
           <a
@@ -65,12 +57,6 @@
           </a>
         }
       </div>
-    </section>
-
-    <section class="about__links" aria-label="About page links">
-      <a [href]="docsUrl" target="_blank" rel="noopener noreferrer">Read the documentation</a>
-      <a [href]="githubUrl" target="_blank" rel="noopener noreferrer">View Motify on GitHub</a>
-      <a routerLink="/getting-started">Install Motify</a>
     </section>
   </main>
   <app-footer />

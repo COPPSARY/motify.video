@@ -54,18 +54,30 @@ describe('FooterComponent', () => {
 
     expect(logoImg).withContext('footer logo <img> should exist').not.toBeNull();
     expect(logoImg?.getAttribute('src')).toBe('logo.svg');
-    expect(compiled.textContent).toContain('AI-powered product videos, built for modern teams.');
+    expect(compiled.textContent).toContain('Product marketing content, grounded in your product and your brand.');
     expect(logoImg?.src.endsWith('logo.svg')).withContext('resolved src should end with logo.svg').toBe(true);
   });
 
-  it('should provide the public support, billing, and inquiry email links', () => {
+  it('should provide the public support and inquiry email links', () => {
     const fixture = TestBed.createComponent(FooterComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.querySelector('a[href="mailto:hello@motify.video"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="mailto:support@motify.video"]')).not.toBeNull();
-    expect(compiled.querySelector('a[href="mailto:billing@motify.video"]')).not.toBeNull();
+  });
+
+  it('links the internal resource library without obsolete install or package links', () => {
+    const fixture = TestBed.createComponent(FooterComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelector('a[href="/resources/prompt-templates"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/resources/brand-dna"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/getting-started"]')).toBeNull();
+    expect(compiled.textContent).not.toContain('npm package');
+    expect(compiled.textContent).not.toContain('Product Hunt');
+    expect(compiled.textContent).not.toContain('Documentation');
   });
 
   it('should link the GitHub, Facebook, and TikTok social profiles', () => {

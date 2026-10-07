@@ -7,7 +7,7 @@
         <img class="footer__logo" [src]="logoSrc" alt="" width="30" height="30" />
         <span>Motify</span>
       </a>
-      <p>AI-powered product videos, built for modern teams.</p>
+      <p>Product marketing content, grounded in your product and your brand.</p>
 
       <div class="footer__socials" aria-label="Motify social profiles">
         <a [href]="githubUrl" target="_blank" rel="noopener noreferrer" aria-label="Motify on GitHub">
@@ -30,39 +30,30 @@
 
     <nav class="footer__columns" aria-label="Footer navigation">
       <div>
-        <h2>Product</h2>
-        <a [href]="editorUrl">Open editor</a>
-        <a routerLink="/pricing">Pricing</a>
-        <a routerLink="/getting-started">Getting started</a>
+        <h2>Resources</h2>
+        <a routerLink="/resources">Resource library</a>
+        <a routerLink="/resources/prompt-templates">Prompt templates</a>
+        <a routerLink="/resources/brand-dna">Brand DNA</a>
+        <a routerLink="/resources/playbooks">Marketing playbooks</a>
+        <a routerLink="/resources/video-craft">Video craft</a>
       </div>
 
       <div>
-        <h2>Resources</h2>
-        <a [href]="docsUrl" target="_blank" rel="noopener noreferrer">Documentation</a>
-        <a [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a [href]="npmUrl" target="_blank" rel="noopener noreferrer">npm package</a>
-        <a [href]="productHuntUrl" target="_blank" rel="noopener noreferrer">Product Hunt</a>
+        <h2>Help</h2>
+        <a routerLink="/resources/start-here">Start Here</a>
+        <a routerLink="/help">Help &amp; FAQ</a>
+        <a routerLink="/help" fragment="inputs">Supported inputs</a>
+        <a routerLink="/help" fragment="export">Export &amp; rendering</a>
+        <a routerLink="/help" fragment="availability">Feature availability</a>
       </div>
 
       <div>
         <h2>Company</h2>
+        <a routerLink="/pricing">Pricing</a>
         <a routerLink="/about">About</a>
-      </div>
-
-      <div class="footer__contact-column">
-        <h2>Contact</h2>
-        <a href="mailto:hello@motify.video">
-          <span>Inquiries</span>
-          <strong>hello&#64;motify.video</strong>
-        </a>
-        <a href="mailto:support@motify.video">
-          <span>Support</span>
-          <strong>support&#64;motify.video</strong>
-        </a>
-        <a href="mailto:billing@motify.video">
-          <span>Billing</span>
-          <strong>billing&#64;motify.video</strong>
-        </a>
+        <a routerLink="/partners">Partners</a>
+        <a href="mailto:hello@motify.video">Contact</a>
+        <a href="mailto:support@motify.video">Support</a>
       </div>
 
       <div>

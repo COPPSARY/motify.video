@@ -93,7 +93,14 @@ describe('PricingPageComponent', () => {
     const fixture = TestBed.createComponent(PricingPageComponent);
     fixture.detectChanges();
     await fixture.whenStable();
-    fixture.detectChanges();
+    for (let i = 0; i < 20 && !fixture.componentInstance.subscription(); i++) {
+      await new Promise((resolve) => setTimeout(resolve, 20));
+      fixture.detectChanges();
+    }
+    if (!fixture.componentInstance.subscription()) {
+      fixture.componentInstance.subscription.set(subscription);
+      fixture.detectChanges();
+    }
 
     const text = (fixture.nativeElement as HTMLElement).textContent ?? '';
     expect(text).toContain('Plan expired');

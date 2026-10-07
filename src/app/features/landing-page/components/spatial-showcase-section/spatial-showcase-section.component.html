@@ -20,14 +20,15 @@
       <div class="showcase-stories__rail-inner">
         <nav>
           @for (story of stories; track story.id) {
-            <a
-              [href]="'#' + story.id"
+            <button
+              type="button"
+              class="showcase-stories__rail-btn"
               [class.is-active]="activeStory() === story.id"
               [attr.aria-current]="activeStory() === story.id ? 'true' : null"
-              (click)="selectStory(story.id)"
+              (click)="selectStory(story.id, $event)"
             >
               <span class="showcase-stories__rail-label">{{ story.category }}</span>
-            </a>
+            </button>
           }
         </nav>
       </div>

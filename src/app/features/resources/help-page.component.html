@@ -1,0 +1,54 @@
+<div id="top">
+  <app-navbar />
+  <main class="help-page">
+    <header class="help-page__hero">
+      <h1>Find the answer. Keep the work moving.</h1>
+      <p>Product guidance for the Motify cloud workflow, kept separate from the educational resource library.</p>
+      <div class="help-page__hero-actions">
+        <a href="mailto:support@motify.video" class="btn-hero-contact">Contact support</a>
+      </div>
+    </header>
+
+    <nav class="help-page__jump" aria-label="Help topics">
+      @for (topic of topics; track topic.id) {
+        <a [routerLink]="['/help', topic.id]" class="help-jump-card">
+          <div class="help-jump-card__header">
+            <strong>{{ topic.title }}</strong>
+            <span class="help-jump-card__arrow" aria-hidden="true">→</span>
+          </div>
+          <p>{{ topic.tagline }}</p>
+        </a>
+      }
+    </nav>
+
+    <section class="help-page__topics" aria-label="Help topics overview">
+      @for (topic of topics; track topic.id) {
+        <article class="help-topic">
+          <div class="help-topic__body">
+            <h2>{{ topic.title }}: {{ topic.sections[0].heading || topic.tagline }}</h2>
+            <p>{{ topic.overview }}</p>
+            <div class="help-topic__actions">
+              <a [routerLink]="['/help', topic.id]" class="help-topic__read-more">
+                View full guide <span aria-hidden="true">→</span>
+              </a>
+              @if (topic.relatedLinks[0]; as rel) {
+                @if (rel.isExternal) {
+                  <a [href]="rel.url" class="help-topic__sublink">{{ rel.label }} ↗</a>
+                } @else {
+                  <a [routerLink]="rel.url" class="help-topic__sublink">{{ rel.label }} →</a>
+                }
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </section>
+
+    <section class="help-page__support">
+      <h2>Send us the project context and what you expected to happen.</h2>
+      <p>Our team reviews project exports and timeline issues directly.</p>
+      <a href="mailto:support@motify.video" class="btn-support-link">support&#64;motify.video</a>
+    </section>
+  </main>
+  <app-footer />
+</div>

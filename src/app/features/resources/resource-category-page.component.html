@@ -1,0 +1,69 @@
+<div id="top">
+  <app-navbar />
+  <main class="guide-page">
+    <nav class="guide-page__crumbs" aria-label="Breadcrumb">
+      <a routerLink="/resources">Resources</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ category.title }}</span>
+    </nav>
+
+    <header class="guide-page__hero">
+      <h1>{{ category.title }}</h1>
+      <p>{{ category.description }}</p>
+    </header>
+
+    @if (category.id === 'brand-dna') {
+      <aside class="guide-page__brand-context" aria-labelledby="brand-context-title">
+        <h2 id="brand-context-title">The context worth capturing once:</h2>
+        <ul>
+          <li>Logos and brand assets</li>
+          <li>Colors and fonts</li>
+          <li>Website link</li>
+          <li>Voice and tone</li>
+          <li>Visual style</li>
+          <li>Target audience</li>
+        </ul>
+      </aside>
+    }
+
+    <section class="guide-page__content" aria-label="Guides">
+      <div class="guide-page__index">
+        <p>{{ category.entries.length }} topics</p>
+        <a routerLink="/resources/prompt-templates">Use a prompt template</a>
+      </div>
+      <div class="guide-page__entries">
+        @for (entry of category.entries; track entry.title; let i = $index) {
+          <details class="guide-page__entry" [attr.id]="'guide-' + (i + 1)">
+            <summary>
+              <div class="guide-page__entry-header">
+                @if (entry.label) { <small>{{ entry.label }}</small> }
+                <h2>{{ entry.title }}</h2>
+                <p>{{ entry.description }}</p>
+              </div>
+              <span class="guide-page__plus" aria-hidden="true">+</span>
+            </summary>
+            <div class="guide-page__entry-body">
+              <p>Key takeaways &amp; checklist:</p>
+              <ul>
+                @for (takeaway of entry.takeaways; track takeaway) {
+                  <li>{{ takeaway }}</li>
+                }
+              </ul>
+              @if (entry.label === 'Concept guide') {
+                <p class="guide-page__concept-note">
+                  This guide describes a useful workflow direction. It does not claim a currently available Motify integration or automation.
+                </p>
+              }
+            </div>
+          </details>
+        }
+      </div>
+    </section>
+
+    <section class="guide-page__next">
+      <h2>Start from a structured brief, then make it yours.</h2>
+      <a routerLink="/resources/prompt-templates">Browse prompt templates</a>
+    </section>
+  </main>
+  <app-footer />
+</div>

@@ -1,5 +1,4 @@
-import { afterNextRender, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, signal } from '@angular/core';
-import { EXTERNAL_LINKS } from '../../shared/constants/external-links';
+import { afterNextRender, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SeoService } from '../../shared/services/seo.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeroSectionComponent } from './components/hero-section/hero-section.component';
@@ -9,37 +8,6 @@ import { ResourcesSectionComponent } from './components/resources-section/resour
 import { FooterComponent } from './components/footer/footer.component';
 import { ValuePointsComponent } from './components/value-points/value-points.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
-import { LucideMessagesSquare } from '@lucide/angular';
-
-const COPPSARY_MEMBERS = [
-  { name: 'Reaksa', github: 'PromSereyreaksa' },
-  { name: 'Davann', github: 'imposter-dot-com' },
-  { name: 'Ilong', github: 'Chea-Ilong' },
-  { name: 'Panha', github: 'Nhaaa4' },
-  { name: 'Sophanith', github: 'nithkidd' },
-  { name: 'Heang', github: 'Bunheang360' },
-] as const;
-
-const TESTIMONIALS = [
-  {
-    quote:
-      'I spent hours looking for the right starting point for a feature promotion. Motify helps me create the direction, then shape the details until it feels right.',
-    author: 'Prom Sereyreaksa',
-    role: 'Founder, Motify',
-  },
-  {
-    quote:
-      'The best part is that the first generation is not the finish line. I can adjust the scenes and pacing directly instead of rewriting the same prompt.',
-    author: 'Early Motify user',
-    role: 'Product team',
-  },
-  {
-    quote:
-      'Motify gives the speed of generative video without taking away the decisions that make a launch feel like your product.',
-    author: 'Motify community',
-    role: 'Early access feedback',
-  },
-] as const;
 
 @Component({
   selector: 'app-landing-page',
@@ -54,29 +22,11 @@ const TESTIMONIALS = [
     FooterComponent,
     ValuePointsComponent,
     ScrollRevealDirective,
-    LucideMessagesSquare,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
-export class LandingPageComponent implements OnDestroy {
-  private readonly changeDetector = inject(ChangeDetectorRef);
-  readonly repositoryUrl = EXTERNAL_LINKS.github;
-  readonly members = COPPSARY_MEMBERS.map((member) => ({
-    ...member,
-    url: `https://github.com/${member.github}`,
-    avatar: `https://github.com/${member.github}.png`,
-  }));
-  readonly testimonials = TESTIMONIALS;
-  readonly activeTestimonial = signal(0);
-  private testimonialTimer?: number;
-
-  ngOnDestroy(): void {
-    if (this.testimonialTimer !== undefined && typeof window !== 'undefined') {
-      window.clearInterval(this.testimonialTimer);
-    }
-  }
-
+export class LandingPageComponent {
   constructor() {
     inject(SeoService).apply({
       title: 'Motify — AI Video Generator for SaaS Marketing',
@@ -109,23 +59,7 @@ export class LandingPageComponent implements OnDestroy {
       }
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 
-      this.testimonialTimer = window.setInterval(() => this.nextTestimonial(), 6500);
     });
-  }
-
-  nextTestimonial(): void {
-    this.activeTestimonial.update((index) => (index + 1) % this.testimonials.length);
-    this.changeDetector.markForCheck();
-  }
-
-  previousTestimonial(): void {
-    this.activeTestimonial.update((index) => (index - 1 + this.testimonials.length) % this.testimonials.length);
-    this.changeDetector.markForCheck();
-  }
-
-  goToTestimonial(index: number): void {
-    this.activeTestimonial.set(Math.max(0, Math.min(this.testimonials.length - 1, index)));
-    this.changeDetector.markForCheck();
   }
 
   updateWorkflowGlow(event: PointerEvent): void {

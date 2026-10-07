@@ -1,24 +1,61 @@
-<nav class="navbar" [class.navbar--scrolled]="scrolled()">
+<nav class="navbar" [class.navbar--scrolled]="scrolled()" aria-label="Primary navigation">
   <a class="navbar__brand" routerLink="/" aria-label="Motify home">
     <img class="navbar__logo" [src]="logoSrc" alt="Motify" width="120" height="28" />
   </a>
 
   <div class="navbar__links" [class.navbar__links--open]="menuOpen()" id="site-navigation">
-    <a class="navbar__link" href="#top" (click)="closeMenu()">
-      <svg lucideHome aria-hidden="true"></svg>
-      <span>Home</span>
-    </a>
-    <a class="navbar__link" routerLink="/pricing" routerLinkActive="navbar__link--active" (click)="closeMenu()">
-      <svg class="navbar__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 7v10M15 9.5c-.7-.5-1.5-.75-2.5-.75h-1a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-1c-1 0-1.8-.25-2.5-.75" />
-      </svg>
-      <span>Pricing</span>
-    </a>
-    <a class="navbar__link" [href]="editorHref()" (click)="closeMenu()">
-      <span>Editor</span>
-      <svg lucideArrowUpRight aria-hidden="true"></svg>
-    </a>
+    <div
+      class="navbar__resources-wrap"
+      (click)="$event.stopPropagation()"
+      (mouseenter)="openResourcesMenu()"
+      (mouseleave)="closeResourcesMenu()"
+    >
+      <button
+        class="navbar__link navbar__resources-button"
+        type="button"
+        [attr.aria-expanded]="resourcesMenuOpen()"
+        aria-haspopup="menu"
+        (click)="toggleResourcesMenu($event)"
+      >
+        <span>Resources</span>
+        <svg lucideChevronDown aria-hidden="true"></svg>
+      </button>
+      @if (resourcesMenuOpen()) {
+        <div class="navbar__resources-menu" role="menu">
+          <a class="navbar__resources-featured" role="menuitem" routerLink="/resources/prompt-templates" (click)="closeMenu()">
+            <strong>Prompt Templates <small>New</small></strong>
+            <span>Copy and tweak briefs for real product marketing jobs</span>
+          </a>
+          <div class="navbar__resources-grid">
+            <a role="menuitem" routerLink="/resources/start-here" (click)="closeMenu()">
+              <strong>Start Here</strong><span>Learn the cloud workflow</span>
+            </a>
+            <a role="menuitem" routerLink="/resources/brand-dna" (click)="closeMenu()">
+              <strong>Brand DNA</strong><span>Voice, visuals, assets, audience</span>
+            </a>
+            <a role="menuitem" routerLink="/resources/playbooks" (click)="closeMenu()">
+              <strong>Playbooks</strong><span>Launch and campaign workflows</span>
+            </a>
+            <a role="menuitem" routerLink="/resources/video-craft" (click)="closeMenu()">
+              <strong>Video Craft</strong><span>Hooks, scripts, pacing, CTA</span>
+            </a>
+            <a role="menuitem" routerLink="/resources/examples" (click)="closeMenu()">
+              <strong>Creative Inspiration</strong><span>Brief to final asset breakdowns</span>
+            </a>
+            <a role="menuitem" routerLink="/help" (click)="closeMenu()">
+              <strong>Help</strong><span>Inputs, export, and troubleshooting</span>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+    <a class="navbar__link" routerLink="/partners" routerLinkActive="navbar__link--active" (click)="closeMenu()">Partners</a>
+    <a class="navbar__link" routerLink="/pricing" routerLinkActive="navbar__link--active" (click)="closeMenu()">Pricing</a>
+    <a class="navbar__link" routerLink="/about" routerLinkActive="navbar__link--active" (click)="closeMenu()">About</a>
+    <a class="navbar__link" href="mailto:hello@motify.video" (click)="closeMenu()">Contact</a>
+  </div>
+
+  <div class="navbar__actions">
     @if (auth.user(); as user) {
       <div class="navbar__account-wrap" (click)="$event.stopPropagation()">
         <button
@@ -36,9 +73,7 @@
             }
           </span>
           <span class="navbar__account-name">{{ user.displayName || user.email }}</span>
-          @if (activePlan(); as plan) {
-            <span class="navbar__plan-badge">{{ plan }}</span>
-          }
+          @if (activePlan(); as plan) { <span class="navbar__plan-badge">{{ plan }}</span> }
           <svg lucideChevronDown aria-hidden="true"></svg>
         </button>
         @if (accountMenuOpen()) {
@@ -48,7 +83,7 @@
               <span>{{ user.email }}</span>
             </div>
             <a class="navbar__account-item" role="menuitem" [href]="editorHref()" (click)="closeMenu()">
-              <span>Open Editor</span>
+              <span>Open editor</span>
               <svg lucideArrowUpRight aria-hidden="true"></svg>
             </a>
             <button class="navbar__account-item navbar__account-item--danger" role="menuitem" type="button" [disabled]="loggingOut()" (click)="logoutAccount()">
@@ -59,23 +94,9 @@
         }
       </div>
     } @else {
-      <a class="navbar__link" routerLink="/login" (click)="closeMenu()">
-        <svg lucideLogIn aria-hidden="true"></svg>
-        <span>Log in</span>
-      </a>
-      <a class="navbar__link navbar__link--cta" routerLink="/signup" (click)="closeMenu()">
-        <span>Sign up</span>
-      </a>
+      <a class="navbar__login" routerLink="/login">Log in</a>
+      <a class="navbar__cta" [href]="editorHref()">Start creating</a>
     }
-    <div class="navbar__mobile-badges">
-      <app-product-hunt-badge size="compact" />
-      <app-github-star-badge size="compact" />
-    </div>
-  </div>
-
-  <div class="navbar__actions">
-    <app-product-hunt-badge size="compact" />
-    <app-github-star-badge size="compact" />
     <button
       class="navbar__toggle"
       type="button"

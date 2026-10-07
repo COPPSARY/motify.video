@@ -169,8 +169,17 @@ export class SpatialShowcaseSectionComponent implements OnDestroy {
     });
   }
 
-  selectStory(id: string): void {
+  selectStory(id: string, event?: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
     this.activeStory.set(id);
+    if (typeof document !== 'undefined') {
+      const panel = document.getElementById(id);
+      if (panel) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
   }
 
   playVideo(event: Event): void {

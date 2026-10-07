@@ -1,24 +1,40 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LucideArrowUp, LucidePlus, LucideSparkles } from '@lucide/angular';
-import { ExternalLinkCardComponent } from '../../../../shared/components/external-link-card/external-link-card.component';
 import { editorReturnPath } from '../../../../shared/config/runtime-config';
-import { RESOURCE_LINKS } from '../../../../shared/constants/external-links';
-import { ResourceLink } from '../../../../shared/models/landing.models';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-resources-section',
   standalone: true,
-  imports: [FormsModule, ExternalLinkCardComponent, ScrollRevealDirective, LucideArrowUp, LucidePlus, LucideSparkles],
+  imports: [FormsModule, RouterLink, ScrollRevealDirective, LucideArrowUp, LucidePlus, LucideSparkles],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './resources-section.component.html',
   styleUrl: './resources-section.component.css',
 })
 export class ResourcesSectionComponent {
   private readonly router = inject(Router);
-  readonly resources: readonly ResourceLink[] = RESOURCE_LINKS;
+  readonly resources = [
+    {
+      title: 'Prompt Templates',
+      description: 'Copy and customize structured briefs for twelve real product marketing jobs.',
+      href: '/resources/prompt-templates',
+      meta: '12 templates',
+    },
+    {
+      title: 'Brand DNA',
+      description: 'Give AI useful context about your logo, voice, colors, type, style, and audience.',
+      href: '/resources/brand-dna',
+      meta: '6 guides',
+    },
+    {
+      title: 'Marketing Playbooks',
+      description: 'Repeatable workflows for launches, demos, feature releases, and small teams.',
+      href: '/resources/playbooks',
+      meta: '9 playbooks',
+    },
+  ] as const;
   prompt = '';
   assetMenuOpen = false;
   selectedAsset = '';

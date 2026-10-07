@@ -122,8 +122,15 @@
   display: grid;
 }
 
-.showcase-stories__rail a {
+.showcase-stories__rail a,
+.showcase-stories__rail-btn {
   display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
   padding: 0.7rem 0;
   border-bottom: 1px solid var(--motify-border);
   color: var(--motify-text-muted);
@@ -136,7 +143,7 @@
 .showcase-stories__rail-label {
   display: block;
   font-size: 0.86rem;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.01em;
   transform-origin: left center;
@@ -149,18 +156,23 @@
 
 .showcase-stories__rail a:hover,
 .showcase-stories__rail a:focus-visible,
-.showcase-stories__rail a.is-active {
+.showcase-stories__rail a.is-active,
+.showcase-stories__rail-btn:hover,
+.showcase-stories__rail-btn:focus-visible,
+.showcase-stories__rail-btn.is-active {
   color: var(--motify-text-primary);
 }
 
-.showcase-stories__rail a.is-active {
+.showcase-stories__rail a.is-active,
+.showcase-stories__rail-btn.is-active {
   padding-block: 1.15rem;
   color: var(--motify-text-primary);
 }
 
-.showcase-stories__rail a.is-active .showcase-stories__rail-label {
+.showcase-stories__rail a.is-active .showcase-stories__rail-label,
+.showcase-stories__rail-btn.is-active .showcase-stories__rail-label {
   font-size: clamp(1.75rem, 2.5vw, 2.55rem);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.04em;
   color: var(--motify-text-primary);
 }

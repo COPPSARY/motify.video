@@ -61,6 +61,98 @@
   width: 100%;
 }
 
+.brand-dna-section {
+  margin-top: clamp(4rem, 7vw, 7rem);
+}
+
+.brand-dna-section__hero {
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.brand-dna-section__hero h2 {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.brand-dna-card {
+  padding: clamp(2rem, 4vw, 3.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 1.5rem;
+  background: #090a0f;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.brand-dna-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+}
+
+.brand-dna-card__intro h3 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.brand-dna-card__intro p {
+  margin: 0.6rem 0 0;
+  color: #a1a1aa;
+  font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+  line-height: 1.6;
+  max-width: 44rem;
+}
+
+.brand-dna-card__action {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 180ms ease;
+}
+
+.brand-dna-card__action:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.brand-dna-card__visual {
+  width: 100%;
+}
+
+.brand-dna-card__image-frame {
+  width: 100%;
+  border-radius: 1.15rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b0c10;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.brand-dna-card__image-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+
 @media (max-width: 640px) {
   .features {
     padding: 4.5rem 1rem;
@@ -73,6 +165,10 @@
   .features__grid {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
+  }
+
+  .brand-dna {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -437,6 +437,7 @@ export class PricingPageComponent implements OnDestroy {
       this.workspaces.set(workspaces);
       if (!this.workspace() || !workspaces.some((candidate) => candidate.id === this.workspace()?.id)) {
         this.workspace.set(this.preferredWorkspace(workspaces));
+        await this.refreshSubscription();
       }
     } catch {
       this.workspaces.set([]);

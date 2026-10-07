@@ -1,0 +1,81 @@
+<div id="top">
+  <app-navbar />
+
+  <main class="help-topic-page">
+    <nav class="help-topic-page__nav" aria-label="Breadcrumb">
+      <a routerLink="/help" class="help-back-link">
+        <span aria-hidden="true">←</span> Back to Help Center
+      </a>
+    </nav>
+
+    <header class="help-topic-page__hero">
+      <h1>{{ topic().title }}</h1>
+      <p class="help-topic-page__lead">{{ topic().overview }}</p>
+    </header>
+
+    <div class="help-topic-page__layout">
+      <article class="help-topic-page__content">
+        @for (section of topic().sections; track section.heading) {
+          <section class="topic-section">
+            <h2>{{ section.heading }}</h2>
+            <p>{{ section.body }}</p>
+            @if (section.bulletPoints && section.bulletPoints.length) {
+              <ul class="topic-section__list">
+                @for (bullet of section.bulletPoints; track bullet) {
+                  <li>{{ bullet }}</li>
+                }
+              </ul>
+            }
+          </section>
+        }
+
+        @if (topic().relatedLinks && topic().relatedLinks.length) {
+          <section class="topic-section topic-section--related">
+            <h2>Related resources &amp; actions</h2>
+            <div class="related-links-grid">
+              @for (link of topic().relatedLinks; track link.label) {
+                @if (link.isExternal) {
+                  <a [href]="link.url" class="related-link-card">
+                    <span>{{ link.label }}</span>
+                    <span class="related-link-card__arrow" aria-hidden="true">↗</span>
+                  </a>
+                } @else {
+                  <a [routerLink]="link.url" class="related-link-card">
+                    <span>{{ link.label }}</span>
+                    <span class="related-link-card__arrow" aria-hidden="true">→</span>
+                  </a>
+                }
+              }
+            </div>
+          </section>
+        }
+      </article>
+
+      <aside class="help-topic-page__sidebar" aria-label="Browse more topics">
+        <div class="sidebar-box">
+          <h3>Other help topics</h3>
+          <ul class="sidebar-topic-list">
+            @for (other of otherTopics(); track other.id) {
+              <li>
+                <a [routerLink]="['/help', other.id]" class="sidebar-topic-link">
+                  <strong>{{ other.title }}</strong>
+                  <span>{{ other.tagline }}</span>
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <div class="sidebar-support-box">
+          <h3>Need further assistance?</h3>
+          <p>We are here to help troubleshoot and ensure your videos export smoothly.</p>
+          <a href="mailto:support@motify.video" class="btn-support-email">
+            support&#64;motify.video
+          </a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <app-footer />
+</div>

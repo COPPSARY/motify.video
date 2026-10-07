@@ -1,0 +1,89 @@
+<div id="top">
+  <app-navbar />
+
+  <main class="partners">
+    <header class="partners__header">
+      <h1>Partner with Motify.</h1>
+      <p class="partners__lead">
+        We collaborate with product marketing agencies, design studios, developer platforms, and creator partners building the future of SaaS storytelling.
+      </p>
+    </header>
+
+    <section class="partners__contacts" aria-label="Contact channels">
+      <div class="contact-entry">
+        <div class="contact-entry__title-row">
+          <svg class="contact-entry__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+          <h2>General Inquiries &amp; Partnerships</h2>
+        </div>
+        <p>For agency collaborations, technology integrations, co-marketing, and press.</p>
+        <div class="contact-entry__actions">
+          <a class="contact-entry__mail-btn" href="mailto:hello@motify.video">
+            hello&#64;motify.video
+          </a>
+          <button
+            type="button"
+            class="contact-entry__copy-btn"
+            [class.is-copied]="copiedEmail() === 'hello@motify.video'"
+            (click)="copyEmail('hello@motify.video')"
+          >
+            {{ copiedEmail() === 'hello@motify.video' ? 'Copied ✓' : 'Copy' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="contact-entry">
+        <div class="contact-entry__title-row">
+          <svg class="contact-entry__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <h2>Talk to Founder</h2>
+        </div>
+        <p>Speak directly with founder Sereyreaksa Prom about strategic partnerships, custom enterprise setups, or investment.</p>
+        <div class="contact-entry__actions">
+          <a class="contact-entry__mail-btn" href="mailto:sereyreaksa.prom@motify.video">
+            sereyreaksa.prom&#64;motify.video
+          </a>
+          <button
+            type="button"
+            class="contact-entry__copy-btn"
+            [class.is-copied]="copiedEmail() === 'sereyreaksa.prom@motify.video'"
+            (click)="copyEmail('sereyreaksa.prom@motify.video')"
+          >
+            {{ copiedEmail() === 'sereyreaksa.prom@motify.video' ? 'Copied ✓' : 'Copy' }}
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="partners__pillars" aria-label="Partnership collaboration areas">
+      <div class="pillar-entry">
+        <h3>Agencies &amp; Creative Studios</h3>
+        <p>
+          Help your clients launch faster. Use Motify to deliver accurate, brand-aligned motion graphics, UI demos, and changelog videos at scale.
+        </p>
+      </div>
+
+      <div class="pillar-entry">
+        <h3>Technology &amp; Platforms</h3>
+        <p>
+          Integrate with our video generation workflow. We collaborate with developer tool ecosystems, hosting platforms, and design tools.
+        </p>
+      </div>
+
+      <div class="pillar-entry">
+        <h3>Affiliates &amp; Creators</h3>
+        <p>
+          Share Motify with your audience of SaaS founders, product marketers, and engineers, and earn recurring commissions on active workspaces.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <app-footer />
+</div>

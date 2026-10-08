@@ -411,17 +411,7 @@
 }
 
 .pricing-card__button:disabled {
-  cursor: wait;
-  opacity: 0.72;
-}
-
-.pricing-card__button--current,
-.pricing-card__button--current:disabled {
-  border-color: rgba(255, 255, 255, 0.24);
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--motify-logo-end);
-  cursor: pointer;
-  opacity: 1;
+  cursor: default;
 }
 
 .pricing-card__button:not(.pricing-card__button--disabled):hover {

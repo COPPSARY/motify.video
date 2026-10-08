@@ -11,16 +11,7 @@
       </div>
     </section>
 
-    @if (subscription()?.status === 'active') {
-      <aside class="subscription-banner" aria-label="Current subscription">
-        <span class="subscription-banner__status" aria-hidden="true"></span>
-        <div>
-          <p>Your current plan</p>
-          <strong>{{ subscriptionPlanName() }}</strong>
-          <span>{{ subscription()!.interval === 'YEAR' ? 'Yearly' : 'Monthly' }} · Active through {{ subscriptionEnd() }}</span>
-        </div>
-      </aside>
-    } @else if (subscription()?.status === 'expired') {
+    @if (subscription()?.status === 'expired') {
       <aside class="subscription-banner subscription-banner--expired" aria-label="Expired subscription">
         <span class="subscription-banner__status" aria-hidden="true"></span>
         <div>
@@ -62,10 +53,10 @@
         <button
           class="pricing-card__button"
           type="button"
-          [class.pricing-card__button--current]="isActivePlan('starter')"
-          [disabled]="planCatalogStatus() !== 'ready' || initializing() || checkoutState() === 'creating' || !canPurchasePlan('starter')"
+          [class.pricing-card__button--disabled]="planButton('starter').type === 'disabled'"
+          [disabled]="planButton('starter').disabled"
           (click)="beginCheckout('starter')"
-        >{{ planButtonLabel('starter') }}</button>
+        >{{ planButton('starter').label }}</button>
       </article>
 
       <article class="pricing-card pricing-card--featured">
@@ -98,10 +89,10 @@
         <button
           class="pricing-card__button"
           type="button"
-          [class.pricing-card__button--current]="isActivePlan('pro')"
-          [disabled]="planCatalogStatus() !== 'ready' || initializing() || checkoutState() === 'creating' || !canPurchasePlan('pro')"
+          [class.pricing-card__button--disabled]="planButton('pro').type === 'disabled'"
+          [disabled]="planButton('pro').disabled"
           (click)="beginCheckout('pro')"
-        >{{ planButtonLabel('pro') }}</button>
+        >{{ planButton('pro').label }}</button>
       </article>
 
       <article class="pricing-card pricing-card--coming-soon">
@@ -133,7 +124,13 @@
         @if (planCatalogStatus() !== 'ready') {
           <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">{{ planCatalogMessage() }}</span>
         } @else if (plan('studio').available) {
-          <button class="pricing-card__button" type="button" [disabled]="!canPurchasePlan('studio')" (click)="beginCheckout('studio')">{{ planButtonLabel('studio') }}</button>
+          <button
+            class="pricing-card__button"
+            type="button"
+            [class.pricing-card__button--disabled]="planButton('studio').type === 'disabled'"
+            [disabled]="planButton('studio').disabled"
+            (click)="beginCheckout('studio')"
+          >{{ planButton('studio').label }}</button>
         } @else {
           <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">Coming soon</span>
         }

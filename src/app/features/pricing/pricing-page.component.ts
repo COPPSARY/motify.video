@@ -20,6 +20,7 @@ import {
   type CheckoutInterval,
   type CreditPack,
   type MotifyWorkspace,
+  type PlanId,
   type Purchase,
   type SandboxOutcome,
   type WorkspaceSubscription,
@@ -29,6 +30,13 @@ import { SeoService } from '../../shared/services/seo.service';
 type CheckoutState = 'idle' | 'confirming' | 'creating' | 'pending' | 'paid' | 'expired' | 'failed' | 'error';
 type CatalogStatus = 'loading' | 'ready' | 'unavailable';
 type PaymentMethodId = 'bakong-khqr';
+export type PlanButtonType = 'action' | 'disabled';
+
+export interface PlanButtonState {
+  readonly label: string;
+  readonly type: PlanButtonType;
+  readonly disabled: boolean;
+}
 
 interface CheckoutSelection {
   readonly purchase: Purchase;
@@ -129,14 +137,29 @@ export class PricingPageComponent implements OnDestroy {
     return this.subscription()?.status === 'active' && this.subscription()?.plan === id;
   }
 
-  planButtonLabel(id: KnownPlanId): string {
-    if (this.planCatalogStatus() === 'loading') return 'Loading pricing…';
-    if (this.planCatalogStatus() === 'unavailable') return 'Pricing unavailable';
-    if (this.yearlyPlanBlocks(id)) return 'Available after current year';
-    if (this.subscription()?.status === 'expired' && this.subscription()?.plan === id) return `Renew ${this.plan(id).name}`;
-    if (this.isActivePlan(id) && this.subscription()?.interval === this.selectedBillingInterval()) return 'Extend plan';
-    if (this.subscription()?.status === 'active') return 'Switch plan';
-    return 'Select plan';
+  planButton(id: KnownPlanId): PlanButtonState {
+    if (this.planCatalogStatus() === 'loading') {
+      return { label: 'Loading pricing…', type: 'disabled', disabled: true };
+    }
+    if (this.planCatalogStatus() === 'unavailable') {
+      return { label: 'Pricing unavailable', type: 'disabled', disabled: true };
+    }
+    if (!this.canPurchasePlan(id)) {
+      return { label: 'Unavailable', type: 'disabled', disabled: true };
+    }
+
+    const subscription = this.subscription();
+    let label = 'Select plan';
+    if (subscription?.status === 'expired' && subscription.plan === id) {
+      label = `Renew ${this.plan(id).name}`;
+    } else if (this.isActivePlan(id)) {
+      label = 'Extend plan';
+    } else if (this.isUpgrade(id)) {
+      label = 'Upgrade';
+    }
+
+    const disabled = this.initializing() || this.checkoutState() === 'creating';
+    return { label, type: disabled ? 'disabled' : 'action', disabled };
   }
 
   setBillingInterval(interval: CheckoutInterval): void {
@@ -173,13 +196,29 @@ export class PricingPageComponent implements OnDestroy {
   }
 
   canPurchasePlan(id: KnownPlanId): boolean {
-    return this.plan(id).available && !this.yearlyPlanBlocks(id);
+    return this.plan(id).available && !this.isDowngrade(id) && !this.activeYearlyPlanBlocksIntervalChange(id);
   }
 
-  private yearlyPlanBlocks(id: KnownPlanId): boolean {
+  private activeYearlyPlanBlocksIntervalChange(id: KnownPlanId): boolean {
     const subscription = this.subscription();
     if (subscription?.status !== 'active' || subscription.interval !== 'YEAR') return false;
-    return subscription.plan !== id || this.billingInterval() !== 'year';
+    return subscription.plan === id && this.billingInterval() !== 'year';
+  }
+
+  private isUpgrade(id: KnownPlanId): boolean {
+    const currentPlan = this.subscription()?.plan;
+    if (!this.subscription() || this.subscription()?.status === 'none' || !currentPlan) return false;
+    return this.planRank(id) > this.planRank(currentPlan);
+  }
+
+  private isDowngrade(id: KnownPlanId): boolean {
+    const subscription = this.subscription();
+    if (!subscription || subscription.status === 'none' || !subscription.plan) return false;
+    return this.planRank(id) < this.planRank(subscription.plan);
+  }
+
+  private planRank(id: PlanId): number {
+    return PLAN_IDS.indexOf(id as KnownPlanId);
   }
 
   subscriptionEnd(): string {

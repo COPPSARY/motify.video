@@ -107,6 +107,22 @@ describe('PricingPageComponent', () => {
     expect(text).toContain('Renew Pro');
   });
 
+  it('does not show a redundant subscription banner for an active plan', () => {
+    const fixture = TestBed.createComponent(PricingPageComponent);
+    fixture.componentInstance.subscription.set({
+      status: 'active',
+      plan: 'pro',
+      interval: 'YEAR',
+      currentPeriodStart: '2026-10-08T00:00:00.000Z',
+      currentPeriodEnd: '2027-10-08T00:00:00.000Z',
+    });
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    expect(element.querySelector('[aria-label="Current subscription"]')).toBeNull();
+    expect(element.textContent).not.toContain('Your current plan');
+  });
+
   it('offers backend-configured credit packs', async () => {
     const fixture = TestBed.createComponent(PricingPageComponent);
     fixture.detectChanges();
@@ -152,8 +168,9 @@ describe('PricingPageComponent', () => {
     expect(component.workspace()?.id).toBe('personal-1');
   });
 
-  it('labels an active-plan change as a switch and the same plan as an extension', () => {
+  it('labels a higher active-plan choice as an upgrade and the same plan as an extension', () => {
     const component = TestBed.createComponent(PricingPageComponent).componentInstance;
+    component.initializing.set(false);
     component.planCatalogStatus.set('ready');
     component.plans.set(plans);
     component.subscription.set({
@@ -164,8 +181,8 @@ describe('PricingPageComponent', () => {
       currentPeriodEnd: '2026-10-31T00:00:00.000Z',
     });
 
-    expect(component.planButtonLabel('starter')).toBe('Extend plan');
-    expect(component.planButtonLabel('pro')).toBe('Switch plan');
+    expect(component.planButton('starter')).toEqual({ label: 'Extend plan', type: 'action', disabled: false });
+    expect(component.planButton('pro')).toEqual({ label: 'Upgrade', type: 'action', disabled: false });
   });
 
   it('uses the yearly quote and sends the selected interval to checkout', async () => {
@@ -207,7 +224,7 @@ describe('PricingPageComponent', () => {
     expect(component.selection()).toEqual(jasmine.objectContaining({ credits: 65, bonusCredits: 13 }));
   });
 
-  it('prevents changing an active yearly plan but allows extending the same year', () => {
+  it('allows upgrading an active yearly plan while preventing an interval downgrade on the same plan', () => {
     const component = TestBed.createComponent(PricingPageComponent).componentInstance;
     component.planCatalogStatus.set('ready');
     component.plans.set(plans);
@@ -217,9 +234,28 @@ describe('PricingPageComponent', () => {
     });
 
     expect(component.canPurchasePlan('starter')).toBeFalse();
+    expect(component.planButton('starter')).toEqual({ label: 'Unavailable', type: 'disabled', disabled: true });
+    expect(component.canPurchasePlan('pro')).toBeTrue();
+    expect(component.planButton('pro').label).toBe('Upgrade');
+
     component.setBillingInterval('year');
     expect(component.canPurchasePlan('starter')).toBeTrue();
-    expect(component.planButtonLabel('starter')).toBe('Extend plan');
-    expect(component.canPurchasePlan('pro')).toBeFalse();
+    expect(component.planButton('starter').label).toBe('Extend plan');
+    expect(component.canPurchasePlan('pro')).toBeTrue();
+  });
+
+  it('does not allow downgrading from Pro to Starter after the Pro plan expires', () => {
+    const component = TestBed.createComponent(PricingPageComponent).componentInstance;
+    component.planCatalogStatus.set('ready');
+    component.plans.set(plans);
+    component.subscription.set({
+      status: 'expired', plan: 'pro', interval: 'MONTH',
+      currentPeriodStart: '2026-09-01T00:00:00.000Z', currentPeriodEnd: '2026-10-01T00:00:00.000Z',
+    });
+
+    expect(component.canPurchasePlan('starter')).toBeFalse();
+    expect(component.planButton('starter')).toEqual({ label: 'Unavailable', type: 'disabled', disabled: true });
+    expect(component.canPurchasePlan('pro')).toBeTrue();
+    expect(component.planButton('pro').label).toBe('Renew Pro');
   });
 });

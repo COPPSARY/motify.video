@@ -1,0 +1,82 @@
+<div id="top">
+  <app-navbar />
+  @if (post; as article) {
+    <main class="article-page">
+      <nav class="article-page__crumbs" aria-label="Breadcrumb">
+        <a routerLink="/resources">Resources</a>
+        <span aria-hidden="true">/</span>
+        <a routerLink="/blog">Blog</a>
+        <span aria-hidden="true">/</span>
+        <span>{{ article.category }}</span>
+      </nav>
+
+      <article>
+        <header class="article-page__header">
+          <div class="article-page__meta">
+            <span>{{ article.category }}</span>
+            <time [attr.datetime]="article.date">{{ article.displayDate }}</time>
+            <span>{{ article.readTime }}</span>
+          </div>
+          <h1>{{ article.title }}</h1>
+          <p>{{ article.description }}</p>
+        </header>
+
+        <div class="article-page__layout">
+          <aside class="article-page__aside">
+            <p>In this guide</p>
+            <ol>
+              @for (section of article.sections; track section.heading; let i = $index) {
+                <li><a [href]="'#section-' + (i + 1)">{{ section.heading }}</a></li>
+              }
+            </ol>
+          </aside>
+
+          <div class="article-page__body">
+            <p class="article-page__intro">{{ article.intro }}</p>
+
+            @for (section of article.sections; track section.heading; let i = $index) {
+              <section [attr.id]="'section-' + (i + 1)">
+                <h2>{{ section.heading }}</h2>
+                @for (paragraph of section.paragraphs; track paragraph) {
+                  <p>{{ paragraph }}</p>
+                }
+                @if (section.bullets) {
+                  <ul>
+                    @for (bullet of section.bullets; track bullet) {
+                      <li>{{ bullet }}</li>
+                    }
+                  </ul>
+                }
+              </section>
+            }
+
+            @if (article.sources?.length) {
+              <aside class="article-page__sources" aria-labelledby="sources-title">
+                <h2 id="sources-title">Product sources</h2>
+                <p>Feature details were checked against these official product pages in October 2026.</p>
+                <ul>
+                  @for (source of article.sources; track source.href) {
+                    <li><a [href]="source.href" target="_blank" rel="noopener noreferrer">{{ source.label }} ↗</a></li>
+                  }
+                </ul>
+              </aside>
+            }
+          </div>
+        </div>
+      </article>
+
+      <section class="article-page__cta" aria-labelledby="article-cta-title">
+        <div>
+          <p>Plan before you generate</p>
+          <h2 id="article-cta-title">Turn your next product story into nine clear scenes.</h2>
+        </div>
+        <a routerLink="/resources/storyboard-generator">Learn about the Storyboard Generator <span aria-hidden="true">→</span></a>
+      </section>
+
+      <nav class="article-page__back" aria-label="More articles">
+        <a routerLink="/blog">← Browse all Motify articles</a>
+      </nav>
+    </main>
+  }
+  <app-footer />
+</div>

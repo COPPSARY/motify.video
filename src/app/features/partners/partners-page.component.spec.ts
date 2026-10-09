@@ -19,6 +19,8 @@ describe('PartnersPageComponent', () => {
     const text = compiled.textContent ?? '';
 
     expect(text).toContain('Partner with Motify.');
+    expect(text).toContain('Want to test Motify Enterprise with your team?');
+    expect(compiled.querySelector('a[href*="subject=Motify%20Enterprise%20for%20my%20startup"]')).not.toBeNull();
     expect(text).toContain('General Inquiries & Partnerships');
     expect(text).toContain('hello@motify.video');
     expect(text).toContain('Talk to Founder');

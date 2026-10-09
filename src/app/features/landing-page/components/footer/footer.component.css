@@ -8,14 +8,17 @@
 }
 
 .footer__wordmark {
-  height: clamp(9rem, 25vw, 22rem);
+  display: flex;
+  height: clamp(7rem, 21vw, 18rem);
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   border-bottom: 1px solid var(--motify-border);
   color: rgba(255, 255, 255, 0.025);
-  font-size: clamp(8rem, 27vw, 26rem);
+  font-size: clamp(5rem, 22vw, 20rem);
   font-weight: 700;
-  letter-spacing: -0.085em;
-  line-height: 0.8;
+  letter-spacing: -0.035em;
+  line-height: 1;
   text-align: center;
   white-space: nowrap;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.09);
@@ -191,9 +194,9 @@
   }
 
   .footer__wordmark {
-    height: 8rem;
-    font-size: 8rem;
-    line-height: 0.86;
+    height: 6rem;
+    font-size: clamp(4rem, 22vw, 6.5rem);
+    letter-spacing: -0.025em;
   }
 
   .footer__content {

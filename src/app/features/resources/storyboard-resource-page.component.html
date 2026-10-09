@@ -1,0 +1,123 @@
+<div id="top">
+  <app-navbar />
+
+  <main class="storyboard-guide">
+    <nav class="storyboard-guide__crumbs" aria-label="Breadcrumb">
+      <a routerLink="/resources">Resources</a>
+      <span aria-hidden="true">/</span>
+      <span>Storyboard Generator</span>
+    </nav>
+
+    <header class="storyboard-guide__hero">
+      <div class="storyboard-guide__hero-copy">
+        <p>Storyboard generation</p>
+        <h1>See the whole product story before you make the video.</h1>
+        <span>
+          Turn one complete idea into a branded nine-scene storyboard. Review the narrative, approve the visual flow, then add it to your next Motify prompt as a reference.
+        </span>
+        <div class="storyboard-guide__actions">
+          <a class="storyboard-guide__primary" href="https://app.motify.video/storyboard">Generate a storyboard <span aria-hidden="true">↗</span></a>
+          <a routerLink="/resources">Back to resources</a>
+        </div>
+      </div>
+
+      <div class="storyboard-guide__preview" aria-label="Example nine-scene storyboard layout">
+        @for (scene of [1, 2, 3, 4, 5, 6, 7, 8, 9]; track scene) {
+          <div class="storyboard-guide__scene" [class.storyboard-guide__scene--key]="scene === 5 || scene === 9">
+            <span>0{{ scene }}</span>
+            <i></i>
+          </div>
+        }
+      </div>
+    </header>
+
+    <section class="storyboard-guide__why" aria-labelledby="why-storyboard-title">
+      <div>
+        <p>Why storyboard first?</p>
+        <h2 id="why-storyboard-title">Fix the story while it is still easy to change.</h2>
+      </div>
+      <div class="storyboard-guide__why-copy">
+        <p>
+          A prompt can sound clear while leaving the visual sequence unresolved. A storyboard makes the opening, product reveal, proof, pacing, and closing frame visible before you commit to a full video.
+        </p>
+        <p>
+          That gives founders, marketers, and product teams one shared artifact to review. You can spot a missing product moment, repeated scene, weak transition, or unclear CTA before those problems become expensive revisions.
+        </p>
+      </div>
+    </section>
+
+    <section class="storyboard-guide__workflow" aria-labelledby="storyboard-workflow-title">
+      <div class="storyboard-guide__section-heading">
+        <p>Four-step workflow</p>
+        <h2 id="storyboard-workflow-title">From rough idea to approved visual direction.</h2>
+      </div>
+      <ol>
+        <li>
+          <span>01</span>
+          <div><h3>Describe the complete story</h3><p>Explain the audience, product, problem, transformation, proof, brand mood, and final action—not just a single shot.</p></div>
+        </li>
+        <li>
+          <span>02</span>
+          <div><h3>Choose the primary format</h3><p>Start with the channel that matters most so composition, framing, and text placement are planned for the right canvas.</p></div>
+        </li>
+        <li>
+          <span>03</span>
+          <div><h3>Review all nine scenes together</h3><p>Check the flow from problem to reveal to payoff. Make sure every scene adds new information and the product appears at the right moment.</p></div>
+        </li>
+        <li>
+          <span>04</span>
+          <div><h3>Approve and use it as a reference</h3><p>Carry the approved storyboard into your next Motify video prompt so generation begins from an agreed visual narrative.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="storyboard-guide__formats" aria-labelledby="formats-title">
+      <div>
+        <p>Choose the canvas</p>
+        <h2 id="formats-title">Plan for the place your audience will watch.</h2>
+        <span>Choose one primary format for the first storyboard. You can adapt the approved story for additional channels after the core flow works.</span>
+      </div>
+      <div class="storyboard-guide__format-grid">
+        @for (format of formats; track format.ratio) {
+          <div>
+            <span>{{ format.name }}</span>
+            <strong>{{ format.ratio }}</strong>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="storyboard-guide__uses" aria-labelledby="use-cases-title">
+      <div class="storyboard-guide__section-heading">
+        <p>Useful starting points</p>
+        <h2 id="use-cases-title">Where a storyboard saves the most time.</h2>
+      </div>
+      <div class="storyboard-guide__use-grid">
+        <article><span>01</span><h3>Product launches</h3><p>Align the problem, reveal, feature proof, payoff, and launch CTA before production.</p></article>
+        <article><span>02</span><h3>SaaS explainers</h3><p>Break a complex workflow into a sequence viewers can understand without seeing every feature.</p></article>
+        <article><span>03</span><h3>Feature announcements</h3><p>Show what changed, why it matters, how it works, and where existing users can find it.</p></article>
+        <article><span>04</span><h3>Campaign variations</h3><p>Approve one core narrative before adapting its framing for landscape, vertical, square, or social placements.</p></article>
+      </div>
+    </section>
+
+    <section class="storyboard-guide__prompt" aria-labelledby="prompt-example-title">
+      <div>
+        <p>Prompt pattern</p>
+        <h2 id="prompt-example-title">Describe a journey, not a collection of shots.</h2>
+      </div>
+      <blockquote>
+        Create a nine-scene launch story for a SaaS analytics dashboard. Begin with a marketing team overwhelmed by disconnected reports, reveal a single live dashboard, show three moments of faster decision-making, build toward a confident product hero shot, and close with an invitation to start a free workspace. Keep the direction precise, modern, and grounded in the supplied brand.
+      </blockquote>
+    </section>
+
+    <section class="storyboard-guide__cta" aria-labelledby="storyboard-cta-title">
+      <div>
+        <p>Ready to plan the full flow?</p>
+        <h2 id="storyboard-cta-title">Create your branded nine-scene storyboard.</h2>
+      </div>
+      <a href="https://app.motify.video/storyboard">Open Storyboard Generator <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <app-footer />
+</div>

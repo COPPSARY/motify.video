@@ -27,7 +27,7 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
     title: 'Account & credits',
     tagline: 'Understand credit balance, personal workspaces, and renewals',
     overview:
-      'Sign in to keep projects connected to your account. Your workspace shows the active plan and available credits. Editing text or reviewing an existing project does not require you to start over.',
+      'Learn how Motify accounts, workspaces, plan credits, renewals, and editing work so you can manage projects and usage with confidence.',
     sections: [
       {
         heading: 'What uses credits',
@@ -61,7 +61,7 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
     title: 'Brand DNA setup',
     tagline: 'Give Motify the context your team already knows',
     overview:
-      'Add your logo and brand assets, colors, fonts, website, voice, visual style, and target audience. Explain how those choices should be used—not only what they are.',
+      'Set up Motify Brand DNA with your logo, colors, fonts, voice, visual style, website, and target audience for consistent video output.',
     sections: [
       {
         heading: 'Core brand assets',
@@ -95,7 +95,7 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
     title: 'Supported inputs',
     tagline: 'Start with a brief, then add the evidence',
     overview:
-      'Describe the goal in plain language and add relevant product links, images, logos, screenshots, or video assets when the project needs them. Tell Motify whether an image is inspiration or should appear in the output.',
+      'Learn which prompts, product links, images, logos, screenshots, and video assets Motify accepts—and how to label references clearly.',
     sections: [
       {
         heading: 'Text briefs & site links',
@@ -129,7 +129,7 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
     title: 'Export & rendering',
     tagline: 'Review the final sequence before rendering',
     overview:
-      'Check the message, framing, asset placement, timing, and destination format in the editor. The export panel shows the formats and rendering controls currently available for your project.',
+      'Review aspect ratios, audio, timing, rendering controls, and export formats before producing your final Motify video.',
     sections: [
       {
         heading: 'Aspect ratios & framing',
@@ -188,7 +188,7 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
     title: 'Feature availability',
     tagline: 'Current workspace features and changelog updates',
     overview:
-      'Available controls and formats appear in your current workspace. Resource articles labeled “Concept guide” describe useful future workflows and are not promises of a shipped integration.',
+      'See which Motify features are available today, which workflows are conceptual, and where to ask about upcoming capabilities.',
     sections: [
       {
         heading: 'Active workspace features',

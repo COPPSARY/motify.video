@@ -1,24 +1,6 @@
 <section class="resources">
   <div class="resources__inner">
-    <div class="resources__copy" [appScrollReveal]="0">
-      <h2>Resources for work that <span class="heading-accent heading-typed">ships.</span></h2>
-      <p>Learn the workflow, sharpen the brief, and start from a useful template.</p>
-      <a class="resources__browse" routerLink="/resources">Browse the resource library</a>
-    </div>
-
-    <div class="resources__grid" [appScrollReveal]="80">
-      @for (resource of resources; track resource.href; let i = $index) {
-        <a class="resources__card" [routerLink]="resource.href" [appScrollReveal]="i * 60">
-          <span>{{ resource.meta }}</span>
-          <div>
-            <h3>{{ resource.title }}</h3>
-            <p>{{ resource.description }}</p>
-          </div>
-        </a>
-      }
-    </div>
-
-    <div class="resources__cta" [appScrollReveal]="140">
+    <div class="resources__cta" [appScrollReveal]="0">
       <div>
         <span>Start free. No card.</span>
         <strong>Ready to ship?</strong>

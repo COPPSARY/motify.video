@@ -74,6 +74,8 @@ describe('FooterComponent', () => {
 
     expect(compiled.querySelector('a[href="/resources/prompt-templates"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/resources/brand-dna"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/blog"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/resources/storyboard-generator"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/getting-started"]')).toBeNull();
     expect(compiled.textContent).not.toContain('npm package');
     expect(compiled.textContent).not.toContain('Product Hunt');

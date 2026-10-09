@@ -33,7 +33,12 @@
 }
 
 .problem__point h3 span {
-  color: var(--motify-cobalt);
+  color: #f4f8ff;
+  background: linear-gradient(110deg, #d5e6ff 0%, #f7faff 58%, #ffffff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 1rem rgba(116, 170, 255, 0.2);
 }
 
 .problem__point > p {

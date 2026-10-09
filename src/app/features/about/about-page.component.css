@@ -68,12 +68,106 @@
   letter-spacing: 0.01em;
 }
 
+.about__story,
+.about__audience {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.68fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about__workflow {
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about__section-heading h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.65rem, 3vw, 2.45rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.about__story-copy {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.about__story-copy p {
+  margin: 0;
+  color: #aeb0b8;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.about__workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about__workflow-steps li {
+  display: flex;
+  min-height: 16rem;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.85rem;
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.045), transparent 50%),
+    #0d0e12;
+}
+
+.about__workflow-steps li > span {
+  color: rgba(255, 255, 255, 0.26);
+  font-size: 1.6rem;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.about__workflow-steps h3,
+.about__audience-grid h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.about__workflow-steps h3 {
+  margin-top: 3.25rem;
+}
+
+.about__workflow-steps p,
+.about__audience-grid p {
+  margin: 0.45rem 0 0;
+  color: #a1a1aa;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.about__audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.about__audience-grid article {
+  padding: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
 /* Vision & Mission (No cards, no eyebrows, SF Pro Display regular) */
 .about__vm {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(2.5rem, 6vw, 5.5rem);
-  margin-bottom: clamp(4rem, 7vw, 6rem);
+  margin: clamp(4rem, 7vw, 6rem) 0;
 }
 
 .about__vm-item {
@@ -202,5 +296,28 @@
   .about__vm {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+
+  .about__story,
+  .about__audience {
+    grid-template-columns: 1fr;
+  }
+
+  .about__workflow-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about__audience-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .about__workflow-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .about__workflow-steps li {
+    min-height: 13rem;
   }
 }

@@ -1,0 +1,43 @@
+<div id="top">
+  <app-navbar />
+  <main class="blog-index">
+    <header class="blog-index__hero">
+      <p>Motify blog</p>
+      <h1>Better product stories.<br />More useful launches.</h1>
+      <span>Practical guides for turning product truth into clear, on-brand video.</span>
+    </header>
+
+    <section class="blog-index__featured" aria-labelledby="featured-post-title">
+      @if (posts[0]; as post) {
+        <div>
+          <p>{{ post.category }} · {{ post.displayDate }} · {{ post.readTime }}</p>
+          <h2 id="featured-post-title">{{ post.title }}</h2>
+          <span>{{ post.description }}</span>
+        </div>
+        <a [routerLink]="['/blog', post.slug]">Read featured article <span aria-hidden="true">→</span></a>
+      }
+    </section>
+
+    <section class="blog-index__library" aria-labelledby="all-articles-title">
+      <div class="blog-index__section-heading">
+        <p>Field notes</p>
+        <h2 id="all-articles-title">All articles</h2>
+      </div>
+      <div class="blog-index__grid">
+        @for (post of posts; track post.slug) {
+          <article class="blog-card">
+            <div class="blog-card__meta">
+              <span>{{ post.category }}</span>
+              <time [attr.datetime]="post.date">{{ post.displayDate }}</time>
+              <span>{{ post.readTime }}</span>
+            </div>
+            <h3><a [routerLink]="['/blog', post.slug]">{{ post.title }}</a></h3>
+            <p>{{ post.description }}</p>
+            <a class="blog-card__action" [routerLink]="['/blog', post.slug]">Read article <span aria-hidden="true">→</span></a>
+          </article>
+        }
+      </div>
+    </section>
+  </main>
+  <app-footer />
+</div>

@@ -6,10 +6,6 @@
 }
 
 .resources__inner {
-  display: grid;
-  grid-template-columns: 0.7fr 1fr;
-  gap: var(--motify-heading-content-gap);
-  align-items: start;
   width: min(70rem, 100%);
 }
 
@@ -92,12 +88,11 @@
 }
 
 .resources__cta {
-  grid-column: 1 / -1;
   display: grid;
   justify-items: center;
   text-align: center;
   gap: 1.5rem;
-  margin-top: 3.5rem;
+  margin-top: 0;
   padding: 4rem 1.5rem 3.5rem;
   border: 0;
   border-radius: 0;

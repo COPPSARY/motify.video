@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { LucideArrowUp, LucidePlus, LucideSparkles } from '@lucide/angular';
 import { editorReturnPath } from '../../../../shared/config/runtime-config';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
@@ -8,33 +8,13 @@ import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reve
 @Component({
   selector: 'app-resources-section',
   standalone: true,
-  imports: [FormsModule, RouterLink, ScrollRevealDirective, LucideArrowUp, LucidePlus, LucideSparkles],
+  imports: [FormsModule, ScrollRevealDirective, LucideArrowUp, LucidePlus, LucideSparkles],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './resources-section.component.html',
   styleUrl: './resources-section.component.css',
 })
 export class ResourcesSectionComponent {
   private readonly router = inject(Router);
-  readonly resources = [
-    {
-      title: 'Prompt Templates',
-      description: 'Copy and customize structured briefs for twelve real product marketing jobs.',
-      href: '/resources/prompt-templates',
-      meta: '12 templates',
-    },
-    {
-      title: 'Brand DNA',
-      description: 'Give AI useful context about your logo, voice, colors, type, style, and audience.',
-      href: '/resources/brand-dna',
-      meta: '6 guides',
-    },
-    {
-      title: 'Marketing Playbooks',
-      description: 'Repeatable workflows for launches, demos, feature releases, and small teams.',
-      href: '/resources/playbooks',
-      meta: '9 playbooks',
-    },
-  ] as const;
   prompt = '';
   assetMenuOpen = false;
   selectedAsset = '';

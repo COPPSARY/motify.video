@@ -54,20 +54,17 @@ describe('LandingPageComponent', () => {
     );
   });
 
-  /**
-   * The public landing page now points to Motify's internal learning library
-   * rather than external install, package, or launch destinations.
-   */
-  it('renders internal resource cards without a Product Hunt badge', () => {
+  it('keeps the final creation CTA without rendering the resource library cards', () => {
     const fixture = TestBed.createComponent(LandingPageComponent);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.querySelector('app-product-hunt-badge')).toBeNull();
-    const resourceCards = compiled.querySelectorAll('.resources__card');
-    expect(resourceCards.length).toBe(3);
-    expect(compiled.textContent).toContain('Prompt Templates');
-    expect(compiled.textContent).toContain('Brand DNA');
+    expect(compiled.querySelector('app-resources-section')).not.toBeNull();
+    expect(compiled.querySelector('.resources__cta')).not.toBeNull();
+    expect(compiled.querySelectorAll('.resources__card').length).toBe(0);
+    expect(compiled.textContent).toContain('Ready to ship?');
+    expect(compiled.textContent).not.toContain('Resources for work that ships.');
   });
 });

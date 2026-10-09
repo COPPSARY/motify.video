@@ -34,7 +34,7 @@ export const RESOURCE_CATEGORIES: readonly ResourceCategory[] = [
     id: 'start-here',
     number: '01',
     title: 'Start Here',
-    description: 'Learn the product marketing workflow before you make the first frame.',
+    description: 'Learn the Motify product marketing workflow, from a focused brief and product context to a clear, publishable first video.',
     entries: [
       {
         title: 'What is product marketing content?',

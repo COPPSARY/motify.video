@@ -14,6 +14,35 @@ import { ResourcesHubPageComponent } from './features/resources/resources-hub-pa
 const loadLegalPage = () =>
   import('./features/legal/legal-page.component').then((module) => module.LegalPageComponent);
 
+const loadBlogIndexPage = () =>
+  import('./features/blog/blog-index-page.component').then((module) => module.BlogIndexPageComponent);
+
+const loadBlogArticlePage = () =>
+  import('./features/blog/blog-article-page.component').then((module) => module.BlogArticlePageComponent);
+
+const loadStoryboardResourcePage = () =>
+  import('./features/resources/storyboard-resource-page.component').then(
+    (module) => module.StoryboardResourcePageComponent,
+  );
+
+const blogArticleRoutes: Routes = [
+  ['best-ai-video-tools-product-hunt-launch', 'AI Video Tools for Product Hunt Launches (2026) | Motify'],
+  ['best-ai-video-generators-product-launches', 'AI Video Generators for Product Launches (2026) | Motify'],
+  ['product-hunt-launch-checklist', 'Product Hunt Launch Checklist: Complete 2026 Guide | Motify'],
+  ['product-launch-video-script-templates', '7 Product Launch Video Scripts You Can Copy | Motify'],
+  ['scale-saas-content-engine-ai-video', 'Build a Scalable SaaS AI Video Content Engine | Motify'],
+  ['landing-page-video-conversion-patterns', '5 Landing Page Video Patterns for Better Conversion | Motify'],
+  ['saas-video-marketing-trends-2026', 'SaaS Video Marketing Trends That Matter in 2026 | Motify'],
+  ['make-product-launch-video-that-converts', 'How to Make a Product Launch Video That Converts | Motify'],
+  ['best-ai-tools-saas-explainer-videos', 'Best AI Tools for SaaS Explainer Videos (2026) | Motify'],
+  ['create-app-launch-video-without-editing-skills', 'Create an App Launch Video Without Editing Skills | Motify'],
+].map(([slug, title]) => ({
+  path: `blog/${slug}`,
+  loadComponent: loadBlogArticlePage,
+  data: { slug },
+  title,
+}));
+
 export const routes: Routes = [
   {
     path: '',
@@ -86,6 +115,17 @@ export const routes: Routes = [
     data: { category: 'examples' },
     title: 'Examples & Inspiration | Motify Resources',
   },
+  {
+    path: 'resources/storyboard-generator',
+    loadComponent: loadStoryboardResourcePage,
+    title: 'AI Storyboard Generator for Product Videos | Motify',
+  },
+  {
+    path: 'blog',
+    loadComponent: loadBlogIndexPage,
+    title: 'SaaS Video Marketing Blog | Motify',
+  },
+  ...blogArticleRoutes,
   {
     path: 'help',
     component: HelpPageComponent,

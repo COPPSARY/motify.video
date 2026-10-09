@@ -27,6 +27,25 @@
         <h2 id="library-title">Learn by job, not by feature.</h2>
       </div>
       <div class="resource-hub__grid">
+        <a class="resource-hub__card resource-hub__card--blog" routerLink="/blog">
+          <div class="resource-hub__card-content">
+            <span class="resource-hub__card-badge">10 articles</span>
+            <h3>Motify Blog</h3>
+            <p>Practical, original guides for Product Hunt launches, SaaS explainers, conversion-focused video, and AI content workflows.</p>
+          </div>
+          <small>Browse all articles</small>
+        </a>
+        <a
+          class="resource-hub__card resource-hub__card--storyboard"
+          routerLink="/resources/storyboard-generator"
+        >
+          <div class="resource-hub__card-content">
+            <span class="resource-hub__card-badge">New tool</span>
+            <h3>Storyboard Generator</h3>
+            <p>Turn your idea into a branded nine-scene visual story. Review the full flow, approve it, and use the storyboard as a visual reference for your next video prompt.</p>
+          </div>
+          <small>Read the guide</small>
+        </a>
         @for (category of categories; track category.id) {
           <a class="resource-hub__card" [routerLink]="['/resources', category.id]">
             <div class="resource-hub__card-content">

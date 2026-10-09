@@ -19,7 +19,7 @@ const LEGAL_PAGE_META: Record<LegalDocument, { title: string; description: strin
   },
   refund: {
     title: 'Refund Policy | Motify',
-    description: 'Read the Motify refund and Bakong KHQR payment support policy.',
+    description: 'Read Motify’s refund policy for plans and credit packs purchased through Bakong KHQR, including eligibility and billing support.',
     path: '/refund-policy',
   },
 };

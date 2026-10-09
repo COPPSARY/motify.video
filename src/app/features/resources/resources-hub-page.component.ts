@@ -20,7 +20,7 @@ export class ResourcesHubPageComponent {
     inject(SeoService).apply({
       title: 'Product Marketing Resources | Motify',
       description:
-        'Practical guides, prompt templates, brand direction, playbooks, and video craft for SaaS product marketing teams.',
+        'Use Motify\'s storyboard generator, practical guides, prompt templates, brand direction, playbooks, and video craft for SaaS product marketing teams.',
       path: '/resources',
     });
   }

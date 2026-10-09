@@ -26,6 +26,8 @@ Key facts:
 - [Start Here](https://motify.video/resources/start-here): From product update to publishable content
 - [Brand DNA](https://motify.video/resources/brand-dna): Brand assets, colors, fonts, voice, style, and audience
 - [Prompt Templates](https://motify.video/resources/prompt-templates): Copyable, editable prompts for launches, demos, social videos, and more
+- [Storyboard Generator Guide](https://motify.video/resources/storyboard-generator): Learn how to create and approve a branded nine-scene story, then use it as a visual reference for a video prompt
+- [Motify Blog](https://motify.video/blog): Original guides for SaaS launch videos, Product Hunt, explainers, storyboards, and AI video workflows
 - [Marketing Playbooks](https://motify.video/resources/playbooks): Repeatable workflows for product marketing teams
 - [Video Craft](https://motify.video/resources/video-craft): Hooks, scripts, pacing, UI, voiceover, formats, and CTAs
 - [Examples](https://motify.video/resources/examples): Goal-to-final-asset breakdowns and inspiration

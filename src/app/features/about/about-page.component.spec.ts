@@ -24,6 +24,9 @@ describe('AboutPageComponent', () => {
     expect(text).toContain('Motify turns product updates and marketing goals into clear, accurate, on-brand marketing content—without the usual production bottleneck.');
     expect(text).toContain('Teams should be able to focus on, and improve their products, Motify will handle announcing their great products');
     expect(text).toContain('Reaksa, Founder');
+    expect(compiled.querySelector('.about__section-heading > p')).toBeNull();
+    expect(text).toContain('Ground every first draft in something real.');
+    expect(text).toContain('Bring the product context');
     expect(text).not.toContain('Partner with us');
     expect(compiled.querySelector('.about__pill-btn')).toBeNull();
   });

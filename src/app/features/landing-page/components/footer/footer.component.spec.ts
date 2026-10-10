@@ -82,6 +82,21 @@ describe('FooterComponent', () => {
     expect(compiled.textContent).not.toContain('Documentation');
   });
 
+  it('links the commercial solution and comparison pages', () => {
+    const fixture = TestBed.createComponent(FooterComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelector('a[href="/ai-saas-launch-video-generator"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/ai-motion-graphics-generator"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/software-product-video-generator"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/canvas-ai-video-editor"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/compare/after-effects"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/compare/canva"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/compare/synthesia"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/compare/video-agency"]')).not.toBeNull();
+  });
+
   it('should link the GitHub, Facebook, and TikTok social profiles', () => {
     const fixture = TestBed.createComponent(FooterComponent);
     fixture.detectChanges();

@@ -20,6 +20,20 @@ Key facts:
 - [Pricing](https://motify.video/pricing): Plans, what each includes, and how credits work
 - [Open the editor](https://app.motify.video/): Sign up and create a video
 
+## Solutions
+
+- [AI SaaS launch video generator](https://motify.video/ai-saas-launch-video-generator): Editable launch videos built from product and brand context
+- [AI motion graphics generator](https://motify.video/ai-motion-graphics-generator): Prompt-to-motion workflow with canvas and timeline control
+- [Software product video generator](https://motify.video/software-product-video-generator): SaaS demos, explainers, feature videos, and product ads
+- [Canvas AI video editor](https://motify.video/canvas-ai-video-editor): Prompt-led revision with direct text, element, and timing edits
+
+## Comparisons
+
+- [Motify vs After Effects](https://motify.video/compare/after-effects): AI-first product video workflow versus a professional motion-design suite
+- [Motify vs Canva](https://motify.video/compare/canva): Focused SaaS motion workflow versus a general visual design platform
+- [Motify vs Synthesia](https://motify.video/compare/synthesia): Product-led motion versus presenter-led business video
+- [Motify vs a video agency](https://motify.video/compare/video-agency): Repeatable in-house production versus bespoke agency work
+
 ## Resources
 
 - [Resource library](https://motify.video/resources): Product marketing guidance organized by job

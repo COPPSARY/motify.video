@@ -10,6 +10,8 @@ import { HelpTopicPageComponent } from './features/resources/help-topic-page.com
 import { PromptTemplatesPageComponent } from './features/resources/prompt-templates-page.component';
 import { ResourceCategoryPageComponent } from './features/resources/resource-category-page.component';
 import { ResourcesHubPageComponent } from './features/resources/resources-hub-page.component';
+import { SolutionPageComponent } from './features/solutions/solution-page.component';
+import { ComparisonPageComponent } from './features/compare/comparison-page.component';
 
 const loadLegalPage = () =>
   import('./features/legal/legal-page.component').then((module) => module.LegalPageComponent);
@@ -71,9 +73,52 @@ export const routes: Routes = [
     title: 'Partner with Motify | Agencies, Creators & Tech Partners',
   },
   {
-    path: 'getting-started',
-    redirectTo: 'resources/start-here',
-    pathMatch: 'full',
+    path: 'ai-saas-launch-video-generator',
+    component: SolutionPageComponent,
+    data: { solution: 'saas-launch' },
+    title: 'AI SaaS Launch Video Generator | Motify',
+  },
+  {
+    path: 'ai-motion-graphics-generator',
+    component: SolutionPageComponent,
+    data: { solution: 'motion-graphics' },
+    title: 'AI Motion Graphics Generator | Motify',
+  },
+  {
+    path: 'software-product-video-generator',
+    component: SolutionPageComponent,
+    data: { solution: 'software-product' },
+    title: 'AI Product Video Generator for SaaS | Motify',
+  },
+  {
+    path: 'canvas-ai-video-editor',
+    component: SolutionPageComponent,
+    data: { solution: 'canvas-editor' },
+    title: 'Canvas-Based AI Video Editor | Motify',
+  },
+  {
+    path: 'compare/after-effects',
+    component: ComparisonPageComponent,
+    data: { comparison: 'after-effects' },
+    title: 'Motify vs After Effects for Product Videos',
+  },
+  {
+    path: 'compare/canva',
+    component: ComparisonPageComponent,
+    data: { comparison: 'canva' },
+    title: 'Motify vs Canva AI Video for SaaS Teams',
+  },
+  {
+    path: 'compare/synthesia',
+    component: ComparisonPageComponent,
+    data: { comparison: 'synthesia' },
+    title: 'Motify vs Synthesia for Product Videos',
+  },
+  {
+    path: 'compare/video-agency',
+    component: ComparisonPageComponent,
+    data: { comparison: 'video-agency' },
+    title: 'Motify vs a Video Agency for Product Launches',
   },
   {
     path: 'resources',

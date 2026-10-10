@@ -1,0 +1,54 @@
+<div id="top">
+  <app-navbar />
+  <main class="comparison">
+    <nav class="comparison__crumbs" aria-label="Breadcrumb"><a routerLink="/">Home</a><span aria-hidden="true">/</span><span>Compare</span></nav>
+    <header class="comparison__hero">
+      <p>Workflow comparison</p>
+      <h1>{{ page.heading }}</h1>
+      <p class="comparison__lead">{{ page.lead }}</p>
+      <div class="comparison__actions">
+        <a routerLink="/login" [queryParams]="{ returnUrl: '/editor' }">Try Motify</a>
+        <a routerLink="/pricing">See pricing</a>
+      </div>
+    </header>
+
+    <section class="comparison__verdict" aria-labelledby="verdict-title">
+      <p>Short answer</p><h2 id="verdict-title">{{ page.verdict }}</h2>
+    </section>
+
+    <section class="comparison__choices" aria-label="Which option should I choose?">
+      <article><p>Choose Motify when</p><ul>@for (item of page.chooseMotify; track item) { <li>{{ item }}</li> }</ul></article>
+      <article><p>Choose {{ page.alternativeName }} when</p><ul>@for (item of page.chooseAlternative; track item) { <li>{{ item }}</li> }</ul></article>
+    </section>
+
+    <section class="comparison__table" aria-labelledby="details-title">
+      <div class="comparison__section-heading"><p>At a glance</p><h2 id="details-title">Compare the working model</h2></div>
+      <div class="comparison__table-wrap">
+        <table>
+          <thead><tr><th scope="col">Decision</th><th scope="col">Motify</th><th scope="col">{{ page.alternativeName }}</th></tr></thead>
+          <tbody>@for (row of page.rows; track row.need) { <tr><th scope="row">{{ row.need }}</th><td>{{ row.motify }}</td><td>{{ row.alternative }}</td></tr> }</tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="comparison__closing" aria-labelledby="closing-title">
+      <p>Bottom line</p><h2 id="closing-title">{{ page.closing }}</h2>
+    </section>
+
+    <section class="comparison__more" aria-labelledby="more-title">
+      <p>Explore the workflow</p><h2 id="more-title">See what Motify is built to create</h2>
+      <div>
+        <a routerLink="/ai-saas-launch-video-generator">AI SaaS launch videos <span>→</span></a>
+        <a routerLink="/ai-motion-graphics-generator">AI motion graphics <span>→</span></a>
+        <a routerLink="/software-product-video-generator">Software product videos <span>→</span></a>
+        <a routerLink="/canvas-ai-video-editor">Canvas AI video editing <span>→</span></a>
+      </div>
+    </section>
+
+    <section class="comparison__cta" aria-labelledby="comparison-cta-title">
+      <div><p>Start free. No card required.</p><h2 id="comparison-cta-title">Create a product video that stays editable.</h2></div>
+      <a routerLink="/login" [queryParams]="{ returnUrl: '/editor' }">Start creating <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+  <app-footer />
+</div>

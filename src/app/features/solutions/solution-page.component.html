@@ -1,0 +1,95 @@
+<div id="top">
+  <app-navbar />
+  <main class="solution">
+    <nav class="solution__crumbs" aria-label="Breadcrumb">
+      <a routerLink="/">Home</a><span aria-hidden="true">/</span><span>Solutions</span>
+    </nav>
+
+    <header class="solution__hero">
+      <div>
+        <p class="solution__eyebrow">{{ page.eyebrow }}</p>
+        <h1>{{ page.heading }}</h1>
+        <p class="solution__lead">{{ page.lead }}</p>
+        <div class="solution__actions">
+          <a class="solution__primary" routerLink="/login" [queryParams]="{ returnUrl: '/editor' }">Create a video</a>
+          <a class="solution__secondary" routerLink="/pricing">View pricing</a>
+        </div>
+      </div>
+      <aside class="solution__preview" aria-label="Editable Motify workflow">
+        <div class="solution__preview-bar"><span></span><span></span><span></span><strong>Motify canvas</strong></div>
+        <div class="solution__preview-stage">
+          <span class="solution__preview-label">Scene 02</span>
+          <strong>{{ page.outcome }}</strong>
+          <div class="solution__preview-lines"><i></i><i></i><i></i></div>
+        </div>
+        <div class="solution__timeline" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      </aside>
+    </header>
+
+    <section class="solution__statement" aria-labelledby="solution-promise">
+      <p>Why Motify</p>
+      <h2 id="solution-promise">{{ page.promise }}</h2>
+    </section>
+
+    <section class="solution__benefits" aria-label="Key benefits">
+      @for (benefit of page.benefits; track benefit.title) {
+        <article>
+          <span aria-hidden="true">0{{ $index + 1 }}</span>
+          <h2>{{ benefit.title }}</h2>
+          <p>{{ benefit.body }}</p>
+        </article>
+      }
+    </section>
+
+    <section class="solution__workflow" aria-labelledby="workflow-title">
+      <div class="solution__section-heading">
+        <p>Workflow</p>
+        <h2 id="workflow-title">From product context to final cut</h2>
+      </div>
+      <ol>
+        @for (step of page.steps; track step.number) {
+          <li>
+            <span>{{ step.number }}</span>
+            <div><h3>{{ step.title }}</h3><p>{{ step.body }}</p></div>
+          </li>
+        }
+      </ol>
+    </section>
+
+    <section class="solution__fit" aria-labelledby="fit-title">
+      <div>
+        <p>Built for</p>
+        <h2 id="fit-title">Product marketing work that needs clarity and control</h2>
+      </div>
+      <ul>
+        @for (item of page.bestFor; track item) { <li>{{ item }}</li> }
+      </ul>
+      <aside><strong>Know the boundary</strong><p>{{ page.notFor }}</p></aside>
+    </section>
+
+    <section class="solution__faq" aria-labelledby="faq-title">
+      <div class="solution__section-heading"><p>FAQ</p><h2 id="faq-title">Questions about this workflow</h2></div>
+      <div>
+        @for (faq of page.faqs; track faq.question) {
+          <details><summary>{{ faq.question }}</summary><p>{{ faq.answer }}</p></details>
+        }
+      </div>
+    </section>
+
+    <section class="solution__related" aria-labelledby="related-title">
+      <p>Explore more</p>
+      <h2 id="related-title">Other Motify workflows</h2>
+      <div>
+        @for (item of related; track item.slug) {
+          <a [routerLink]="'/' + item.slug"><span>{{ item.eyebrow }}</span><strong>{{ item.heading }}</strong><i aria-hidden="true">→</i></a>
+        }
+      </div>
+    </section>
+
+    <section class="solution__cta" aria-labelledby="cta-title">
+      <div><p>Start free. No card required.</p><h2 id="cta-title">Turn your next product story into editable motion.</h2></div>
+      <a routerLink="/login" [queryParams]="{ returnUrl: '/editor' }">Start creating <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+  <app-footer />
+</div>

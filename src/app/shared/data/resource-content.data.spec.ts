@@ -1,18 +1,30 @@
 import { PROMPT_TEMPLATES, RESOURCE_CATEGORIES } from './resource-content.data';
 
 describe('resource content', () => {
-  it('provides twelve structured, editable product marketing prompts', () => {
-    expect(PROMPT_TEMPLATES.length).toBe(12);
+  it('provides nine scene-directed, editable product marketing prompts', () => {
+    expect(PROMPT_TEMPLATES.length).toBe(9);
+    expect(PROMPT_TEMPLATES.map((template) => template.id)).toEqual([
+      'saas-product-launch',
+      'feature-announcement',
+      'problem-solution-explainer',
+      'kinetic-brand-statement',
+      'stats-social-proof',
+      'how-it-works',
+      'event-webinar-promo',
+      'ai-prompt-to-result',
+      'visual-product-world-tour',
+    ]);
 
     for (const template of PROMPT_TEMPLATES) {
-      expect(template.prompt).toContain('Goal:');
-      expect(template.prompt).toContain('Target audience:');
-      expect(template.prompt).toContain('Product context:');
-      expect(template.prompt).toContain('Customer problem:');
-      expect(template.prompt).toContain('Key proof points:');
-      expect(template.prompt).toContain('Tone and style:');
-      expect(template.prompt).toContain('Call to action:');
-      expect(template.prompt).toContain('Output format:');
+      expect(template.prompt).toContain('One master GSAP timeline');
+      expect(template.prompt).toContain('HTML/CSS/inline SVG only');
+      expect(template.prompt).toContain('#camera wrapper per scene');
+      expect(template.prompt).toContain('SCENE 1');
+      expect(template.prompt).toMatch(/CTA|Sign-off/);
+      expect(template.prompt).toContain('ANIMATION QUALITY:');
+      expect(template.prompt).toContain('Do not use glitch');
+      expect(template.prompt).toContain('[');
+      expect(template.prompt).toContain(']');
     }
   });
 

@@ -5,7 +5,7 @@
     <header class="templates-page__hero">
       <h1>Prompt Templates</h1>
       <p>
-        Fill in your product details to generate a structured, ready-to-run prompt. Copy and run it in the editor.
+        Choose a production-ready story structure, fill in its creative variables, then copy the finished prompt into the editor.
       </p>
     </header>
 
@@ -32,99 +32,23 @@
             <p>{{ selectedTemplate().description }}</p>
           </div>
           <div class="builder-form__actions">
-            <button type="button" class="btn-sample" (click)="fillSample()">Fill sample data</button>
             <button type="button" class="btn-clear" (click)="clearInputs()">Clear</button>
           </div>
         </div>
 
         <div class="form-grid">
-          <div class="form-group">
-            <label for="input-outcome">Desired Outcome &amp; Goal</label>
-            <input
-              id="input-outcome"
-              type="text"
-              [ngModel]="outcome()"
-              (ngModelChange)="outcome.set($event)"
-              placeholder="e.g. Drive 500+ signups for the new analytics feature"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="input-audience">Target Audience</label>
-            <input
-              id="input-audience"
-              type="text"
-              [ngModel]="targetAudience()"
-              (ngModelChange)="targetAudience.set($event)"
-              placeholder="e.g. B2B SaaS founders and product marketing managers"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="input-context">Product Context &amp; Link</label>
-            <input
-              id="input-context"
-              type="text"
-              [ngModel]="productContext()"
-              (ngModelChange)="productContext.set($event)"
-              placeholder="e.g. Motify (motify.video) web-native AI motion editor"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="input-problem">Customer Problem</label>
-            <input
-              id="input-problem"
-              type="text"
-              [ngModel]="customerProblem()"
-              (ngModelChange)="customerProblem.set($event)"
-              placeholder="e.g. Creating product launch videos takes weeks of manual work"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="input-proof">Key Proof Points (3 features or evidence)</label>
-            <input
-              id="input-proof"
-              type="text"
-              [ngModel]="proofPoints()"
-              (ngModelChange)="proofPoints.set($event)"
-              placeholder="e.g. Live canvas editing, Brand DNA engine, 4K MP4 export"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="input-tone">Tone, Visual Style &amp; Brand</label>
-            <input
-              id="input-tone"
-              type="text"
-              [ngModel]="toneAndStyle()"
-              (ngModelChange)="toneAndStyle.set($event)"
-              placeholder="e.g. Sharp, modern dark mode, fast-paced, high contrast"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="input-cta">Call to Action (CTA)</label>
-            <input
-              id="input-cta"
-              type="text"
-              [ngModel]="cta()"
-              (ngModelChange)="cta.set($event)"
-              placeholder="e.g. Start creating free at motify.video"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="input-duration">Duration &amp; Audio</label>
-            <input
-              id="input-duration"
-              type="text"
-              [ngModel]="duration()"
-              (ngModelChange)="duration.set($event)"
-              placeholder="e.g. 45 seconds; with captions and voiceover"
-            />
-          </div>
+          @for (field of fields(); track field.key; let index = $index) {
+            <div class="form-group">
+              <label [for]="'prompt-field-' + index">{{ field.label }}</label>
+              <input
+                [id]="'prompt-field-' + index"
+                type="text"
+                [ngModel]="fieldValue(field.key)"
+                (ngModelChange)="updateField(field.key, $event)"
+                [placeholder]="field.hint"
+              />
+            </div>
+          }
         </div>
       </div>
 

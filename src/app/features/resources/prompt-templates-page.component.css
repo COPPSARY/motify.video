@@ -120,26 +120,6 @@
   gap: 0.5rem;
 }
 
-.btn-sample {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.45rem 0.85rem;
-  border: 1px solid rgba(39, 88, 230, 0.4);
-  border-radius: 0.5rem;
-  background: rgba(31, 69, 176, 0.15);
-  color: #60a5fa;
-  font-family: inherit;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 160ms ease;
-}
-
-.btn-sample:hover {
-  background: rgba(31, 69, 176, 0.25);
-  border-color: rgba(39, 88, 230, 0.6);
-}
-
 .btn-clear {
   display: inline-flex;
   align-items: center;

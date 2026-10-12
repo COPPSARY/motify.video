@@ -77,6 +77,11 @@
   width: 2.4rem;
 }
 
+.showcase-stories__trust-logos .showcase-stories__datadog-logo {
+  width: 6.4rem;
+  height: auto;
+}
+
 .showcase-stories__trust-logos strong {
   font-family: inherit;
   font-size: 0.9rem;

@@ -67,4 +67,22 @@ describe('LandingPageComponent', () => {
     expect(compiled.textContent).toContain('Ready to ship?');
     expect(compiled.textContent).not.toContain('Resources for work that ships.');
   });
+
+  it('recognizes Datadog for Startups in the supported-by strip', () => {
+    const fixture = TestBed.createComponent(LandingPageComponent);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const datadogLink = compiled.querySelector<HTMLAnchorElement>(
+      'a[aria-label="Datadog for Startups"]',
+    );
+    const datadogLogo = datadogLink?.querySelector<HTMLImageElement>('img');
+
+    expect(datadogLink?.getAttribute('href')).toBe(
+      'https://www.datadoghq.com/partner/datadog-for-startups/',
+    );
+    expect(datadogLink?.getAttribute('rel')).toContain('noopener');
+    expect(datadogLogo?.getAttribute('src')).toBe('/dd_logo_h_white.png');
+    expect(datadogLogo?.getAttribute('alt')).toBe('Datadog');
+  });
 });

@@ -85,4 +85,17 @@ describe('LandingPageComponent', () => {
     expect(datadogLogo?.getAttribute('src')).toBe('/dd_logo_h_white.png');
     expect(datadogLogo?.getAttribute('alt')).toBe('Datadog');
   });
+
+  it('recognizes sophat.space in the supported-by strip', () => {
+    const fixture = TestBed.createComponent(LandingPageComponent);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const sophatLink = compiled.querySelector<HTMLAnchorElement>('a[aria-label="sophat.space"]');
+    const sophatLogo = sophatLink?.querySelector<HTMLImageElement>('img');
+
+    expect(sophatLink?.getAttribute('href')).toBe('https://sophat.space/');
+    expect(sophatLink?.getAttribute('rel')).toContain('noopener');
+    expect(sophatLogo?.getAttribute('src')).toBe('/sophat.space.png');
+  });
 });

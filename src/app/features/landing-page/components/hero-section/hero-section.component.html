@@ -1,32 +1,11 @@
-<section class="hero">
-  <div class="hero__background" aria-hidden="true">
-    <app-pattern-waves
-      preset="silk"
-      color="#ffffff"
-      backgroundColor="#07080a"
-      fade="edges"
-      [interactive]="true"
-      [cursorSize]="50"
-      [cursorStrength]="0.6"
-      [spacing]="9"
-      [depth]="0.95"
-      [shine]="0.8"
-      [contrast]="1.2"
-      [speed]="0.35"
-      [scale]="1"
-      [direction]="20"
-      [opacity]="1"
-    />
-  </div>
+<section class="hero" aria-labelledby="hero-title">
   <div class="hero__content" [appScrollReveal]="0">
-    <h1 class="hero__headline">
-      <span class="hero__headline-line">Create SaaS videos</span>
-      <span class="hero__headline-line heading-swipe heading-accent">that explain and sell.</span>
+    <h1 id="hero-title" class="hero__headline">
+      Create motion graphics in minutes.
     </h1>
     <p class="hero__subheadline">
-      AI video creation for SaaS teams. Make explainers, launches, demos, and ads.
+      Built for growing teams. Create polished, on-brand videos you can edit and publish anywhere.
     </p>
-
     <form class="hero__composer" (ngSubmit)="submitPrompt()">
       <label class="sr-only" for="motion-prompt">Describe your video</label>
       <textarea
@@ -39,7 +18,9 @@
       ></textarea>
       <div class="hero__composer-actions">
         <div class="hero__asset-picker">
-          <button class="hero__round-button" type="button" aria-label="Add an asset" [attr.aria-expanded]="assetMenuOpen" (click)="toggleAssetMenu()"><svg lucidePlus aria-hidden="true"></svg></button>
+          <button class="hero__round-button" type="button" aria-label="Add an asset" [attr.aria-expanded]="assetMenuOpen" (click)="toggleAssetMenu()">
+            <svg lucidePlus aria-hidden="true"></svg>
+          </button>
           @if (assetMenuOpen) {
             <div class="hero__asset-menu">
               <button type="button" (click)="chooseAsset('image')">Upload image</button>
@@ -47,9 +28,15 @@
             </div>
           }
         </div>
-        @if (selectedAsset) { <span class="hero__asset-name" title="Attached asset">{{ selectedAsset }}</span> }
-        <button class="hero__enhance-button" type="button" aria-label="Enhance prompt" title="Enhance prompt" (click)="enhancePrompt()"><svg lucideSparkles aria-hidden="true"></svg></button>
-        <button class="hero__submit" type="submit" aria-label="Start creating"><svg lucideArrowUp aria-hidden="true"></svg></button>
+        @if (selectedAsset) {
+          <span class="hero__asset-name" title="Attached asset">{{ selectedAsset }}</span>
+        }
+        <button class="hero__enhance-button" type="button" aria-label="Enhance prompt" title="Enhance prompt" (click)="enhancePrompt()">
+          <svg lucideSparkles aria-hidden="true"></svg>
+        </button>
+        <button class="hero__submit" type="submit" aria-label="Create video">
+          <svg lucideArrowUp aria-hidden="true"></svg>
+        </button>
       </div>
     </form>
   </div>

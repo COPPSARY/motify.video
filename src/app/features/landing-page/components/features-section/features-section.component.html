@@ -1,89 +1,49 @@
-<section class="features">
-  <div class="features__inner">
-    <div class="features__workflow" [appScrollReveal]="120">
-      <div class="features__workflow-copy">
-        <h2>
-          <span class="features__title-line">With Motify, everything stays</span>
-          <span class="features__title-line"><span class="heading-accent heading-typed">editable.</span></span>
-        </h2>
-      </div>
+<section class="resource-bento" aria-labelledby="resource-bento-title">
+  <div class="resource-bento__inner">
+    <header class="resource-bento__heading" [appScrollReveal]="0">
+      <h2 id="resource-bento-title">Resources for better product videos.</h2>
+      <p>Practical tools, templates, and guides for every part of the workflow.</p>
+    </header>
 
-      <div class="features__grid">
-        @for (feature of features; track feature.id; let i = $index) {
-          <article class="feature-card" [class]="'feature-card feature-card--' + feature.icon" [appScrollReveal]="i * 50">
-            <div class="feature-card__top">
-              <span class="feature-card__icon" aria-hidden="true">
-                @switch (feature.icon) {
-                  @case ('mouse-pointer') {
-                    <svg class="feature-card__icon-svg" lucideMousePointer2></svg>
-                  }
-                  @case ('code') {
-                    <svg class="feature-card__icon-svg" lucideCode2></svg>
-                  }
-                  @case ('timeline') {
-                    <svg class="feature-card__icon-svg" lucideTimerReset></svg>
-                  }
-                  @case ('download') {
-                    <svg class="feature-card__icon-svg" lucideDownload></svg>
-                  }
-                  @default {
-                    <svg class="feature-card__icon-svg" lucideSparkles></svg>
-                  }
-                }
-              </span>
-              <h3 class="feature-card__title">{{ feature.title }}</h3>
-            </div>
-
-            <p class="feature-card__description">{{ feature.description }}</p>
-
-            <div class="feature-card__visual" aria-hidden="true">
-              <img
-                [src]="visualAsset(feature.icon)"
-                [alt]="feature.title + ' visual'"
-                loading="lazy"
-              />
-            </div>
-          </article>
-        }
-      </div>
+    <div class="resource-bento__grid">
+      @for (resource of resources; track resource.route; let index = $index) {
+        <a
+          [class]="'resource-card resource-card--' + resource.kind"
+          [routerLink]="resource.route"
+          [appScrollReveal]="40 + index * 25"
+        >
+          <div class="resource-art" aria-hidden="true">
+            @switch (resource.kind) {
+              @case ('prompts') {
+                <div class="art-prompt"><span><i></i><i></i></span><b>Product launch</b><em>Generate</em></div>
+              }
+              @case ('storyboard') {
+                <div class="art-storyboard">@for (scene of [1, 2, 3, 4, 5, 6]; track scene) { <span>{{ scene }}</span> }</div>
+              }
+              @case ('start') {
+                <div class="art-start"><span>1</span><i></i><span>2</span><i></i><span>3</span></div>
+              }
+              @case ('brand') {
+                <div class="art-brand"><strong>Aa</strong><span><i></i><i></i><i></i></span></div>
+              }
+              @case ('playbooks') {
+                <div class="art-playbooks"><span>Hook<i></i></span><span>Story<i></i></span><span>CTA<i></i></span></div>
+              }
+              @case ('craft') {
+                <div class="art-craft"><span></span><div><i></i><i></i><i></i></div></div>
+              }
+              @case ('examples') {
+                <div class="art-examples"><span><i></i></span><span><i></i></span><span><i></i></span></div>
+              }
+            }
+          </div>
+          <div class="resource-card__copy">
+            <h3>{{ resource.title }}</h3>
+            <p>{{ resource.description }}</p>
+            <span>{{ resource.action }} <b aria-hidden="true">↗</b></span>
+          </div>
+        </a>
+      }
     </div>
-
-    <section class="brand-dna-section" aria-labelledby="brand-dna-heading" [appScrollReveal]="100">
-      <div class="brand-dna-section__hero">
-        <h2 id="brand-dna-heading">
-          <span class="brand-dna-section__line">Teach your identity once.</span>
-          <span class="brand-dna-section__line">Bring your own brand.</span>
-        </h2>
-      </div>
-
-      <article class="brand-dna-card">
-        <div class="brand-dna-card__header">
-          <div class="brand-dna-card__intro">
-            <h3>Brand DNA</h3>
-            <p>
-              Your assets, colors, typefaces, voice, and target audience. Applied automatically across every scene without manual policing.
-            </p>
-          </div>
-          <a class="brand-dna-card__action" routerLink="/resources/brand-dna" aria-label="Explore Brand DNA guide">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M7 17L17 7"></path>
-              <path d="M7 7h10v10"></path>
-            </svg>
-          </a>
-        </div>
-
-        <div class="brand-dna-card__visual">
-          <div class="brand-dna-card__image-frame">
-            <img
-              src="/BRAND-DNA-UI.png"
-              alt="Motify Brand DNA interface showing brand basics, colors, typefaces, and product context"
-              width="1031"
-              height="441"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </article>
-    </section>
   </div>
 </section>

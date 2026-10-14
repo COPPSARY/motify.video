@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { LucideArrowUp, LucidePlus, LucideSparkles } from '@lucide/angular';
 import { editorReturnPath } from '../../../../shared/config/runtime-config';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
-import { PatternWavesComponent } from '../../../../shared/components/pattern-waves/pattern-waves.component';
 
 @Component({
   selector: 'app-hero-section',
@@ -13,7 +12,6 @@ import { PatternWavesComponent } from '../../../../shared/components/pattern-wav
   imports: [
     FormsModule,
     ScrollRevealDirective,
-    PatternWavesComponent,
     LucideArrowUp,
     LucidePlus,
     LucideSparkles,
@@ -30,9 +28,9 @@ export class HeroSectionComponent implements OnDestroy {
   private typingTimer?: number;
   private assetInput?: HTMLInputElement;
   private readonly examples = [
-    'Create a cinematic launch video for my new product...',
-    'Turn this feature update into a bold motion ad...',
-    'Make a clean product demo with energetic transitions...',
+    'Create a launch video for our new analytics feature...',
+    'Turn this product update into a clear motion ad...',
+    'Make a polished demo using our real product UI...',
   ];
 
   constructor() {
@@ -71,6 +69,19 @@ export class HeroSectionComponent implements OnDestroy {
     void this.submitPrompt();
   }
 
+  async submitPrompt(): Promise<void> {
+    await this.router.navigate(['/signup'], {
+      queryParams: { returnUrl: editorReturnPath(this.prompt) },
+    });
+  }
+
+  enhancePrompt(): void {
+    const prompt = this.prompt.trim();
+    this.prompt = prompt
+      ? `${prompt} Make it polished, clear, and aligned with the brand.`
+      : 'Create a polished product launch video that feels aligned with my brand.';
+  }
+
   private startPromptTyping(): void {
     let exampleIndex = 0;
     let characterIndex = 0;
@@ -90,18 +101,5 @@ export class HeroSectionComponent implements OnDestroy {
         }
       }
     }, 62);
-  }
-
-  async submitPrompt(): Promise<void> {
-    await this.router.navigate(['/signup'], {
-      queryParams: { returnUrl: editorReturnPath(this.prompt) },
-    });
-  }
-
-  enhancePrompt(): void {
-    const prompt = this.prompt.trim();
-    this.prompt = prompt
-      ? `${prompt} Make it polished, cinematic, and aligned with the brand.`
-      : 'Create a polished, cinematic launch video that feels aligned with my brand.';
   }
 }

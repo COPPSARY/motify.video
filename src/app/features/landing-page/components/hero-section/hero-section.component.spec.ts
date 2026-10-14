@@ -15,18 +15,19 @@ describe('HeroSectionComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should render the product-focused prompt composer', () => {
+  it('should render a focused outcome, prompt CTA, and product proof', () => {
     const fixture = TestBed.createComponent(HeroSectionComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.textContent).toContain('Create SaaS videos');
+    expect(compiled.textContent).toContain('Create motion graphics in minutes.');
+    expect(compiled.textContent).toContain('Built for growing teams.');
     expect(compiled.querySelector('.hero__composer')).not.toBeNull();
     expect(compiled.querySelector('textarea#motion-prompt')).not.toBeNull();
-    expect(compiled.querySelector('.hero__submit')).not.toBeNull();
+    expect(compiled.querySelectorAll('.hero__submit').length).toBe(1);
   });
 
-  it('opens the site signup flow with the prompt preserved for the editor', async () => {
+  it('opens signup with the prompt preserved for the editor', async () => {
     const router = TestBed.inject(Router);
     const navigate = spyOn(router, 'navigate').and.resolveTo(true);
     const component = TestBed.createComponent(HeroSectionComponent).componentInstance;

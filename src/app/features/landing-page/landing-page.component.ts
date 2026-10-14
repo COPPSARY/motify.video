@@ -62,23 +62,4 @@ export class LandingPageComponent {
     });
   }
 
-  updateWorkflowGlow(event: PointerEvent): void {
-    const card = event.currentTarget as HTMLElement | null;
-    if (!card) return;
-    const bounds = card.getBoundingClientRect();
-    const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-    const y = ((event.clientY - bounds.top) / bounds.height) * 100;
-    card.style.setProperty('--glow-x', `${x}%`);
-    card.style.setProperty('--glow-y', `${y}%`);
-    card.style.setProperty('--glow-intensity', '1');
-    card.style.setProperty('--border-intensity', '1');
-  }
-
-  resetWorkflowGlow(event: PointerEvent): void {
-    const card = event.currentTarget as HTMLElement | null;
-    if (!card) return;
-    card.style.setProperty('--glow-intensity', '0');
-    card.style.setProperty('--border-intensity', '0');
-  }
-
 }

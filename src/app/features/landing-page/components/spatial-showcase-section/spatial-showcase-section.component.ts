@@ -113,10 +113,6 @@ export class SpatialShowcaseSectionComponent implements OnDestroy {
           poster: 'assets/showcase/posters/tessera.jpg',
           label: 'Tessera brand animation',
         },
-        {
-          src: 'project.mp4',
-          label: 'Motify brand composition',
-        },
       ],
     },
     {
@@ -133,11 +129,6 @@ export class SpatialShowcaseSectionComponent implements OnDestroy {
           src: 'assets/showcase/relay.mp4',
           poster: 'assets/showcase/posters/relay.jpg',
           label: 'Relay feature announcement',
-        },
-        {
-          src: 'assets/motify-web.mp4',
-          poster: 'assets/showcase/posters/motify-web.jpg',
-          label: 'Motify feature walkthrough',
         },
       ],
     },

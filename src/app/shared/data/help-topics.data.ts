@@ -27,15 +27,15 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
     title: 'Account & credits',
     tagline: 'Understand credit balance, personal workspaces, and renewals',
     overview:
-      'Learn how Motify accounts, workspaces, plan credits, renewals, and editing work so you can manage projects and usage with confidence.',
+      'Learn how Motify accounts, workspaces, plan credits, renewals, and revisions work so you can manage projects and usage with confidence.',
     sections: [
       {
         heading: 'What uses credits',
         body:
-          'Credits cover the generation and rendering computation behind each video project. Simple draft edits, previewing keyframes, and reviewing existing projects do not consume credits.',
+          'Credits cover the generation and rendering computation behind each video project. Previewing, switching aspect ratios, and reviewing existing projects do not consume credits.',
         bulletPoints: [
           'Full video generation runs use credits based on length and resolution.',
-          'Reviewing drafts and inspecting timelines is always free.',
+          'Reviewing and previewing your videos is always free.',
           'Failed renders caused by system errors are not charged.',
         ],
       },
@@ -139,7 +139,7 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
       {
         heading: 'Audio & voiceover tracks',
         body:
-          'Verify background music volume and AI voiceover pacing in the timeline preview prior to initiating final rendering.',
+          'Verify background music volume and AI voiceover pacing in the preview before you export.',
       },
       {
         heading: 'Render speeds & quality',
@@ -174,7 +174,7 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
       {
         heading: 'Render failure recovery',
         body:
-          'If rendering fails, verify your network connection and retry from the editor export panel. If issues persist, send the project URL to support.',
+          'If rendering fails, verify your network connection and retry from the Export button on your video. If issues persist, send the project URL to support.',
       },
     ],
     relatedLinks: [
@@ -193,7 +193,7 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
       {
         heading: 'Active workspace features',
         body:
-          'Current production features include Brand DNA asset extraction, structured prompt execution, multi-format export (16:9, 1:1, 9:16), Bakong KHQR checkout, and cloud timeline editing.',
+          'Current production features include Brand DNA asset extraction, structured prompt execution, multi-format export (16:9, 1:1, 4:5, 9:16), music upload, Bakong KHQR checkout, and prompt-based refinement with Tiffy.',
       },
       {
         heading: 'Upcoming capabilities',

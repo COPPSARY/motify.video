@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { LucideEye, LucideEyeOff } from '@lucide/angular';
 import { AuthService } from '../../shared/services/auth.service';
 import { SeoService } from '../../shared/services/seo.service';
-import { editorUrlForReturnPath } from '../../shared/config/runtime-config';
+import { editorUrlForReturnPath, welcomePathFor } from '../../shared/config/runtime-config';
 
 type AuthMode = 'signin' | 'signup';
 
@@ -23,6 +23,8 @@ export class LoginPageComponent {
   readonly auth = inject(AuthService);
 
   readonly returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/editor';
+  /** Set by the API when a verification link or Google sign-in just created the account. */
+  private readonly arrivedAsNewAccount = this.route.snapshot.queryParamMap.get('newAccount') === '1';
   readonly hasPendingPrompt = this.returnUrl.startsWith('/editor?') &&
     new URL(this.returnUrl, 'https://motify.invalid').searchParams.has('prompt');
   readonly loading = signal(false);
@@ -41,15 +43,15 @@ export class LoginPageComponent {
     inject(SeoService).apply({
       title: signingUp ? 'Sign up for Motify' : 'Log in to Motify',
       description: signingUp
-        ? 'Create a Motify account to generate HTML, CSS, and GSAP motion graphics from a prompt.'
-        : 'Sign in to create and refine HTML, CSS, and GSAP motion graphics with Motify.',
+        ? 'Create a Motify account and turn a prompt into an on-brand motion graphics video.'
+        : 'Sign in to create motion graphics videos and refine them with Tiffy.',
       path: signingUp ? '/signup' : '/login',
       robots: 'noindex, nofollow',
     });
 
     afterNextRender(() => {
       void this.auth.currentUser().then((user) => {
-        if (user) this.finishLogin();
+        if (user) this.finishLogin(this.arrivedAsNewAccount);
       });
     });
   }
@@ -74,19 +76,22 @@ export class LoginPageComponent {
     try {
       if (this.mode() === 'signup') {
         this.auth.setPendingReturnUrl(this.returnUrl);
-        await this.auth.signUp(this.email, this.password);
+        const signedIn = await this.auth.signUp(this.email, this.password);
+        if (signedIn) {
+          this.finishLogin(signedIn.newAccount);
+          return;
+        }
         this.verificationSentTo.set(this.email.trim());
         this.password = '';
         this.loading.set(false);
         return;
       }
-      await this.auth.login(this.email, this.password);
+      const { newAccount } = await this.auth.login(this.email, this.password);
+      this.finishLogin(newAccount);
     } catch (error: unknown) {
       this.error.set(this.messageFor(error));
       this.loading.set(false);
-      return;
     }
-    this.finishLogin();
   }
 
   loginWithGoogle(): void {
@@ -94,9 +99,11 @@ export class LoginPageComponent {
     window.location.href = this.auth.googleLoginUrl();
   }
 
-  private finishLogin(): void {
+  /** New accounts get onboarding on the way to the app; everyone else goes straight there. */
+  private finishLogin(newAccount: boolean): void {
     if (this.returnUrl.startsWith('/editor')) {
-      window.location.href = editorUrlForReturnPath(this.returnUrl);
+      if (newAccount) void this.router.navigateByUrl(welcomePathFor(this.returnUrl));
+      else window.location.href = editorUrlForReturnPath(this.returnUrl);
       return;
     }
     const destination = this.returnUrl.startsWith('/') && !this.returnUrl.startsWith('//')

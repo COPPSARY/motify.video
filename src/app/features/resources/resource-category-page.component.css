@@ -25,7 +25,7 @@
 
 .guide-page h1 {
   margin: 0;
-  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-size: var(--motify-type-page-title);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.04em;
@@ -44,8 +44,8 @@
   margin-top: 3rem;
   padding: 2rem;
   border: 1px solid rgba(65, 104, 222, 0.35);
-  border-radius: 0.85rem;
-  background: linear-gradient(130deg, rgba(31, 69, 176, 0.14), rgba(255, 255, 255, 0.02));
+  border-radius: var(--motify-radius-md);
+  background: var(--motify-surface-solid);
 }
 
 .guide-page__brand-context h2 {
@@ -95,7 +95,7 @@
 
 .guide-page__index a {
   width: fit-content;
-  color: #60a5fa;
+  color: var(--motify-text-primary);
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
@@ -135,7 +135,7 @@
   display: inline-block;
   margin-bottom: 0.4rem;
   padding: 0.2rem 0.5rem;
-  border-radius: 0.35rem;
+  border-radius: var(--motify-radius-xs);
   background: rgba(255, 255, 255, 0.06);
   color: var(--motify-text-muted);
   font-size: 0.72rem;
@@ -197,8 +197,8 @@
 .guide-page__concept-note {
   margin-top: 1.25rem;
   padding: 0.85rem 1rem;
-  border-left: 2px solid #3b82f6;
-  background: rgba(59, 130, 246, 0.08);
+  border-left: 2px solid var(--motify-border-strong);
+  background: rgba(255, 255, 255, 0.08);
   font-size: 0.84rem;
   line-height: 1.5;
   color: var(--motify-text-muted);
@@ -208,7 +208,7 @@
   margin-top: 5rem;
   padding: 3rem 2rem;
   border: 1px solid var(--motify-border);
-  border-radius: 1rem;
+  border-radius: var(--motify-radius-lg);
   background: rgba(255, 255, 255, 0.02);
   display: flex;
   justify-content: space-between;
@@ -229,9 +229,9 @@
   align-items: center;
   min-height: 2.6rem;
   padding: 0 1.2rem;
-  border-radius: 0.55rem;
-  background: #1f45b0;
-  color: #fff;
+  border-radius: var(--motify-radius-sm);
+  background: var(--motify-cobalt);
+  color: var(--motify-text-primary);
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;

@@ -33,13 +33,13 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
     slug: 'ai-saas-launch-video-generator',
     title: 'AI SaaS Launch Video Generator | Motify',
     description:
-      'Create editable SaaS launch videos from a product brief, website, and real UI assets. Refine the story, scenes, timing, and brand before export.',
+      'Create SaaS launch videos from a product brief, website, and real UI assets. Refine the story, pacing, and brand by prompting, then export.',
     eyebrow: 'AI video for SaaS launches',
     heading: 'AI SaaS launch video generator',
     lead:
       'Turn a product update, launch brief, or website into a polished video direction built around your real software—not generic stock footage.',
     promise:
-      'Motify plans the story, generates the motion composition, and keeps the result editable so your team can respond to launch feedback without starting over.',
+      'Motify plans the story and generates the motion composition. When launch feedback arrives, ask Tiffy for the change and keep the same project instead of starting over.',
     outcome: 'A launch-ready story your product, marketing, and brand teams can refine together.',
     benefits: [
       {
@@ -52,13 +52,13 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
       },
       {
         title: 'Revise without rebuilding',
-        body: 'Prompt changes to the hook, pacing, voiceover, or visual direction, then make precise text and timing adjustments in the editor.',
+        body: 'Ask for changes to the hook, copy, pacing, music, or visual direction in plain language, and the same video updates.',
       },
     ],
     steps: [
       { number: '01', title: 'Describe the launch', body: 'Give Motify the product, audience, launch moment, and one action the viewer should take.' },
       { number: '02', title: 'Review the direction', body: 'Inspect the planned story, scenes, product emphasis, and visual hierarchy before the final cut.' },
-      { number: '03', title: 'Refine and export', body: 'Adjust messaging and motion, apply Brand DNA, and export the format your launch channel needs.' },
+      { number: '03', title: 'Refine and export', body: 'Ask Tiffy to adjust messaging and motion, apply Brand DNA, and export the format your launch channel needs.' },
     ],
     bestFor: ['Product launches', 'Feature announcements', 'Product Hunt videos', 'Homepage hero videos', 'Paid launch campaigns'],
     notFor:
@@ -69,8 +69,8 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
         answer: 'Yes. You can provide a product link and a launch brief, then add screenshots or other assets when the video needs to show specific interface states.',
       },
       {
-        question: 'Can I edit the generated launch video?',
-        answer: 'Yes. You can request changes in plain language and manually edit text, scenes, timing, and transitions instead of accepting a fixed render.',
+        question: 'Can I change the generated launch video?',
+        answer: 'Yes. Describe what should change, such as the headline, a scene, the pacing, or the music, and Tiffy revises the same project instead of handing you a fixed render.',
       },
       {
         question: 'Does the launch video stay on brand?',
@@ -82,13 +82,13 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
     slug: 'ai-motion-graphics-generator',
     title: 'AI Motion Graphics Generator | Motify',
     description:
-      'Generate editable motion graphics from a prompt. Direct scenes in plain language, adjust elements on the canvas, refine timing, and export a polished video.',
-    eyebrow: 'Prompt to editable motion',
+      'Generate motion graphics from a prompt. Direct scenes, copy, and pacing in plain language, refine by chatting, and export a polished video.',
+    eyebrow: 'Prompt to polished motion',
     heading: 'AI motion graphics generator',
     lead:
       'Describe the message you need to communicate and get a structured motion composition with typography, shapes, product visuals, and intentional pacing.',
     promise:
-      'Unlike a one-shot video model, Motify keeps the composition adjustable. Change the story with a prompt or tune individual elements on the canvas and timeline.',
+      'Unlike a one-shot video model, Motify keeps the composition structured, so a follow-up prompt can change one headline, one scene, or the whole story.',
     outcome: 'Motion graphics that remain useful after the first generation.',
     benefits: [
       {
@@ -96,8 +96,8 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
         body: 'Move from a short brief to an organized sequence with a hook, visual hierarchy, transitions, supporting motion, and a clear ending.',
       },
       {
-        title: 'Keep every scene editable',
-        body: 'Adjust copy, layout, position, timing, easing, and scene order without flattening the project into an opaque clip.',
+        title: 'Refine any scene by asking',
+        body: 'Ask for new copy, a different layout, faster pacing, or a reordered story, and Motify updates the composition instead of starting from scratch.',
       },
       {
         title: 'Make motion fit the message',
@@ -107,7 +107,7 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
     steps: [
       { number: '01', title: 'Write the brief', body: 'Describe the goal, audience, format, brand, message, and motion style in normal language.' },
       { number: '02', title: 'Generate the composition', body: 'Motify plans and creates the scenes, then checks the result for creative and technical problems.' },
-      { number: '03', title: 'Direct the details', body: 'Prompt broader revisions or use the canvas and timeline for precise adjustments before export.' },
+      { number: '03', title: 'Direct the details', body: 'Ask for broad revisions or small, specific changes in plain language, then preview and export.' },
     ],
     bestFor: ['SaaS explainers', 'UI animations', 'Motion ads', 'Feature announcements', 'Kinetic typography'],
     notFor:
@@ -118,12 +118,12 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
         answer: 'It can create product explainers, launch videos, UI-led demos, motion ads, feature announcements, brand stories, and short social videos.',
       },
       {
-        question: 'Can I edit individual elements after generation?',
-        answer: 'Yes. The project stays structured so you can refine scenes with prompts and adjust text, layout, timing, and transitions directly.',
+        question: 'Can I change a single element after generation?',
+        answer: 'Yes. The project stays structured, so you can ask for a specific change, like a new headline, a different color, or a slower reveal, without regenerating everything.',
       },
       {
         question: 'Do I need motion-design experience?',
-        answer: 'No. You can begin in plain language. The visual editor remains available when you want more direct control over a specific scene or transition.',
+        answer: 'No. Start in plain language or from a prompt template. Every refinement is a conversation, so there is no timeline or keyframe tool to learn.',
       },
     ],
   },
@@ -137,7 +137,7 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
     lead:
       'Create product videos that explain what your software does, why it matters, and what a viewer should do next—without turning the interface into generic AI imagery.',
     promise:
-      'Motify combines product context, marketing structure, real interface assets, and editable motion so your video stays accurate as the message evolves.',
+      'Motify combines product context, marketing structure, real interface assets, and prompt-driven revisions so your video stays accurate as the message evolves.',
     outcome: 'A clear product story built for software—not an ecommerce photo montage.',
     benefits: [
       {
@@ -164,7 +164,7 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
     faqs: [
       {
         question: 'Is Motify an ecommerce product video generator?',
-        answer: 'Motify is primarily designed for SaaS and software product marketing. It emphasizes UI, product workflows, messaging, and editable motion rather than catalog-scale photo-to-video generation.',
+        answer: 'Motify is primarily designed for SaaS and software product marketing. It emphasizes UI, product workflows, messaging, and product-led motion rather than catalog-scale photo-to-video generation.',
       },
       {
         question: 'Can I make a product demo without recording my screen?',
@@ -173,55 +173,6 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
       {
         question: 'Can one project produce different aspect ratios?',
         answer: 'Motify supports wider product-video formats and vertical short-form output so the same campaign direction can be adapted for different channels.',
-      },
-    ],
-  },
-  'canvas-editor': {
-    slug: 'canvas-ai-video-editor',
-    title: 'Canvas-Based AI Video Editor | Motify',
-    description:
-      'Generate video with AI, refine scenes using plain-language prompts, and edit text, elements, timing, and transitions on a visual canvas and timeline.',
-    eyebrow: 'AI direction with hands-on control',
-    heading: 'Canvas-based AI video editor',
-    lead:
-      'Use AI for the first direction, then keep control. Prompt broad creative changes and make precise visual edits without regenerating the entire video.',
-    promise:
-      'Motify connects natural-language direction to an editable canvas and timeline, giving product teams a practical middle ground between one-shot generation and a complex professional editor.',
-    outcome: 'A faster first draft without giving up control of the final details.',
-    benefits: [
-      {
-        title: 'Edit AI videos with plain language',
-        body: 'Ask for a sharper hook, slower reveal, clearer product emphasis, different tone, or revised visual direction in the words your team already uses.',
-      },
-      {
-        title: 'Make precise canvas changes',
-        body: 'Select elements, revise text, adjust layout, and inspect the visual result directly when a small change does not need another AI generation.',
-      },
-      {
-        title: 'Control the timeline',
-        body: 'Tune scene duration, easing, transitions, and pacing so the final cut supports the message instead of following a rigid template.',
-      },
-    ],
-    steps: [
-      { number: '01', title: 'Prompt the first direction', body: 'Describe the outcome and let Motify create a coherent starting composition.' },
-      { number: '02', title: 'Review on the canvas', body: 'Inspect the hierarchy, copy, product visuals, and scene structure where the final motion is composed.' },
-      { number: '03', title: 'Refine by prompt or hand', body: 'Use the fastest editing method for each change, then preview and export the finished video.' },
-    ],
-    bestFor: ['Prompt-led video editing', 'Canvas text editing', 'Timeline refinement', 'Collaborative review', 'Reusable product campaigns'],
-    notFor:
-      'Motify simplifies product-marketing motion, but it does not try to reproduce every compositing, rotoscoping, or visual-effects control found in a specialist desktop suite.',
-    faqs: [
-      {
-        question: 'Can I edit an AI video with a text prompt?',
-        answer: 'Yes. You can describe changes to the hook, pacing, scene, voiceover, or visual direction in plain language and continue refining the same project.',
-      },
-      {
-        question: 'What can I change directly on the canvas?',
-        answer: 'You can make targeted changes to visible elements and text, then use the timeline to refine scene timing, transitions, and pacing.',
-      },
-      {
-        question: 'Do manual edits use AI credits?',
-        answer: 'Minor text and manual timeline edits do not use generation credits. AI-generated revisions may use credits depending on the requested operation.',
       },
     ],
   },

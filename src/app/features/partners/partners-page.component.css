@@ -13,17 +13,17 @@
 .partners__header h1 {
   margin: 0;
   font-family: var(--motify-font-sans);
-  font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+  font-size: var(--motify-type-page-title);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.04em;
-  color: #ffffff;
+  color: var(--motify-text-primary);
 }
 
 .partners__lead {
   margin: 1.25rem 0 0;
   font-family: var(--motify-font-sans);
-  color: #a1a1aa;
+  color: var(--motify-text-secondary);
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
   font-weight: 400;
   line-height: 1.6;
@@ -37,13 +37,13 @@
   align-items: center;
   margin-bottom: clamp(3.5rem, 5vw, 4.5rem);
   padding: clamp(1.75rem, 4vw, 3rem);
-  border: 1px solid rgba(96, 165, 250, 0.3);
-  border-radius: 1rem;
-  background: linear-gradient(125deg, rgba(37, 99, 235, 0.16), rgba(96, 165, 250, 0.045) 55%, rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--motify-border-strong);
+  border-radius: var(--motify-radius-lg);
+  background: var(--motify-surface-solid);
 }
 
 .partners__enterprise-label {
-  color: #8bbcff;
+  color: var(--motify-text-muted);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -52,7 +52,7 @@
 
 .partners__enterprise h2 {
   margin: 0.55rem 0 0;
-  color: #fff;
+  color: var(--motify-text-primary);
   font-size: clamp(1.45rem, 2.5vw, 2.1rem);
   line-height: 1.18;
   letter-spacing: -0.025em;
@@ -61,7 +61,7 @@
 .partners__enterprise p {
   max-width: 48rem;
   margin: 0.85rem 0 0;
-  color: #b2b8c5;
+  color: var(--motify-text-secondary);
   font-size: 0.96rem;
   line-height: 1.65;
 }
@@ -73,9 +73,9 @@
   justify-content: center;
   padding: 0 1.15rem;
   border: 1px solid rgba(139, 188, 255, 0.55);
-  border-radius: 0.6rem;
-  background: linear-gradient(115deg, #2758e6, #3977e8);
-  color: #fff;
+  border-radius: var(--motify-radius-sm);
+  background: var(--motify-cobalt);
+  color: var(--motify-text-primary);
   font-size: 0.88rem;
   font-weight: 650;
   text-decoration: none;
@@ -110,7 +110,7 @@
 }
 
 .contact-entry__icon {
-  color: #60a5fa;
+  color: var(--motify-text-muted);
   flex-shrink: 0;
 }
 
@@ -119,13 +119,13 @@
   font-family: var(--motify-font-sans);
   font-size: 1.25rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--motify-text-primary);
 }
 
 .contact-entry p {
   margin: 0 0 1.25rem;
   font-family: var(--motify-font-sans);
-  color: #a1a1aa;
+  color: var(--motify-text-secondary);
   font-size: 0.94rem;
   font-weight: 400;
   line-height: 1.55;
@@ -144,9 +144,9 @@
   min-height: 2.5rem;
   padding: 0 1rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 0.55rem;
+  border-radius: var(--motify-radius-sm);
   background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+  color: var(--motify-text-primary);
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
@@ -165,9 +165,9 @@
   min-height: 2.5rem;
   padding: 0 0.95rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 0.55rem;
+  border-radius: var(--motify-radius-sm);
   background: transparent;
-  color: #a1a1aa;
+  color: var(--motify-text-secondary);
   font-family: inherit;
   font-size: 0.82rem;
   font-weight: 600;
@@ -176,7 +176,7 @@
 }
 
 .contact-entry__copy-btn:hover {
-  color: #ffffff;
+  color: var(--motify-text-primary);
   border-color: rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.04);
 }
@@ -198,13 +198,13 @@
   font-family: var(--motify-font-sans);
   font-size: 1.15rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--motify-text-primary);
 }
 
 .pillar-entry p {
   margin: 0.65rem 0 0;
   font-family: var(--motify-font-sans);
-  color: #a1a1aa;
+  color: var(--motify-text-secondary);
   font-size: 0.94rem;
   font-weight: 400;
   line-height: 1.6;

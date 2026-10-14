@@ -5,7 +5,7 @@
 .showcase-stories {
   position: relative;
   padding: var(--motify-section-gap) 1.5rem clamp(5rem, 10vw, 9rem);
-  background: #08090b;
+  background: var(--motify-bg);
 }
 
 .showcase-stories::before {
@@ -204,8 +204,8 @@
   position: relative;
   overflow: hidden;
   border: 1px solid var(--motify-border);
-  border-radius: 0.35rem;
-  background: #111216;
+  border-radius: var(--motify-radius-xs);
+  background: var(--motify-surface-solid);
   box-shadow: 0 2.5rem 7rem rgba(0, 0, 0, 0.42);
   transition: border-color 350ms ease, box-shadow 350ms ease;
 }
@@ -283,7 +283,7 @@
     flex: 0 0 auto;
     padding: 0.55rem 0.8rem;
     border: 1px solid var(--motify-border);
-    border-radius: 999px;
+    border-radius: var(--motify-radius-pill);
   }
 
   .showcase-stories__rail-label {

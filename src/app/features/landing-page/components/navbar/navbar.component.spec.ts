@@ -44,7 +44,7 @@ describe('NavbarComponent', () => {
     expect(compiled.querySelector<HTMLAnchorElement>(`a[href="${EXTERNAL_LINKS.editor}"]`)).toBeNull();
   });
 
-  it('opens the editor directly when the account session is already resolved', () => {
+  it('opens Motify directly when the account session is already resolved', () => {
     const auth = TestBed.inject(AuthService);
     auth.user.set({
       id: 'user-1',
@@ -61,7 +61,7 @@ describe('NavbarComponent', () => {
     compiled.querySelector<HTMLButtonElement>('.navbar__account')?.click();
     fixture.detectChanges();
     const editorLinks = Array.from(compiled.querySelectorAll<HTMLAnchorElement>('a'))
-      .filter((link) => link.textContent?.trim() === 'Open editor');
+      .filter((link) => link.textContent?.trim() === 'Open Motify');
 
     expect(editorLinks.length).toBe(1);
     expect(editorLinks.every((link) => link.href === 'http://localhost:5173/')).toBe(true);

@@ -5,7 +5,7 @@ describe('SOLUTION_PAGES', () => {
     const pages = Object.values(SOLUTION_PAGES);
     const slugs = new Set(pages.map((page) => page.slug));
 
-    expect(pages.length).toBe(4);
+    expect(pages.length).toBe(3);
     expect(slugs.size).toBe(pages.length);
 
     for (const page of pages) {

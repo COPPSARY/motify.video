@@ -23,18 +23,18 @@ export const COMPARISON_PAGES: Record<string, ComparisonPage> = {
     slug: 'after-effects',
     title: 'Motify vs After Effects for Product Videos',
     description:
-      'Compare Motify and Adobe After Effects for SaaS launch videos, product explainers, editable motion graphics, workflow speed, and creative control.',
+      'Compare Motify and Adobe After Effects for SaaS launch videos, product explainers, motion graphics, workflow speed, and creative control.',
     alternativeName: 'After Effects',
     heading: 'Motify vs After Effects for product videos',
     lead:
       'Both can produce polished motion graphics, but they begin from different assumptions: Motify starts with product context and AI direction, while After Effects starts with a professional motion-design workspace.',
     verdict:
-      'Choose Motify when a SaaS team needs to move from brief to editable product story quickly. Choose After Effects when a specialist needs deep compositing, custom effects, plugins, and frame-level production control.',
-    chooseMotify: ['You want an AI-generated first direction', 'Product marketers need to revise the story', 'Real UI and brand context drive the video', 'The team wants prompt, canvas, and timeline editing'],
+      'Choose Motify when a SaaS team needs to move from brief to a finished product story quickly, without learning a timeline. Choose After Effects when a specialist needs deep compositing, custom effects, plugins, and frame-level production control.',
+    chooseMotify: ['You want an AI-generated first direction', 'Product marketers need to revise the story', 'Real UI and brand context drive the video', 'Changes should happen by asking, not keyframing'],
     chooseAlternative: ['A motion designer owns the production', 'The project needs advanced compositing or VFX', 'You depend on an established plugin pipeline', 'Every technical parameter needs manual control'],
     rows: [
       { need: 'Starting point', motify: 'Product brief, site, assets, and a prompt', alternative: 'Blank composition, template, or imported design' },
-      { need: 'Primary workflow', motify: 'AI direction plus canvas and timeline refinement', alternative: 'Manual layer, keyframe, effect, and composition work' },
+      { need: 'Primary workflow', motify: 'AI direction, then refinement by plain-language prompts', alternative: 'Manual layer, keyframe, effect, and composition work' },
       { need: 'Best fit', motify: 'Repeatable SaaS launch and product-marketing videos', alternative: 'Bespoke motion design, compositing, and visual effects' },
       { need: 'Learning curve', motify: 'Designed for founders and marketing teams', alternative: 'Designed for trained editors and motion designers' },
     ],
@@ -45,11 +45,11 @@ export const COMPARISON_PAGES: Record<string, ComparisonPage> = {
     slug: 'canva',
     title: 'Motify vs Canva AI Video for SaaS Teams',
     description:
-      'Compare Motify and Canva AI video for SaaS launches, product demos, templates, brand control, editable motion, and product-marketing workflows.',
+      'Compare Motify and Canva AI video for SaaS launches, product demos, templates, brand control, motion, and product-marketing workflows.',
     alternativeName: 'Canva',
     heading: 'Motify vs Canva AI video for SaaS teams',
     lead:
-      'Canva is a broad visual design platform with approachable templates and general video tools. Motify is a focused AI workflow for software product stories and editable motion graphics.',
+      'Canva is a broad visual design platform with approachable templates and general video tools. Motify is a focused AI workflow for software product stories and motion graphics you refine by prompting.',
     verdict:
       'Choose Motify when the software product, launch narrative, and motion direction are the center of the work. Choose Canva when your team wants a familiar all-purpose design surface for templated social assets and lightweight video assembly.',
     chooseMotify: ['The video must explain a software workflow', 'You want AI to plan a product-marketing story', 'Prompt-based revisions should preserve the project', 'Motion, pacing, and real UI need focused control'],
@@ -58,7 +58,7 @@ export const COMPARISON_PAGES: Record<string, ComparisonPage> = {
       { need: 'Core focus', motify: 'SaaS explainers, launches, demos, and motion ads', alternative: 'General design, templates, social content, and video editing' },
       { need: 'AI role', motify: 'Plans and generates a product-led motion direction', alternative: 'Assists broad creation and editing workflows' },
       { need: 'Product context', motify: 'Built around real product UI, positioning, and Brand DNA', alternative: 'Added by the creator inside a general design project' },
-      { need: 'Refinement', motify: 'Prompt, canvas, text, scene, and timeline changes', alternative: 'Template and design-surface editing' },
+      { need: 'Refinement', motify: 'Plain-language changes to copy, scenes, pacing, and music', alternative: 'Template and design-surface editing' },
     ],
     closing:
       'The decision is less about which tool can export video and more about where the creative structure comes from. Motify starts from the product story; Canva starts from a general design canvas.',
@@ -67,19 +67,19 @@ export const COMPARISON_PAGES: Record<string, ComparisonPage> = {
     slug: 'synthesia',
     title: 'Motify vs Synthesia for Product Videos',
     description:
-      'Compare Motify and Synthesia for SaaS product videos, explainers, launch stories, AI presenters, editable motion graphics, and brand-led workflows.',
+      'Compare Motify and Synthesia for SaaS product videos, explainers, launch stories, AI presenters, motion graphics, and brand-led workflows.',
     alternativeName: 'Synthesia',
     heading: 'Motify vs Synthesia for product videos',
     lead:
-      'Synthesia is centered on presenter-led business video. Motify is centered on designed product motion, software interfaces, and launch narratives that remain editable.',
+      'Synthesia is centered on presenter-led business video. Motify is centered on designed product motion, software interfaces, and launch narratives you can keep refining.',
     verdict:
       'Choose Motify when the product interface and motion story should lead. Choose Synthesia when an AI presenter, voice delivery, localization, or training-style format is the main communication device.',
-    chooseMotify: ['The software UI is the visual proof', 'You need a launch film or motion-led explainer', 'Brand typography and animation should lead', 'The project needs canvas and timeline refinement'],
+    chooseMotify: ['The software UI is the visual proof', 'You need a launch film or motion-led explainer', 'Brand typography and animation should lead', 'Revisions should be as easy as describing them'],
     chooseAlternative: ['An AI avatar should present the message', 'The format is training or internal communication', 'Presenter-led localization is central', 'Slide-like business video fits the audience'],
     rows: [
       { need: 'Visual center', motify: 'Product UI, typography, shapes, and motion composition', alternative: 'AI presenter, script, voice, and supporting visuals' },
       { need: 'Best fit', motify: 'Product launches, feature stories, explainers, and ads', alternative: 'Training, enablement, internal communication, and presenter videos' },
-      { need: 'Editing model', motify: 'Prompt plus canvas and timeline control', alternative: 'Script- and scene-led presenter workflow' },
+      { need: 'Revision model', motify: 'Prompt-driven revisions on the same project', alternative: 'Script- and scene-led presenter workflow' },
       { need: 'Product demonstration', motify: 'Designed around product states and visual hierarchy', alternative: 'Typically explained by a presenter with supporting media' },
     ],
     closing:
@@ -100,7 +100,7 @@ export const COMPARISON_PAGES: Record<string, ComparisonPage> = {
     chooseAlternative: ['The launch film is a major brand investment', 'You need actors, locations, 3D, or live production', 'External creative leadership is valuable', 'Bespoke craft matters more than production volume'],
     rows: [
       { need: 'Brief to first direction', motify: 'Generated from product and brand context', alternative: 'Developed through discovery and creative direction' },
-      { need: 'Revision cycle', motify: 'Prompt and direct editor changes by your team', alternative: 'Managed through feedback rounds and production schedules' },
+      { need: 'Revision cycle', motify: 'Your team asks for changes in plain language, in minutes', alternative: 'Managed through feedback rounds and production schedules' },
       { need: 'Scale', motify: 'Designed for frequent videos and variations', alternative: 'Best suited to selected, higher-investment productions' },
       { need: 'Production range', motify: 'Web-native motion and product-led video', alternative: 'Can include original filming, 3D, sound, and specialist post-production' },
     ],

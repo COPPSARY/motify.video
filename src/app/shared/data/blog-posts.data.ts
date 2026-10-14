@@ -32,17 +32,17 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     readTime: '9 min read',
     title: 'Best AI Video Tools for Product Hunt Launches in 2026',
     seoTitle: 'AI Video Tools for Product Hunt Launches (2026)',
-    description: 'Compare the best AI video tools for Product Hunt launch videos, from editable product motion to avatars, screen recordings, and social cutdowns.',
+    description: 'Compare the best AI video tools for Product Hunt launch videos, from prompt-driven product motion to avatars, screen recordings, and social cutdowns.',
     intro: 'A Product Hunt video has one job: help a busy visitor understand what changed, why it matters, and what to do next. The best tool depends on whether your launch needs an accurate product story, a presenter, raw screen capture, or fast social edits.',
     sections: [
       {
         heading: 'Quick answer: choose for the story you need',
         paragraphs: [
-          'Motify is our first choice for SaaS launches that need a branded, scene-based product story. It starts from your product context, turns the message into motion, and keeps the result editable so a founder or marketer can correct the hook, pacing, visuals, and call to action without rebuilding the video.',
+          'Motify is our first choice for SaaS launches that need a branded, scene-based product story. It starts from your product context, turns the message into motion, and keeps the project open to revision so a founder or marketer can ask Tiffy to correct the hook, pacing, visuals, and call to action without rebuilding the video.',
           'That is a different job from an avatar platform or a conventional editor. If the presenter is the product, an avatar-first tool can be a better fit. If you already have strong footage, an editor is usually the shortest route. Pick the workflow that matches the evidence you need to show.',
         ],
         bullets: [
-          'Motify: best for branded SaaS launch stories and editable motion graphics.',
+          'Motify: best for branded SaaS launch stories and prompt-refined motion graphics.',
           'HeyGen or Synthesia: best when an AI presenter should carry the message.',
           'VEED: best when you need a broad browser editor around existing footage.',
           'Canva: best for template-led graphics and quick campaign resizing.',
@@ -93,11 +93,11 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     readTime: '10 min read',
     title: 'Best AI Video Generators for Product Launches in 2026',
     seoTitle: 'AI Video Generators for Product Launches (2026)',
-    description: 'An honest 2026 comparison of AI video generators for SaaS launches, explainers, avatars, social clips, and editable product marketing videos.',
+    description: 'An honest 2026 comparison of AI video generators for SaaS launches, explainers, avatars, social clips, and revisable product marketing videos.',
     intro: 'The “best” AI video generator is the one built for your launch format. We compare the leading workflow types by what they help a product team accomplish—not by who has the longest feature page.',
     sections: [
       {
-        heading: '1. Motify: best for editable SaaS product stories',
+        heading: '1. Motify: best for revisable SaaS product stories',
         paragraphs: [
           'Motify is built for founders and product marketers who need explainers, launch videos, demos, feature announcements, and campaign variations grounded in a real product. You can begin with a prompt or product context, carry your Brand DNA into the visual direction, and refine the generated composition instead of accepting a locked result.',
           'Choose Motify when the product interface, positioning, and brand need to feel like one coherent story. It is especially useful when your team expects several rounds of messaging feedback or needs multiple formats from the same launch idea.',
@@ -124,7 +124,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
           'Do not let the most cinematic five-second clip win automatically. A product launch video succeeds when the audience remembers the problem, believes the proof, and takes the next step. Narrative control and revision speed are usually worth more than spectacle.',
         ],
         bullets: [
-          'Choose Motify for editable product-marketing motion.',
+          'Choose Motify for product-marketing motion you refine by prompting.',
           'Choose an avatar platform for presenter-led or multilingual communication.',
           'Choose a general editor for footage-heavy projects.',
           'Choose a template platform for simple, repeatable social layouts.',
@@ -166,7 +166,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
         heading: 'Build the gallery as one sequence',
         paragraphs: [
           'Your first image earns the second view. Lead with the clearest outcome, not a wall of interface. The next images can establish the workflow, key differentiator, proof, and who the product is for. Reuse visual language so the gallery feels like a deliberate narrative.',
-          'The video should deepen the same story. Use Motify to turn the approved storyboard into an editable launch piece, then verify every interface claim against the live product. Include captions or readable on-screen text because many visitors will watch without sound.',
+          'The video should deepen the same story. Use Motify to turn the approved storyboard into a launch piece you can keep refining, then verify every interface claim against the live product. Include captions or readable on-screen text because many visitors will watch without sound.',
         ],
       },
       {
@@ -229,7 +229,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
         ],
       },
       {
-        heading: 'Turn a script into an editable video',
+        heading: 'Turn a script into a refinable video',
         paragraphs: [
           'Paste the chosen structure into a Motify prompt and replace every bracket with specific product truth. Add the audience, brand direction, desired runtime, proof assets, and aspect ratio. If the team is still debating the narrative, generate a nine-scene storyboard first and approve the flow before producing the animation.',
           'Read the final script aloud. Remove any claim the visuals do not support, any sentence that repeats the screen, and any CTA that asks for two actions at once.',
@@ -337,14 +337,14 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     readTime: '8 min read',
     title: 'SaaS Video Marketing Trends That Matter in 2026',
     seoTitle: 'SaaS Video Marketing Trends That Matter in 2026',
-    description: 'The practical SaaS video trends for 2026: editable AI generation, previsualization, brand systems, modular campaigns, and product-grounded storytelling.',
+    description: 'The practical SaaS video trends for 2026: revisable AI generation, previsualization, brand systems, modular campaigns, and product-grounded storytelling.',
     intro: 'The important 2026 shift is not simply that AI can generate more footage. Product teams are building faster systems for turning real product knowledge into videos they can review, revise, and distribute.',
     sections: [
       {
-        heading: 'From one-shot generation to editable systems',
+        heading: 'From one-shot generation to revisable systems',
         paragraphs: [
           'A beautiful first render is useful; a correctable first render is more valuable. Teams increasingly need to change claims, swap visuals, adjust pacing, and create format variations after stakeholder review. Editable generation turns AI from a novelty into part of the production workflow.',
-          'Motify is designed around that loop: describe the marketing goal, generate a structured motion piece, then refine the result through prompting or timeline edits instead of treating every change as a restart.',
+          'Motify is designed around that loop: describe the marketing goal, generate a structured motion piece, then refine the result by asking for changes in plain language instead of treating every change as a restart.',
         ],
       },
       {
@@ -426,13 +426,13 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     readTime: '9 min read',
     title: 'Best AI Tools for SaaS Explainer Videos in 2026',
     seoTitle: 'Best AI Tools for SaaS Explainer Videos (2026)',
-    description: 'Compare AI tools for SaaS explainers by workflow: editable motion graphics, AI presenters, browser editing, templates, and screen recording.',
+    description: 'Compare AI tools for SaaS explainers by workflow: prompt-driven motion graphics, AI presenters, browser editing, templates, and screen recording.',
     intro: 'SaaS explainers are unusually demanding: the story must simplify a system, the product must remain accurate, and the final video has to survive rapid product changes. Here is how the main AI video workflows compare.',
     sections: [
       {
         heading: 'Motify: best for product-led motion explainers',
         paragraphs: [
-          'Motify is the strongest fit when the explainer should feel like a designed product story rather than a recorded meeting or stock montage. It combines product context, Brand DNA, scene planning, generation, and editable motion so teams can correct both the message and the execution.',
+          'Motify is the strongest fit when the explainer should feel like a designed product story rather than a recorded meeting or stock montage. It combines product context, Brand DNA, scene planning, generation, and prompt-based revision so teams can correct both the message and the execution.',
           'Use it for homepage explainers, launch films, feature announcements, demo narratives, and campaign variants where product truth and visual hierarchy need to work together.',
         ],
       },

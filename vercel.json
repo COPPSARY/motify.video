@@ -15,6 +15,11 @@
       ],
       "destination": "https://motify.video/:path*",
       "permanent": true
+    },
+    {
+      "source": "/canvas-ai-video-editor",
+      "destination": "/ai-motion-graphics-generator",
+      "permanent": true
     }
   ],
   "routes": [

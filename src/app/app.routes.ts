@@ -12,6 +12,7 @@ import { ResourceCategoryPageComponent } from './features/resources/resource-cat
 import { ResourcesHubPageComponent } from './features/resources/resources-hub-page.component';
 import { SolutionPageComponent } from './features/solutions/solution-page.component';
 import { ComparisonPageComponent } from './features/compare/comparison-page.component';
+import { WelcomePageComponent } from './features/onboarding/welcome-page.component';
 
 const loadLegalPage = () =>
   import('./features/legal/legal-page.component').then((module) => module.LegalPageComponent);
@@ -63,6 +64,11 @@ export const routes: Routes = [
     title: 'Sign up for Motify',
   },
   {
+    path: 'welcome',
+    component: WelcomePageComponent,
+    title: 'Welcome to Motify',
+  },
+  {
     path: 'about',
     component: AboutPageComponent,
     title: 'About Motify | AI Motion Graphics Generator',
@@ -92,9 +98,7 @@ export const routes: Routes = [
   },
   {
     path: 'canvas-ai-video-editor',
-    component: SolutionPageComponent,
-    data: { solution: 'canvas-editor' },
-    title: 'Canvas-Based AI Video Editor | Motify',
+    redirectTo: 'ai-motion-graphics-generator',
   },
   {
     path: 'compare/after-effects',

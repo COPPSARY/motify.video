@@ -4,7 +4,7 @@
   height: 100%;
   overflow: hidden;
   background-color: #07080a;
-  background-image: radial-gradient(ellipse at 50% 48%, rgba(31, 69, 176, 0.3) 0%, rgba(31, 69, 176, 0.14) 38%, transparent 74%);
+  background-image: radial-gradient(ellipse at 50% 48%, color-mix(in srgb, var(--motify-cobalt) 30%, transparent) 0%, color-mix(in srgb, var(--motify-cobalt) 14%, transparent) 38%, transparent 74%);
   -webkit-mask-image: radial-gradient(ellipse at center, #000 0 58%, transparent 92%);
   mask-image: radial-gradient(ellipse at center, #000 0 58%, transparent 92%);
 }

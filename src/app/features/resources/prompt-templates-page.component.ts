@@ -1,85 +1,18 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PROMPT_TEMPLATES } from '../../shared/data/resource-content.data';
+import { extractPromptFields, populatePrompt } from '../../shared/utils/prompt-fields';
+import { editorReturnPath, motifyEditorUrl } from '../../shared/config/runtime-config';
+import { AuthService } from '../../shared/services/auth.service';
 import { SeoService } from '../../shared/services/seo.service';
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
 
-export interface PromptField {
-  readonly key: string;
-  readonly token: string;
-  readonly tokens: readonly string[];
-  readonly label: string;
-  readonly hint: string;
-}
+export { extractPromptFields, populatePrompt, type PromptField } from '../../shared/utils/prompt-fields';
 
-export function extractPromptFields(prompt: string): readonly PromptField[] {
-  const tokens: string[] = [];
-  let depth = 0;
-  let start = -1;
-
-  for (let index = 0; index < prompt.length; index += 1) {
-    if (prompt[index] === '[') {
-      if (depth === 0) start = index;
-      depth += 1;
-    } else if (prompt[index] === ']' && depth > 0) {
-      depth -= 1;
-      if (depth === 0 && start >= 0) {
-        const token = prompt.slice(start, index + 1);
-        if (!tokens.includes(token)) tokens.push(token);
-        start = -1;
-      }
-    }
-  }
-
-  const fields: Array<{
-    key: string;
-    token: string;
-    tokens: string[];
-    label: string;
-    hint: string;
-  }> = [];
-
-  for (const token of tokens) {
-    const content = token.slice(1, -1);
-    const colon = content.indexOf(':');
-    const defaultMarker = ', default ';
-    const defaultSeparator = content.indexOf(defaultMarker);
-    const label = (
-      colon >= 0
-        ? content.slice(0, colon)
-        : defaultSeparator >= 0
-          ? content.slice(0, defaultSeparator)
-          : content
-    ).trim();
-    const hint =
-      colon >= 0
-        ? content.slice(colon + 1).trim()
-        : defaultSeparator >= 0
-          ? `default ${content.slice(defaultSeparator + defaultMarker.length).trim()}`
-          : `Enter ${label.toLowerCase()}`;
-    const existing = fields.find((field) => field.key === label);
-    if (existing) {
-      existing.tokens.push(token);
-    } else {
-      fields.push({ key: label, token, tokens: [token], label, hint });
-    }
-  }
-
-  return fields;
-}
-
-export function populatePrompt(
-  prompt: string,
-  fields: readonly PromptField[],
-  values: Readonly<Record<string, string>>,
-): string {
-  return fields.reduce((result, field) => {
-    const value = values[field.key]?.trim();
-    return value
-      ? field.tokens.reduce((populated, token) => populated.split(token).join(value), result)
-      : result;
-  }, prompt);
+export function templateIdOrDefault(id: string | null): string {
+  return PROMPT_TEMPLATES.some((template) => template.id === id) ? (id as string) : PROMPT_TEMPLATES[0].id;
 }
 
 @Component({
@@ -91,8 +24,13 @@ export function populatePrompt(
   styleUrl: './prompt-templates-page.component.css',
 })
 export class PromptTemplatesPageComponent {
+  private readonly router = inject(Router);
+  private readonly auth = inject(AuthService);
   readonly templates = PROMPT_TEMPLATES;
-  readonly selectedId = signal<string>(PROMPT_TEMPLATES[0].id);
+  /** `?template=<id>` (from /welcome or a guide) opens that template; unknown ids fall back to the first. */
+  readonly selectedId = signal<string>(
+    templateIdOrDefault(inject(ActivatedRoute).snapshot.queryParamMap.get('template')),
+  );
   readonly values = signal<Readonly<Record<string, string>>>({});
   readonly copied = signal(false);
 
@@ -105,6 +43,12 @@ export class PromptTemplatesPageComponent {
 
   readonly generatedPrompt = computed(() => {
     return populatePrompt(this.selectedTemplate().prompt, this.fields(), this.values());
+  });
+
+  /** Blanks still showing their [PLACEHOLDER], so the user knows before sending. */
+  readonly unfilledCount = computed(() => {
+    const values = this.values();
+    return this.fields().filter((field) => !values[field.key]?.trim()).length;
   });
 
   constructor() {
@@ -132,6 +76,16 @@ export class PromptTemplatesPageComponent {
 
   clearInputs(): void {
     this.values.set({});
+  }
+
+  /** Signed in: straight to the app with this prompt. Otherwise sign up first; the prompt rides along. */
+  useInMotify(): void {
+    const prompt = this.generatedPrompt();
+    if (this.auth.user()) {
+      window.location.href = motifyEditorUrl(prompt);
+      return;
+    }
+    void this.router.navigate(['/signup'], { queryParams: { returnUrl: editorReturnPath(prompt) } });
   }
 
   async copyPrompt(): Promise<void> {

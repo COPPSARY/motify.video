@@ -33,7 +33,7 @@
 
 .help-topic-page__hero h1 {
   margin: 0;
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-size: var(--motify-type-page-title);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.04em;
@@ -63,7 +63,7 @@
 .topic-section {
   padding: 2.25rem;
   border: 1px solid var(--motify-border);
-  border-radius: 1rem;
+  border-radius: var(--motify-radius-lg);
   background: rgba(14, 16, 21, 0.6);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
@@ -89,7 +89,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
-  color: #d4d4d8;
+  color: var(--motify-text-secondary);
   font-size: 0.94rem;
   line-height: 1.6;
 }
@@ -111,7 +111,7 @@
   align-items: center;
   padding: 0.85rem 1.15rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.6rem;
+  border-radius: var(--motify-radius-sm);
   background: rgba(255, 255, 255, 0.03);
   color: var(--motify-text-primary);
   font-size: 0.88rem;
@@ -143,7 +143,7 @@
 .sidebar-support-box {
   padding: 1.75rem;
   border: 1px solid var(--motify-border);
-  border-radius: 1rem;
+  border-radius: var(--motify-radius-lg);
   background: rgba(14, 16, 21, 0.7);
 }
 
@@ -169,7 +169,7 @@
   flex-direction: column;
   gap: 0.2rem;
   padding: 0.75rem 0.95rem;
-  border-radius: 0.55rem;
+  border-radius: var(--motify-radius-sm);
   text-decoration: none;
   border: 1px solid transparent;
   transition: all 150ms ease;
@@ -206,9 +206,9 @@
   width: 100%;
   padding: 0.65rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 0.55rem;
+  border-radius: var(--motify-radius-sm);
   background: #ffffff;
-  color: #000000;
+  color: var(--motify-ink);
   font-size: 0.86rem;
   font-weight: 650;
   text-decoration: none;

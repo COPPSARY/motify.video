@@ -27,7 +27,7 @@
 
 .legal-hero h1 {
   margin: 0;
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: var(--motify-type-page-title);
   letter-spacing: -0.05em;
 }
 
@@ -216,7 +216,7 @@
     padding: 0.65rem;
     place-items: center;
     border: 1px solid var(--motify-border);
-    border-radius: 0.55rem;
+    border-radius: var(--motify-radius-sm);
     text-align: center;
   }
 

@@ -34,19 +34,16 @@
 
 .not-found__code {
   margin: 0;
-  color: transparent;
-  background: var(--motify-accent-gradient);
-  background-clip: text;
+  color: var(--motify-text-primary);
   font-size: clamp(6rem, 20vw, 13rem);
   font-weight: 700;
   letter-spacing: -0.08em;
   line-height: 0.75;
-  -webkit-background-clip: text;
 }
 
 .not-found h1 {
   margin: 2.3rem 0 0;
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: var(--motify-type-page-hero);
   letter-spacing: -0.045em;
 }
 
@@ -69,7 +66,7 @@
 .not-found__actions a {
   padding: 0.82rem 1.2rem;
   border: 1px solid var(--motify-border-strong);
-  border-radius: 999px;
+  border-radius: var(--motify-radius-pill);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -81,7 +78,7 @@
 .not-found__primary {
   border-color: transparent !important;
   background: var(--motify-text-primary);
-  color: #070b18;
+  color: var(--motify-ink);
 }
 
 .not-found__secondary {

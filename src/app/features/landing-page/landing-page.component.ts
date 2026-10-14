@@ -31,7 +31,7 @@ export class LandingPageComponent {
     inject(SeoService).apply({
       title: 'Motify — AI Video Generator for SaaS Marketing',
       description:
-        'Create editable AI explainer videos, SaaS launch videos, product demos, promotional videos, and motion graphics from a prompt.',
+        'Create AI explainer videos, SaaS launch videos, product demos, promotional videos, and motion graphics from a prompt.',
       path: '/',
       jsonLd: {
         '@context': 'https://schema.org',
@@ -42,7 +42,7 @@ export class LandingPageComponent {
         url: 'https://motify.video/',
         image: 'https://motify.video/social-preview.jpg?v=2',
         description:
-          'Motify is an AI explainer and SaaS launch video generator for product demos, promotional videos, feature announcements, and editable motion graphics.',
+          'Motify is an AI explainer and SaaS launch video generator for product demos, promotional videos, feature announcements, and motion graphics you refine by prompting.',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         creator: {
           '@type': 'Organization',

@@ -28,13 +28,27 @@ export function motifyApiUrl(): string {
   return trimTrailingSlash(configured.trim());
 }
 
-export function motifyEditorUrl(prompt?: string): string {
+/** What /welcome hands to the app so its first-run tour can be tailored. Nothing is stored. */
+export interface AppHandoff {
+  readonly tour?: boolean;
+  readonly level?: string;
+  readonly goal?: string;
+  readonly brandName?: string;
+  readonly brandUrl?: string;
+}
+
+export function motifyEditorUrl(prompt?: string, handoff: AppHandoff = {}): string {
   const configured = typeof window === 'undefined'
     ? undefined
     : window.__MOTIFY_CONFIG__?.motifyEditorUrl;
   const url = new URL(configured || (isLocalBrowser() ? LOCAL_EDITOR_URL : PRODUCTION_EDITOR_URL));
   const normalizedPrompt = prompt?.trim();
   if (normalizedPrompt) url.searchParams.set('prompt', normalizedPrompt);
+  if (handoff.tour) url.searchParams.set('tour', '1');
+  for (const key of ['level', 'goal', 'brandName', 'brandUrl'] as const) {
+    const value = handoff[key]?.trim();
+    if (value) url.searchParams.set(key, value);
+  }
   return url.toString();
 }
 
@@ -43,6 +57,16 @@ export function editorReturnPath(prompt?: string): string {
   const normalizedPrompt = prompt?.trim();
   if (normalizedPrompt) url.searchParams.set('prompt', normalizedPrompt);
   return `${url.pathname}${url.search}`;
+}
+
+/** The prompt carried in an `/editor?prompt=` return path, if any. */
+export function promptFromReturnPath(returnUrl: string): string {
+  return new URL(returnUrl, 'https://motify.invalid').searchParams.get('prompt')?.trim() ?? '';
+}
+
+/** Where a signed-in user goes before the app: /welcome, keeping their return path. */
+export function welcomePathFor(returnUrl: string): string {
+  return `/welcome?returnUrl=${encodeURIComponent(returnUrl)}`;
 }
 
 export function editorUrlForReturnPath(returnUrl: string): string {

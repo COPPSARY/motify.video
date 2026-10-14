@@ -46,12 +46,12 @@ export class HeroSectionComponent implements OnDestroy {
     this.assetMenuOpen = !this.assetMenuOpen;
   }
 
-  chooseAsset(kind: 'image' | 'video'): void {
+  chooseAsset(kind: 'image' | 'audio'): void {
     this.assetMenuOpen = false;
     this.assetInput?.remove();
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = kind === 'image' ? 'image/*,.svg' : 'video/*';
+    input.accept = kind === 'image' ? 'image/*,.svg' : 'audio/*';
     input.addEventListener('change', () => {
       const file = input.files?.[0];
       if (file) this.selectedAsset = file.name;

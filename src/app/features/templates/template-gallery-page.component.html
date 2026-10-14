@@ -1,0 +1,113 @@
+<div class="gallery-shell">
+  <app-navbar />
+
+  <main class="gallery-page">
+    <header class="gallery-hero">
+      <h1>Prompt Templates</h1>
+      <p class="gallery-hero__intro">
+        A collection of videos made with Motify. Prompts ready to copy and customize.
+      </p>
+    </header>
+
+    <nav class="filters" aria-label="Filter templates by category">
+      @for (category of categories; track category) {
+        <button
+          type="button"
+          [class.is-active]="activeCategory() === category"
+          [attr.aria-pressed]="activeCategory() === category"
+          (click)="setCategory(category)"
+        >
+          {{ category }}
+          @if (category !== 'All') {
+            <span>{{ categoryCount(category) }}</span>
+          }
+        </button>
+      }
+    </nav>
+
+    <section class="template-grid" aria-live="polite">
+      @for (template of visibleTemplates(); track template.slug) {
+        <article class="template-card">
+          <button type="button" class="template-card__button" (click)="openTemplate(template)" [attr.aria-label]="'Preview ' + template.title">
+            <span class="template-card__media">
+              <video
+                [src]="template.video"
+                autoplay
+                [muted]="true"
+                [volume]="0"
+                loop
+                playsinline
+                preload="metadata"
+                aria-hidden="true"
+                (loadedmetadata)="silenceGalleryPreview($event)"
+                (play)="silenceGalleryPreview($event)"
+                (volumechange)="silenceGalleryPreview($event)"
+              ></video>
+              <span class="template-card__wash"></span>
+              @if (template.special) {
+                <span class="template-card__special"><svg lucideSparkles aria-hidden="true"></svg> Special</span>
+              }
+              <span class="template-card__open">View template <svg lucideArrowRight aria-hidden="true"></svg></span>
+            </span>
+            <span class="template-card__info">
+              <span>
+                <strong>{{ template.title }}</strong>
+              </span>
+              <span class="template-card__tags">
+                @for (tag of template.categories.slice(0, 2); track tag) { <i>{{ tag }}</i> }
+              </span>
+            </span>
+          </button>
+        </article>
+      } @empty {
+        <p class="template-grid__empty">No templates in this category yet.</p>
+      }
+    </section>
+  </main>
+
+  <app-footer />
+</div>
+
+@if (selectedTemplate(); as template) {
+  <div class="modal-backdrop" (mousedown)="$event.target === $event.currentTarget && closeTemplate()">
+    <section class="template-modal" role="dialog" aria-modal="true" [attr.aria-labelledby]="'modal-title-' + template.slug">
+      <button #closeButton type="button" class="template-modal__close" aria-label="Close template preview" (click)="closeTemplate()">
+        <svg lucideX aria-hidden="true"></svg>
+      </button>
+
+      <div class="template-modal__media">
+        <video [src]="template.video" autoplay [muted]="true" loop playsinline controls preload="auto"></video>
+      </div>
+
+      <div class="template-modal__details">
+        <div class="template-modal__heading">
+          <p>{{ template.eyebrow }}</p>
+          <h2 [id]="'modal-title-' + template.slug">{{ template.title }}</h2>
+          <div class="template-modal__tags">
+            @for (tag of template.categories; track tag) { <span>{{ tag }}</span> }
+          </div>
+        </div>
+
+        @if (template.special) {
+          <div class="special-note">
+            <p><strong>Use your coding agent first.</strong> Run this prompt with the product codebase open, then paste the returned <code>&lt;direction&gt;</code> and <code>&lt;structure&gt;</code> blocks into Motify.</p>
+          </div>
+        }
+
+        <details class="prompt-disclosure">
+          <summary>Original {{ template.special ? 'agent ' : '' }}prompt <span>Read full prompt</span></summary>
+          <pre>{{ renderTemplatePrompt(template) }}</pre>
+        </details>
+
+        <div class="template-modal__actions">
+          <button type="button" class="button button--primary" (click)="customize(template)">
+            Customize <svg lucideArrowRight aria-hidden="true"></svg>
+          </button>
+          <button type="button" class="button button--secondary" (click)="copyPrompt(template)">
+            @if (copied()) { <svg lucideCheck aria-hidden="true"></svg> Copied } @else { <svg lucideClipboard aria-hidden="true"></svg> Copy prompt }
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+}

@@ -14,10 +14,10 @@
         </div>
         <figure class="problem__product-image" [appScrollReveal]="70">
           <img
-            src="/UI-2.png"
+            src="/UI-2.webp"
             alt="Motify turning a prompt into a motion graphics video"
-            width="1898"
-            height="898"
+            width="1899"
+            height="934"
             loading="lazy"
             decoding="async"
           />
@@ -28,18 +28,33 @@
     <section id="get-started" class="workflow" aria-labelledby="workflow-title">
       <div class="workflow__pin">
         <div class="workflow__heading" [appScrollReveal]="0">
-          <h2 id="workflow-title">From prompt to a video in under 10 minutes.</h2>
-          <p>Describe your video, then ask Tiffy to refine the message, pacing, or format without starting over.</p>
+          <div>
+            <h2 id="workflow-title">Explore templates</h2>
+            <p>Five videos made with Motify, with prompts ready to copy and make your own.</p>
+          </div>
+          <a class="workflow__view-all" routerLink="/templates">View all</a>
         </div>
-        <div class="workflow__video" [appScrollReveal]="80">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/OZbrHjSztaI?rel=0"
-            title="See how Motify turns a prompt into a motion graphics video"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
+        <div class="workflow__gallery" [appScrollReveal]="80">
+          @for (template of featuredTemplates; track template.videoSrc) {
+            <article class="workflow__template">
+              <div class="workflow__template-media">
+                <video
+                  #templatePreview
+                  [src]="template.videoSrc"
+                  [attr.aria-label]="template.title + ' template preview'"
+                  [muted]="true"
+                  [volume]="0"
+                  loop
+                  playsinline
+                  preload="metadata"
+                  (loadedmetadata)="silenceTemplatePreview($event)"
+                  (play)="silenceTemplatePreview($event)"
+                  (volumechange)="silenceTemplatePreview($event)"
+                ></video>
+              </div>
+              <h3>{{ template.title }}</h3>
+            </article>
+          }
         </div>
       </div>
     </section>

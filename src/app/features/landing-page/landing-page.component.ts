@@ -1,4 +1,14 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SeoService } from '../../shared/services/seo.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeroSectionComponent } from './components/hero-section/hero-section.component';
@@ -22,11 +32,25 @@ import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.dir
     FooterComponent,
     ValuePointsComponent,
     ScrollRevealDirective,
+    RouterLink,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
-export class LandingPageComponent {
+export class LandingPageComponent implements OnDestroy {
+  @ViewChildren('templatePreview')
+  private templatePreviews!: QueryList<ElementRef<HTMLVideoElement>>;
+
+  private templatePreviewObserver?: IntersectionObserver;
+
+  readonly featuredTemplates = [
+    { title: 'One Seat, Then the Whole Journey', videoSrc: '/templates/bookmebus-journey.webm' },
+    { title: 'Fold and Flight', videoSrc: '/templates/fold-and-flight.webm' },
+    { title: 'Generate with Tiffy', videoSrc: '/templates/motify-generate-with-tiffy.webm' },
+    { title: 'Motion Designer', videoSrc: '/templates/opus-motion-designer.webm' },
+    { title: 'Paper Moon', videoSrc: '/templates/paper-moon.webm' },
+  ] as const;
+
   constructor() {
     inject(SeoService).apply({
       title: 'Motify — AI Video Generator for SaaS Marketing',
@@ -59,7 +83,43 @@ export class LandingPageComponent {
       }
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 
+      this.templatePreviewObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const video = entry.target as HTMLVideoElement;
+            this.keepPreviewSilent(video);
+
+            if (entry.isIntersecting) {
+              void video.play().catch(() => undefined);
+            } else {
+              video.pause();
+            }
+          }
+        },
+        { rootMargin: '240px 0px', threshold: 0.08 },
+      );
+
+      for (const preview of this.templatePreviews) {
+        this.templatePreviewObserver.observe(preview.nativeElement);
+      }
     });
   }
 
+  silenceTemplatePreview(event: Event): void {
+    this.keepPreviewSilent(event.currentTarget as HTMLVideoElement);
+  }
+
+  ngOnDestroy(): void {
+    this.templatePreviewObserver?.disconnect();
+  }
+
+  private keepPreviewSilent(video: HTMLVideoElement): void {
+    if (!video.muted) {
+      video.muted = true;
+    }
+
+    if (video.volume !== 0) {
+      video.volume = 0;
+    }
+  }
 }

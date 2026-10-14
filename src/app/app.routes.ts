@@ -28,6 +28,16 @@ const loadStoryboardResourcePage = () =>
     (module) => module.StoryboardResourcePageComponent,
   );
 
+const loadTemplateGalleryPage = () =>
+  import('./features/templates/template-gallery-page.component').then(
+    (module) => module.TemplateGalleryPageComponent,
+  );
+
+const loadTemplateCustomizePage = () =>
+  import('./features/templates/template-customize-page.component').then(
+    (module) => module.TemplateCustomizePageComponent,
+  );
+
 const blogArticleRoutes: Routes = [
   ['best-ai-video-tools-product-hunt-launch', 'AI Video Tools for Product Hunt Launches (2026) | Motify'],
   ['best-ai-video-generators-product-launches', 'AI Video Generators for Product Launches (2026) | Motify'],
@@ -128,6 +138,16 @@ export const routes: Routes = [
     path: 'resources',
     component: ResourcesHubPageComponent,
     title: 'Product Marketing Resources | Motify',
+  },
+  {
+    path: 'templates/customize/:slug',
+    loadComponent: loadTemplateCustomizePage,
+    title: 'Customize Motion Design Template | Motify',
+  },
+  {
+    path: 'templates',
+    loadComponent: loadTemplateGalleryPage,
+    title: 'Motion Design Templates | Motify',
   },
   {
     path: 'resources/start-here',

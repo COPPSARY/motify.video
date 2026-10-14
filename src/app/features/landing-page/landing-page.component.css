@@ -1135,3 +1135,101 @@ main > app-spatial-showcase-section {
   .workflow__step:nth-of-type(5) .workflow__pipeline-image { width: min(36%, 10rem); max-height: 6rem; }
   .workflow__step:nth-of-type(4) .workflow__pipeline-image { width: min(42%, 15rem); max-height: 12rem; }
 }
+
+/* Customer-facing workflow: calm, repeatable, and focused on control. */
+.workflow {
+  padding: clamp(5rem, 9vw, 8rem) 1.5rem;
+  background: #07080a;
+}
+
+.workflow__pin {
+  width: min(74rem, 100%);
+}
+
+.workflow__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+  align-items: end;
+  gap: 3rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  text-align: left;
+}
+
+.problem__product-image {
+  width: 100%;
+  margin: 0 0 clamp(-5rem, -6vw, -3rem);
+  overflow: hidden;
+  border-radius: 1.15rem;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+}
+
+.problem__product-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.problem__inner app-value-points {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .problem__product-image {
+    margin-bottom: -1.5rem;
+  }
+}
+
+.workflow__heading h2 {
+  max-width: 46rem;
+  font-size: clamp(2.1rem, 4vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.workflow__heading > p:last-child {
+  max-width: 28rem;
+  margin: 0 0 0.35rem;
+  color: var(--motify-text-secondary);
+  line-height: 1.65;
+  text-align: left;
+}
+
+.workflow__video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 1.15rem;
+  background: #0c0d10;
+}
+
+.workflow__video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 960px) {
+  .workflow__heading {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .workflow__heading > p:last-child {
+    margin: 0;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .workflow {
+    padding: 5rem 1rem;
+  }
+
+  .workflow__video {
+    border-radius: 0.75rem;
+  }
+}

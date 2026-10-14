@@ -7,40 +7,39 @@
       <div class="problem__inner">
         <div class="problem__heading" [appScrollReveal]="0">
           <h2 id="problem-title">
-            <span class="problem__title-line">Your first draft <span class="heading-accent">doesn’t have</span></span>
-            <span class="problem__title-line heading-swipe">to be your <span class="heading-accent">last one.</span></span>
+            <span class="problem__title-line">A faster way for growing teams</span>
+            <span class="problem__title-line">to create motion graphics.</span>
           </h2>
+          <p class="problem__lead">Motify handles the first draft, so you can focus on the story instead of fighting timelines.</p>
         </div>
+        <figure class="problem__product-image" [appScrollReveal]="70">
+          <img
+            src="/UI-2.png"
+            alt="Motify editor showing an editable motion graphics project"
+            width="1898"
+            height="898"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
         <app-value-points />
       </div>
     </section>
     <section id="get-started" class="workflow" aria-labelledby="workflow-title">
       <div class="workflow__pin">
         <div class="workflow__heading" [appScrollReveal]="0">
-          <h2 id="workflow-title">Motify <span class="heading-accent">AI Pipeline</span></h2>
-          <p>From intent to a <span class="heading-accent heading-typed">production-ready</span> animation.</p>
+          <h2 id="workflow-title">From prompt to a video in under 10 minutes.</h2>
+          <p>Create on-brand motion graphics, then refine the message, timing, and format without starting over.</p>
         </div>
-        <div class="workflow__cards">
-          <article class="workflow__step" [appScrollReveal]="40" (pointermove)="updateWorkflowGlow($event)" (pointerleave)="resetWorkflowGlow($event)">
-          <img class="workflow__pipeline-image" src="assets/pipeline-intent.png" alt="Abstract blue intent illustration" />
-          <div class="workflow__copy"><h3>Intent Understanding</h3><p>Understand what the user wants to communicate, their product, audience, and goal.</p></div>
-          </article>
-          <article class="workflow__step" [appScrollReveal]="100" (pointermove)="updateWorkflowGlow($event)" (pointerleave)="resetWorkflowGlow($event)">
-          <img class="workflow__pipeline-image" src="assets/pipeline-director.png" alt="Abstract storyboard and camera illustration" />
-          <div class="workflow__copy"><h3>Creative Director</h3><p>Turn that intent into a visual story—planning the scenes, composition, camera, pacing, and transitions.</p></div>
-          </article>
-          <article class="workflow__step" [appScrollReveal]="160" (pointermove)="updateWorkflowGlow($event)" (pointerleave)="resetWorkflowGlow($event)">
-          <img class="workflow__pipeline-image" src="assets/pipeline-marketing.png" alt="Abstract marketing megaphone illustration" />
-          <div class="workflow__copy"><h3>Marketing</h3><p>Strengthen the story using the right messaging framework, such as PAS: Problem → Agitation → Solution.</p></div>
-          </article>
-          <article class="workflow__step" [appScrollReveal]="220" (pointermove)="updateWorkflowGlow($event)" (pointerleave)="resetWorkflowGlow($event)">
-          <img class="workflow__pipeline-image" src="assets/pipeline-generation.png" alt="Abstract animation generation illustration" />
-          <div class="workflow__copy"><h3>Generation</h3><p>Pass the structured plan to the AI, which writes the actual animation using Motify’s skills and capabilities.</p></div>
-          </article>
-          <article class="workflow__step" [appScrollReveal]="280" (pointermove)="updateWorkflowGlow($event)" (pointerleave)="resetWorkflowGlow($event)">
-          <img class="workflow__pipeline-image" src="assets/pipeline-quality.png" alt="Abstract quality check shield illustration" />
-          <div class="workflow__copy"><h3>Quality Gate</h3><p>The AI checks its output against Motify’s creative and technical rules, identifies problems, and repairs them before returning the final animation.</p></div>
-          </article>
+        <div class="workflow__video" [appScrollReveal]="80">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/OZbrHjSztaI?rel=0"
+            title="See how Motify turns a prompt into an editable motion graphics video"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
     </section>

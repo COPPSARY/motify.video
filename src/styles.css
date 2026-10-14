@@ -163,11 +163,6 @@ body {
   color: #fff;
   background: none;
   text-decoration: none;
-  text-shadow:
-    0 0 0.35rem rgba(255, 255, 255, 0.55),
-    0 0 0.9rem rgba(255, 255, 255, 0.28),
-    0 0 1.45rem rgba(31, 69, 176, 0.58),
-    0 0 2.5rem rgba(31, 69, 176, 0.34);
 }
 
 .heading-typed {

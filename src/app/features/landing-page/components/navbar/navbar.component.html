@@ -4,6 +4,7 @@
   </a>
 
   <div class="navbar__links" [class.navbar__links--open]="menuOpen()" id="site-navigation">
+    <a class="navbar__link" routerLink="/templates" routerLinkActive="navbar__link--active" (click)="closeMenu()">Templates</a>
     <div
       class="navbar__resources-wrap"
       (click)="$event.stopPropagation()"
@@ -22,9 +23,9 @@
       </button>
       @if (resourcesMenuOpen()) {
         <div class="navbar__resources-menu" role="menu">
-          <a class="navbar__resources-featured" role="menuitem" routerLink="/resources/prompt-templates" (click)="closeMenu()">
-            <strong>Prompt Templates <small>New</small></strong>
-            <span>Ready-made briefs for real product marketing jobs</span>
+          <a class="navbar__resources-featured" role="menuitem" routerLink="/templates" (click)="closeMenu()">
+            <strong>Motion Templates <small>New</small></strong>
+            <span>Preview finished examples and customize their prompts</span>
           </a>
           <div class="navbar__resources-grid">
             <a role="menuitem" routerLink="/resources/start-here" (click)="closeMenu()">
@@ -47,6 +48,9 @@
             </a>
             <a role="menuitem" routerLink="/resources/storyboard-generator" (click)="closeMenu()">
               <strong>Storyboard Generator</strong><span>Plan and approve a nine-scene story</span>
+            </a>
+            <a role="menuitem" routerLink="/resources/prompt-templates" (click)="closeMenu()">
+              <strong>Prompt Templates</strong><span>Ready-made product marketing briefs</span>
             </a>
             <a role="menuitem" routerLink="/help" (click)="closeMenu()">
               <strong>Help</strong><span>Inputs, export, and troubleshooting</span>

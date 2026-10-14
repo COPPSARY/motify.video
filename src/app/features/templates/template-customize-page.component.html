@@ -1,0 +1,108 @@
+<div class="customize-shell">
+  <app-navbar />
+
+  @if (template; as selected) {
+    <main class="customize-page">
+      <a class="back-link" routerLink="/templates"><svg lucideArrowLeft aria-hidden="true"></svg> All templates</a>
+
+      <header class="customize-header">
+        <div>
+          <p>{{ selected.eyebrow }}</p>
+          <h1>{{ selected.title }}</h1>
+        </div>
+        <div class="customize-header__tags">
+          @for (tag of selected.categories; track tag) { <span>{{ tag }}</span> }
+        </div>
+      </header>
+
+      @if (selected.special) {
+        <section class="agent-workflow" aria-labelledby="agent-workflow-title">
+          <div>
+            <h2 id="agent-workflow-title">Before you use this in Motify</h2>
+            <p>Copy this prompt into your coding agent with the product codebase open. When it returns <code>&lt;direction&gt;</code> and <code>&lt;structure&gt;</code>, paste those two blocks into Motify.</p>
+          </div>
+        </section>
+      }
+
+      <div class="customize-layout">
+        <section class="prompt-panel" aria-labelledby="prompt-preview-title">
+          <div class="prompt-panel__top">
+            <div>
+              <p>{{ selected.special ? 'Agent prompt' : 'Prompt' }}</p>
+              <h2 id="prompt-preview-title">Live preview</h2>
+            </div>
+            <span><i></i> Highlighted text is customizable</span>
+          </div>
+
+          <div class="prompt-preview">
+            @for (segment of selected.prompt; track $index) {
+              @if (segment.field) {
+                <mark [class.is-changed]="isCustomized(segment.field)">{{ promptSegmentValue(selected, segment, values()) }}</mark>
+              } @else {
+                <span>{{ segment.text }}</span>
+              }
+            }
+          </div>
+        </section>
+
+        <aside class="customize-controls" aria-labelledby="controls-title">
+          <div class="customize-controls__heading">
+            <p>Customize prompt</p>
+            <h2 id="controls-title">Make it yours</h2>
+            <span>Change any of these, or leave them blank to keep the default. They fill the highlighted parts of the prompt.</span>
+          </div>
+
+          <div class="field-list">
+            @for (field of selected.fields; track field.key) {
+              <div class="field-group">
+                <label [for]="'template-field-' + field.key">{{ field.label }}</label>
+                @if (field.type === 'textarea') {
+                  <textarea
+                    [id]="'template-field-' + field.key"
+                    rows="3"
+                    [ngModel]="fieldValue(field.key)"
+                    (ngModelChange)="updateField(field.key, $event)"
+                    [placeholder]="field.placeholder"
+                  ></textarea>
+                } @else {
+                  <input
+                    [id]="'template-field-' + field.key"
+                    [type]="field.type"
+                    [min]="field.min ?? null"
+                    [max]="field.max ?? null"
+                    [step]="field.step ?? null"
+                    [ngModel]="fieldValue(field.key)"
+                    (ngModelChange)="updateField(field.key, $event)"
+                    [placeholder]="field.placeholder"
+                  />
+                }
+                <small>{{ field.description }}@if (field.min !== undefined && field.max !== undefined) { <b>{{ field.min }}–{{ field.max }}</b> }</small>
+              </div>
+            }
+          </div>
+
+          <div class="control-actions">
+            <button type="button" class="copy-button" (click)="copyPrompt()">
+              @if (copied()) {
+                <svg lucideCheck aria-hidden="true"></svg> {{ selected.special ? 'Agent prompt copied' : 'Prompt copied' }}
+              } @else {
+                <svg lucideClipboard aria-hidden="true"></svg> {{ selected.special ? 'Copy agent prompt' : 'Copy prompt' }}
+              }
+            </button>
+            <button type="button" class="reset-button" (click)="reset()"><svg lucideRotateCcw aria-hidden="true"></svg> Reset</button>
+          </div>
+          <p class="copy-status" aria-live="polite">{{ copied() ? 'Copied to your clipboard.' : '' }}</p>
+        </aside>
+      </div>
+    </main>
+  } @else {
+    <main class="template-not-found">
+      <p>404 / Template missing</p>
+      <h1>This template slipped out of frame.</h1>
+      <span>The link may be outdated, or the template is no longer in the library.</span>
+      <a routerLink="/templates"><svg lucideArrowLeft aria-hidden="true"></svg> Back to templates</a>
+    </main>
+  }
+
+  <app-footer />
+</div>

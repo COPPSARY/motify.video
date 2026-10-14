@@ -50,15 +50,29 @@ describe('WelcomePageComponent', () => {
     delete window.__MOTIFY_CONFIG__;
   });
 
-  it('skips straight to the app with only the homepage prompt and no tour', () => {
+  it('skips the questions but keeps the beginner app tour', () => {
     const component = create(editorReturnPath('Launch video for Acme'));
-    component.chooseLevel('beginner');
 
     component.skip();
 
     const target = new URL(left[0]);
     expect(target.searchParams.get('prompt')).toBe('Launch video for Acme');
-    expect(target.searchParams.has('tour')).toBeFalse();
+    expect(target.searchParams.get('tour')).toBe('1');
+    expect(target.searchParams.get('level')).toBe('beginner');
+  });
+
+  it('respects a level answered before skipping', () => {
+    const experienced = create('/editor');
+    experienced.chooseLevel('experienced');
+    experienced.skip();
+    expect(new URL(left[0]).searchParams.get('level')).toBe('experienced');
+  });
+
+  it('gives an expert who skips no tour', () => {
+    const expert = create('/editor');
+    expert.chooseLevel('expert');
+    expert.skip();
+    expect(new URL(left[0]).searchParams.has('tour')).toBeFalse();
   });
 
   it('requires a product name, saves the answers to Brand DNA, then shows the plan', async () => {

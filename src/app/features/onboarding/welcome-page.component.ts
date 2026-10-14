@@ -236,9 +236,14 @@ export class WelcomePageComponent {
     if (index > 0) this.goTo(STEPS[index - 1]);
   }
 
-  /** Straight to the app with only what they typed on the homepage. */
+  /**
+   * Skips the questions, not the app tour: straight to the app with what they
+   * typed on the homepage. The tour uses their level if they gave one before
+   * skipping (experts get none), otherwise the full beginner tour.
+   */
   skip(): void {
-    this.leaveFor(motifyEditorUrl(this.pendingPrompt || undefined));
+    const level = this.stepIndex() > 0 ? this.level() : 'beginner';
+    this.leaveFor(motifyEditorUrl(this.pendingPrompt || undefined, { tour: level !== 'expert', level }));
   }
 
   create(): void {

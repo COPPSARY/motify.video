@@ -15,7 +15,24 @@ interface AuthResponse {
   readonly data: {
     readonly user: MotifyUser;
     readonly csrfToken: string;
+    /** True only on the login that created the account; drives onboarding. */
+    readonly newAccount?: boolean;
   };
+}
+
+interface SignUpResponse {
+  readonly data: {
+    readonly verificationRequired: boolean;
+    readonly user?: MotifyUser;
+    readonly csrfToken?: string;
+    readonly newAccount?: boolean;
+  };
+}
+
+/** How a sign-in finished: `newAccount` is what decides whether onboarding runs. */
+export interface SignInResult {
+  readonly user: MotifyUser;
+  readonly newAccount: boolean;
 }
 
 const PENDING_RETURN_KEY = 'motify-pending-return-url';
@@ -59,7 +76,7 @@ export class AuthService {
     }
   }
 
-  async login(email: string, password: string): Promise<MotifyUser> {
+  async login(email: string, password: string): Promise<SignInResult> {
     const response = await firstValueFrom(
       this.http.post<AuthResponse>(
         `${this.apiUrl}/v1/auth/login`,
@@ -70,7 +87,7 @@ export class AuthService {
     this.csrfTokenValue = response.data.csrfToken;
     this.user.set(response.data.user);
     this.sessionResolved.set(true);
-    return response.data.user;
+    return { user: response.data.user, newAccount: response.data.newAccount === true };
   }
 
   async logout(): Promise<void> {
@@ -95,17 +112,24 @@ export class AuthService {
   }
 
   /**
-   * Creates the account. The API answers 202 and mails a verification link, so
-   * there is no session yet: the user signs in by following that link.
+   * Creates the account. Usually the API answers 202 and mails a verification
+   * link, so there is no session yet (null). Where email confirmation is off it
+   * signs the person in straight away.
    */
-  async signUp(email: string, password: string): Promise<void> {
-    await firstValueFrom(
-      this.http.post(
+  async signUp(email: string, password: string): Promise<SignInResult | null> {
+    const response = await firstValueFrom(
+      this.http.post<SignUpResponse | null>(
         `${this.apiUrl}/v1/auth/sign-up`,
         { email, password, returnTo: this.returnToUrl() },
         { withCredentials: true },
       ),
     );
+    const data = response?.data;
+    if (!data || data.verificationRequired || !data.user) return null;
+    if (data.csrfToken) this.csrfTokenValue = data.csrfToken;
+    this.user.set(data.user);
+    this.sessionResolved.set(true);
+    return { user: data.user, newAccount: data.newAccount === true };
   }
 
   googleLoginUrl(): string {

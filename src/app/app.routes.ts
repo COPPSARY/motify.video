@@ -12,6 +12,7 @@ import { ResourceCategoryPageComponent } from './features/resources/resource-cat
 import { ResourcesHubPageComponent } from './features/resources/resources-hub-page.component';
 import { SolutionPageComponent } from './features/solutions/solution-page.component';
 import { ComparisonPageComponent } from './features/compare/comparison-page.component';
+import { WelcomePageComponent } from './features/onboarding/welcome-page.component';
 
 const loadLegalPage = () =>
   import('./features/legal/legal-page.component').then((module) => module.LegalPageComponent);
@@ -61,6 +62,11 @@ export const routes: Routes = [
     component: LoginPageComponent,
     data: { mode: 'signup' },
     title: 'Sign up for Motify',
+  },
+  {
+    path: 'welcome',
+    component: WelcomePageComponent,
+    title: 'Welcome to Motify',
   },
   {
     path: 'about',

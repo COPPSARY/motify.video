@@ -1,4 +1,5 @@
-import { extractPromptFields, populatePrompt } from './prompt-templates-page.component';
+import { PROMPT_TEMPLATES } from '../../shared/data/resource-content.data';
+import { extractPromptFields, populatePrompt, templateIdOrDefault } from './prompt-templates-page.component';
 
 describe('prompt template fields', () => {
   it('extracts unique variables while preserving nested guidance', () => {
@@ -44,5 +45,13 @@ describe('prompt template fields', () => {
     expect(populatePrompt(prompt, fields, { 'EVENT TYPE': 'webinar' })).toBe(
       'webinar starts now. Join the webinar.',
     );
+  });
+});
+
+describe('prompt template deep links', () => {
+  it('opens the requested template and falls back to the first for unknown ids', () => {
+    expect(templateIdOrDefault('how-it-works')).toBe('how-it-works');
+    expect(templateIdOrDefault('nope')).toBe(PROMPT_TEMPLATES[0].id);
+    expect(templateIdOrDefault(null)).toBe(PROMPT_TEMPLATES[0].id);
   });
 });

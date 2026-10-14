@@ -3,6 +3,7 @@ import {
   editorUrlForReturnPath,
   motifyApiUrl,
   motifyEditorUrl,
+  welcomePathFor,
 } from './runtime-config';
 
 describe('Motify runtime config', () => {
@@ -52,5 +53,27 @@ describe('Motify runtime config', () => {
     expect(editorUrlForReturnPath('/editor?prompt=Make%20it%20move')).toBe(
       'https://editor.example.test/?prompt=Make+it+move',
     );
+  });
+
+  it('adds tour hand-off params only when they are set', () => {
+    window.__MOTIFY_CONFIG__ = { motifyEditorUrl: 'https://editor.example.test/' };
+
+    const plain = new URL(motifyEditorUrl('Hi'));
+    expect([...plain.searchParams.keys()]).toEqual(['prompt']);
+
+    const tour = new URL(motifyEditorUrl('Hi', { tour: true, level: 'new', goal: 'launch', brandName: ' ', brandUrl: '' }));
+    expect(tour.searchParams.get('tour')).toBe('1');
+    expect(tour.searchParams.get('level')).toBe('new');
+    expect(tour.searchParams.get('goal')).toBe('launch');
+    expect(tour.searchParams.has('brandName')).toBeFalse();
+    expect(tour.searchParams.has('brandUrl')).toBeFalse();
+  });
+
+  it('routes a signed-in user to /welcome with their return path intact', () => {
+    const returnPath = editorReturnPath('Launch & ship');
+    const welcome = new URL(welcomePathFor(returnPath), 'https://motify.invalid');
+
+    expect(welcome.pathname).toBe('/welcome');
+    expect(welcome.searchParams.get('returnUrl')).toBe(returnPath);
   });
 });

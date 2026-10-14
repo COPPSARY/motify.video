@@ -1,0 +1,140 @@
+/* New-account welcome: the log-in card's frame, one question per step, one
+   action per step. Black and white throughout; cobalt only on the primary button. */
+.welcome-page {
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: 5rem 1rem 2rem;
+  background: var(--motify-ink);
+  color: var(--motify-text-primary);
+}
+.welcome-page__brand {
+  position: absolute; top: 1.6rem; left: 1.8rem;
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  color: var(--motify-text-primary); font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; text-decoration: none;
+}
+.welcome-page__brand img { border-radius: var(--motify-radius-xs); }
+
+.welcome-card {
+  display: flex; flex-direction: column; gap: 1.5rem;
+  width: min(92vw, 34rem); padding: 1.6rem 2.25rem 2.25rem;
+  border: 1px solid var(--motify-border); border-radius: var(--motify-radius-xl);
+  background: var(--motify-surface-solid);
+  box-shadow:
+    0 0 0 0.5rem rgba(255, 255, 255, 0.035),
+    0 0 0 calc(0.5rem + 1px) rgba(255, 255, 255, 0.06),
+    0 2.5rem 6rem rgba(0, 0, 0, 0.55);
+}
+.welcome-card h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 1.85rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+
+.welcome-card__bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.welcome-card__progress { display: flex; gap: 0.35rem; }
+.welcome-card__progress i { width: 1.6rem; height: 0.2rem; border-radius: var(--motify-radius-pill); background: var(--motify-border-strong); }
+.welcome-card__progress i.is-done { background: var(--motify-text-primary); }
+.welcome-card__skip {
+  padding: 0.4rem 0.85rem; border: 1px solid var(--motify-border-strong); border-radius: var(--motify-radius-pill);
+  background: transparent; color: var(--motify-text-secondary); font: inherit; font-size: 0.82rem; font-weight: 500; cursor: pointer;
+  transition: color var(--motify-duration-fast) ease, border-color var(--motify-duration-fast) ease;
+}
+.welcome-card__skip:hover { border-color: var(--motify-text-muted); color: var(--motify-text-primary); }
+
+.welcome-card__head { display: flex; flex-direction: column; gap: 0.45rem; }
+.welcome-card__head p { margin: 0; color: var(--motify-text-secondary); font-size: 0.92rem; line-height: 1.5; }
+
+.welcome-options { display: grid; gap: 0.6rem; }
+.welcome-options--row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.welcome-options--grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.welcome-option {
+  display: flex; flex-direction: column; gap: 0.25rem; padding: 1rem 1.05rem;
+  border: 1px solid var(--motify-border-strong); border-radius: var(--motify-radius-md);
+  background: rgba(255, 255, 255, 0.02); color: inherit; font: inherit; text-align: left; cursor: pointer;
+  transition: border-color var(--motify-duration-fast) ease, background var(--motify-duration-fast) ease;
+}
+.welcome-option:hover,
+.welcome-option:focus-visible { border-color: var(--motify-text-muted); background: rgba(255, 255, 255, 0.05); outline: none; }
+.welcome-option.is-selected { border-color: var(--motify-text-primary); }
+.welcome-option strong { font-size: 0.98rem; font-weight: 600; }
+.welcome-option span { color: var(--motify-text-secondary); font-size: 0.84rem; line-height: 1.4; }
+
+.welcome-form { display: flex; flex-direction: column; gap: 1rem; }
+.welcome-form__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; }
+.welcome-field { display: flex; flex-direction: column; gap: 0.45rem; }
+.welcome-field > span:first-child { color: var(--motify-text-strong); font-size: 0.88rem; font-weight: 500; }
+.welcome-field em { margin-left: 0.3rem; color: var(--motify-text-muted); font-style: normal; font-weight: 400; }
+.welcome-field input:not([type='color']),
+.welcome-field textarea,
+.welcome-field select {
+  width: 100%; padding: 0.75rem 0.9rem;
+  border: 1px solid var(--motify-border-strong); border-radius: var(--motify-radius-md);
+  background: var(--motify-ink); color: var(--motify-text-primary); font: inherit; font-size: 0.93rem; line-height: 1.5;
+  outline: none; transition: border-color var(--motify-duration-fast) ease;
+}
+.welcome-field textarea { resize: vertical; min-height: 12rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
+.welcome-field input:focus,
+.welcome-field textarea:focus,
+.welcome-field select:focus { border-color: var(--motify-text-secondary); }
+.welcome-form__error { margin: 0; color: #ff9b9b; font-size: 0.84rem; }
+.welcome-form__note { margin: 0; color: var(--motify-text-muted); font-size: 0.84rem; }
+.welcome-form__actions { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+
+.welcome-fill { display: flex; gap: 0.5rem; }
+.welcome-fill input { flex: 1; min-width: 0; }
+.welcome-fill__button {
+  flex: none; padding: 0 1rem; border: 1px solid var(--motify-border-strong); border-radius: var(--motify-radius-md);
+  background: transparent; color: var(--motify-text-primary); font: inherit; font-size: 0.86rem; font-weight: 600; cursor: pointer;
+  transition: border-color var(--motify-duration-fast) ease;
+}
+.welcome-fill__button:hover:not(:disabled) { border-color: var(--motify-text-muted); }
+.welcome-fill__button:disabled { opacity: 0.5; cursor: not-allowed; }
+.welcome-fill__done { color: var(--motify-text-secondary); font-size: 0.82rem; }
+
+.welcome-color { display: flex; align-items: center; gap: 0.6rem; min-height: 2.9rem; color: var(--motify-text-secondary); font-size: 0.88rem; }
+.welcome-color__swatch {
+  position: relative; display: block; width: 2.4rem; height: 2.4rem; flex: none; overflow: hidden;
+  border: 1px solid var(--motify-border-strong); border-radius: var(--motify-radius-sm); cursor: pointer;
+}
+.welcome-color__swatch.is-empty {
+  background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(255, 255, 255, 0.08) 6px 7px);
+}
+.welcome-color__swatch input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.welcome-color__clear { border: 0; background: none; color: var(--motify-text-muted); font-size: 1.1rem; line-height: 1; cursor: pointer; }
+.welcome-color__clear:hover { color: var(--motify-text-primary); }
+
+.welcome-plan { padding: 1.1rem 1.2rem; border: 1px solid var(--motify-border-strong); border-radius: var(--motify-radius-md); background: rgba(255, 255, 255, 0.02); }
+.welcome-plan__top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.welcome-plan__top strong { font-size: 1rem; font-weight: 600; }
+.welcome-plan__top span { color: var(--motify-text-muted); font-size: 0.8rem; white-space: nowrap; }
+.welcome-plan__beats { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.9rem 0 0; padding: 0; list-style: none; counter-reset: beat; }
+.welcome-plan__beats li {
+  padding: 0.3rem 0.65rem; border: 1px solid var(--motify-border); border-radius: var(--motify-radius-pill);
+  color: var(--motify-text-secondary); font-size: 0.8rem; counter-increment: beat;
+}
+.welcome-plan__beats li::before { content: counter(beat) '  '; color: var(--motify-text-muted); }
+
+.welcome-card__link { align-self: flex-start; padding: 0; border: 0; background: none; color: var(--motify-text-secondary); font: inherit; font-size: 0.86rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.welcome-card__link:hover { color: var(--motify-text-primary); }
+.welcome-prompt {
+  max-height: 16rem; margin: 0; padding: 0.9rem 1rem; overflow: auto;
+  border: 1px solid var(--motify-border); border-radius: var(--motify-radius-md); background: var(--motify-ink);
+  color: var(--motify-text-secondary); font: 0.76rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap;
+}
+
+.welcome-card__button {
+  min-height: 2.9rem; padding: 0 1.4rem; border: 0; border-radius: var(--motify-radius-md);
+  background: var(--motify-cobalt); color: var(--motify-white); font: inherit; font-size: 0.93rem; font-weight: 600; cursor: pointer;
+  transition: background var(--motify-duration-fast) ease;
+}
+.welcome-card__button:hover:not(:disabled) { background: var(--motify-cobalt-hover); }
+.welcome-card__button:disabled { opacity: 0.5; cursor: not-allowed; }
+.welcome-card__back { padding: 0; border: 0; background: none; color: var(--motify-text-muted); font: inherit; font-size: 0.88rem; cursor: pointer; }
+.welcome-card__back:hover { color: var(--motify-text-primary); }
+.welcome-card > .welcome-card__back { align-self: flex-start; }
+
+@media (max-width: 560px) {
+  .welcome-page { padding-top: 4.5rem; }
+  .welcome-page__brand { top: 1.2rem; left: 1.2rem; }
+  .welcome-card { padding: 1.3rem 1.25rem 1.6rem; }
+  .welcome-options--row,
+  .welcome-options--grid { grid-template-columns: 1fr; }
+}

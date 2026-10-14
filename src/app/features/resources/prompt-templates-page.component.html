@@ -59,15 +59,23 @@
               <span class="preview-card__badge">{{ selectedTemplate().format }}</span>
               <span class="preview-card__hint">Live Prompt Preview</span>
             </div>
-            <button
-              type="button"
-              class="btn-copy"
-              [class.is-copied]="copied()"
-              (click)="copyPrompt()"
-            >
-              {{ copied() ? 'Copied to clipboard ✓' : 'Copy prompt' }}
-            </button>
+            <div class="preview-card__actions">
+              <button
+                type="button"
+                class="btn-copy"
+                [class.is-copied]="copied()"
+                (click)="copyPrompt()"
+              >
+                {{ copied() ? 'Copied to clipboard ✓' : 'Copy prompt' }}
+              </button>
+              <button type="button" class="btn-use" (click)="useInMotify()">Use in Motify</button>
+            </div>
           </div>
+          @if (unfilledCount() > 0) {
+            <p class="preview-card__note">
+              {{ unfilledCount() }} {{ unfilledCount() === 1 ? 'blank is' : 'blanks are' }} still empty. Fill them in for a sharper first draft, or send it as is and tell Tiffy the details.
+            </p>
+          }
           <pre class="preview-card__content"><code>{{ generatedPrompt() }}</code></pre>
         </div>
       </aside>

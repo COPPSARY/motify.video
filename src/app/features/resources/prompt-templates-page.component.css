@@ -199,6 +199,7 @@
   padding: 0.85rem 1.25rem;
   border-bottom: 1px solid var(--motify-border);
   background: rgba(255, 255, 255, 0.02);
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -223,31 +224,59 @@
   font-size: 0.78rem;
 }
 
-.btn-copy {
+.preview-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-copy,
+.btn-use {
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--motify-radius-sm);
-  background: #ffffff;
-  color: var(--motify-ink);
   font-family: inherit;
   font-size: 0.85rem;
   font-weight: 650;
   cursor: pointer;
-  transition: all 160ms ease;
   white-space: nowrap;
+  transition: background var(--motify-duration-fast) ease, border-color var(--motify-duration-fast) ease;
+}
+
+.btn-copy {
+  border: 1px solid var(--motify-border-strong);
+  background: transparent;
+  color: var(--motify-text-primary);
 }
 
 .btn-copy:hover {
-  background: #e4e4e7;
-  transform: translateY(-1px);
+  border-color: var(--motify-text-muted);
 }
 
 .btn-copy.is-copied {
-  background: #22c55e;
   border-color: #22c55e;
-  color: var(--motify-text-primary);
+  color: #22c55e;
+}
+
+.btn-use {
+  border: 1px solid var(--motify-cobalt);
+  background: var(--motify-cobalt);
+  color: var(--motify-white);
+}
+
+.btn-use:hover {
+  border-color: var(--motify-cobalt-hover);
+  background: var(--motify-cobalt-hover);
+}
+
+.preview-card__note {
+  margin: 0;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--motify-border);
+  color: var(--motify-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.5;
 }
 
 .preview-card__content {

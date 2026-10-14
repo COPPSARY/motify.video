@@ -92,9 +92,7 @@ export const routes: Routes = [
   },
   {
     path: 'canvas-ai-video-editor',
-    component: SolutionPageComponent,
-    data: { solution: 'canvas-editor' },
-    title: 'Canvas-Based AI Video Editor | Motify',
+    redirectTo: 'ai-motion-graphics-generator',
   },
   {
     path: 'compare/after-effects',

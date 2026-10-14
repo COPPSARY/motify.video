@@ -17,8 +17,7 @@ main {
   gap: var(--motify-section-gap);
 }
 
-main > app-features-section,
-main > app-showcase-section {
+main > app-features-section {
   display: block;
 }
 

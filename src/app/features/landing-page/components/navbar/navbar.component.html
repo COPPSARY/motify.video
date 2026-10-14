@@ -24,7 +24,7 @@
         <div class="navbar__resources-menu" role="menu">
           <a class="navbar__resources-featured" role="menuitem" routerLink="/resources/prompt-templates" (click)="closeMenu()">
             <strong>Prompt Templates <small>New</small></strong>
-            <span>Copy and tweak briefs for real product marketing jobs</span>
+            <span>Ready-made briefs for real product marketing jobs</span>
           </a>
           <div class="navbar__resources-grid">
             <a role="menuitem" routerLink="/resources/start-here" (click)="closeMenu()">
@@ -89,7 +89,7 @@
               <span>{{ user.email }}</span>
             </div>
             <a class="navbar__account-item" role="menuitem" [href]="editorHref()" (click)="closeMenu()">
-              <span>Open editor</span>
+              <span>Open Motify</span>
               <svg lucideArrowUpRight aria-hidden="true"></svg>
             </a>
             <button class="navbar__account-item navbar__account-item--danger" role="menuitem" type="button" [disabled]="loggingOut()" (click)="logoutAccount()">

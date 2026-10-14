@@ -9,9 +9,9 @@ export const FEATURES: readonly Feature[] = [
   },
   {
     id: 'visual-refine',
-    title: 'Edit the timeline',
-    description: 'Change scenes, timing, and transitions in the editor.',
-    icon: 'timeline',
+    title: 'Refine by chatting',
+    description: 'Ask Tiffy to change the copy, pacing, music, or look.',
+    icon: 'message-circle',
   },
   {
     id: 'final-video',

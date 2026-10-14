@@ -41,8 +41,8 @@ export class LoginPageComponent {
     inject(SeoService).apply({
       title: signingUp ? 'Sign up for Motify' : 'Log in to Motify',
       description: signingUp
-        ? 'Create a Motify account to generate HTML, CSS, and GSAP motion graphics from a prompt.'
-        : 'Sign in to create and refine HTML, CSS, and GSAP motion graphics with Motify.',
+        ? 'Create a Motify account and turn a prompt into an on-brand motion graphics video.'
+        : 'Sign in to create motion graphics videos and refine them with Tiffy.',
       path: signingUp ? '/signup' : '/login',
       robots: 'noindex, nofollow',
     });

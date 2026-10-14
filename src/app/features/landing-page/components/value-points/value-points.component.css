@@ -194,20 +194,31 @@
   border-left: 0.5rem solid rgba(255, 255, 255, 0.78);
 }
 
-.create-graphic__timeline {
-  display: grid;
-  grid-template-columns: 1.1fr 0.75fr 0.95fr;
-  gap: 0.25rem;
+.create-graphic__refine {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  justify-self: end;
+  width: 72%;
+  padding: 0.3rem 0.45rem;
+  border: 1px solid var(--motify-border-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
 }
 
-.create-graphic__timeline i {
+.create-graphic__refine b {
+  flex: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--motify-cobalt);
+}
+
+.create-graphic__refine i {
+  flex: 1;
   height: 0.3rem;
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.26);
-}
-
-.create-graphic__timeline i:nth-child(2) {
-  background: rgba(255, 255, 255, 0.48);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .value-card__visual--formats {

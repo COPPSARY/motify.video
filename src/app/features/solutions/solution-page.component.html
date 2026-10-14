@@ -15,14 +15,14 @@
           <a class="solution__secondary" routerLink="/pricing">View pricing</a>
         </div>
       </div>
-      <aside class="solution__preview" aria-label="Editable Motify workflow">
-        <div class="solution__preview-bar"><span></span><span></span><span></span><strong>Motify canvas</strong></div>
+      <aside class="solution__preview" aria-label="Motify prompt workflow">
+        <div class="solution__preview-bar"><span></span><span></span><span></span><strong>Motify</strong></div>
         <div class="solution__preview-stage">
           <span class="solution__preview-label">Scene 02</span>
           <strong>{{ page.outcome }}</strong>
           <div class="solution__preview-lines"><i></i><i></i><i></i></div>
         </div>
-        <div class="solution__timeline" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <div class="solution__prompt" aria-hidden="true"><span>Ask Tiffy to refine…</span><b></b></div>
       </aside>
     </header>
 
@@ -87,7 +87,7 @@
     </section>
 
     <section class="solution__cta" aria-labelledby="cta-title">
-      <div><p>Start free. No card required.</p><h2 id="cta-title">Turn your next product story into editable motion.</h2></div>
+      <div><p>Start free. No card required.</p><h2 id="cta-title">Turn your next product story into motion.</h2></div>
       <a routerLink="/login" [queryParams]="{ returnUrl: '/editor' }">Start creating <span aria-hidden="true">→</span></a>
     </section>
   </main>

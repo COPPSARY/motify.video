@@ -4,7 +4,7 @@
       Create motion graphics in minutes.
     </h1>
     <p class="hero__subheadline">
-      Built for growing teams. Create polished, on-brand videos you can edit and publish anywhere.
+      Built for growing teams. Describe your video and get a polished, on-brand cut you can refine and publish anywhere.
     </p>
     <form class="hero__composer" (ngSubmit)="submitPrompt()">
       <label class="sr-only" for="motion-prompt">Describe your video</label>
@@ -24,7 +24,7 @@
           @if (assetMenuOpen) {
             <div class="hero__asset-menu">
               <button type="button" (click)="chooseAsset('image')">Upload image</button>
-              <button type="button" (click)="chooseAsset('video')">Upload video</button>
+              <button type="button" (click)="chooseAsset('audio')">Add music</button>
             </div>
           }
         </div>

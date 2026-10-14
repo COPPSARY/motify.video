@@ -1,169 +1,215 @@
-<main class="welcome-page">
-  <a class="welcome-page__brand" routerLink="/" aria-label="Motify home">
-    <img src="logo.svg" alt="" width="30" height="30" />
-    <span>Motify</span>
-  </a>
+<main class="welcome">
+  <header class="welcome__bar">
+    <a class="welcome__brand" routerLink="/" aria-label="Motify home">
+      <img src="logo.svg" alt="" width="26" height="26" />
+      <span>Motify</span>
+    </a>
+    <button class="welcome__skip" type="button" (click)="skip()">Skip</button>
+  </header>
 
-  <section class="welcome-card" aria-labelledby="welcome-title" aria-live="polite">
-    <div class="welcome-card__bar">
-      <span class="welcome-card__progress" [attr.aria-label]="'Step ' + stepNumber() + ' of ' + stepCount">
-        @for (n of [1, 2, 3, 4]; track n) {
-          <i [class.is-done]="n <= stepNumber()"></i>
-        }
-      </span>
-      <button class="welcome-card__skip" type="button" (click)="skip()">Skip</button>
-    </div>
+  <nav class="welcome__rail" aria-label="Onboarding steps">
+    @for (item of steps; track item.id; let i = $index) {
+      <button
+        type="button"
+        class="welcome__dot"
+        [class.is-current]="i === stepIndex()"
+        [class.is-done]="i < stepIndex()"
+        [attr.aria-current]="i === stepIndex() ? 'step' : null"
+        [attr.aria-label]="item.label"
+        [title]="item.label"
+        [disabled]="!canRevisit(item.id)"
+        (click)="goTo(item.id)"
+      ></button>
+    }
+  </nav>
 
+  <section class="welcome__stage" aria-live="polite" aria-labelledby="welcome-title">
     @switch (step()) {
       @case ('level') {
-        <h1 id="welcome-title">How much have you prompted before?</h1>
-        <div class="welcome-options welcome-options--row">
-          @for (option of levels; track option.id) {
-            <button class="welcome-option" type="button" (click)="chooseLevel(option.id)">
-              <strong>{{ option.label }}</strong>
-              <span>{{ option.description }}</span>
-            </button>
-          }
+        <div class="welcome__slide" [class.is-back]="direction() === 'back'">
+          <p class="welcome__kicker">Welcome to Motify</p>
+          <h1 id="welcome-title">How much have you prompted before?</h1>
+          <div class="welcome-options">
+            @for (option of levels; track option.id) {
+              <button class="welcome-option" type="button" [class.is-selected]="level() === option.id && direction() === 'back'" (click)="chooseLevel(option.id)">
+                <strong>{{ option.label }}</strong>
+                <span>{{ option.description }}</span>
+              </button>
+            }
+          </div>
         </div>
       }
 
       @case ('goal') {
-        <h1 id="welcome-title">What's your first video?</h1>
-        <div class="welcome-options welcome-options--grid">
-          @for (option of goals; track option.id) {
-            <button
-              class="welcome-option"
-              type="button"
-              [class.is-selected]="goal() === option.id"
-              (click)="chooseGoal(option.id)"
-            >
-              <strong>{{ option.label }}</strong>
-              <span>{{ option.description }}</span>
-            </button>
-          }
+        <div class="welcome__slide welcome__slide--media" [class.is-back]="direction() === 'back'">
+          <h1 id="welcome-title">What's your first video?</h1>
+          <div class="welcome-goals">
+            @for (option of goals; track option.id) {
+              <button class="welcome-goal" type="button" [class.is-selected]="goal() === option.id && direction() === 'back'" (click)="chooseGoal(option.id)">
+                <img class="welcome-goal__media" [src]="option.preview.poster" alt="" width="960" height="540" />
+                <span class="welcome-goal__text">
+                  <strong>{{ option.label }}</strong>
+                  <span>{{ option.description }}</span>
+                </span>
+              </button>
+            }
+          </div>
+          <button class="welcome__back" type="button" (click)="back()">Back</button>
         </div>
-        <button class="welcome-card__back" type="button" (click)="back()">Back</button>
       }
 
       @case ('product') {
-        <header class="welcome-card__head">
+        <div class="welcome__slide" [class.is-back]="direction() === 'back'">
           <h1 id="welcome-title">Tell us about your product</h1>
-          <p>Saved to your Brand Kit. Every video uses it.</p>
-        </header>
-        <form class="welcome-form" (ngSubmit)="continueFromProduct()">
-          @if (canExtract()) {
-            <div class="welcome-field">
-              <span>Website</span>
-              <span class="welcome-fill">
-                <input name="website" type="text" inputmode="url" placeholder="acme.com" autocomplete="url" aria-label="Website" [ngModel]="website()" (ngModelChange)="website.set($event)" (keydown.enter)="$event.preventDefault(); fillFromWebsite()" />
-                <button class="welcome-fill__button" type="button" [disabled]="extracting() || !website().trim()" (click)="fillFromWebsite()">
-                  {{ extracting() ? 'Reading…' : 'Fill from site' }}
-                </button>
-              </span>
-              @if (extractError()) { <small class="welcome-form__error" role="alert">{{ extractError() }}</small> }
-              @else if (filledFrom()) { <small class="welcome-fill__done">Filled from {{ filledFrom() }}. Check it's right.</small> }
-            </div>
-          }
-          <label class="welcome-field">
-            <span>Name</span>
-            <input name="name" type="text" placeholder="Acme" autocomplete="organization" [ngModel]="name()" (ngModelChange)="name.set($event)" />
-          </label>
-          <label class="welcome-field">
-            <span>What it does</span>
-            <input name="description" type="text" placeholder="Turns release notes into launch videos" [ngModel]="description()" (ngModelChange)="description.set($event)" />
-          </label>
-          <label class="welcome-field">
-            <span>Who it's for</span>
-            <input name="audience" type="text" placeholder="Product marketers at SaaS startups" [ngModel]="audience()" (ngModelChange)="audience.set($event)" />
-          </label>
-          <div class="welcome-form__row">
-            @if (!canExtract()) {
-              <label class="welcome-field">
-                <span>Website <em>optional</em></span>
-                <input name="website" type="text" inputmode="url" placeholder="acme.com" autocomplete="url" [ngModel]="website()" (ngModelChange)="website.set($event)" />
-              </label>
+          <p class="welcome__lead">Saved to your Brand Kit. Every video uses it.</p>
+          <form class="welcome-form" (ngSubmit)="continueFromProduct()">
+            @if (canExtract()) {
+              <div class="welcome-field">
+                <span>Website</span>
+                <span class="welcome-fill">
+                  <input name="website" type="text" inputmode="url" placeholder="acme.com" autocomplete="url" aria-label="Website" [ngModel]="website()" (ngModelChange)="website.set($event)" (keydown.enter)="$event.preventDefault(); fillFromWebsite()" />
+                  <button class="welcome-fill__button" type="button" [disabled]="extracting() || !website().trim()" (click)="fillFromWebsite()">
+                    {{ extracting() ? 'Reading…' : 'Fill from site' }}
+                  </button>
+                </span>
+                @if (extractError()) { <small class="welcome-form__error" role="alert">{{ extractError() }}</small> }
+                @else if (filledFrom()) { <small class="welcome-fill__done">Filled from {{ filledFrom() }}. Check it's right.</small> }
+              </div>
             }
-            <div class="welcome-field">
-              <span>Brand color <em>optional</em></span>
-              <span class="welcome-color">
-                <label class="welcome-color__swatch" [style.background]="color() || null" [class.is-empty]="!color()">
-                  <input type="color" aria-label="Brand color" [value]="color() || '#1f45b0'" (input)="color.set($any($event.target).value)" />
+            <label class="welcome-field">
+              <span>Name</span>
+              <input name="name" type="text" placeholder="Acme" autocomplete="organization" [ngModel]="name()" (ngModelChange)="name.set($event)" />
+            </label>
+            <label class="welcome-field">
+              <span>What it does</span>
+              <input name="description" type="text" placeholder="Turns release notes into launch videos" [ngModel]="description()" (ngModelChange)="description.set($event)" />
+            </label>
+            <label class="welcome-field">
+              <span>Who it's for</span>
+              <input name="audience" type="text" placeholder="Product marketers at SaaS startups" [ngModel]="audience()" (ngModelChange)="audience.set($event)" />
+            </label>
+            <div class="welcome-form__row">
+              @if (!canExtract()) {
+                <label class="welcome-field">
+                  <span>Website <em>optional</em></span>
+                  <input name="website" type="text" inputmode="url" placeholder="acme.com" autocomplete="url" [ngModel]="website()" (ngModelChange)="website.set($event)" />
                 </label>
-                <span>{{ color() || 'None' }}</span>
-                @if (color()) {
-                  <button type="button" class="welcome-color__clear" aria-label="Remove brand color" (click)="color.set('')">×</button>
-                }
-              </span>
+              }
+              <div class="welcome-field">
+                <span>Brand color <em>optional</em></span>
+                <span class="welcome-color">
+                  <label class="welcome-color__swatch" [style.background]="color() || null" [class.is-empty]="!color()">
+                    <input type="color" aria-label="Brand color" [value]="color() || '#1f45b0'" (input)="color.set($any($event.target).value)" />
+                  </label>
+                  <span>{{ color() || 'None' }}</span>
+                  @if (color()) {
+                    <button type="button" class="welcome-color__clear" aria-label="Remove brand color" (click)="color.set('')">×</button>
+                  }
+                </span>
+              </div>
             </div>
+            @if (productError()) { <p class="welcome-form__error" role="alert">{{ productError() }}</p> }
+            <div class="welcome__actions">
+              <button class="welcome__back" type="button" (click)="back()">Back</button>
+              <button class="welcome__button" type="submit" [disabled]="saving()">{{ saving() ? 'Saving…' : 'Continue' }}</button>
+            </div>
+          </form>
+        </div>
+      }
+
+      @case ('library') {
+        <div class="welcome__slide welcome__slide--wide" [class.is-back]="direction() === 'back'">
+          <p class="welcome__kicker">Before you start</p>
+          <h1 id="welcome-title">{{ allTemplates.length }} prompt templates, ready to use</h1>
+          <p class="welcome__lead">Scene-by-scene prompts for launches, features, explainers, and more. Fill in the blanks and send.</p>
+
+          <ul class="welcome-library" aria-label="Prompt templates">
+            @for (item of allTemplates; track item.id) {
+              <li class="welcome-library__item" [class.is-pick]="item.id === template().id">
+                @if (item.id === template().id) { <em>Your pick</em> }
+                <strong>{{ item.title }}</strong>
+                <span>{{ item.format }}</span>
+              </li>
+            }
+          </ul>
+
+          <div class="welcome-where">
+            <span class="welcome-where__label">Find them anytime</span>
+            <span class="welcome-where__path" aria-label="Resources, then Prompt Templates">
+              <span class="welcome-where__crumb">Resources ▾</span>
+              <span aria-hidden="true">→</span>
+              <span class="welcome-where__crumb is-target">Prompt Templates</span>
+            </span>
           </div>
-          @if (productError()) { <p class="welcome-form__error" role="alert">{{ productError() }}</p> }
-          <div class="welcome-form__actions">
-            <button class="welcome-card__back" type="button" (click)="back()">Back</button>
-            <button class="welcome-card__button" type="submit" [disabled]="saving()">{{ saving() ? 'Saving…' : 'Continue' }}</button>
+
+          <div class="welcome__actions">
+            <button class="welcome__back" type="button" (click)="back()">Back</button>
+            <span class="welcome__actions-end">
+              <a class="welcome__secondary" [href]="libraryPath" target="_blank" rel="noopener">Browse the library ↗</a>
+              <button class="welcome__button" type="button" (click)="goTo('ready')">Continue</button>
+            </span>
           </div>
-        </form>
+        </div>
       }
 
       @case ('ready') {
-        @switch (level()) {
-          @case ('beginner') {
-            <header class="welcome-card__head">
+        <div class="welcome__slide" [class.is-back]="direction() === 'back'">
+          @switch (level()) {
+            @case ('beginner') {
+              <p class="welcome__kicker">From the {{ template().title }} template</p>
               <h1 id="welcome-title">Your first video</h1>
-              <p>We'll build this for {{ name() }}. You can change anything after.</p>
-            </header>
-            <div class="welcome-plan">
-              <div class="welcome-plan__top">
-                <strong>{{ template().title }}</strong>
-                <span>{{ template().format }}</span>
+              <p class="welcome__lead">Built for {{ name() }}. You can change anything after.</p>
+              <div class="welcome-plan">
+                <div class="welcome-plan__top">
+                  <strong>{{ template().title }}</strong>
+                  <span>{{ template().format }}</span>
+                </div>
+                <ol class="welcome-plan__beats">
+                  @for (beat of beats(); track beat) { <li>{{ beat }}</li> }
+                </ol>
               </div>
-              <ol class="welcome-plan__beats">
-                @for (beat of beats(); track beat) { <li>{{ beat }}</li> }
-              </ol>
-            </div>
-          }
+            }
 
-          @case ('experienced') {
-            <header class="welcome-card__head">
+            @case ('experienced') {
+              <p class="welcome__kicker">From the {{ template().title }} template</p>
               <h1 id="welcome-title">Make it yours</h1>
-              <p>Optional. Leave any blank and Tiffy picks.</p>
-            </header>
-            <div class="welcome-form">
-              @for (field of keyBlanks(); track field.key) {
-                <label class="welcome-field">
-                  <span>{{ field.label }}</span>
-                  <input type="text" [placeholder]="field.hint" [ngModel]="extras()[field.key] || ''" (ngModelChange)="setExtra(field.key, $event)" />
-                </label>
-              }
-            </div>
-            <button class="welcome-card__link" type="button" [attr.aria-expanded]="showFullPrompt()" (click)="showFullPrompt.set(!showFullPrompt())">
-              {{ showFullPrompt() ? 'Hide prompt' : 'See full prompt' }}
-            </button>
-            @if (showFullPrompt()) { <pre class="welcome-prompt">{{ builtPrompt() }}</pre> }
-          }
+              <p class="welcome__lead">Optional. Leave any blank and Tiffy picks.</p>
+              <div class="welcome-form">
+                @for (field of keyBlanks(); track field.key) {
+                  <label class="welcome-field">
+                    <span>{{ field.label }}</span>
+                    <input type="text" [placeholder]="field.hint" [ngModel]="extras()[field.key] || ''" (ngModelChange)="setExtra(field.key, $event)" />
+                  </label>
+                }
+              </div>
+              <button class="welcome__link" type="button" [attr.aria-expanded]="showFullPrompt()" (click)="showFullPrompt.set(!showFullPrompt())">
+                {{ showFullPrompt() ? 'Hide prompt' : 'See full prompt' }}
+              </button>
+              @if (showFullPrompt()) { <pre class="welcome-prompt">{{ builtPrompt() }}</pre> }
+            }
 
-          @case ('expert') {
-            <header class="welcome-card__head">
+            @case ('expert') {
               <h1 id="welcome-title">Your prompt</h1>
-            </header>
-            <label class="welcome-field">
-              <span>Template</span>
-              <select [ngModel]="expertTemplateId()" (ngModelChange)="chooseExpertTemplate($event)">
-                @for (item of allTemplates; track item.id) { <option [value]="item.id">{{ item.title }}</option> }
-              </select>
-            </label>
-            <label class="welcome-field">
-              <span>Prompt</span>
-              <textarea rows="12" [ngModel]="expertPrompt()" (ngModelChange)="expertPrompt.set($event)"></textarea>
-            </label>
+              <label class="welcome-field">
+                <span>Template</span>
+                <select [ngModel]="expertTemplateId()" (ngModelChange)="chooseExpertTemplate($event)">
+                  @for (item of allTemplates; track item.id) { <option [value]="item.id">{{ item.title }}</option> }
+                </select>
+              </label>
+              <label class="welcome-field">
+                <span>Prompt</span>
+                <textarea rows="12" [ngModel]="expertPrompt()" (ngModelChange)="expertPrompt.set($event)"></textarea>
+              </label>
+            }
           }
-        }
 
-        @if (brandSaveFailed()) {
-          <p class="welcome-form__note">We couldn't save your brand just now. You can add it later in Brand Kit.</p>
-        }
-        <div class="welcome-form__actions">
-          <button class="welcome-card__back" type="button" (click)="back()">Back</button>
-          <button class="welcome-card__button" type="button" [disabled]="!finalPrompt().trim()" (click)="create()">Create my video</button>
+          @if (brandSaveFailed()) {
+            <p class="welcome-form__note">We couldn't save your brand just now. You can add it later in Brand Kit.</p>
+          }
+          <div class="welcome__actions">
+            <button class="welcome__back" type="button" (click)="back()">Back</button>
+            <button class="welcome__button" type="button" [disabled]="!finalPrompt().trim()" (click)="create()">Create my video</button>
+          </div>
         </div>
       }
     }

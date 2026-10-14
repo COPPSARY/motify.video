@@ -18,9 +18,17 @@ import { AuthService } from '../../shared/services/auth.service';
 import { BrandService } from '../../shared/services/brand.service';
 import { SeoService } from '../../shared/services/seo.service';
 
-export type WelcomeStep = 'level' | 'goal' | 'product' | 'ready';
+export type WelcomeStep = 'level' | 'goal' | 'product' | 'library' | 'ready';
 
-const STEPS: readonly WelcomeStep[] = ['level', 'goal', 'product', 'ready'];
+const STEPS: readonly WelcomeStep[] = ['level', 'goal', 'product', 'library', 'ready'];
+
+const STEP_LABELS: Readonly<Record<WelcomeStep, string>> = {
+  level: 'Experience',
+  goal: 'First video',
+  product: 'Your product',
+  library: 'Prompt library',
+  ready: 'Create',
+};
 
 /** Accepts "acme.com" or a full URL; returns '' for anything that isn't a web address. */
 export function normalizeWebsite(value: string): string {
@@ -62,7 +70,9 @@ export class WelcomePageComponent {
   readonly levels = PROMPT_LEVELS;
   readonly goals = ONBOARDING_GOALS;
   readonly allTemplates = PROMPT_TEMPLATES;
-  readonly stepCount = STEPS.length;
+  readonly steps = STEPS.map((id) => ({ id, label: STEP_LABELS[id] }));
+  /** Where the library lives on the site, so the step can show it and link to it. */
+  readonly libraryPath = '/resources/prompt-templates';
 
   /** Only app return paths are honored; anything else falls back to the app home. */
   readonly returnUrl: string;
@@ -70,6 +80,8 @@ export class WelcomePageComponent {
   readonly pendingPrompt: string;
 
   readonly step = signal<WelcomeStep>('level');
+  /** Which way the last move went, so a step slides in from below (forward) or above (back). */
+  readonly direction = signal<'forward' | 'back'>('forward');
   readonly level = signal<PromptLevel>('beginner');
   readonly goal = signal<OnboardingGoal>('launch');
 
@@ -96,7 +108,7 @@ export class WelcomePageComponent {
   readonly expertPrompt = signal('');
   readonly showFullPrompt = signal(false);
 
-  readonly stepNumber = computed(() => STEPS.indexOf(this.step()) + 1);
+  readonly stepIndex = computed(() => STEPS.indexOf(this.step()));
   readonly template = computed(() => templateFor(this.goal()));
   readonly beats = computed(() => GOAL_DETAILS[this.goal()].beats);
   readonly keyBlanks = computed(() => keyBlanksFor(this.goal()).map((field) => ({ ...field, label: sentenceCase(field.label) })));
@@ -139,13 +151,26 @@ export class WelcomePageComponent {
 
   chooseLevel(level: PromptLevel): void {
     this.level.set(level);
-    this.step.set('goal');
+    this.goTo('goal');
   }
 
   chooseGoal(goal: OnboardingGoal): void {
     this.goal.set(goal);
     this.extras.set({});
-    this.step.set('product');
+    this.goTo('product');
+  }
+
+  /** Moves to a step; going back is only ever to a step already answered. */
+  goTo(next: WelcomeStep): void {
+    const from = STEPS.indexOf(this.step());
+    const to = STEPS.indexOf(next);
+    if (to === from) return;
+    this.direction.set(to > from ? 'forward' : 'back');
+    this.step.set(next);
+  }
+
+  canRevisit(step: WelcomeStep): boolean {
+    return STEPS.indexOf(step) < this.stepIndex();
   }
 
   async continueFromProduct(): Promise<void> {
@@ -168,7 +193,7 @@ export class WelcomePageComponent {
     }
     this.saving.set(false);
     this.chooseExpertTemplate(this.template().id);
-    this.step.set('ready');
+    this.goTo('library');
   }
 
   /** Reads the website and pre-fills the fields; the person still checks them before continuing. */
@@ -208,7 +233,7 @@ export class WelcomePageComponent {
 
   back(): void {
     const index = STEPS.indexOf(this.step());
-    if (index > 0) this.step.set(STEPS[index - 1]);
+    if (index > 0) this.goTo(STEPS[index - 1]);
   }
 
   /** Straight to the app with only what they typed on the homepage. */

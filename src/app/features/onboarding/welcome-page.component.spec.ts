@@ -35,6 +35,7 @@ describe('WelcomePageComponent', () => {
     component.name.set('Acme');
     component.description.set('Launch videos from release notes');
     await component.continueFromProduct();
+    component.goTo('ready');
   }
 
   beforeEach(() => {
@@ -73,7 +74,31 @@ describe('WelcomePageComponent', () => {
     await component.continueFromProduct();
 
     expect(brand.saveBasics).toHaveBeenCalledWith(jasmine.objectContaining({ name: 'Acme', website: 'https://acme.com/' }));
-    expect(component.step()).toBe('ready');
+    expect(component.step()).toBe('library');
+  });
+
+  it('shows the prompt library before the first video, with its own template marked', async () => {
+    const component = create('/editor');
+    component.chooseLevel('beginner');
+    component.chooseGoal('explainer');
+    component.name.set('Acme');
+    await component.continueFromProduct();
+
+    expect(component.step()).toBe('library');
+    expect(component.template().id).toBe('how-it-works');
+    expect(component.libraryPath).toBe('/resources/prompt-templates');
+  });
+
+  it('slides back to an answered step from the rail, never ahead', () => {
+    const component = create('/editor');
+    component.chooseLevel('beginner');
+    component.chooseGoal('launch');
+
+    expect(component.canRevisit('level')).toBeTrue();
+    expect(component.canRevisit('ready')).toBeFalse();
+    component.goTo('level');
+    expect(component.step()).toBe('level');
+    expect(component.direction()).toBe('back');
   });
 
   it('still continues when saving the brand fails, and says so', async () => {

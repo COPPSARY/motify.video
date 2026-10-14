@@ -16,6 +16,15 @@ export interface OnboardingOption<T extends string> {
   readonly description: string;
 }
 
+/** A still from the landing page showcase, shown on the goal's tile. */
+export interface GoalPreview {
+  readonly poster: string;
+}
+
+export interface GoalOption extends OnboardingOption<OnboardingGoal> {
+  readonly preview: GoalPreview;
+}
+
 export interface GoalDetails {
   /** The prompt template this goal starts from. */
   readonly templateId: string;
@@ -40,11 +49,31 @@ export const PROMPT_LEVELS: readonly OnboardingOption<PromptLevel>[] = [
   { id: 'expert', label: 'Expert', description: 'I write detailed prompts' },
 ];
 
-export const ONBOARDING_GOALS: readonly OnboardingOption<OnboardingGoal>[] = [
-  { id: 'launch', label: 'Product launch', description: 'Introduce your product' },
-  { id: 'feature', label: 'Feature update', description: 'Show one new thing' },
-  { id: 'social-ad', label: 'Social ad', description: 'A short, bold clip' },
-  { id: 'explainer', label: 'Explainer', description: 'How it works, step by step' },
+export const ONBOARDING_GOALS: readonly GoalOption[] = [
+  {
+    id: 'launch',
+    label: 'Product launch',
+    description: 'Introduce your product',
+    preview: { poster: 'assets/showcase/posters/motify-60fps.jpg' },
+  },
+  {
+    id: 'feature',
+    label: 'Feature update',
+    description: 'Show one new thing',
+    preview: { poster: 'assets/showcase/posters/motify-brand-dna.jpg' },
+  },
+  {
+    id: 'social-ad',
+    label: 'Social ad',
+    description: 'A short, bold clip',
+    preview: { poster: 'assets/showcase/posters/bookmebus.jpg' },
+  },
+  {
+    id: 'explainer',
+    label: 'Explainer',
+    description: 'How it works, step by step',
+    preview: { poster: 'assets/showcase/posters/kiritts.jpg' },
+  },
 ];
 
 export const GOAL_DETAILS: Readonly<Record<OnboardingGoal, GoalDetails>> = {

@@ -13,7 +13,7 @@
 
 .help-page h1 {
   margin: 0;
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: var(--motify-type-page-title);
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.04em;
@@ -38,9 +38,9 @@
   min-height: 2.6rem;
   align-items: center;
   padding: 0 1.25rem;
-  border-radius: 9999px;
+  border-radius: var(--motify-radius-pill);
   background: #ffffff;
-  color: #000000;
+  color: var(--motify-ink);
   font-size: 0.88rem;
   font-weight: 650;
   text-decoration: none;
@@ -66,7 +66,7 @@
   gap: 0.4rem;
   padding: 1.1rem 1.25rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0.75rem;
+  border-radius: var(--motify-radius-md);
   background: rgba(255, 255, 255, 0.02);
   text-decoration: none;
   transition: all 160ms ease;
@@ -97,7 +97,7 @@
 }
 
 .help-jump-card:hover .help-jump-card__arrow {
-  color: #ffffff;
+  color: var(--motify-text-primary);
   transform: translateX(2px);
 }
 
@@ -116,7 +116,7 @@
 .help-topic {
   padding: 2rem 2.25rem;
   border: 1px solid var(--motify-border);
-  border-radius: 0.85rem;
+  border-radius: var(--motify-radius-md);
   background: rgba(14, 16, 21, 0.6);
 }
 
@@ -147,7 +147,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: #ffffff;
+  color: var(--motify-text-primary);
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
@@ -174,7 +174,7 @@
   margin-top: 4rem;
   padding: 2.75rem 2.25rem;
   border: 1px solid var(--motify-border);
-  border-radius: 1rem;
+  border-radius: var(--motify-radius-lg);
   background: rgba(255, 255, 255, 0.02);
   display: flex;
   justify-content: space-between;
@@ -202,9 +202,9 @@
   min-height: 2.6rem;
   padding: 0 1.25rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 0.55rem;
+  border-radius: var(--motify-radius-sm);
   background: #ffffff;
-  color: #000000;
+  color: var(--motify-ink);
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;

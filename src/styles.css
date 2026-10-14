@@ -10,6 +10,8 @@
   /* Brand */
   --motify-cobalt: #1f45b0;
   --motify-cobalt-light: var(--motify-cobalt);
+  /* Cobalt is reserved for interactive elements (buttons, badges, focus); everything else stays black and white. */
+  --motify-cobalt-hover: #2758e6;
   --motify-ink: #07080a;
   --motify-white: #ffffff;
 
@@ -19,6 +21,8 @@
   --motify-surface: rgba(17, 18, 22, 0.82);
   --motify-surface-hover: rgba(25, 26, 31, 0.92);
   --motify-shell: rgba(7, 11, 24, 0.82);
+  --motify-surface-solid: #111216;
+  --motify-surface-sunken: #090a0d;
 
   /* Borders */
   --motify-border: rgba(255, 255, 255, 0.08);
@@ -26,6 +30,7 @@
 
   /* Text */
   --motify-text-primary: var(--motify-white);
+  --motify-text-strong: #e4e4e7;
   --motify-text-secondary: rgba(255, 255, 255, 0.72);
   --motify-text-muted: rgba(255, 255, 255, 0.5);
 
@@ -55,6 +60,10 @@
   --motify-type-section: clamp(2.2rem, 5vw, 4.25rem);
   --motify-heading-section: clamp(2.65rem, 5vw, 4.5rem);
   --motify-type-subheading: clamp(1.45rem, 3vw, 2.45rem);
+  /* Inner pages: marketing heroes (solutions, compare, pricing, blog index), content page titles, and in-page sections. */
+  --motify-type-page-hero: clamp(2.8rem, 6.5vw, 5.5rem);
+  --motify-type-page-title: clamp(2.4rem, 4.5vw, 3.8rem);
+  --motify-type-page-section: clamp(2rem, 4vw, 3.4rem);
   --motify-type-body: 1rem;
   --motify-type-small: 0.78rem;
   --motify-weight-regular: 400;
@@ -86,8 +95,12 @@
   --motify-ease-standard: cubic-bezier(0.2, 0.75, 0.25, 1);
 
   /* Radius */
+  --motify-radius-xs: 0.4rem;
   --motify-radius-sm: 0.5rem;
   --motify-radius-md: 0.75rem;
+  --motify-radius-lg: 1rem;
+  --motify-radius-xl: 1.5rem;
+  --motify-radius-pill: 999px;
 }
 
 *,

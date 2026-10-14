@@ -13,7 +13,7 @@
 
 .resource-hub h1 {
   margin: 0;
-  font-size: clamp(2.3rem, 4.2vw, 3.5rem);
+  font-size: var(--motify-type-page-title);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.04em;
@@ -43,7 +43,7 @@
   justify-content: center;
   padding: 0 1.15rem;
   border: 1px solid var(--motify-border-strong);
-  border-radius: 0.55rem;
+  border-radius: var(--motify-radius-sm);
   color: var(--motify-text-primary);
   font-size: 0.9rem;
   font-weight: 600;
@@ -52,9 +52,9 @@
 }
 
 .resource-hub__actions .resource-hub__primary {
-  border-color: #2758e6;
-  background: #1f45b0;
-  color: #fff;
+  border-color: var(--motify-cobalt);
+  background: var(--motify-cobalt);
+  color: var(--motify-text-primary);
 }
 
 .resource-hub__actions .resource-hub__primary:hover {
@@ -72,7 +72,7 @@
   align-items: center;
   padding: 2.25rem;
   border: 1px solid var(--motify-border);
-  border-radius: 1rem;
+  border-radius: var(--motify-radius-lg);
   background: rgba(14, 16, 21, 0.65);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
   margin-bottom: 5rem;
@@ -96,7 +96,7 @@
 .resource-hub__featured > a {
   border: 0;
   padding-inline: 0;
-  color: #60a5fa;
+  color: var(--motify-text-primary);
   font-weight: 600;
 }
 
@@ -140,7 +140,7 @@
   gap: 1.5rem;
   padding: 1.75rem;
   border: 1px solid var(--motify-border);
-  border-radius: 0.85rem;
+  border-radius: var(--motify-radius-md);
   background: rgba(255, 255, 255, 0.02);
   color: inherit;
   text-decoration: none;
@@ -154,17 +154,16 @@
 }
 
 .resource-hub__card--prompt {
-  background: linear-gradient(150deg, rgba(31, 69, 176, 0.16) 0%, rgba(14, 16, 21, 0.8) 100%);
-  border-color: rgba(39, 88, 230, 0.35);
+  background: var(--motify-surface-solid);
+  border-color: var(--motify-border-strong);
 }
 
 .resource-hub__card--storyboard {
   position: relative;
   overflow: hidden;
-  border-color: rgba(96, 165, 250, 0.42);
+  border-color: var(--motify-border-strong);
   background:
-    radial-gradient(circle at 92% 12%, rgba(96, 165, 250, 0.22), transparent 38%),
-    linear-gradient(145deg, rgba(39, 88, 230, 0.22), rgba(14, 16, 21, 0.82) 68%);
+    var(--motify-surface-solid);
 }
 
 .resource-hub__card--blog {
@@ -183,9 +182,9 @@
   margin-bottom: 0.75rem;
   padding: 0.3rem 0.55rem;
   border: 1px solid rgba(139, 188, 255, 0.32);
-  border-radius: 999px;
-  background: rgba(96, 165, 250, 0.1);
-  color: #9fc7ff;
+  border-radius: var(--motify-radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--motify-text-muted);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -193,7 +192,7 @@
 }
 
 .resource-hub__card--storyboard small {
-  color: #8bbcff;
+  color: var(--motify-text-muted);
 }
 
 .resource-hub__card-content h3 {

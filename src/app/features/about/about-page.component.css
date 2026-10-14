@@ -14,11 +14,11 @@
 
 .about__hero-main h1 {
   margin: 0;
-  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-size: var(--motify-type-page-title);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.04em;
-  color: #ffffff;
+  color: var(--motify-text-primary);
 }
 
 .about__hero-aside {
@@ -30,7 +30,7 @@
 
 .about__hero-aside p {
   margin: 0;
-  color: #a1a1aa;
+  color: var(--motify-text-secondary);
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
   line-height: 1.65;
 }
@@ -54,7 +54,7 @@
   font-weight: 500;
   line-height: 1.4;
   letter-spacing: -0.02em;
-  color: #f4f4f5;
+  color: var(--motify-text-strong);
   font-style: normal;
 }
 
@@ -63,7 +63,7 @@
   margin-top: 1.25rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #a1a1aa;
+  color: var(--motify-text-secondary);
   font-style: normal;
   letter-spacing: 0.01em;
 }
@@ -84,7 +84,7 @@
 
 .about__section-heading h2 {
   margin: 0;
-  color: #fff;
+  color: var(--motify-text-primary);
   font-size: clamp(1.65rem, 3vw, 2.45rem);
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -97,7 +97,7 @@
 
 .about__story-copy p {
   margin: 0;
-  color: #aeb0b8;
+  color: var(--motify-text-secondary);
   font-size: 1rem;
   line-height: 1.8;
 }
@@ -117,7 +117,7 @@
   flex-direction: column;
   padding: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.85rem;
+  border-radius: var(--motify-radius-md);
   background:
     linear-gradient(150deg, rgba(255, 255, 255, 0.045), transparent 50%),
     #0d0e12;
@@ -133,7 +133,7 @@
 .about__workflow-steps h3,
 .about__audience-grid h3 {
   margin: 0;
-  color: #fff;
+  color: var(--motify-text-primary);
   font-size: 1.05rem;
 }
 
@@ -144,7 +144,7 @@
 .about__workflow-steps p,
 .about__audience-grid p {
   margin: 0.45rem 0 0;
-  color: #a1a1aa;
+  color: var(--motify-text-secondary);
   font-size: 0.92rem;
   line-height: 1.65;
 }
@@ -158,7 +158,7 @@
 .about__audience-grid article {
   padding: 1.4rem;
   border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 0.75rem;
+  border-radius: var(--motify-radius-md);
   background: rgba(255, 255, 255, 0.02);
 }
 
@@ -182,7 +182,7 @@
   font-weight: 400; /* SF Pro Display Regular */
   line-height: 1.25;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--motify-text-primary);
 }
 
 .about__vm-text {
@@ -191,7 +191,7 @@
   font-size: clamp(1.05rem, 1.6vw, 1.22rem);
   font-weight: 400; /* SF Pro Display Regular */
   line-height: 1.6;
-  color: #a1a1aa;
+  color: var(--motify-text-secondary);
 }
 
 /* COPPSARY Team */
@@ -209,12 +209,12 @@
   margin: 0;
   font-size: clamp(1.6rem, 3.2vw, 2.4rem);
   font-weight: 700;
-  color: #ffffff;
+  color: var(--motify-text-primary);
 }
 
 .about__team-subtitle {
   margin: 0.6rem 0 2rem;
-  color: #a1a1aa;
+  color: var(--motify-text-secondary);
   font-size: 0.96rem;
 }
 
@@ -259,7 +259,7 @@
   min-width: max-content;
   padding: 0.45rem 0.65rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 0.45rem;
+  border-radius: var(--motify-radius-xs);
   background: rgba(10, 10, 12, 0.96);
   opacity: 0;
   pointer-events: none;
@@ -269,11 +269,11 @@
 
 .about__team-tooltip strong {
   font-size: 0.84rem;
-  color: #fff;
+  color: var(--motify-text-primary);
 }
 
 .about__team-tooltip span {
-  color: #8b8d98;
+  color: var(--motify-text-muted);
   font-size: 0.72rem;
 }
 

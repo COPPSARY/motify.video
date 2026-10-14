@@ -58,8 +58,8 @@
   margin-top: 2rem;
   padding: 0.85rem 0.85rem 0.7rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 1.25rem;
-  background: #111216;
+  border-radius: var(--motify-radius-xl);
+  background: var(--motify-surface-solid);
   box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.24);
   text-align: left;
 }
@@ -113,7 +113,7 @@
   gap: 0.2rem;
   padding: 0.35rem;
   border: 1px solid var(--motify-border-strong);
-  border-radius: 0.7rem;
+  border-radius: var(--motify-radius-md);
   background: rgba(8, 9, 11, 0.98);
   box-shadow: var(--motify-shell-shadow);
 }
@@ -121,7 +121,7 @@
 .hero__asset-menu button {
   padding: 0.5rem 0.6rem;
   border: 0;
-  border-radius: 0.4rem;
+  border-radius: var(--motify-radius-xs);
   background: transparent;
   color: var(--motify-text-secondary);
   font: inherit;
@@ -177,7 +177,7 @@
   align-items: center;
   padding: 0.45rem 0.6rem;
   border: 0;
-  border-radius: 0.55rem;
+  border-radius: var(--motify-radius-sm);
   background: transparent;
   color: var(--motify-text-secondary);
   cursor: pointer;
@@ -190,7 +190,7 @@
 .hero__submit {
   border: 0;
   background: #fff;
-  color: #07080a;
+  color: var(--motify-ink);
   transition: transform var(--motify-duration-fast) var(--motify-ease-standard);
 }
 

@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node scripts/write-runtime-config.mjs --development && ng serve",
-    "build": "node scripts/write-runtime-config.mjs && node scripts/write-prerender-routes.mjs && ng build",
-    "watch": "node scripts/write-runtime-config.mjs --development && ng build --watch --configuration development",
+    "start": "node scripts/write-runtime-config.mjs --development && node scripts/fetch-templates.mjs --allow-stale && ng serve",
+    "build": "node scripts/write-runtime-config.mjs && node scripts/fetch-templates.mjs && node scripts/write-prerender-routes.mjs && ng build",
+    "watch": "node scripts/write-runtime-config.mjs --development && node scripts/fetch-templates.mjs --allow-stale && ng build --watch --configuration development",
+    "pretest": "node scripts/fetch-templates.mjs --allow-stale",
     "test": "ng test",
-    "templates:export": "node --no-warnings scripts/export-template-seed.mjs",
     "serve:ssr:motify": "node dist/motify/server/server.mjs"
   },
   "private": true,

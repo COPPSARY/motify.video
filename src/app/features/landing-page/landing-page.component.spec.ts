@@ -3,7 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import * as fc from 'fast-check';
 import { FEATURED_TEMPLATES, LandingPageComponent } from './landing-page.component';
-import { getMotionTemplate, templateAspect } from '../templates/template-library.data';
+import { getMotionTemplate } from '../templates/template-catalog';
+import { templateAspect } from '../templates/template-library.data';
 
 describe('LandingPageComponent', () => {
   beforeEach(async () => {

@@ -18,6 +18,7 @@ import { ResourcesSectionComponent } from './components/resources-section/resour
 import { FooterComponent } from './components/footer/footer.component';
 import { ValuePointsComponent } from './components/value-points/value-points.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
+import previews from '../templates/template-previews.generated.json';
 
 export interface FeaturedTemplate {
   readonly slug: string;
@@ -28,24 +29,32 @@ export interface FeaturedTemplate {
 }
 
 /**
- * A mix of formats from the template library. Kept as a light copy so the
- * prompt library stays out of the landing bundle; the spec checks it against
- * the library. Each card opens `/templates/:slug`.
+ * A mix of formats from the template library. Titles and aspect ratios are a
+ * light copy so the prompt library stays out of the landing bundle; the video
+ * comes from the small previews file built from the backend. The spec checks
+ * both against the library. Each card opens `/templates/:slug`.
  */
-export const FEATURED_TEMPLATES: readonly FeaturedTemplate[] = [
-  { slug: 'moticrm-chaos-to-clarity', title: 'Customer Chaos to Clarity', video: '/templates/moticrm-chaos-to-clarity.webm', aspect: '16 / 9' },
-  { slug: 'kept-every-coin', title: 'Every Coin Has a Place', video: '/templates/kept-every-coin.webm', aspect: '9 / 16' },
-  { slug: 'living-poster', title: 'Living Poster', video: '/templates/living-poster.webm', aspect: '4 / 5' },
-  { slug: 'paper-moon', title: 'Paper Moon', video: '/templates/paper-moon.webm', aspect: '16 / 9' },
-  { slug: 'tempo-feature-announcement', title: 'Introducing Auto-Schedule', video: '/templates/tempo-feature-announcement.webm', aspect: '1 / 1' },
-  { slug: 'motiks-retro-editorial', title: 'Playful Retro Editorial', video: '/templates/motiks-retro-editorial.webm', aspect: '4 / 5' },
-  { slug: 'say-it-louder', title: 'Say It Louder', video: '/templates/say-it-louder.webm', aspect: '9 / 16' },
-  { slug: 'codeloom-red-to-green', title: 'Red to Green', video: '/templates/codeloom-red-to-green.webm', aspect: '16 / 9' },
-  { slug: 'northwind-logo-reveal', title: 'Mark in Motion', video: '/templates/northwind-logo-reveal.webm', aspect: '1 / 1' },
-  { slug: 'shape-of-data', title: 'The Shape of a Year', video: '/templates/shape-of-data.webm', aspect: '4 / 5' },
-  { slug: 'motiks-spicy-curls', title: 'Spicy Curls Fire & Lime', video: '/templates/motiks-spicy-curls.webm', aspect: '16 / 9' },
-  { slug: 'fold-space', title: 'Fold Space', video: '/templates/fold-space.webm', aspect: '1 / 1' },
-];
+const featured = [
+  { slug: 'moticrm-chaos-to-clarity', title: 'Customer Chaos to Clarity', aspect: '16 / 9' },
+  { slug: 'kept-every-coin', title: 'Every Coin Has a Place', aspect: '9 / 16' },
+  { slug: 'living-poster', title: 'Living Poster', aspect: '4 / 5' },
+  { slug: 'paper-moon', title: 'Paper Moon', aspect: '16 / 9' },
+  { slug: 'tempo-feature-announcement', title: 'Introducing Auto-Schedule', aspect: '1 / 1' },
+  { slug: 'motiks-retro-editorial', title: 'Playful Retro Editorial', aspect: '4 / 5' },
+  { slug: 'say-it-louder', title: 'Say It Louder', aspect: '9 / 16' },
+  { slug: 'codeloom-red-to-green', title: 'Red to Green', aspect: '16 / 9' },
+  { slug: 'northwind-logo-reveal', title: 'Mark in Motion', aspect: '1 / 1' },
+  { slug: 'shape-of-data', title: 'The Shape of a Year', aspect: '4 / 5' },
+  { slug: 'motiks-spicy-curls', title: 'Spicy Curls Fire & Lime', aspect: '16 / 9' },
+  { slug: 'fold-space', title: 'Fold Space', aspect: '1 / 1' },
+] as const;
+
+const previewVideo = (slug: string) => previews.find((preview) => preview.slug === slug)?.video ?? '';
+
+export const FEATURED_TEMPLATES: readonly FeaturedTemplate[] = featured.map((template) => ({
+  ...template,
+  video: previewVideo(template.slug),
+}));
 
 @Component({
   selector: 'app-landing-page',

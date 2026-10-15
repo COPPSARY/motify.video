@@ -33,6 +33,7 @@
               <video
                 [src]="template.video"
                 autoplay
+                muted
                 [muted]="true"
                 [volume]="0"
                 loop
@@ -82,6 +83,7 @@
           [style.aspect-ratio]="templateAspect(template).css"
           [class.is-tall]="templateAspect(template).tall"
           autoplay
+          muted
           [muted]="true"
           loop
           playsinline

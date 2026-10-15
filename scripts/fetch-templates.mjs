@@ -31,17 +31,17 @@ try {
   const previews = templates.map(({ slug, video, aspectRatio }) => ({ slug, video, aspectRatio }));
   await writeFile(resolve(outDir, 'templates.generated.json'), `${JSON.stringify(templates, null, 2)}\n`, 'utf8');
   await writeFile(resolve(outDir, 'template-previews.generated.json'), `${JSON.stringify(previews, null, 2)}\n`, 'utf8');
-  console.log(`fetched ${templates.length} templates from ${apiUrl}`);
+  console.log(`fetched ${templates.length} templates`);
 } catch (error) {
   if (!allowStale) {
-    throw new Error(`Could not read templates from ${apiUrl}: ${error.message}. Start the backend or fix MOTIFY_API_URL.`);
+    throw new Error(`Could not read templates: ${error.message}. Start the backend or fix MOTIFY_API_URL.`);
   }
   for (const name of ['templates.generated.json', 'template-previews.generated.json']) {
     const path = resolve(outDir, name);
     const existing = await readFile(path, 'utf8').catch(() => null);
     if (existing === null) await writeFile(path, '[]\n', 'utf8');
   }
-  console.warn(`could not read templates from ${apiUrl} (${error.message}); keeping the previous copy`);
+  console.warn(`could not read templates (${error.message}); keeping the previous copy`);
 }
 
 async function readDotEnv(path) {

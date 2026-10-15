@@ -15,7 +15,7 @@ interface AuthResponse {
   readonly data: {
     readonly user: MotifyUser;
     readonly csrfToken: string;
-    /** True only on the login that created the account; drives onboarding. */
+    /** True only on the login that created the account; starts the app's first-run flow. */
     readonly newAccount?: boolean;
   };
 }

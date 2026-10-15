@@ -28,27 +28,18 @@ export function motifyApiUrl(): string {
   return trimTrailingSlash(configured.trim());
 }
 
-/** What /welcome hands to the app so its first-run tour can be tailored. Nothing is stored. */
-export interface AppHandoff {
-  readonly tour?: boolean;
-  readonly level?: string;
-  readonly goal?: string;
-  readonly brandName?: string;
-  readonly brandUrl?: string;
-}
-
-export function motifyEditorUrl(prompt?: string, handoff: AppHandoff = {}): string {
+/**
+ * `newAccount` marks a visitor who has just created an account, so the app
+ * starts its own first-run flow (Brand DNA, then Prompt Templates and a tour).
+ */
+export function motifyEditorUrl(prompt?: string, options: { readonly newAccount?: boolean } = {}): string {
   const configured = typeof window === 'undefined'
     ? undefined
     : window.__MOTIFY_CONFIG__?.motifyEditorUrl;
   const url = new URL(configured || (isLocalBrowser() ? LOCAL_EDITOR_URL : PRODUCTION_EDITOR_URL));
   const normalizedPrompt = prompt?.trim();
   if (normalizedPrompt) url.searchParams.set('prompt', normalizedPrompt);
-  if (handoff.tour) url.searchParams.set('tour', '1');
-  for (const key of ['level', 'goal', 'brandName', 'brandUrl'] as const) {
-    const value = handoff[key]?.trim();
-    if (value) url.searchParams.set(key, value);
-  }
+  if (options.newAccount) url.searchParams.set('newAccount', '1');
   return url.toString();
 }
 
@@ -64,14 +55,9 @@ export function promptFromReturnPath(returnUrl: string): string {
   return new URL(returnUrl, 'https://motify.invalid').searchParams.get('prompt')?.trim() ?? '';
 }
 
-/** Where a signed-in user goes before the app: /welcome, keeping their return path. */
-export function welcomePathFor(returnUrl: string): string {
-  return `/welcome?returnUrl=${encodeURIComponent(returnUrl)}`;
-}
-
-export function editorUrlForReturnPath(returnUrl: string): string {
+export function editorUrlForReturnPath(returnUrl: string, newAccount = false): string {
   const returnPath = new URL(returnUrl, 'https://motify.invalid');
-  return motifyEditorUrl(returnPath.searchParams.get('prompt') ?? undefined);
+  return motifyEditorUrl(returnPath.searchParams.get('prompt') ?? undefined, { newAccount });
 }
 
 function trimTrailingSlash(value: string): string {

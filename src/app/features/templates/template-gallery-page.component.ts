@@ -1,5 +1,6 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -10,7 +11,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   LucideArrowRight,
   LucideCheck,
@@ -21,7 +22,13 @@ import {
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
 import { SeoService } from '../../shared/services/seo.service';
-import { MOTION_TEMPLATES, MotionTemplate, renderTemplatePrompt } from './template-library.data';
+import {
+  MOTION_TEMPLATES,
+  MotionTemplate,
+  getMotionTemplate,
+  renderTemplatePrompt,
+  templateAspect,
+} from './template-library.data';
 
 @Component({
   selector: 'app-template-gallery-page',
@@ -41,6 +48,8 @@ import { MOTION_TEMPLATES, MotionTemplate, renderTemplatePrompt } from './templa
 })
 export class TemplateGalleryPageComponent implements OnDestroy {
   private readonly router = inject(Router);
+  private readonly location = inject(Location);
+  private readonly seo = inject(SeoService);
   private readonly document = inject(DOCUMENT);
   private previouslyFocused: HTMLElement | null = null;
   private previousBodyOverflow = '';
@@ -49,10 +58,14 @@ export class TemplateGalleryPageComponent implements OnDestroy {
 
   readonly templates = MOTION_TEMPLATES;
   readonly renderTemplatePrompt = renderTemplatePrompt;
+  readonly templateAspect = templateAspect;
   readonly selectedSlug = signal<string | null>(null);
   readonly activeCategory = signal('All');
   readonly copied = signal(false);
-  readonly categories = ['All', 'Showreel', 'Product', 'Storytelling', 'Kinetic type', 'UI', 'Special'];
+  readonly categories = [
+    'All', 'Product', 'Marketing', 'Design', 'Explainer', 'Experiment',
+    'Storytelling', 'Showreel', 'Kinetic type', 'UI', 'Special',
+  ];
 
   readonly visibleTemplates = computed(() => {
     const category = this.activeCategory();
@@ -66,11 +79,35 @@ export class TemplateGalleryPageComponent implements OnDestroy {
   );
 
   constructor() {
-    inject(SeoService).apply({
-      title: 'Motion Design Templates | Motify',
-      description: 'Browse curated, customizable motion design prompts with finished video previews.',
-      path: '/templates',
-    });
+    // `/templates/:slug` is the gallery with that template open, so it can be linked and shared.
+    const slug = inject(ActivatedRoute).snapshot.paramMap.get('slug');
+    const linked = slug ? getMotionTemplate(slug) : undefined;
+    this.applySeo(linked);
+    if (linked) {
+      this.selectedSlug.set(linked.slug);
+      afterNextRender(() => {
+        this.previousBodyOverflow = this.document.body.style.overflow;
+        this.document.body.style.overflow = 'hidden';
+        this.closeButton?.nativeElement.focus();
+      });
+    } else if (slug) {
+      afterNextRender(() => this.location.replaceState('/templates'));
+    }
+  }
+
+  /** The gallery's metadata, or one template's when it is open. */
+  private applySeo(template?: MotionTemplate): void {
+    this.seo.apply(template
+      ? {
+          title: `${template.title} — Motion Design Template | Motify`,
+          description: template.description,
+          path: `/templates/${template.slug}`,
+        }
+      : {
+          title: 'Motion Design Templates | Motify',
+          description: 'Browse curated, customizable motion design prompts with finished video previews.',
+          path: '/templates',
+        });
   }
 
   setCategory(category: string): void {
@@ -93,6 +130,9 @@ export class TemplateGalleryPageComponent implements OnDestroy {
     this.document.body.style.overflow = 'hidden';
     this.selectedSlug.set(template.slug);
     this.copied.set(false);
+    // The URL follows the open template without adding history entries.
+    this.location.replaceState(`/templates/${template.slug}`);
+    this.applySeo(template);
     setTimeout(() => this.closeButton?.nativeElement.focus());
   }
 
@@ -100,6 +140,8 @@ export class TemplateGalleryPageComponent implements OnDestroy {
     if (!this.selectedSlug()) return;
     this.selectedSlug.set(null);
     this.document.body.style.overflow = this.previousBodyOverflow;
+    this.location.replaceState('/templates');
+    this.applySeo();
     this.previouslyFocused?.focus();
   }
 

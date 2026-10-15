@@ -150,6 +150,11 @@ export const routes: Routes = [
     title: 'Motion Design Templates | Motify',
   },
   {
+    // The gallery with one template's preview open; the page sets its own title.
+    path: 'templates/:slug',
+    loadComponent: loadTemplateGalleryPage,
+  },
+  {
     path: 'resources/start-here',
     component: ResourceCategoryPageComponent,
     data: { category: 'start-here' },

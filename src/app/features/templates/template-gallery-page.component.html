@@ -29,7 +29,7 @@
       @for (template of visibleTemplates(); track template.slug) {
         <article class="template-card">
           <button type="button" class="template-card__button" (click)="openTemplate(template)" [attr.aria-label]="'Preview ' + template.title">
-            <span class="template-card__media">
+            <span class="template-card__media" [style.aspect-ratio]="templateAspect(template).css">
               <video
                 [src]="template.video"
                 autoplay
@@ -47,6 +47,7 @@
               @if (template.special) {
                 <span class="template-card__special"><svg lucideSparkles aria-hidden="true"></svg> Special</span>
               }
+              <span class="template-card__format">{{ template.aspectRatio }}</span>
               <span class="template-card__open">View template <svg lucideArrowRight aria-hidden="true"></svg></span>
             </span>
             <span class="template-card__info">
@@ -76,7 +77,17 @@
       </button>
 
       <div class="template-modal__media">
-        <video [src]="template.video" autoplay [muted]="true" loop playsinline controls preload="auto"></video>
+        <video
+          [src]="template.video"
+          [style.aspect-ratio]="templateAspect(template).css"
+          [class.is-tall]="templateAspect(template).tall"
+          autoplay
+          [muted]="true"
+          loop
+          playsinline
+          controls
+          preload="auto"
+        ></video>
       </div>
 
       <div class="template-modal__details">
@@ -85,6 +96,7 @@
           <h2 [id]="'modal-title-' + template.slug">{{ template.title }}</h2>
           <div class="template-modal__tags">
             @for (tag of template.categories; track tag) { <span>{{ tag }}</span> }
+            <span>{{ template.aspectRatio }}</span>
           </div>
         </div>
 

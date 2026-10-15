@@ -42,3 +42,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Written by scripts/write-prerender-routes.mjs during the build
+/prerender-routes.txt

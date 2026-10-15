@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "node scripts/write-runtime-config.mjs --development && ng serve",
-    "build": "node scripts/write-runtime-config.mjs && ng build",
+    "build": "node scripts/write-runtime-config.mjs && node scripts/write-prerender-routes.mjs && ng build",
     "watch": "node scripts/write-runtime-config.mjs --development && ng build --watch --configuration development",
     "test": "ng test",
+    "templates:export": "node --no-warnings scripts/export-template-seed.mjs",
     "serve:ssr:motify": "node dist/motify/server/server.mjs"
   },
   "private": true,

@@ -30,18 +30,18 @@
         <div class="workflow__heading" [appScrollReveal]="0">
           <div>
             <h2 id="workflow-title">Explore templates</h2>
-            <p>Five videos made with Motify, with prompts ready to copy and make your own.</p>
+            <p>Product demos, ads, posters, explainers and experiments made with Motify, in every format, with prompts ready to copy and make your own.</p>
           </div>
           <a class="workflow__view-all" routerLink="/templates">View all</a>
         </div>
         <div class="workflow__gallery" [appScrollReveal]="80">
-          @for (template of featuredTemplates; track template.videoSrc) {
-            <article class="workflow__template">
-              <div class="workflow__template-media">
+          @for (template of featuredTemplates; track template.slug) {
+            <a class="workflow__template" [routerLink]="['/templates', template.slug]">
+              <div class="workflow__template-media" [style.aspect-ratio]="template.aspect">
                 <video
                   #templatePreview
-                  [src]="template.videoSrc"
-                  [attr.aria-label]="template.title + ' template preview'"
+                  [src]="template.video"
+                  aria-hidden="true"
                   [muted]="true"
                   [volume]="0"
                   loop
@@ -53,7 +53,7 @@
                 ></video>
               </div>
               <h3>{{ template.title }}</h3>
-            </article>
+            </a>
           }
         </div>
       </div>

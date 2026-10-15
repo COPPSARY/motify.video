@@ -2,7 +2,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import * as fc from 'fast-check';
-import { LandingPageComponent } from './landing-page.component';
+import { FEATURED_TEMPLATES, LandingPageComponent } from './landing-page.component';
+import { getMotionTemplate, templateAspect } from '../templates/template-library.data';
 
 describe('LandingPageComponent', () => {
   beforeEach(async () => {
@@ -66,6 +67,21 @@ describe('LandingPageComponent', () => {
     expect(compiled.querySelectorAll('.resources__card').length).toBe(0);
     expect(compiled.textContent).toContain('Ready to ship?');
     expect(compiled.textContent).not.toContain('Resources for work that ships.');
+  });
+
+  it('features library templates in several formats, each linking to its gallery page', () => {
+    for (const featured of FEATURED_TEMPLATES) {
+      const template = getMotionTemplate(featured.slug);
+      expect(template).withContext(featured.slug).toBeDefined();
+      expect(featured.video).withContext(featured.slug).toBe(template!.video);
+      expect(featured.aspect).withContext(featured.slug).toBe(templateAspect(template!).css);
+    }
+    expect(new Set(FEATURED_TEMPLATES.map((featured) => featured.aspect)).size).toBe(4);
+
+    const fixture = TestBed.createComponent(LandingPageComponent);
+    fixture.detectChanges();
+    const links = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLAnchorElement>('a.workflow__template'));
+    expect(links.map((link) => link.getAttribute('href'))).toEqual(FEATURED_TEMPLATES.map((featured) => `/templates/${featured.slug}`));
   });
 
   it('recognizes Datadog for Startups in the supported-by strip', () => {

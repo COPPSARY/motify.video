@@ -1,12 +1,13 @@
-import {
-  MOTION_TEMPLATES,
-  getMotionTemplate,
-  renderTemplatePrompt,
-  templateAspect,
-  templateDefaults,
-} from './template-library.data';
+import { MOTION_TEMPLATES, getMotionTemplate } from './template-catalog';
+import { renderTemplatePrompt, templateAspect, templateDefaults } from './template-library.data';
 
+// The library is built from the backend (scripts/fetch-templates.mjs), so these
+// check what came back, not a fixed list.
 describe('motion template library', () => {
+  it('has templates, so the site was built with the backend running', () => {
+    expect(MOTION_TEMPLATES.length).toBeGreaterThan(0);
+  });
+
   it('uses unique slugs and defines every prompt field', () => {
     expect(new Set(MOTION_TEMPLATES.map((template) => template.slug)).size).toBe(MOTION_TEMPLATES.length);
 
@@ -18,9 +19,11 @@ describe('motion template library', () => {
     }
   });
 
-  it('names a preview per slug and covers several aspect ratios', () => {
+  it('links a preview per slug and covers several aspect ratios', () => {
     for (const template of MOTION_TEMPLATES) {
-      expect(template.video).withContext(template.slug).toMatch(/^\/templates\/[a-z0-9-]+\.webm$/);
+      expect(template.video)
+        .withContext(template.slug)
+        .toMatch(new RegExp(`^https?://.+/v1/prompt-templates/${template.slug}/video$`));
     }
     expect(new Set(MOTION_TEMPLATES.map((template) => template.video)).size).toBe(MOTION_TEMPLATES.length);
     expect(new Set(MOTION_TEMPLATES.map((template) => template.aspectRatio)).size).toBeGreaterThanOrEqual(4);

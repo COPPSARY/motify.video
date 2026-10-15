@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { LucideEye, LucideEyeOff } from '@lucide/angular';
 import { AuthService } from '../../shared/services/auth.service';
 import { SeoService } from '../../shared/services/seo.service';
-import { editorUrlForReturnPath, welcomePathFor } from '../../shared/config/runtime-config';
+import { editorUrlForReturnPath } from '../../shared/config/runtime-config';
 
 type AuthMode = 'signin' | 'signup';
 
@@ -99,11 +99,10 @@ export class LoginPageComponent {
     window.location.href = this.auth.googleLoginUrl();
   }
 
-  /** New accounts get onboarding on the way to the app; everyone else goes straight there. */
+  /** Everyone goes straight to the app; a new account is flagged so the app starts its first-run flow. */
   private finishLogin(newAccount: boolean): void {
     if (this.returnUrl.startsWith('/editor')) {
-      if (newAccount) void this.router.navigateByUrl(welcomePathFor(this.returnUrl));
-      else window.location.href = editorUrlForReturnPath(this.returnUrl);
+      window.location.href = editorUrlForReturnPath(this.returnUrl, newAccount);
       return;
     }
     const destination = this.returnUrl.startsWith('/') && !this.returnUrl.startsWith('//')

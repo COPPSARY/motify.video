@@ -22,13 +22,8 @@ import {
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
 import { SeoService } from '../../shared/services/seo.service';
-import {
-  MOTION_TEMPLATES,
-  MotionTemplate,
-  getMotionTemplate,
-  renderTemplatePrompt,
-  templateAspect,
-} from './template-library.data';
+import { MOTION_TEMPLATES, getMotionTemplate } from './template-catalog';
+import { MotionTemplate, renderTemplatePrompt, templateAspect } from './template-library.data';
 
 @Component({
   selector: 'app-template-gallery-page',

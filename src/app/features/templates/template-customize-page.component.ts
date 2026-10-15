@@ -11,12 +11,8 @@ import {
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
 import { SeoService } from '../../shared/services/seo.service';
-import {
-  getMotionTemplate,
-  promptSegmentValue,
-  renderTemplatePrompt,
-  templateDefaults,
-} from './template-library.data';
+import { getMotionTemplate } from './template-catalog';
+import { promptSegmentValue, renderTemplatePrompt, templateDefaults } from './template-library.data';
 
 @Component({
   selector: 'app-template-customize-page',

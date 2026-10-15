@@ -45,3 +45,7 @@ Thumbs.db
 
 # Written by scripts/write-prerender-routes.mjs during the build
 /prerender-routes.txt
+
+# Built from the backend by scripts/fetch-templates.mjs
+/src/app/features/templates/templates.generated.json
+/src/app/features/templates/template-previews.generated.json

@@ -3,7 +3,6 @@ import {
   editorUrlForReturnPath,
   motifyApiUrl,
   motifyEditorUrl,
-  welcomePathFor,
 } from './runtime-config';
 
 describe('Motify runtime config', () => {
@@ -55,25 +54,24 @@ describe('Motify runtime config', () => {
     );
   });
 
-  it('adds tour hand-off params only when they are set', () => {
+  it('flags a new account for the app only when asked', () => {
     window.__MOTIFY_CONFIG__ = { motifyEditorUrl: 'https://editor.example.test/' };
 
     const plain = new URL(motifyEditorUrl('Hi'));
     expect([...plain.searchParams.keys()]).toEqual(['prompt']);
 
-    const tour = new URL(motifyEditorUrl('Hi', { tour: true, level: 'new', goal: 'launch', brandName: ' ', brandUrl: '' }));
-    expect(tour.searchParams.get('tour')).toBe('1');
-    expect(tour.searchParams.get('level')).toBe('new');
-    expect(tour.searchParams.get('goal')).toBe('launch');
-    expect(tour.searchParams.has('brandName')).toBeFalse();
-    expect(tour.searchParams.has('brandUrl')).toBeFalse();
+    const fresh = new URL(motifyEditorUrl('Hi', { newAccount: true }));
+    expect(fresh.searchParams.get('newAccount')).toBe('1');
+    expect(fresh.searchParams.get('prompt')).toBe('Hi');
   });
 
-  it('routes a signed-in user to /welcome with their return path intact', () => {
+  it('keeps the prompt and flags a new account when returning to the app', () => {
+    window.__MOTIFY_CONFIG__ = { motifyEditorUrl: 'https://editor.example.test/' };
     const returnPath = editorReturnPath('Launch & ship');
-    const welcome = new URL(welcomePathFor(returnPath), 'https://motify.invalid');
 
-    expect(welcome.pathname).toBe('/welcome');
-    expect(welcome.searchParams.get('returnUrl')).toBe(returnPath);
+    const fresh = new URL(editorUrlForReturnPath(returnPath, true));
+    expect(fresh.searchParams.get('prompt')).toBe('Launch & ship');
+    expect(fresh.searchParams.get('newAccount')).toBe('1');
+    expect(new URL(editorUrlForReturnPath(returnPath)).searchParams.has('newAccount')).toBeFalse();
   });
 });

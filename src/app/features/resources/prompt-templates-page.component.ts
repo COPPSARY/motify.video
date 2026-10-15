@@ -27,7 +27,7 @@ export class PromptTemplatesPageComponent {
   private readonly router = inject(Router);
   private readonly auth = inject(AuthService);
   readonly templates = PROMPT_TEMPLATES;
-  /** `?template=<id>` (from /welcome or a guide) opens that template; unknown ids fall back to the first. */
+  /** `?template=<id>` (from a guide) opens that template; unknown ids fall back to the first. */
   readonly selectedId = signal<string>(
     templateIdOrDefault(inject(ActivatedRoute).snapshot.queryParamMap.get('template')),
   );

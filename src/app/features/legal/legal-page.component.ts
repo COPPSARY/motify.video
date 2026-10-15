@@ -34,7 +34,7 @@ const LEGAL_PAGE_META: Record<LegalDocument, { title: string; description: strin
 })
 export class LegalPageComponent {
   readonly documentType = inject(ActivatedRoute).snapshot.data['document'] as LegalDocument;
-  readonly lastUpdated = 'October 2, 2026';
+  readonly lastUpdated = 'October 15, 2026';
 
   constructor() {
     inject(SeoService).apply(LEGAL_PAGE_META[this.documentType]);

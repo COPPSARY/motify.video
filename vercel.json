@@ -20,6 +20,26 @@
       "source": "/canvas-ai-video-editor",
       "destination": "/ai-motion-graphics-generator",
       "permanent": true
+    },
+    {
+      "source": "/resources/prompt-templates",
+      "destination": "/templates",
+      "permanent": true
+    },
+    {
+      "source": "/resources/storyboard-generator",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/resources/examples",
+      "destination": "/templates",
+      "permanent": true
+    },
+    {
+      "source": "/compare/video-agency",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "routes": [

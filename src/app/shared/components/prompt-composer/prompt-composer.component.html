@@ -1,0 +1,148 @@
+<form
+  class="composer"
+  [class.is-dragging]="dragging()"
+  (ngSubmit)="submitPrompt()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+>
+  @if (attachments().length > 0) {
+    <div class="composer__attachments" aria-label="Attached images and songs">
+      @for (attachment of attachments(); track attachment.id) {
+        <span class="composer__attachment" [title]="attachment.name">
+          @if (attachment.preview) {
+            <img class="composer__attachment-thumb" [src]="attachment.preview" [alt]="attachment.name" />
+          } @else {
+            <span class="composer__attachment-thumb composer__attachment-fallback">
+              <svg lucideMusic aria-hidden="true"></svg>
+            </span>
+          }
+          <span class="composer__attachment-name">{{ attachment.name }}</span>
+          <span class="composer__attachment-tag">{{ attachment.kind === 'audio' ? 'music' : 'image' }}</span>
+          <button
+            class="composer__attachment-remove"
+            type="button"
+            [attr.aria-label]="'Remove ' + attachment.name"
+            (click)="removeAttachment(attachment.id)"
+          >
+            <svg lucideX aria-hidden="true"></svg>
+          </button>
+        </span>
+      }
+    </div>
+  }
+  <label class="sr-only" [for]="inputId()">Describe your video</label>
+  <textarea
+    #promptInput
+    [id]="inputId()"
+    name="prompt"
+    [(ngModel)]="prompt"
+    rows="2"
+    [placeholder]="placeholder()"
+    (input)="resizePrompt()"
+    (keydown)="onPromptKeydown($event)"
+    (paste)="onPaste($event)"
+  ></textarea>
+  <div class="composer__actions">
+    <div class="composer__picker composer__picker--add">
+      <button
+        class="composer__round-button"
+        type="button"
+        aria-label="Attach an image or song"
+        title="Attach images or songs, or drop or paste them here"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="openMenu() === 'add'"
+        (click)="toggleMenu('add')"
+      >
+        <svg lucidePlus aria-hidden="true"></svg>
+      </button>
+      @if (openMenu() === 'add') {
+        <div class="composer__menu" role="menu">
+          <button type="button" role="menuitem" (click)="chooseFiles()">
+            <svg lucideUpload aria-hidden="true"></svg>
+            Upload image or song
+          </button>
+        </div>
+      }
+    </div>
+
+    <div class="composer__picker">
+      <button
+        class="composer__chip"
+        type="button"
+        [class.is-open]="openMenu() === 'aspect'"
+        [attr.aria-label]="'Video aspect ratio: ' + aspect() + ' ' + selectedAspect().name"
+        title="Choose the canvas before Tiffy creates your video"
+        aria-haspopup="listbox"
+        [attr.aria-expanded]="openMenu() === 'aspect'"
+        (click)="toggleMenu('aspect')"
+      >
+        <ng-container *ngTemplateOutlet="aspectIcon; context: { $implicit: aspect() }" />
+        <span>{{ aspect() }}<span class="composer__chip-detail"> · {{ selectedAspect().name }}</span></span>
+        <svg class="composer__chevron" lucideChevronDown aria-hidden="true"></svg>
+      </button>
+      @if (openMenu() === 'aspect') {
+        <div class="composer__menu composer__menu--aspect" role="listbox" aria-label="Video aspect ratio">
+          @for (option of aspectOptions; track option.value) {
+            <button
+              type="button"
+              role="option"
+              [class.is-selected]="aspect() === option.value"
+              [attr.aria-selected]="aspect() === option.value"
+              (click)="selectAspect(option.value)"
+            >
+              <ng-container *ngTemplateOutlet="aspectIcon; context: { $implicit: option.value }" />
+              <span>{{ option.value }} · {{ option.name }}</span>
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="composer__picker">
+      <button
+        class="composer__chip"
+        type="button"
+        [class.is-open]="openMenu() === 'effort'"
+        [attr.aria-label]="'Reasoning effort: ' + selectedEffort().label"
+        title="Choose how thoroughly Tiffy reasons before building"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="openMenu() === 'effort'"
+        (click)="toggleMenu('effort')"
+      >
+        <span><span class="composer__chip-detail">Effort: </span>{{ selectedEffort().label }}</span>
+        <svg class="composer__chevron" lucideChevronDown aria-hidden="true"></svg>
+      </button>
+      @if (openMenu() === 'effort') {
+        <div class="composer__menu composer__menu--effort" role="menu" aria-label="Reasoning effort">
+          @for (option of effortOptions; track option.value) {
+            <button
+              type="button"
+              role="menuitemradio"
+              [attr.aria-checked]="effort() === option.value"
+              (click)="selectEffort(option.value)"
+            >
+              <strong>{{ option.label }}</strong>
+              <small>{{ option.description }}</small>
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <button class="composer__submit" type="submit" aria-label="Create video" [disabled]="!prompt.trim()">
+      <svg lucideArrowUp aria-hidden="true"></svg>
+    </button>
+  </div>
+  @if (dragging()) {
+    <div class="composer__drop-hint" aria-hidden="true">Drop images or songs to attach</div>
+  }
+</form>
+
+<ng-template #aspectIcon let-value>
+  @switch (value) {
+    @case ('16:9') { <svg lucideRectangleHorizontal aria-hidden="true"></svg> }
+    @case ('1:1') { <svg lucideSquare aria-hidden="true"></svg> }
+    @default { <svg lucideRectangleVertical aria-hidden="true"></svg> }
+  }
+</ng-template>

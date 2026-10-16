@@ -1,17 +1,17 @@
 # Motify
 
-> Motify is a cloud AI video generator for SaaS marketing. Describe a product or paste a product link, and Motify generates an explainer, launch, demo, or promotional video that you refine by chatting with its AI assistant, Tiffy, then export.
+> Motify makes motion graphics easier for businesses, marketing teams, and agencies. Describe an idea, attach your images or music, or start from a template, and Motify creates an animated ad, product animation, explainer video, or social content that you refine by chatting with its AI assistant, Tiffy, then export.
 
-Motify runs in the browser at https://app.motify.video. It is built for founders, marketers, and product teams who need product videos without motion-design experience.
+Motify runs in the browser at https://app.motify.video. Motify is a Cambodian-led startup. It is built for businesses, marketing teams, and agencies who want motion graphics without learning complex software or getting caught in long production handoffs. AI helps with the production; you bring the ideas, creative direction, and judgment.
 
 Key facts:
 
-- Videos it makes: SaaS explainer videos, product launch videos, feature announcements, product demos, motion ads, promotional videos, and short-form social videos.
-- How it works: start from a prompt or product link. An AI pipeline understands the intent, plans scenes and pacing as a creative director, sharpens the messaging (for example Problem → Agitation → Solution), generates the animation, and runs a quality check before returning it.
+- What it makes: animated ads, product animations, explainer videos, launch and announcement videos, product demos, and marketing and social content.
+- How it works: start from a prompt, a website link, or a template. An AI pipeline understands the intent, plans scenes and pacing as a creative director, sharpens the messaging (for example Problem → Agitation → Solution), generates the animation, and runs a quality check before returning it.
 - Refine by prompting: ask Tiffy in plain language to change the hook, copy, pacing, scenes, music, or visual direction, and the same project updates. There is no timeline or keyframe tool to learn.
-- Inputs: prompts, product links, images and logos, uploaded music, and prompt templates from the resource library.
+- Inputs: prompts, website links, images and logos, uploaded music, and motion templates from the template gallery.
 - Brand: a Brand DNA / brand kit (typeface, voice, logo) is applied to every scene.
-- Output: HD MP4 exports in vertical short-form and wider formats. Finished videos can be used commercially, including paid ads.
+- Output: HD MP4 exports in 16:9, 1:1, 4:5, and 9:16. Finished videos can be used commercially, including paid ads.
 - Pricing: credit-based plans (Free, Starter, Pro, Enterprise). A typical AI generation uses about 10 credits; a complete video commonly takes about three generations. Free to start, no card required. Payments are one-time via Bakong KHQR and do not auto-renew.
 - Built by COPPSARY.
 
@@ -23,28 +23,25 @@ Key facts:
 
 ## Solutions
 
-- [AI SaaS launch video generator](https://motify.video/ai-saas-launch-video-generator): Launch videos built from product and brand context
+- [AI launch video generator](https://motify.video/ai-saas-launch-video-generator): Launch and announcement videos for products, features, menus, events, and offers
 - [AI motion graphics generator](https://motify.video/ai-motion-graphics-generator): Prompt-to-motion workflow refined in plain language
-- [Software product video generator](https://motify.video/software-product-video-generator): SaaS demos, explainers, feature videos, and product ads
+- [AI product animation generator](https://motify.video/software-product-video-generator): Product animations that show features, details, and how things work
 
 ## Comparisons
 
-- [Motify vs After Effects](https://motify.video/compare/after-effects): AI-first product video workflow versus a professional motion-design suite
-- [Motify vs Canva](https://motify.video/compare/canva): Focused SaaS motion workflow versus a general visual design platform
+- [Motify vs After Effects](https://motify.video/compare/after-effects): AI-first motion graphics workflow versus a professional motion-design suite
+- [Motify vs Canva](https://motify.video/compare/canva): Focused motion graphics workflow versus a general visual design platform
 - [Motify vs Synthesia](https://motify.video/compare/synthesia): Product-led motion versus presenter-led business video
-- [Motify vs a video agency](https://motify.video/compare/video-agency): Repeatable in-house production versus bespoke agency work
 
 ## Resources
 
-- [Resource library](https://motify.video/resources): Product marketing guidance organized by job
-- [Start Here](https://motify.video/resources/start-here): From product update to publishable content
+- [Motion templates](https://motify.video/templates): Finished animated ads, product animations, and explainers to preview and customize
+- [Resource library](https://motify.video/resources): Motion graphics guidance organized by what you want to make
+- [Start Here](https://motify.video/resources/start-here): From an idea to a finished motion graphic
 - [Brand DNA](https://motify.video/resources/brand-dna): Brand assets, colors, fonts, voice, style, and audience
-- [Prompt Templates](https://motify.video/resources/prompt-templates): Fill-in-the-blank prompts for launches, demos, social videos, and more
-- [Storyboard Generator Guide](https://motify.video/resources/storyboard-generator): Learn how to create and approve a branded nine-scene story, then use it as a visual reference for a video prompt
-- [Motify Blog](https://motify.video/blog): Original guides for SaaS launch videos, Product Hunt, explainers, storyboards, and AI video workflows
-- [Marketing Playbooks](https://motify.video/resources/playbooks): Repeatable workflows for product marketing teams
-- [Video Craft](https://motify.video/resources/video-craft): Hooks, scripts, pacing, UI, voiceover, formats, and CTAs
-- [Examples](https://motify.video/resources/examples): Goal-to-final-asset breakdowns and inspiration
+- [Motify Blog](https://motify.video/blog): Original guides for launch videos, explainers, Product Hunt, and making motion graphics with AI
+- [Playbooks](https://motify.video/resources/playbooks): Workflows for animated ads, launches, social content, and client work
+- [Video Craft](https://motify.video/resources/video-craft): Hooks, scripts, pacing, on-screen text, music, formats, and CTAs
 - [Help](https://motify.video/help): Accounts, credits, inputs, exports, rendering, troubleshooting, and feature availability
   - [Account & credits](https://motify.video/help/account)
   - [Brand DNA setup](https://motify.video/help/brand-dna)
@@ -55,7 +52,7 @@ Key facts:
 
 ## Company
 
-- [About](https://motify.video/about): Who builds Motify
+- [About](https://motify.video/about): Who builds Motify and why
 - Contact: hello@motify.video · Support: support@motify.video · Billing: billing@motify.video
 
 ## Optional

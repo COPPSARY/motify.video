@@ -81,12 +81,12 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
       {
         heading: 'Audience calibration',
         body:
-          'Define the persona watching your videos—such as seed-stage founders, enterprise DevOps engineers, or growth marketers—so framing matches their context.',
+          'Define the persona watching your videos—such as local shoppers, busy parents, or B2B buyers—so framing matches their context.',
       },
     ],
     relatedLinks: [
       { label: 'Open Brand DNA guides', url: '/resources/brand-dna' },
-      { label: 'Browse prompt templates', url: '/resources/prompt-templates' },
+      { label: 'Browse motion templates', url: '/templates' },
     ],
   },
   {
@@ -95,12 +95,12 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
     title: 'Supported inputs',
     tagline: 'Start with a brief, then add the evidence',
     overview:
-      'Learn which prompts, product links, images, logos, screenshots, and video assets Motify accepts—and how to label references clearly.',
+      'Learn which prompts, website links, images, logos, screenshots, music, and video assets Motify accepts—and how to label references clearly.',
     sections: [
       {
         heading: 'Text briefs & site links',
         body:
-          'You can provide direct URLs to your landing page or documentation. Motify inspects the site to extract key headlines, color tokens, and product concepts.',
+          'You can provide direct URLs to your landing page or documentation. Motify inspects the site to pick up key headlines, colors, and what your business offers.',
       },
       {
         heading: 'Asset formats & dimensions',
@@ -119,7 +119,7 @@ export const HELP_TOPICS: readonly HelpTopic[] = [
       },
     ],
     relatedLinks: [
-      { label: 'Use structured prompt templates', url: '/resources/prompt-templates' },
+      { label: 'Start from a motion template', url: '/templates' },
       { label: 'Video craft best practices', url: '/resources/video-craft' },
     ],
   },

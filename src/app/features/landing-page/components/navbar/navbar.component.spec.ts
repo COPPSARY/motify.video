@@ -28,8 +28,9 @@ describe('NavbarComponent', () => {
     compiled.querySelector<HTMLElement>('.navbar__resources-wrap')?.dispatchEvent(new Event('mouseenter'));
     fixture.detectChanges();
 
-    expect(compiled.querySelector('a[href="/resources/prompt-templates"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/templates"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/resources/brand-dna"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/resources/prompt-templates"]')).toBeNull();
     expect(compiled.querySelector('a[href="/help"]')).not.toBeNull();
   });
 

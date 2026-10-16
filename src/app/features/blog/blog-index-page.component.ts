@@ -18,16 +18,16 @@ export class BlogIndexPageComponent {
 
   constructor() {
     inject(SeoService).apply({
-      title: 'SaaS Video Marketing Blog | Motify',
+      title: 'Motion Graphics & Video Marketing Blog | Motify',
       description:
-        'Practical guides for SaaS launch videos, Product Hunt campaigns, explainers, storyboards, AI video workflows, and product marketing.',
+        'Practical guides for animated ads, launch videos, explainers, Product Hunt campaigns, and making motion graphics with AI.',
       path: '/blog',
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'Blog',
         name: 'Motify Blog',
         url: 'https://motify.video/blog',
-        description: 'Practical SaaS video marketing and product launch guidance from Motify.',
+        description: 'Practical motion graphics, video marketing, and launch guidance from Motify.',
       },
     });
   }

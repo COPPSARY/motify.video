@@ -1,8 +1,8 @@
 <section class="resource-bento" aria-labelledby="resource-bento-title">
   <div class="resource-bento__inner">
     <header class="resource-bento__heading" [appScrollReveal]="0">
-      <h2 id="resource-bento-title">Resources for better product videos.</h2>
-      <p>Practical tools, templates, and guides for every part of the workflow.</p>
+      <h2 id="resource-bento-title">Resources for better motion graphics.</h2>
+      <p>Templates and practical guides for every step from idea to finished animation.</p>
     </header>
 
     <div class="resource-bento__grid">
@@ -15,10 +15,7 @@
           <div class="resource-art" aria-hidden="true">
             @switch (resource.kind) {
               @case ('prompts') {
-                <div class="art-prompt"><span><i></i><i></i></span><b>Product launch</b><em>Generate</em></div>
-              }
-              @case ('storyboard') {
-                <div class="art-storyboard">@for (scene of [1, 2, 3, 4, 5, 6]; track scene) { <span>{{ scene }}</span> }</div>
+                <div class="art-prompt"><span><i></i><i></i></span><b>Animated ad</b><em>Generate</em></div>
               }
               @case ('start') {
                 <div class="art-start"><span>1</span><i></i><span>2</span><i></i><span>3</span></div>
@@ -31,9 +28,6 @@
               }
               @case ('craft') {
                 <div class="art-craft"><span></span><div><i></i><i></i><i></i></div></div>
-              }
-              @case ('examples') {
-                <div class="art-examples"><span><i></i></span><span><i></i></span><span><i></i></span></div>
               }
             }
           </div>

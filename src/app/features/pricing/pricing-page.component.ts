@@ -112,7 +112,7 @@ export class PricingPageComponent implements OnDestroy {
     inject(SeoService).apply({
       title: 'AI Video Generator Pricing | Motify',
       description:
-        'Compare Motify plans for creating AI product videos, promotional videos, SaaS explainers, motion graphics, and campaign variations.',
+        'Compare Motify plans for creating animated ads, product animations, explainer videos, social content, and campaign variations.',
       path: '/pricing',
     });
     afterNextRender(() => void this.initialize());

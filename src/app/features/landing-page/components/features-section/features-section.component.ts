@@ -13,22 +13,15 @@ import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reve
 export class FeaturesSectionComponent {
   readonly resources = [
     {
-      title: 'Prompt Templates',
-      description: 'Proven prompts for launches, demos, feature announcements, and ads.',
-      route: '/resources/prompt-templates',
-      action: 'Explore templates',
+      title: 'Motion Templates',
+      description: 'Finished animated ads, product animations, and explainers you can make your own.',
+      route: '/templates',
+      action: 'Browse templates',
       kind: 'prompts',
     },
     {
-      title: 'Storyboard Generator',
-      description: 'Turn one idea into a clear nine-scene video plan.',
-      route: '/resources/storyboard-generator',
-      action: 'Build a storyboard',
-      kind: 'storyboard',
-    },
-    {
       title: 'Start Here',
-      description: 'Learn the simplest workflow from prompt to finished video.',
+      description: 'Learn the simplest path from an idea to a finished motion graphic.',
       route: '/resources/start-here',
       action: 'Start the guide',
       kind: 'start',
@@ -41,8 +34,8 @@ export class FeaturesSectionComponent {
       kind: 'brand',
     },
     {
-      title: 'Marketing Playbooks',
-      description: 'Frameworks for stronger hooks, stories, and calls to action.',
+      title: 'Playbooks',
+      description: 'Workflows for animated ads, launches, social content, and client work.',
       route: '/resources/playbooks',
       action: 'Browse playbooks',
       kind: 'playbooks',
@@ -53,13 +46,6 @@ export class FeaturesSectionComponent {
       route: '/resources/video-craft',
       action: 'Learn video craft',
       kind: 'craft',
-    },
-    {
-      title: 'Examples',
-      description: 'See what product teams can create with Motify.',
-      route: '/resources/examples',
-      action: 'Watch examples',
-      kind: 'examples',
     },
   ] as const;
 }

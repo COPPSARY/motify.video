@@ -18,9 +18,9 @@ export class ResourcesHubPageComponent {
 
   constructor() {
     inject(SeoService).apply({
-      title: 'Product Marketing Resources | Motify',
+      title: 'Motion Graphics Resources | Motify',
       description:
-        'Use Motify\'s storyboard generator, practical guides, prompt templates, brand direction, playbooks, and video craft for SaaS product marketing teams.',
+        'Motion templates and practical guides for animated ads, product animations, explainer videos, and social content, for businesses, marketing teams, and agencies.',
       path: '/resources',
     });
   }

@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   HostListener,
+  inject,
   OnDestroy,
   QueryList,
   ViewChildren,
@@ -35,6 +36,7 @@ interface ShowcaseVideo {
 export class SpatialShowcaseSectionComponent implements OnDestroy {
   @ViewChildren('storyPanel', { read: ElementRef })
   private readonly storyPanels!: QueryList<ElementRef<HTMLElement>>;
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
 
   readonly stories: readonly ShowcaseStory[] = [
     {
@@ -43,91 +45,75 @@ export class SpatialShowcaseSectionComponent implements OnDestroy {
       description: 'Make product demos and UI animations look clear, polished, and professional.',
       videos: [
         {
-          src: 'assets/claude.mp4',
+          src: 'assets/claude.webm',
           poster: 'assets/showcase/posters/claude.jpg',
           label: 'Animated SaaS workflow',
         },
         {
-          src: 'assets/motify-web.mp4',
-          poster: 'assets/showcase/posters/motify-web.jpg',
-          label: 'Animated product interface',
+          src: 'assets/showcase/bookmebus.webm',
+          poster: 'assets/showcase/posters/bookmebus.jpg',
+          label: 'BookMeBus SaaS video',
+        },
+        {
+          src: 'assets/showcase/kiritts.webm',
+          poster: 'assets/showcase/posters/kiritts.jpg',
+          label: 'KiriTTS SaaS video',
+        },
+        {
+          src: 'assets/showcase/motify-test-run.webm',
+          poster: 'assets/showcase/posters/motify-test-run.jpg',
+          label: 'Motify test run walkthrough',
         },
       ],
     },
     {
-      id: 'marketing-ads',
-      category: 'Marketing ads',
+      id: 'product-ads',
+      category: 'Product Ads',
       description: 'Create focused ads that grab attention and sell the value of your product quickly.',
       videos: [
         {
-          src: 'assets/showcase/bookmebus.mp4',
-          poster: 'assets/showcase/posters/bookmebus.jpg',
-          label: 'BookMeBus marketing video',
+          src: 'assets/showcase/motiks-spicy-curls.webm',
+          poster: 'assets/showcase/posters/motiks-spicy-curls.jpg',
+          label: 'Motiks Spicy Curls Fire & Lime product ad',
         },
         {
-          src: 'assets/showcase/motify-60fps.mp4',
-          poster: 'assets/showcase/posters/motify-60fps.jpg',
-          label: 'Animated marketing story',
-        },
-        {
-          src: 'assets/showcase/recoup.mp4',
-          poster: 'assets/showcase/posters/recoup.jpg',
-          label: 'Recoup marketing animation',
-        },
-        {
-          src: 'assets/showcase/relay.mp4',
-          poster: 'assets/showcase/posters/relay.jpg',
-          label: 'Relay product promotion',
+          src: 'assets/showcase/motiks-editorial-ad.webm',
+          poster: 'assets/showcase/posters/motiks-editorial-ad.jpg',
+          label: 'Motiks minimalist editorial ad',
         },
       ],
     },
     {
-      id: 'explainer-video',
-      category: 'Explainer videos',
-      description: 'Turn complex ideas into engaging stories people can follow and remember.',
+      id: 'motion-graphics',
+      category: 'Motion Graphics Animations',
+      description: 'Bring your typography, colors, and visual style together in expressive, story-driven motion.',
       videos: [
         {
-          src: 'assets/showcase/motify-test-run.mp4',
-          poster: 'assets/showcase/posters/motify-test-run.jpg',
-          label: 'Motify workflow explainer',
+          src: 'assets/showcase/porco-rosso-just-breathe.webm',
+          poster: 'assets/showcase/posters/porco-rosso-just-breathe.jpg',
+          label: 'Porco Rosso — Just Breathe motion graphics',
         },
         {
-          src: 'assets/showcase/kiritts.mp4',
-          poster: 'assets/showcase/posters/kiritts.jpg',
-          label: 'KiriTTS explainer animation',
-        },
-        {
-          src: 'assets/notes-app.mp4',
-          label: 'Notes application explainer',
+          src: 'assets/showcase/paper-moon.webm',
+          poster: 'assets/showcase/posters/paper-moon.jpg',
+          label: 'Paper Moon motion graphics',
         },
       ],
     },
     {
-      id: 'brand-stories',
-      category: 'Brand stories',
-      description: 'Bring your typography, colors, and visual style together in motion that feels like your brand.',
+      id: 'product-demo',
+      category: 'Product Demo',
+      description: 'Walk viewers through your product so they see exactly how it works and why it matters.',
       videos: [
         {
-          src: 'assets/showcase/tessera.mp4',
-          poster: 'assets/showcase/posters/tessera.jpg',
-          label: 'Tessera brand animation',
-        },
-      ],
-    },
-    {
-      id: 'feature-announcements',
-      category: 'Feature announcements',
-      description: 'Show what changed, why it matters, and what users can do next.',
-      videos: [
-        {
-          src: 'assets/showcase/motify-brand-dna.mp4',
-          poster: 'assets/showcase/posters/motify-brand-dna.jpg',
-          label: 'Motify Brand DNA feature announcement',
+          src: 'assets/showcase/tobsar-product-launch.webm',
+          poster: 'assets/showcase/posters/tobsar-product-launch.jpg',
+          label: 'TobSar product launch and dashboard tour',
         },
         {
-          src: 'assets/showcase/relay.mp4',
-          poster: 'assets/showcase/posters/relay.jpg',
-          label: 'Relay feature announcement',
+          src: 'assets/showcase/morakot-cbs-walkthrough.webm',
+          poster: 'assets/showcase/posters/morakot-cbs-walkthrough.jpg',
+          label: 'Morakot CBS core banking walkthrough',
         },
       ],
     },
@@ -181,6 +167,18 @@ export class SpatialShowcaseSectionComponent implements OnDestroy {
       activeId = panel.nativeElement.id;
     }
 
-    if (activeId) this.activeStory.set(activeId);
+    if (!activeId || activeId === this.activeStory()) return;
+    this.activeStory.set(activeId);
+    this.revealActiveTab(activeId);
+  }
+
+  /** On phones the categories are a horizontal strip; keep the active one in view as the page scrolls. */
+  private revealActiveTab(id: string): void {
+    const nav = this.host.querySelector<HTMLElement>('.showcase-stories__rail nav');
+    const index = this.stories.findIndex((story) => story.id === id);
+    const tab = nav?.children[index] as HTMLElement | undefined;
+    if (!nav || !tab || nav.scrollWidth <= nav.clientWidth) return;
+    const left = tab.offsetLeft - (nav.clientWidth - tab.offsetWidth) / 2;
+    nav.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
   }
 }

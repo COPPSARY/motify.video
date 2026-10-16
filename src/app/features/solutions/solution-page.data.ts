@@ -31,24 +31,24 @@ export interface SolutionPage {
 export const SOLUTION_PAGES: Record<string, SolutionPage> = {
   'saas-launch': {
     slug: 'ai-saas-launch-video-generator',
-    title: 'AI SaaS Launch Video Generator | Motify',
+    title: 'AI Launch Video Generator | Motify',
     description:
-      'Create SaaS launch videos from a product brief, website, and real UI assets. Refine the story, pacing, and brand by prompting, then export.',
-    eyebrow: 'AI video for SaaS launches',
-    heading: 'AI SaaS launch video generator',
+      'Create launch and announcement videos for a new product, feature, menu, event, or offer. Refine the story, pacing, and brand by chatting, then export.',
+    eyebrow: 'Launches and announcements',
+    heading: 'AI launch video generator',
     lead:
-      'Turn a product update, launch brief, or website into a polished video direction built around your real software—not generic stock footage.',
+      'Turn something new—a product, a feature, a menu, an event, or an offer—into a polished launch video built around your real visuals and brand, not generic stock footage.',
     promise:
-      'Motify plans the story and generates the motion composition. When launch feedback arrives, ask Tiffy for the change and keep the same project instead of starting over.',
-    outcome: 'A launch-ready story your product, marketing, and brand teams can refine together.',
+      'Motify plans the story and creates the motion. When feedback arrives, ask Tiffy for the change and keep the same project instead of starting over.',
+    outcome: 'A launch-ready video your team, or your client, can refine together.',
     benefits: [
       {
-        title: 'Start with product context',
-        body: 'Paste a product link or describe the launch, audience, value proposition, proof points, and call to action in plain language.',
+        title: 'Start with what is new',
+        body: 'Describe the launch, who it is for, why it matters, and the one thing viewers should do next, in plain language.',
       },
       {
-        title: 'Show the actual product',
-        body: 'Build scenes around screenshots, interface states, logos, colors, typography, and the product details your audience needs to understand.',
+        title: 'Show the real thing',
+        body: 'Attach product photos, screenshots, logos, and music, and build scenes around the details your audience needs to see.',
       },
       {
         title: 'Revise without rebuilding',
@@ -56,25 +56,25 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
       },
     ],
     steps: [
-      { number: '01', title: 'Describe the launch', body: 'Give Motify the product, audience, launch moment, and one action the viewer should take.' },
-      { number: '02', title: 'Review the direction', body: 'Inspect the planned story, scenes, product emphasis, and visual hierarchy before the final cut.' },
-      { number: '03', title: 'Refine and export', body: 'Ask Tiffy to adjust messaging and motion, apply Brand DNA, and export the format your launch channel needs.' },
+      { number: '01', title: 'Describe the launch', body: 'Tell Motify what is launching, who it is for, and the one action the viewer should take.' },
+      { number: '02', title: 'Review the direction', body: 'Check the story, scenes, emphasis, and visual hierarchy before you polish the details.' },
+      { number: '03', title: 'Refine and export', body: 'Ask Tiffy to adjust the message and motion, apply your Brand DNA, and export the format each channel needs.' },
     ],
-    bestFor: ['Product launches', 'Feature announcements', 'Product Hunt videos', 'Homepage hero videos', 'Paid launch campaigns'],
+    bestFor: ['Product launches', 'Feature announcements', 'New menus and offers', 'Event promos', 'Paid launch campaigns'],
     notFor:
-      'Motify is designed for product-led motion and software stories. A live-action campaign with actors, locations, or complex visual effects may still need a production studio.',
+      'Motify makes designed motion graphics. A live-action campaign with actors, locations, or complex visual effects may still need a production studio.',
     faqs: [
       {
-        question: 'Can Motify create a SaaS launch video from a website?',
-        answer: 'Yes. You can provide a product link and a launch brief, then add screenshots or other assets when the video needs to show specific interface states.',
+        question: 'Can Motify create a launch video from my website?',
+        answer: 'Yes. Share your website link and describe the launch, then attach photos, screenshots, or music when the video needs to show specific details.',
       },
       {
-        question: 'Can I change the generated launch video?',
+        question: 'Can I change the launch video after it is made?',
         answer: 'Yes. Describe what should change, such as the headline, a scene, the pacing, or the music, and Tiffy revises the same project instead of handing you a fixed render.',
       },
       {
         question: 'Does the launch video stay on brand?',
-        answer: 'Motify uses your Brand DNA—including logo, colors, typefaces, voice, visual style, and audience context—to guide the composition.',
+        answer: 'Motify uses your Brand DNA—including logo, colors, typefaces, voice, visual style, and audience—to guide the composition.',
       },
     ],
   },
@@ -83,17 +83,17 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
     title: 'AI Motion Graphics Generator | Motify',
     description:
       'Generate motion graphics from a prompt. Direct scenes, copy, and pacing in plain language, refine by chatting, and export a polished video.',
-    eyebrow: 'Prompt to polished motion',
+    eyebrow: 'Idea to polished motion',
     heading: 'AI motion graphics generator',
     lead:
-      'Describe the message you need to communicate and get a structured motion composition with typography, shapes, product visuals, and intentional pacing.',
+      'Describe the message you want to share and get a structured motion composition with typography, shapes, your visuals, and intentional pacing.',
     promise:
-      'Unlike a one-shot video model, Motify keeps the composition structured, so a follow-up prompt can change one headline, one scene, or the whole story.',
-    outcome: 'Motion graphics that remain useful after the first generation.',
+      'Unlike a one-shot video model, Motify keeps the composition structured, so a follow-up message can change one headline, one scene, or the whole story.',
+    outcome: 'Motion graphics that stay editable after the first draft.',
     benefits: [
       {
-        title: 'Generate a complete direction',
-        body: 'Move from a short brief to an organized sequence with a hook, visual hierarchy, transitions, supporting motion, and a clear ending.',
+        title: 'Get a complete direction',
+        body: 'Move from a short description to an organized sequence with a hook, visual hierarchy, transitions, supporting motion, and a clear ending.',
       },
       {
         title: 'Refine any scene by asking',
@@ -101,21 +101,21 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
       },
       {
         title: 'Make motion fit the message',
-        body: 'Use restrained motion for product clarity, energetic pacing for campaigns, or brand-led typography for announcements and social content.',
+        body: 'Use calm, clear motion for explainers, energetic pacing for ads, or expressive typography for announcements and social content.',
       },
     ],
     steps: [
-      { number: '01', title: 'Write the brief', body: 'Describe the goal, audience, format, brand, message, and motion style in normal language.' },
-      { number: '02', title: 'Generate the composition', body: 'Motify plans and creates the scenes, then checks the result for creative and technical problems.' },
+      { number: '01', title: 'Describe your idea', body: 'Say what it is for, who will watch it, the format, your brand, and the feel you want, in normal language.' },
+      { number: '02', title: 'Get the first draft', body: 'Motify plans and creates the scenes, then checks the result for creative and technical problems.' },
       { number: '03', title: 'Direct the details', body: 'Ask for broad revisions or small, specific changes in plain language, then preview and export.' },
     ],
-    bestFor: ['SaaS explainers', 'UI animations', 'Motion ads', 'Feature announcements', 'Kinetic typography'],
+    bestFor: ['Animated ads', 'Product animations', 'Explainer videos', 'Social content', 'Kinetic typography'],
     notFor:
       'Motify focuses on designed, brand-controlled motion graphics. It is not intended to replace a photorealistic text-to-video model for cinematic live-action scenes.',
     faqs: [
       {
         question: 'What can the AI motion graphics generator create?',
-        answer: 'It can create product explainers, launch videos, UI-led demos, motion ads, feature announcements, brand stories, and short social videos.',
+        answer: 'Animated ads, product animations, explainer videos, launch and announcement videos, brand stories, and short social content.',
       },
       {
         question: 'Can I change a single element after generation?',
@@ -123,56 +123,56 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
       },
       {
         question: 'Do I need motion-design experience?',
-        answer: 'No. Start in plain language or from a prompt template. Every refinement is a conversation, so there is no timeline or keyframe tool to learn.',
+        answer: 'No. Start in plain language or from a template. Every refinement is a conversation, so there is no timeline or keyframe tool to learn.',
       },
     ],
   },
   'software-product': {
     slug: 'software-product-video-generator',
-    title: 'AI Product Video Generator for SaaS | Motify',
+    title: 'AI Product Animation Generator | Motify',
     description:
-      'Create software product videos, demos, explainers, and ads with AI. Use your real UI and brand, then refine every scene before exporting the final cut.',
-    eyebrow: 'Product videos for software teams',
-    heading: 'AI product video generator for SaaS',
+      'Create product animations that show features, details, and how things work. Use your real product visuals and brand, then refine every scene by chatting.',
+    eyebrow: 'Product animations',
+    heading: 'AI product animation generator',
     lead:
-      'Create product videos that explain what your software does, why it matters, and what a viewer should do next—without turning the interface into generic AI imagery.',
+      'Create product animations that show what your product does, the details that make it different, and what a viewer should do next—built from your real product visuals.',
     promise:
-      'Motify combines product context, marketing structure, real interface assets, and prompt-driven revisions so your video stays accurate as the message evolves.',
-    outcome: 'A clear product story built for software—not an ecommerce photo montage.',
+      'Motify combines your product visuals, brand, and a clear story with revisions by chat, so the animation stays accurate as your message evolves.',
+    outcome: 'A clear product story that shows the real thing.',
     benefits: [
       {
-        title: 'Explain one valuable workflow',
-        body: 'Focus the video on a customer problem and the product behavior that solves it instead of listing every feature in the release notes.',
+        title: 'Show one thing well',
+        body: 'Focus each animation on a feature, a detail, or a way of using the product instead of listing everything at once.',
       },
       {
-        title: 'Protect product accuracy',
-        body: 'Use real screenshots and product assets so buttons, labels, states, and visual proof remain recognizable to prospects and customers.',
+        title: 'Keep the product accurate',
+        body: 'Attach your product photos, renders, or screenshots so packaging, labels, and interfaces stay recognizable.',
       },
       {
-        title: 'Create campaign variations',
-        body: 'Adapt the same product story for a landing page, feature announcement, paid ad, social post, or wider demo without rebuilding the creative system.',
+        title: 'Make versions for every channel',
+        body: 'Adapt the same product story for a website, a paid ad, a social post, or a wider demo without rebuilding the creative.',
       },
     ],
     steps: [
-      { number: '01', title: 'Choose the product moment', body: 'Select one problem, workflow, feature, or launch promise the audience should remember.' },
-      { number: '02', title: 'Add proof and brand context', body: 'Provide the site, interface assets, proof points, visual identity, and desired call to action.' },
-      { number: '03', title: 'Generate, review, and adapt', body: 'Refine the story and composition, then export versions that fit each marketing channel.' },
+      { number: '01', title: 'Choose the product moment', body: 'Pick one feature, detail, or benefit the audience should remember.' },
+      { number: '02', title: 'Add your visuals and brand', body: 'Attach product images or screenshots, set your Brand DNA, and name the call to action.' },
+      { number: '03', title: 'Create, review, and adapt', body: 'Refine the story and motion, then export versions that fit each channel.' },
     ],
-    bestFor: ['Software product demos', 'SaaS explainers', 'Feature walkthroughs', 'Landing-page videos', 'Product marketing ads'],
+    bestFor: ['Product showcases', 'Feature highlights', 'App and software demos', 'Website videos', 'Product ads'],
     notFor:
-      'This workflow is optimized for digital products and software interfaces. Physical-product lifestyle footage and AI model try-ons require a different production approach.',
+      'Motify animates your product inside designed motion graphics. Live-action lifestyle footage and AI model try-ons need a different production approach.',
     faqs: [
       {
-        question: 'Is Motify an ecommerce product video generator?',
-        answer: 'Motify is primarily designed for SaaS and software product marketing. It emphasizes UI, product workflows, messaging, and product-led motion rather than catalog-scale photo-to-video generation.',
+        question: 'Can Motify animate physical products?',
+        answer: 'Yes. Attach product photos or renders and Motify builds designed motion around them, from snack-packaging ads to editorial product spots. It does not generate live-action footage.',
       },
       {
-        question: 'Can I make a product demo without recording my screen?',
-        answer: 'Yes. You can build a story from screenshots and interface assets. For an exact click-by-click tutorial, you may also bring in prepared screen-recording assets.',
+        question: 'Can I make a software demo without recording my screen?',
+        answer: 'Yes. You can build the story from screenshots and interface images. For an exact click-by-click tutorial, you may also bring in prepared screen recordings.',
       },
       {
         question: 'Can one project produce different aspect ratios?',
-        answer: 'Motify supports wider product-video formats and vertical short-form output so the same campaign direction can be adapted for different channels.',
+        answer: 'Motify supports landscape, square, portrait, and vertical formats, so the same direction can be adapted for each channel.',
       },
     ],
   },

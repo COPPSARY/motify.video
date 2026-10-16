@@ -1,36 +1,24 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, inject, OnDestroy, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LucideArrowUp, LucidePlus, LucideSparkles } from '@lucide/angular';
-import { editorReturnPath } from '../../../../shared/config/runtime-config';
+import { afterNextRender, ChangeDetectionStrategy, Component, OnDestroy, signal } from '@angular/core';
+import { AuroraComponent } from '../../../../shared/components/aurora/aurora.component';
+import { PromptComposerComponent } from '../../../../shared/components/prompt-composer/prompt-composer.component';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-hero-section',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    FormsModule,
-    ScrollRevealDirective,
-    LucideArrowUp,
-    LucidePlus,
-    LucideSparkles,
-  ],
+  imports: [AuroraComponent, PromptComposerComponent, ScrollRevealDirective],
   templateUrl: './hero-section.component.html',
   styleUrl: './hero-section.component.css',
 })
 export class HeroSectionComponent implements OnDestroy {
-  private readonly router = inject(Router);
-  prompt = '';
-  assetMenuOpen = false;
-  selectedAsset = '';
+  readonly auroraColors = ['#0d003c', '#00173b', '#5227FF'];
   readonly typedPrompt = signal('');
   private typingTimer?: number;
-  private assetInput?: HTMLInputElement;
   private readonly examples = [
-    'Create a launch video for our new analytics feature...',
-    'Turn this product update into a clear motion ad...',
-    'Make a polished demo using our real product UI...',
+    'Create an animated ad for our summer menu...',
+    'Turn this product photo into a short product animation...',
+    'Make an explainer video for how our service works...',
   ];
 
   constructor() {
@@ -39,47 +27,6 @@ export class HeroSectionComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     if (this.typingTimer !== undefined) window.clearInterval(this.typingTimer);
-    this.assetInput?.remove();
-  }
-
-  toggleAssetMenu(): void {
-    this.assetMenuOpen = !this.assetMenuOpen;
-  }
-
-  chooseAsset(kind: 'image' | 'audio'): void {
-    this.assetMenuOpen = false;
-    this.assetInput?.remove();
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = kind === 'image' ? 'image/*,.svg' : 'audio/*';
-    input.addEventListener('change', () => {
-      const file = input.files?.[0];
-      if (file) this.selectedAsset = file.name;
-      input.remove();
-      this.assetInput = undefined;
-    });
-    this.assetInput = input;
-    input.click();
-  }
-
-  onPromptKeydown(event: KeyboardEvent): void {
-    if (event.key !== 'Enter' || event.shiftKey) return;
-
-    event.preventDefault();
-    void this.submitPrompt();
-  }
-
-  async submitPrompt(): Promise<void> {
-    await this.router.navigate(['/signup'], {
-      queryParams: { returnUrl: editorReturnPath(this.prompt) },
-    });
-  }
-
-  enhancePrompt(): void {
-    const prompt = this.prompt.trim();
-    this.prompt = prompt
-      ? `${prompt} Make it polished, clear, and aligned with the brand.`
-      : 'Create a polished product launch video that feels aligned with my brand.';
   }
 
   private startPromptTyping(): void {

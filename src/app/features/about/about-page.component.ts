@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { SeoService } from '../../shared/services/seo.service';
@@ -15,7 +16,7 @@ const COPPSARY_MEMBERS = [
 @Component({
   selector: 'app-about-page',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent],
+  imports: [NavbarComponent, FooterComponent, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.css',
@@ -29,17 +30,17 @@ export class AboutPageComponent {
 
   constructor() {
     inject(SeoService).apply({
-      title: 'About Motify | Product Marketing Content Workflow',
+      title: 'About Motify | Motion Graphics Made Easier',
       description:
-        'Motify helps growing SaaS teams turn product updates and marketing goals into accurate, on-brand, production-ready content.',
+        'Motify is a Cambodian-led startup making motion graphics easier for businesses and agencies, from animated ads to product animations and explainer videos.',
       path: '/about',
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'AboutPage',
-        name: 'About Motify',
+        name: 'About Motify: Motion graphics, made easier',
         url: 'https://motify.video/about',
         description:
-          'Motify is a product marketing content workflow for growing SaaS teams.',
+          'Motify is a Cambodian-led startup making motion graphics easier for businesses and agencies, from animated ads to product animations and explainer videos.',
         publisher: {
           '@type': 'Organization',
           name: 'COPPSARY',

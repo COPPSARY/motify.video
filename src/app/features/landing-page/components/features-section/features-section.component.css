@@ -51,7 +51,9 @@
 }
 
 .resource-card:hover { border-color: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
-.resource-card--prompts { grid-column: span 2; }
+.resource-card--prompts,
+.resource-card--playbooks,
+.resource-card--craft { grid-column: span 2; }
 
 .resource-art {
   display: grid;
@@ -85,8 +87,6 @@
 .art-prompt b { grid-column: 1; color: rgba(255, 255, 255, 0.45); font-size: 0.52rem; font-weight: 400; }
 .art-prompt em { grid-column: 2; grid-row: 1 / -1; align-self: center; padding: 0.35rem 0.5rem; border-radius: var(--motify-radius-xs); background: #f4f4f5; color: var(--motify-surface-solid); font-size: 0.5rem; font-style: normal; }
 
-.art-storyboard { display: grid; width: 84%; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; }
-.art-storyboard span { display: grid; aspect-ratio: 16 / 10; place-items: start; padding: 0.25rem; border: 1px solid rgba(255, 255, 255, 0.13); border-radius: var(--motify-radius-xs); color: rgba(255, 255, 255, 0.34); font-size: 0.45rem; background: rgba(255, 255, 255, 0.035); }
 
 .art-start { display: flex; width: 78%; align-items: center; justify-content: center; }
 .art-start span { display: grid; width: 1.45rem; height: 1.45rem; place-items: center; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50%; color: rgba(255, 255, 255, 0.55); font-size: 0.52rem; }
@@ -108,10 +108,6 @@
 .art-craft div { display: grid; grid-template-columns: 1.2fr 0.7fr 1fr; gap: 0.2rem; }
 .art-craft i { height: 0.22rem; border-radius: var(--motify-radius-lg); background: rgba(255, 255, 255, 0.2); }
 
-.art-examples { display: flex; width: 82%; align-items: center; justify-content: center; }
-.art-examples span { display: grid; width: 42%; aspect-ratio: 16 / 10; place-items: center; border: 1px solid rgba(255, 255, 255, 0.13); border-radius: var(--motify-radius-xs); background: #18191d; }
-.art-examples span:nth-child(2) { z-index: 1; margin-inline: -0.7rem; transform: scale(1.12); }
-.art-examples i { width: 0; height: 0; border-block: 0.22rem solid transparent; border-left: 0.34rem solid rgba(255, 255, 255, 0.6); }
 
 @media (max-width: 980px) {
   .resource-bento__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -121,7 +117,9 @@
   .resource-bento { padding: 4.5rem 1rem; }
   .resource-bento__heading { display: grid; gap: 0.8rem; }
   .resource-bento__grid { grid-template-columns: 1fr; }
-  .resource-card--prompts { grid-column: auto; }
+  .resource-card--prompts,
+  .resource-card--playbooks,
+  .resource-card--craft { grid-column: auto; }
   .resource-card { min-height: 12rem; }
 }
 

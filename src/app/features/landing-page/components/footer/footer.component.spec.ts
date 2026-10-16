@@ -54,7 +54,7 @@ describe('FooterComponent', () => {
 
     expect(logoImg).withContext('footer logo <img> should exist').not.toBeNull();
     expect(logoImg?.getAttribute('src')).toBe('logo.svg');
-    expect(compiled.textContent).toContain('Product marketing content, grounded in your product and your brand.');
+    expect(compiled.textContent).toContain('Motion graphics, made easier for businesses, marketing teams, and agencies.');
     expect(logoImg?.src.endsWith('logo.svg')).withContext('resolved src should end with logo.svg').toBe(true);
   });
 
@@ -72,10 +72,11 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.querySelector('a[href="/resources/prompt-templates"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/templates"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/resources/brand-dna"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/blog"]')).not.toBeNull();
-    expect(compiled.querySelector('a[href="/resources/storyboard-generator"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/resources/prompt-templates"]')).toBeNull();
+    expect(compiled.querySelector('a[href="/resources/storyboard-generator"]')).toBeNull();
     expect(compiled.querySelector('a[href="/getting-started"]')).toBeNull();
     expect(compiled.textContent).not.toContain('npm package');
     expect(compiled.textContent).not.toContain('Product Hunt');
@@ -93,7 +94,7 @@ describe('FooterComponent', () => {
     expect(compiled.querySelector('a[href="/compare/after-effects"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/compare/canva"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/compare/synthesia"]')).not.toBeNull();
-    expect(compiled.querySelector('a[href="/compare/video-agency"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/compare/video-agency"]')).toBeNull();
   });
 
   it('should link the GitHub, Facebook, and TikTok social profiles', () => {

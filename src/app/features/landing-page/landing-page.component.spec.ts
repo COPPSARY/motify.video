@@ -66,7 +66,7 @@ describe('LandingPageComponent', () => {
     expect(compiled.querySelector('app-resources-section')).not.toBeNull();
     expect(compiled.querySelector('.resources__cta')).not.toBeNull();
     expect(compiled.querySelectorAll('.resources__card').length).toBe(0);
-    expect(compiled.textContent).toContain('Ready to ship?');
+    expect(compiled.textContent).toContain('Have an idea? Put it in motion.');
     expect(compiled.textContent).not.toContain('Resources for work that ships.');
   });
 

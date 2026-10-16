@@ -9,6 +9,7 @@ import {
   ViewChildren,
   signal,
 } from '@angular/core';
+import { LazyVideoDirective } from '../../../../shared/directives/lazy-video.directive';
 
 interface ShowcaseStory {
   readonly id: string;
@@ -27,15 +28,13 @@ interface ShowcaseVideo {
   selector: 'app-spatial-showcase-section',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LazyVideoDirective],
   templateUrl: './spatial-showcase-section.component.html',
   styleUrl: './spatial-showcase-section.component.css',
 })
 export class SpatialShowcaseSectionComponent implements OnDestroy {
   @ViewChildren('storyPanel', { read: ElementRef })
   private readonly storyPanels!: QueryList<ElementRef<HTMLElement>>;
-
-  @ViewChildren('showcaseVideo', { read: ElementRef })
-  private readonly showcaseVideos!: QueryList<ElementRef<HTMLVideoElement>>;
 
   readonly stories: readonly ShowcaseStory[] = [
     {
@@ -138,10 +137,7 @@ export class SpatialShowcaseSectionComponent implements OnDestroy {
   private scrollFrame?: number;
 
   constructor() {
-    afterNextRender(() => {
-      this.updateActiveStory();
-      this.showcaseVideos.forEach((video) => this.startVideo(video.nativeElement));
-    });
+    afterNextRender(() => this.updateActiveStory());
   }
 
   ngOnDestroy(): void {
@@ -171,18 +167,6 @@ export class SpatialShowcaseSectionComponent implements OnDestroy {
         panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
-  }
-
-  playVideo(event: Event): void {
-    this.startVideo(event.currentTarget as HTMLVideoElement);
-  }
-
-  private startVideo(video: HTMLVideoElement): void {
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
-    void video.play().catch(() => undefined);
   }
 
   private updateActiveStory(): void {

@@ -55,16 +55,14 @@
             @for (video of story.videos; track video.src) {
               <div class="showcase-story__media">
                 <video
-                  #showcaseVideo
-                  [src]="video.src"
-                  [poster]="video.poster"
+                  [appLazyVideo]="video.src"
+                  [attr.poster]="video.poster ?? null"
                   [attr.aria-label]="video.label"
-                  autoplay
-                  loop
                   muted
+                  [muted]="true"
+                  [volume]="0"
+                  loop
                   playsinline
-                  preload="metadata"
-                  (canplay)="playVideo($event)"
                 ></video>
               </div>
             }

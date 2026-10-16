@@ -306,6 +306,13 @@
   object-fit: contain;
 }
 
+/* The same shimmer as the cards until the first frame is decoded. */
+.template-modal__media video:not(.is-ready) {
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.06) 50%, transparent 70%) #0e0f12;
+  background-size: 200% 100%;
+  animation: template-skeleton 1.4s ease-in-out infinite;
+}
+
 /* Square and portrait previews are sized by height; width follows the ratio. */
 .template-modal__media video.is-tall {
   width: auto;
@@ -418,7 +425,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .template-card__media::before { animation: none; }
+  .template-card__media::before,
+  .template-modal__media video:not(.is-ready) { animation: none; }
   .template-card__media video,
   .template-card__open,
   .modal-backdrop,

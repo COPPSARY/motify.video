@@ -148,7 +148,9 @@ describe('PricingPageComponent', () => {
     expect(element.textContent).toContain('Our lowest cost per credit');
     const contactLink = element.querySelector<HTMLAnchorElement>('a[href^="https://mail.google.com/mail/"]');
     expect(contactLink?.getAttribute('href')).toContain('to=hello%40motify.video');
-    expect(contactLink?.textContent).toContain('Contact us');
+    expect(contactLink?.textContent).toContain('Email us');
+    const telegramLink = element.querySelector<HTMLAnchorElement>('a[href="https://t.me/souujj"]');
+    expect(telegramLink?.textContent).toContain('Talk to sales');
   });
 
   it('automatically applies purchases to the personal workspace', async () => {

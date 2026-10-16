@@ -414,6 +414,28 @@
   cursor: default;
 }
 
+.pricing-card__contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.pricing-card__contact .pricing-card__button {
+  margin-top: 0;
+  gap: 0.45rem;
+}
+
+.pricing-card__button--secondary {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: var(--motify-text-primary);
+}
+
+.pricing-card__button-icon {
+  flex-shrink: 0;
+}
+
 .pricing-card__button:not(.pricing-card__button--disabled):hover {
   filter: brightness(1.08);
   transform: translateY(-1px);

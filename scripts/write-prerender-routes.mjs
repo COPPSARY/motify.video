@@ -1,6 +1,7 @@
 // Lists the parameterized routes Angular cannot discover on its own, so each
-// template's gallery link and customize page is prerendered. Vercel serves only
-// files that exist, so a slug left out here is a 404 on a direct visit.
+// template's gallery link and customize page is prerendered. A slug left out here (a
+// template added after the build) is served the client-rendered shell instead
+// (vercel.json), which loads it from the API.
 // The slugs come from templates.generated.json (see fetch-templates.mjs).
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';

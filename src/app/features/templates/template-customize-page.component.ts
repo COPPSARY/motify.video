@@ -47,7 +47,7 @@ export class TemplateCustomizePageComponent {
 
   constructor() {
     this.select(this.template());
-    // The build had no templates, so the page fills in once the API answers.
+    // A template newer than the build (or a build with none) fills in once the API answers.
     if (!this.template()) afterNextRender(() => void this.store.load().then(() => this.select(this.template())));
   }
 

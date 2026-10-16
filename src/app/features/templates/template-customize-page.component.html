@@ -89,7 +89,7 @@
         </aside>
       </div>
     </main>
-  } @else if (store.state() === 'loading') {
+  } @else if (store.state() === 'loading' || !store.settled()) {
     <main class="template-not-found" aria-busy="true">
       <p>Loading template…</p>
     </main>

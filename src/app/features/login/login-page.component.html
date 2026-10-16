@@ -11,11 +11,34 @@
       <header class="login-card__head">
         <h1 id="login-title">Check your inbox</h1>
         <p>
-          We sent a verification link to <strong>{{ address }}</strong>. Open it to finish setting up
-          your account — you'll land back here signed in.
+          Enter the verification code sent to <strong>{{ address }}</strong>.
         </p>
       </header>
-      <button class="login-card__button" type="button" (click)="setMode('signin')">Back to log in</button>
+      <form class="login-form" (ngSubmit)="verifyOtp()">
+        <label class="login-field" for="verification-code">
+          <span>Verification code</span>
+          <input
+            id="verification-code"
+            name="verificationCode"
+            type="text"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            pattern="[0-9]{6,10}"
+            maxlength="10"
+            placeholder="Enter code"
+            [(ngModel)]="otpCode"
+            autofocus
+            required
+          />
+        </label>
+        @if (error()) { <p class="login-form__error" role="alert">{{ error() }}</p> }
+        @if (otpStatus()) { <p class="login-form__status" role="status">{{ otpStatus() }}</p> }
+        <button class="login-card__button" type="submit" [disabled]="loading()">
+          {{ loading() ? 'Verifying…' : 'Verify email' }}
+        </button>
+      </form>
+      <button class="login-google" type="button" [disabled]="loading()" (click)="resendOtp()">Resend code</button>
+      <button class="login-google" type="button" [disabled]="loading()" (click)="setMode('signin')">Back to log in</button>
     } @else {
       <header class="login-card__head">
         <small>{{ mode() === 'signup' ? 'Welcome to Motify' : 'Welcome back' }}</small>

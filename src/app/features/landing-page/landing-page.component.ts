@@ -20,6 +20,8 @@ export interface FeaturedTemplate {
   readonly aspect: string;
 }
 
+const templatePreviews: readonly Pick<FeaturedTemplate, 'slug' | 'video'>[] = previews;
+
 /**
  * A mix of formats from the template library. Titles and aspect ratios are a
  * light copy so the prompt library stays out of the landing bundle; the video
@@ -41,7 +43,7 @@ const featured = [
   { slug: 'fold-space', title: 'Fold Space', aspect: '1 / 1' },
 ] as const;
 
-const previewVideo = (slug: string) => previews.find((preview) => preview.slug === slug)?.video ?? '';
+const previewVideo = (slug: string) => templatePreviews.find((preview) => preview.slug === slug)?.video ?? '';
 
 // A template the build could not read has no preview, so its card is left out.
 export const FEATURED_TEMPLATES: readonly FeaturedTemplate[] = featured

@@ -32,11 +32,13 @@ export class LoginPageComponent {
   readonly mode = signal<AuthMode>(
     this.route.snapshot.data['mode'] === 'signup' ? 'signup' : 'signin',
   );
-  /** Set once the verification mail is on its way, which replaces the form. */
+  /** Set once the verification code is on its way, which replaces the form. */
   readonly verificationSentTo = signal('');
+  readonly otpStatus = signal('');
   readonly showPassword = signal(false);
   email = '';
   password = '';
+  otpCode = '';
 
   constructor() {
     const signingUp = this.mode() === 'signup';
@@ -60,6 +62,8 @@ export class LoginPageComponent {
     this.mode.set(mode);
     this.error.set('');
     this.verificationSentTo.set('');
+    this.otpCode = '';
+    this.otpStatus.set('');
   }
 
   async continueToMotify(): Promise<void> {
@@ -81,15 +85,57 @@ export class LoginPageComponent {
           this.finishLogin(signedIn.newAccount);
           return;
         }
-        this.verificationSentTo.set(this.email.trim());
-        this.password = '';
+        this.showOtp(this.email.trim());
         this.loading.set(false);
         return;
       }
       const { newAccount } = await this.auth.login(this.email, this.password);
       this.finishLogin(newAccount);
     } catch (error: unknown) {
+      if (this.errorCode(error) === 'EMAIL_NOT_VERIFIED') {
+        try {
+          const address = this.email.trim();
+          await this.auth.resendSignupOtp(address);
+          this.showOtp(address);
+        } catch (resendError: unknown) {
+          this.error.set(this.messageFor(resendError));
+        }
+        this.loading.set(false);
+        return;
+      }
       this.error.set(this.messageFor(error));
+      this.loading.set(false);
+    }
+  }
+
+  async verifyOtp(): Promise<void> {
+    if (!/^\d{6,10}$/.test(this.otpCode)) {
+      this.error.set('Enter the 6–10 digit code from your email.');
+      return;
+    }
+    this.loading.set(true);
+    this.error.set('');
+    try {
+      const result = await this.auth.verifyEmailOtp(this.verificationSentTo(), this.otpCode);
+      this.finishLogin(result.newAccount);
+    } catch (error: unknown) {
+      this.error.set(this.messageFor(error));
+      this.loading.set(false);
+    }
+  }
+
+  async resendOtp(): Promise<void> {
+    if (this.loading()) return;
+    this.loading.set(true);
+    this.error.set('');
+    this.otpStatus.set('');
+    try {
+      await this.auth.resendSignupOtp(this.verificationSentTo());
+      this.otpCode = '';
+      this.otpStatus.set('A new code was sent.');
+    } catch (error: unknown) {
+      this.error.set(this.messageFor(error));
+    } finally {
       this.loading.set(false);
     }
   }
@@ -97,6 +143,14 @@ export class LoginPageComponent {
   loginWithGoogle(): void {
     this.auth.setPendingReturnUrl(this.returnUrl);
     window.location.href = this.auth.googleLoginUrl();
+  }
+
+  private showOtp(address: string): void {
+    this.password = '';
+    this.verificationSentTo.set(address);
+    this.otpCode = '';
+    this.otpStatus.set('');
+    this.error.set('');
   }
 
   /** Everyone goes straight to the app; a new account is flagged so the app starts its first-run flow. */
@@ -112,10 +166,7 @@ export class LoginPageComponent {
   }
 
   private messageFor(error: unknown): string {
-    const code =
-      error instanceof HttpErrorResponse
-        ? (error.error as { error?: { code?: string; message?: string } } | null)?.error
-        : undefined;
+    const code = this.errorDetails(error);
     // An address that already has an account is a wrong-form mistake, not a
     // failure: send the user to the sign-in tab rather than a dead end.
     if (code?.code === 'ACCOUNT_ALREADY_EXISTS') {
@@ -126,5 +177,15 @@ export class LoginPageComponent {
     return this.mode() === 'signup'
       ? 'We could not create your account. Check your details and try again.'
       : 'We could not sign you in. Check your details and try again.';
+  }
+
+  private errorCode(error: unknown): string | undefined {
+    return this.errorDetails(error)?.code;
+  }
+
+  private errorDetails(error: unknown): { code?: string; message?: string } | undefined {
+    return error instanceof HttpErrorResponse
+      ? (error.error as { error?: { code?: string; message?: string } } | null)?.error
+      : undefined;
   }
 }

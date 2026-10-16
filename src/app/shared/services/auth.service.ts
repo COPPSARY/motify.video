@@ -132,6 +132,34 @@ export class AuthService {
     return { user: data.user, newAccount: data.newAccount === true };
   }
 
+  async resendSignupOtp(email: string): Promise<void> {
+    await firstValueFrom(
+      this.http.post<void>(
+        `${this.apiUrl}/v1/auth/otp/send`,
+        { email: email.trim().toLowerCase() },
+        { withCredentials: true },
+      ),
+    );
+  }
+
+  async verifyEmailOtp(email: string, token: string): Promise<SignInResult> {
+    const response = await firstValueFrom(
+      this.http.post<SignUpResponse>(
+        `${this.apiUrl}/v1/auth/otp/verify`,
+        { email: email.trim().toLowerCase(), token },
+        { withCredentials: true },
+      ),
+    );
+    const data = response.data;
+    if (!data.user || !data.csrfToken) {
+      throw new Error('OTP verification did not return a session.');
+    }
+    this.csrfTokenValue = data.csrfToken;
+    this.user.set(data.user);
+    this.sessionResolved.set(true);
+    return { user: data.user, newAccount: data.newAccount === true };
+  }
+
   googleLoginUrl(): string {
     const url = new URL(`${this.apiUrl}/v1/auth/google`);
     const returnTo = this.returnToUrl();

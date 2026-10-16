@@ -39,8 +39,7 @@
             <a class="workflow__template" [routerLink]="['/templates', template.slug]">
               <div class="workflow__template-media" [style.aspect-ratio]="template.aspect">
                 <video
-                  #templatePreview
-                  [src]="template.video"
+                  [appLazyVideo]="template.video"
                   aria-hidden="true"
                   muted
                   [muted]="true"
@@ -48,9 +47,6 @@
                   loop
                   playsinline
                   preload="metadata"
-                  (loadedmetadata)="silenceTemplatePreview($event)"
-                  (play)="silenceTemplatePreview($event)"
-                  (volumechange)="silenceTemplatePreview($event)"
                 ></video>
               </div>
               <h3>{{ template.title }}</h3>

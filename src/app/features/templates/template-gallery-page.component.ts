@@ -21,9 +21,10 @@ import {
 } from '@lucide/angular';
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
+import { LazyVideoDirective } from '../../shared/directives/lazy-video.directive';
 import { SeoService } from '../../shared/services/seo.service';
-import { MOTION_TEMPLATES, getMotionTemplate } from './template-catalog';
 import { MotionTemplate, renderTemplatePrompt, templateAspect } from './template-library.data';
+import { TemplateStore } from './template-store';
 
 @Component({
   selector: 'app-template-gallery-page',
@@ -31,6 +32,7 @@ import { MotionTemplate, renderTemplatePrompt, templateAspect } from './template
   imports: [
     NavbarComponent,
     FooterComponent,
+    LazyVideoDirective,
     LucideArrowRight,
     LucideCheck,
     LucideClipboard,
@@ -48,35 +50,36 @@ export class TemplateGalleryPageComponent implements OnDestroy {
   private readonly document = inject(DOCUMENT);
   private previouslyFocused: HTMLElement | null = null;
   private previousBodyOverflow = '';
+  readonly store = inject(TemplateStore);
 
   @ViewChild('closeButton') private closeButton?: ElementRef<HTMLButtonElement>;
 
-  readonly templates = MOTION_TEMPLATES;
   readonly renderTemplatePrompt = renderTemplatePrompt;
   readonly templateAspect = templateAspect;
   readonly selectedSlug = signal<string | null>(null);
   readonly activeCategory = signal('All');
   readonly copied = signal(false);
-  readonly categories = [
-    'All', 'Product', 'Marketing', 'Design', 'Explainer', 'Experiment',
-    'Storytelling', 'Showreel', 'Kinetic type', 'UI', 'Special',
-  ];
+  /** Placeholder card shapes while the list loads, in the formats the library uses. */
+  readonly skeletonAspects = ['16 / 9', '9 / 16', '1 / 1', '4 / 5', '16 / 9', '4 / 5', '9 / 16', '1 / 1'];
+
+  /** Every category the templates use, in the order they first appear. */
+  readonly categories = computed(() => [
+    'All',
+    ...new Set(this.store.templates().flatMap((template) => template.categories)),
+  ]);
 
   readonly visibleTemplates = computed(() => {
     const category = this.activeCategory();
-    return category === 'All'
-      ? this.templates
-      : this.templates.filter((template) => template.categories.includes(category));
+    const templates = this.store.templates();
+    return category === 'All' ? templates : templates.filter((template) => template.categories.includes(category));
   });
 
-  readonly selectedTemplate = computed(() =>
-    this.templates.find((template) => template.slug === this.selectedSlug()),
-  );
+  readonly selectedTemplate = computed(() => this.store.find(this.selectedSlug()));
 
   constructor() {
     // `/templates/:slug` is the gallery with that template open, so it can be linked and shared.
     const slug = inject(ActivatedRoute).snapshot.paramMap.get('slug');
-    const linked = slug ? getMotionTemplate(slug) : undefined;
+    const linked = slug ? this.store.find(slug) : undefined;
     this.applySeo(linked);
     if (linked) {
       this.selectedSlug.set(linked.slug);
@@ -85,9 +88,16 @@ export class TemplateGalleryPageComponent implements OnDestroy {
         this.document.body.style.overflow = 'hidden';
         this.closeButton?.nativeElement.focus();
       });
-    } else if (slug) {
-      afterNextRender(() => this.location.replaceState('/templates'));
+      return;
     }
+    afterNextRender(async () => {
+      await this.store.load();
+      if (!slug) return;
+      // The build had no templates, so the link resolves once the API answers.
+      const late = this.store.find(slug);
+      if (late) this.openTemplate(late);
+      else if (this.store.state() === 'ready') this.location.replaceState('/templates');
+    });
   }
 
   /** The gallery's metadata, or one template's when it is open. */
@@ -110,13 +120,7 @@ export class TemplateGalleryPageComponent implements OnDestroy {
   }
 
   categoryCount(category: string): number {
-    return this.templates.filter((template) => template.categories.includes(category)).length;
-  }
-
-  silenceGalleryPreview(event: Event): void {
-    const video = event.currentTarget as HTMLVideoElement;
-    if (!video.muted) video.muted = true;
-    if (video.volume !== 0) video.volume = 0;
+    return this.store.templates().filter((template) => template.categories.includes(category)).length;
   }
 
   openTemplate(template: MotionTemplate): void {

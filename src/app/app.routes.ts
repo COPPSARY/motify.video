@@ -136,11 +136,13 @@ export const routes: Routes = [
   {
     path: 'templates/customize/:slug',
     loadComponent: loadTemplateCustomizePage,
+    data: { preload: true },
     title: 'Customize Motion Design Template | Motify',
   },
   {
     path: 'templates',
     loadComponent: loadTemplateGalleryPage,
+    data: { preload: true },
     title: 'Motion Design Templates | Motify',
   },
   {

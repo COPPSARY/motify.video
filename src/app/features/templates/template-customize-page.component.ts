@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
@@ -11,8 +11,8 @@ import {
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
 import { SeoService } from '../../shared/services/seo.service';
-import { getMotionTemplate } from './template-catalog';
-import { promptSegmentValue, renderTemplatePrompt, templateDefaults } from './template-library.data';
+import { MotionTemplate, promptSegmentValue, renderTemplatePrompt, templateDefaults } from './template-library.data';
+import { TemplateStore } from './template-store';
 
 @Component({
   selector: 'app-template-customize-page',
@@ -33,26 +33,34 @@ import { promptSegmentValue, renderTemplatePrompt, templateDefaults } from './te
 })
 export class TemplateCustomizePageComponent {
   private readonly document = inject(DOCUMENT);
-  readonly template = getMotionTemplate(inject(ActivatedRoute).snapshot.paramMap.get('slug'));
-  readonly values = signal<Readonly<Record<string, string>>>(
-    this.template ? templateDefaults(this.template) : {},
-  );
+  private readonly seo = inject(SeoService);
+  private readonly slug = inject(ActivatedRoute).snapshot.paramMap.get('slug');
+  readonly store = inject(TemplateStore);
+  readonly template = computed(() => this.store.find(this.slug));
+  readonly values = signal<Readonly<Record<string, string>>>({});
   readonly copied = signal(false);
   readonly promptSegmentValue = promptSegmentValue;
-  readonly promptText = computed(() =>
-    this.template ? renderTemplatePrompt(this.template, this.values()) : '',
-  );
+  readonly promptText = computed(() => {
+    const template = this.template();
+    return template ? renderTemplatePrompt(template, this.values()) : '';
+  });
 
   constructor() {
-    const seo = inject(SeoService);
-    if (this.template) {
-      seo.apply({
-        title: `Customize ${this.template.title} | Motify`,
-        description: `Customize the ${this.template.title} motion design prompt and copy the finished brief.`,
-        path: `/templates/customize/${this.template.slug}`,
+    this.select(this.template());
+    // The build had no templates, so the page fills in once the API answers.
+    if (!this.template()) afterNextRender(() => void this.store.load().then(() => this.select(this.template())));
+  }
+
+  private select(template?: MotionTemplate): void {
+    if (template) {
+      this.values.set(templateDefaults(template));
+      this.seo.apply({
+        title: `Customize ${template.title} | Motify`,
+        description: `Customize the ${template.title} motion design prompt and copy the finished brief.`,
+        path: `/templates/customize/${template.slug}`,
       });
     } else {
-      seo.apply({
+      this.seo.apply({
         title: 'Template Not Found | Motify',
         description: 'This motion design template could not be found.',
         path: '/templates',
@@ -66,8 +74,7 @@ export class TemplateCustomizePageComponent {
   }
 
   isCustomized(key: string): boolean {
-    if (!this.template) return false;
-    const definition = this.template.fields.find((field) => field.key === key);
+    const definition = this.template()?.fields.find((field) => field.key === key);
     const value = this.fieldValue(key).trim();
     return Boolean(value && value !== definition?.defaultValue);
   }
@@ -77,13 +84,14 @@ export class TemplateCustomizePageComponent {
   }
 
   reset(): void {
-    if (!this.template) return;
-    this.values.set(templateDefaults(this.template));
+    const template = this.template();
+    if (!template) return;
+    this.values.set(templateDefaults(template));
     this.copied.set(false);
   }
 
   async copyPrompt(): Promise<void> {
-    if (!this.template) return;
+    if (!this.template()) return;
     const text = this.promptText();
     try {
       if (typeof navigator !== 'undefined' && navigator.clipboard) {

@@ -12,7 +12,7 @@ Key facts:
 - Inputs: prompts, product links, images and logos, uploaded music, and prompt templates from the resource library.
 - Brand: a Brand DNA / brand kit (typeface, voice, logo) is applied to every scene.
 - Output: HD MP4 exports in vertical short-form and wider formats. Finished videos can be used commercially, including paid ads.
-- Pricing: credit-based plans (Starter, Pro, Studio). A typical AI generation uses about 10 credits; a complete video commonly takes about three generations. Free to start, no card required. Payments are one-time via Bakong KHQR and do not auto-renew.
+- Pricing: credit-based plans (Free, Starter, Pro, Enterprise). A typical AI generation uses about 10 credits; a complete video commonly takes about three generations. Free to start, no card required. Payments are one-time via Bakong KHQR and do not auto-renew.
 - Built by COPPSARY.
 
 ## Product

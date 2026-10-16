@@ -26,6 +26,29 @@
       <article class="pricing-card">
         <div class="pricing-card__header">
           <div class="pricing-card__plan-row">
+            <h2 class="pricing-card__plan">Free</h2>
+          </div>
+          <p class="pricing-card__price"><strong>{{ formatMoney(0, 'USD') }}</strong><span>/ month</span></p>
+          <p class="pricing-card__credits"><strong>30 credits</strong></p>
+        </div>
+        <p class="pricing-card__description">Try Motify and make your first product video at no cost.</p>
+        <div class="pricing-card__features">
+          <p><span class="pricing-card__attention">What’s included</span></p>
+          <ul>
+            <li>30 free credits on sign up</li>
+            <li>Unlimited exports</li>
+          </ul>
+        </div>
+        @if (user()) {
+          <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">Included</span>
+        } @else {
+          <a class="pricing-card__button" routerLink="/signup">Get started free</a>
+        }
+      </article>
+
+      <article class="pricing-card">
+        <div class="pricing-card__header">
+          <div class="pricing-card__plan-row">
             <h2 class="pricing-card__plan">{{ plan('starter').name }}</h2>
           </div>
           @if (planCatalogStatus() === 'ready') {
@@ -41,8 +64,9 @@
         </div>
         <p class="pricing-card__description">Perfect for founders getting started with product video.</p>
         <div class="pricing-card__features">
-          <p><span class="pricing-card__attention">What’s included</span></p>
+          <p><span class="pricing-card__attention">Everything in Free</span>, plus</p>
           <ul>
+            <li>Access to better AI models</li>
             <li>Brand DNA</li>
             <li>HD MP4 exports</li>
             <li>Version history</li>
@@ -80,6 +104,7 @@
         <div class="pricing-card__features">
           <p><span class="pricing-card__attention">Everything in Starter</span>, plus</p>
           <ul>
+            <li>Access to better AI models</li>
             <li>AI voiceovers</li>
             <li>Multi-format exports</li>
             <li>Templates and reference videos</li>
@@ -93,47 +118,6 @@
           [disabled]="planButton('pro').disabled"
           (click)="beginCheckout('pro')"
         >{{ planButton('pro').label }}</button>
-      </article>
-
-      <article class="pricing-card pricing-card--coming-soon">
-        <div class="pricing-card__header">
-          <div class="pricing-card__plan-row">
-            <h2 class="pricing-card__plan">{{ plan('studio').name }}</h2>
-          </div>
-          @if (planCatalogStatus() === 'ready') {
-            <p class="pricing-card__price">
-              @if (planDisplayListPrice('studio') > planDisplayPrice('studio')) { <del>{{ formatMoney(planDisplayListPrice('studio'), plan('studio').currency) }}</del> }
-              <strong>{{ formatMoney(planDisplayPrice('studio'), plan('studio').currency) }}</strong><span>/ month</span>
-            </p>
-            @if (billingInterval() === 'year') { <p class="pricing-card__billing-total">Billed yearly: {{ formatMoney(planQuote('studio').price, plan('studio').currency) }}</p> }
-            <p class="pricing-card__credits"><strong>{{ planCredits('studio') }} credits</strong></p>
-          } @else {
-            <p class="pricing-card__price"><strong>—</strong><span>{{ planCatalogMessage() }}</span></p>
-          }
-        </div>
-        <p class="pricing-card__description">For teams producing product content at scale.</p>
-        <div class="pricing-card__features">
-          <p><span class="pricing-card__attention pricing-card__attention--accent">Everything in Pro</span>, plus</p>
-          <ul>
-            <li>Multiple Brand DNAs</li>
-            <li>Team workspace</li>
-            <li>MCP and integrations</li>
-            <li>Better AI models</li>
-          </ul>
-        </div>
-        @if (planCatalogStatus() !== 'ready') {
-          <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">{{ planCatalogMessage() }}</span>
-        } @else if (plan('studio').available) {
-          <button
-            class="pricing-card__button"
-            type="button"
-            [class.pricing-card__button--disabled]="planButton('studio').type === 'disabled'"
-            [disabled]="planButton('studio').disabled"
-            (click)="beginCheckout('studio')"
-          >{{ planButton('studio').label }}</button>
-        } @else {
-          <span class="pricing-card__button pricing-card__button--disabled" aria-disabled="true">Coming soon</span>
-        }
       </article>
 
       <article class="pricing-card pricing-card--enterprise">
@@ -151,20 +135,34 @@
         </div>
         <p class="pricing-card__description">For organizations producing a high volume of video and looking for the most cost-efficient plan.</p>
         <div class="pricing-card__features">
-          <p><span class="pricing-card__attention pricing-card__attention--accent">Everything in Studio</span>, plus</p>
+          <p><span class="pricing-card__attention pricing-card__attention--accent">What’s included</span></p>
           <ul>
+            <li>Cheaper cost per credit</li>
+            <li>Multiple Brand DNAs</li>
             <li>Custom credit allowance</li>
-            <li>Volume pricing</li>
             <li>Personalized onboarding</li>
             <li>Priority team support</li>
           </ul>
         </div>
-        <a
-          class="pricing-card__button"
-          href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hello%40motify.video&amp;su=Motify%20Enterprise%20pricing"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Contact us</a>
+        <div class="pricing-card__contact">
+          <a class="pricing-card__button" href="https://t.me/souujj" target="_blank" rel="noopener noreferrer">
+            <svg class="pricing-card__button-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path fill="currentColor" d="M21.94 4.3 18.7 19.55c-.24 1.08-.88 1.34-1.78.84l-4.93-3.63-2.38 2.29c-.26.26-.48.48-.99.48l.35-5.01 9.12-8.24c.4-.35-.09-.55-.61-.2L6.2 13.18l-4.86-1.52c-1.06-.33-1.08-1.06.22-1.57L20.55 2.78c.88-.33 1.65.2 1.39 1.52Z" />
+            </svg>
+            Talk to sales
+          </a>
+          <a
+            class="pricing-card__button pricing-card__button--secondary"
+            href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hello%40motify.video&amp;su=Motify%20Enterprise%20pricing"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="pricing-card__button-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 6.5A1.5 1.5 0 0 1 4.5 5h15A1.5 1.5 0 0 1 21 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5v-11Zm0 .5 9 6 9-6" />
+            </svg>
+            Email us
+          </a>
+        </div>
       </article>
     </section>
 

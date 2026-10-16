@@ -1,13 +1,4 @@
-import {
-  afterNextRender,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  inject,
-  OnDestroy,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../shared/services/seo.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -18,6 +9,7 @@ import { ResourcesSectionComponent } from './components/resources-section/resour
 import { FooterComponent } from './components/footer/footer.component';
 import { ValuePointsComponent } from './components/value-points/value-points.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
+import { LazyVideoDirective } from '../../shared/directives/lazy-video.directive';
 import previews from '../templates/template-previews.generated.json';
 
 export interface FeaturedTemplate {
@@ -51,10 +43,10 @@ const featured = [
 
 const previewVideo = (slug: string) => previews.find((preview) => preview.slug === slug)?.video ?? '';
 
-export const FEATURED_TEMPLATES: readonly FeaturedTemplate[] = featured.map((template) => ({
-  ...template,
-  video: previewVideo(template.slug),
-}));
+// A template the build could not read has no preview, so its card is left out.
+export const FEATURED_TEMPLATES: readonly FeaturedTemplate[] = featured
+  .map((template) => ({ ...template, video: previewVideo(template.slug) }))
+  .filter((template) => template.video);
 
 @Component({
   selector: 'app-landing-page',
@@ -69,17 +61,13 @@ export const FEATURED_TEMPLATES: readonly FeaturedTemplate[] = featured.map((tem
     FooterComponent,
     ValuePointsComponent,
     ScrollRevealDirective,
+    LazyVideoDirective,
     RouterLink,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
-export class LandingPageComponent implements OnDestroy {
-  @ViewChildren('templatePreview')
-  private templatePreviews!: QueryList<ElementRef<HTMLVideoElement>>;
-
-  private templatePreviewObserver?: IntersectionObserver;
-
+export class LandingPageComponent {
   readonly featuredTemplates = FEATURED_TEMPLATES;
 
   constructor() {
@@ -113,44 +101,6 @@ export class LandingPageComponent implements OnDestroy {
         window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
       }
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-
-      this.templatePreviewObserver = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            const video = entry.target as HTMLVideoElement;
-            this.keepPreviewSilent(video);
-
-            if (entry.isIntersecting) {
-              void video.play().catch(() => undefined);
-            } else {
-              video.pause();
-            }
-          }
-        },
-        { rootMargin: '240px 0px', threshold: 0.08 },
-      );
-
-      for (const preview of this.templatePreviews) {
-        this.templatePreviewObserver.observe(preview.nativeElement);
-      }
     });
-  }
-
-  silenceTemplatePreview(event: Event): void {
-    this.keepPreviewSilent(event.currentTarget as HTMLVideoElement);
-  }
-
-  ngOnDestroy(): void {
-    this.templatePreviewObserver?.disconnect();
-  }
-
-  private keepPreviewSilent(video: HTMLVideoElement): void {
-    if (!video.muted) {
-      video.muted = true;
-    }
-
-    if (video.volume !== 0) {
-      video.volume = 0;
-    }
   }
 }

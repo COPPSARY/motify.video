@@ -8,7 +8,10 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const templates = JSON.parse(await readFile(resolve(root, 'src/app/features/templates/templates.generated.json'), 'utf8'));
 const slugs = templates.map((template) => template.slug);
-if (slugs.length === 0) throw new Error('No template slugs in templates.generated.json; run scripts/fetch-templates.mjs first.');
+if (slugs.length === 0) {
+  // The API was down at build time; /templates still works because the browser loads the list.
+  console.warn('No template slugs in templates.generated.json; template links will not be prerendered.');
+}
 
 const routes = slugs.flatMap((slug) => [`/templates/${slug}`, `/templates/customize/${slug}`]);
 await writeFile(resolve(root, 'prerender-routes.txt'), `${routes.join('\n')}\n`, 'utf8');

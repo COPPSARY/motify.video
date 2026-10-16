@@ -1,18 +1,12 @@
 <div class="customize-shell">
   <app-navbar />
 
-  @if (template; as selected) {
+  @if (template(); as selected) {
     <main class="customize-page">
       <a class="back-link" routerLink="/templates"><svg lucideArrowLeft aria-hidden="true"></svg> All templates</a>
 
       <header class="customize-header">
-        <div>
-          <p>{{ selected.eyebrow }}</p>
-          <h1>{{ selected.title }}</h1>
-        </div>
-        <div class="customize-header__tags">
-          @for (tag of selected.categories; track tag) { <span>{{ tag }}</span> }
-        </div>
+        <h1>{{ selected.title }}</h1>
       </header>
 
       @if (selected.special) {
@@ -94,6 +88,15 @@
           <p class="copy-status" aria-live="polite">{{ copied() ? 'Copied to your clipboard.' : '' }}</p>
         </aside>
       </div>
+    </main>
+  } @else if (store.state() === 'loading') {
+    <main class="template-not-found" aria-busy="true">
+      <p>Loading template…</p>
+    </main>
+  } @else if (store.state() === 'error') {
+    <main class="template-not-found">
+      <h1>Templates could not be loaded.</h1>
+      <button type="button" (click)="store.retry()">Retry</button>
     </main>
   } @else {
     <main class="template-not-found">

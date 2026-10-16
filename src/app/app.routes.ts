@@ -7,7 +7,6 @@ import { PricingPageComponent } from './features/pricing/pricing-page.component'
 import { NotFoundPageComponent } from './features/not-found/not-found-page.component';
 import { HelpPageComponent } from './features/resources/help-page.component';
 import { HelpTopicPageComponent } from './features/resources/help-topic-page.component';
-import { PromptTemplatesPageComponent } from './features/resources/prompt-templates-page.component';
 import { ResourceCategoryPageComponent } from './features/resources/resource-category-page.component';
 import { ResourcesHubPageComponent } from './features/resources/resources-hub-page.component';
 import { SolutionPageComponent } from './features/solutions/solution-page.component';
@@ -21,11 +20,6 @@ const loadBlogIndexPage = () =>
 
 const loadBlogArticlePage = () =>
   import('./features/blog/blog-article-page.component').then((module) => module.BlogArticlePageComponent);
-
-const loadStoryboardResourcePage = () =>
-  import('./features/resources/storyboard-resource-page.component').then(
-    (module) => module.StoryboardResourcePageComponent,
-  );
 
 const loadTemplateGalleryPage = () =>
   import('./features/templates/template-gallery-page.component').then(
@@ -59,7 +53,7 @@ export const routes: Routes = [
   {
     path: '',
     component: LandingPageComponent,
-    title: 'Motify — AI Video Generator for SaaS Marketing',
+    title: 'Motify — AI Motion Graphics for Businesses & Agencies',
   },
   {
     path: 'login',
@@ -86,7 +80,7 @@ export const routes: Routes = [
     path: 'ai-saas-launch-video-generator',
     component: SolutionPageComponent,
     data: { solution: 'saas-launch' },
-    title: 'AI SaaS Launch Video Generator | Motify',
+    title: 'AI Launch Video Generator | Motify',
   },
   {
     path: 'ai-motion-graphics-generator',
@@ -98,12 +92,17 @@ export const routes: Routes = [
     path: 'software-product-video-generator',
     component: SolutionPageComponent,
     data: { solution: 'software-product' },
-    title: 'AI Product Video Generator for SaaS | Motify',
+    title: 'AI Product Animation Generator | Motify',
   },
   {
     path: 'canvas-ai-video-editor',
     redirectTo: 'ai-motion-graphics-generator',
   },
+  // Retired pages; vercel.json answers these with permanent redirects too.
+  { path: 'resources/prompt-templates', redirectTo: 'templates' },
+  { path: 'resources/storyboard-generator', redirectTo: 'resources' },
+  { path: 'compare/video-agency', redirectTo: '' },
+  { path: 'resources/examples', redirectTo: 'templates' },
   {
     path: 'compare/after-effects',
     component: ComparisonPageComponent,
@@ -114,7 +113,7 @@ export const routes: Routes = [
     path: 'compare/canva',
     component: ComparisonPageComponent,
     data: { comparison: 'canva' },
-    title: 'Motify vs Canva AI Video for SaaS Teams',
+    title: 'Motify vs Canva AI Video for Motion Graphics',
   },
   {
     path: 'compare/synthesia',
@@ -123,15 +122,9 @@ export const routes: Routes = [
     title: 'Motify vs Synthesia for Product Videos',
   },
   {
-    path: 'compare/video-agency',
-    component: ComparisonPageComponent,
-    data: { comparison: 'video-agency' },
-    title: 'Motify vs a Video Agency for Product Launches',
-  },
-  {
     path: 'resources',
     component: ResourcesHubPageComponent,
-    title: 'Product Marketing Resources | Motify',
+    title: 'Motion Graphics Resources | Motify',
   },
   {
     path: 'templates/customize/:slug',
@@ -163,15 +156,10 @@ export const routes: Routes = [
     title: 'Brand DNA | Motify Resources',
   },
   {
-    path: 'resources/prompt-templates',
-    component: PromptTemplatesPageComponent,
-    title: 'Product Marketing Prompt Templates | Motify',
-  },
-  {
     path: 'resources/playbooks',
     component: ResourceCategoryPageComponent,
     data: { category: 'playbooks' },
-    title: 'Product Marketing Playbooks | Motify Resources',
+    title: 'Motion Graphics Playbooks | Motify Resources',
   },
   {
     path: 'resources/video-craft',
@@ -180,20 +168,9 @@ export const routes: Routes = [
     title: 'Video Craft | Motify Resources',
   },
   {
-    path: 'resources/examples',
-    component: ResourceCategoryPageComponent,
-    data: { category: 'examples' },
-    title: 'Examples & Inspiration | Motify Resources',
-  },
-  {
-    path: 'resources/storyboard-generator',
-    loadComponent: loadStoryboardResourcePage,
-    title: 'AI Storyboard Generator for Product Videos | Motify',
-  },
-  {
     path: 'blog',
     loadComponent: loadBlogIndexPage,
-    title: 'SaaS Video Marketing Blog | Motify',
+    title: 'Motion Graphics & Video Marketing Blog | Motify',
   },
   ...blogArticleRoutes,
   {

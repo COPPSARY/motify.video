@@ -18,7 +18,7 @@ export class PartnersPageComponent {
     inject(SeoService).apply({
       title: 'Partner with Motify | Agencies, Creators & Tech Partners',
       description:
-        'Collaborate with Motify. We work with product marketing agencies, design studios, creators, and technology partners building the future of SaaS video workflows.',
+        'Collaborate with Motify. We work with marketing and creative agencies, design studios, creators, and technology partners making motion graphics more accessible.',
       path: '/partners',
       jsonLd: {
         '@context': 'https://schema.org',

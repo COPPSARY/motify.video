@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { FeaturesSectionComponent } from './features-section.component';
-import { FEATURES } from '../../../../shared/data/features.data';
 
 describe('FeaturesSectionComponent', () => {
   beforeEach(async () => {
@@ -11,41 +10,21 @@ describe('FeaturesSectionComponent', () => {
     }).compileComponents();
   });
 
-  it('should render exactly one feature card per entry in FEATURES', () => {
+  it('links one resource card to the template gallery and each remaining guide', () => {
     const fixture = TestBed.createComponent(FeaturesSectionComponent);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const cards = compiled.querySelectorAll('.feature-card');
+    const links = Array.from(compiled.querySelectorAll<HTMLAnchorElement>('a.resource-card')).map((card) =>
+      card.getAttribute('href'),
+    );
 
-    expect(cards.length).toBe(FEATURES.length);
-  });
-
-  it('should render feature icons as SVGs instead of raw icon names', () => {
-    const fixture = TestBed.createComponent(FeaturesSectionComponent);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
-    const icons = compiled.querySelectorAll('.feature-card__icon svg');
-    const iconText = Array.from(compiled.querySelectorAll('.feature-card__icon'))
-      .map((icon) => icon.textContent ?? '')
-      .join('');
-
-    expect(icons.length).toBe(FEATURES.length);
-    for (const feature of FEATURES) {
-      expect(iconText).not.toContain(feature.icon);
-    }
-  });
-
-  it('should render zero cards without throwing when features is empty', () => {
-    const fixture = TestBed.createComponent(FeaturesSectionComponent);
-    (fixture.componentInstance as unknown as { features: readonly unknown[] }).features = [];
-
-    expect(() => fixture.detectChanges()).not.toThrow();
-
-    const compiled = fixture.nativeElement as HTMLElement;
-    const cards = compiled.querySelectorAll('.feature-card');
-
-    expect(cards.length).toBe(0);
+    expect(links).toEqual([
+      '/templates',
+      '/resources/start-here',
+      '/resources/brand-dna',
+      '/resources/playbooks',
+      '/resources/video-craft',
+    ]);
   });
 });

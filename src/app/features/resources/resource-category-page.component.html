@@ -29,7 +29,7 @@
     <section class="guide-page__content" aria-label="Guides">
       <div class="guide-page__index">
         <p>{{ category.entries.length }} topics</p>
-        <a routerLink="/resources/prompt-templates">Use a prompt template</a>
+        <a routerLink="/templates">Start from a template</a>
       </div>
       <div class="guide-page__entries">
         @for (entry of category.entries; track entry.title; let i = $index) {
@@ -61,8 +61,8 @@
     </section>
 
     <section class="guide-page__next">
-      <h2>Start from a structured brief, then make it yours.</h2>
-      <a routerLink="/resources/prompt-templates">Browse prompt templates</a>
+      <h2>Start from a finished template, then make it yours.</h2>
+      <a routerLink="/templates">Browse motion templates</a>
     </section>
   </main>
   <app-footer />

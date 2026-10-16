@@ -127,7 +127,6 @@
   display: grid;
 }
 
-.showcase-stories__rail a,
 .showcase-stories__rail-btn {
   display: block;
   width: 100%;
@@ -159,22 +158,17 @@
     letter-spacing 340ms var(--motify-ease-standard);
 }
 
-.showcase-stories__rail a:hover,
-.showcase-stories__rail a:focus-visible,
-.showcase-stories__rail a.is-active,
 .showcase-stories__rail-btn:hover,
 .showcase-stories__rail-btn:focus-visible,
 .showcase-stories__rail-btn.is-active {
   color: var(--motify-text-primary);
 }
 
-.showcase-stories__rail a.is-active,
 .showcase-stories__rail-btn.is-active {
   padding-block: 1.15rem;
   color: var(--motify-text-primary);
 }
 
-.showcase-stories__rail a.is-active .showcase-stories__rail-label,
 .showcase-stories__rail-btn.is-active .showcase-stories__rail-label {
   font-size: clamp(1.75rem, 2.5vw, 2.55rem);
   font-weight: 400;
@@ -278,28 +272,29 @@
     display: none;
   }
 
-  .showcase-stories__rail a {
+  .showcase-stories__rail-btn,
+  .showcase-stories__rail-btn.is-active {
     display: block;
     flex: 0 0 auto;
+    width: auto;
     padding: 0.55rem 0.8rem;
     border: 1px solid var(--motify-border);
     border-radius: var(--motify-radius-pill);
+    white-space: nowrap;
   }
 
   .showcase-stories__rail-label {
     font-size: 0.76rem;
   }
 
-  .showcase-stories__rail a.is-active {
-    padding-left: 0.8rem;
+  .showcase-stories__rail-btn.is-active {
     border-color: rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.08);
-    font-weight: 700;
-    letter-spacing: 0;
   }
 
-  .showcase-stories__rail a.is-active .showcase-stories__rail-label {
+  .showcase-stories__rail-btn.is-active .showcase-stories__rail-label {
     font-size: 0.76rem;
+    font-weight: 700;
     letter-spacing: 0;
   }
 
@@ -318,12 +313,40 @@
     padding-bottom: 3.5rem;
   }
 
+  .showcase-stories__trust {
+    gap: 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  .showcase-stories__trust-logos {
+    flex-wrap: wrap;
+    gap: 0.85rem 1.1rem;
+  }
+
+  .showcase-stories__trust-logos img {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .showcase-stories__trust-logos .showcase-stories__google-logo {
+    width: 2rem;
+  }
+
+  .showcase-stories__trust-logos .showcase-stories__datadog-logo {
+    width: 5.4rem;
+    height: auto;
+  }
+
+  .showcase-stories__trust-logos strong {
+    font-size: 0.82rem;
+  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
   .showcase-story__media,
-  .showcase-stories__rail a,
-  .showcase-stories__rail a::before {
+  .showcase-stories__rail-btn,
+  .showcase-stories__rail-label {
     transition: none;
   }
 }

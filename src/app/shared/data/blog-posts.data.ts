@@ -53,7 +53,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
         heading: 'Why Motify fits Product Hunt launch day',
         paragraphs: [
           'A Product Hunt gallery is not a film festival. Visitors scan the thumbnail, headline, screenshots, and comments quickly. Your video should therefore lead with the product outcome, show recognizable product truth, and end with one specific next step. Motify is designed around that kind of product-marketing sequence rather than a generic montage.',
-          'Before generating, use the Motify Storyboard Generator to lay out a nine-scene flow. A reliable structure is: problem, failed workaround, new possibility, product reveal, three proof scenes, payoff, and launch CTA. Approving that flow before generation gives the team something concrete to review and prevents expensive polishing of the wrong story.',
+          'Before generating, sketch a nine-scene flow. A reliable structure is: problem, failed workaround, new possibility, product reveal, three proof scenes, payoff, and launch CTA. Approving that flow before generation gives the team something concrete to review and prevents expensive polishing of the wrong story.',
         ],
       },
       {
@@ -351,7 +351,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
         heading: 'Storyboards become the shared creative brief',
         paragraphs: [
           'Text briefs leave visual assumptions hidden. A storyboard reveals sequence, emphasis, product presence, and the final CTA before a team commits to animation. AI-assisted storyboarding makes this step accessible to small teams that never had a creative director on every campaign.',
-          'The most useful storyboards are not mood boards. They show a complete, reviewable flow. Motify’s nine-scene generator is built for this approval moment and can carry the result into the next video prompt as a visual reference.',
+          'The most useful storyboards are not mood boards. They show a complete, reviewable flow, and once approved the frames can be attached to the next Motify prompt as a visual reference.',
         ],
       },
       {
@@ -492,7 +492,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
       {
         heading: 'Plan nine scenes before animation',
         paragraphs: [
-          'Open the Motify Storyboard Generator and describe the complete product journey. Select the aspect ratio that matches the primary channel, then review the nine-scene flow as a whole. Make sure the app appears early, each scene has one job, and the final CTA is visually obvious.',
+          'Sketch the complete product journey as a nine-scene storyboard in the aspect ratio of the primary channel, then review the flow as a whole. Make sure the app appears early, each scene has one job, and the final CTA is visually obvious.',
           'This is the step that replaces much of the timeline expertise. You are making story decisions in a format the team can understand before motion and sound make changes feel expensive.',
         ],
       },

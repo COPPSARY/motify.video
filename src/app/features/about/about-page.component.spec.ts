@@ -11,32 +11,43 @@ describe('AboutPageComponent', () => {
     }).compileComponents();
   });
 
-  it('renders vision, mission, and founder quote without emojis', () => {
+  it('renders the motion graphics positioning and primary use cases', () => {
     const fixture = TestBed.createComponent(AboutPageComponent);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
     const text = compiled.textContent ?? '';
 
-    expect(text).toContain('Vision');
-    expect(text).toContain('A world where teams can focus on building and improving their products while their marketing content keeps pace.');
-    expect(text).toContain('Mission');
-    expect(text).toContain('Motify turns product updates and marketing goals into clear, accurate, on-brand marketing content—without the usual production bottleneck.');
-    expect(text).toContain('Teams should be able to focus on, and improve their products, Motify will handle announcing their great products');
-    expect(text).toContain('Reaksa, Founder');
-    expect(compiled.querySelector('.about__section-heading > p')).toBeNull();
-    expect(text).toContain('Ground every first draft in something real.');
-    expect(text).toContain('Bring the product context');
-    expect(text).not.toContain('Partner with us');
-    expect(compiled.querySelector('.about__pill-btn')).toBeNull();
+    expect(text).toContain('About Motify: Motion graphics, made easier');
+    expect(text).toContain('Cambodian-led startup');
+    expect(text).toContain('Animated ads');
+    expect(text).toContain('Product animations');
+    expect(text).toContain('Explainer videos');
+    expect(text).toContain('Marketing and social content');
+    expect(text).toContain('AI helps with the production process.');
+    expect(text).toContain('Good motion starts with understanding.');
+    expect(text).toContain('Their understanding and creative direction are what make the work distinct.');
+    expect(text).toContain('Have an idea? Put it in motion.');
+    expect(compiled.querySelectorAll('.about__uses-grid li').length).toBe(4);
+    expect(compiled.querySelector<HTMLAnchorElement>('.about__button')?.textContent).toContain('Try Motify');
+    expect(text).not.toContain('—');
   });
 
-  it('renders all COPPSARY team avatars', () => {
+  it('links the CTA to login with the editor return path', () => {
     const fixture = TestBed.createComponent(AboutPageComponent);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const avatars = compiled.querySelectorAll('.about__team-member');
-    expect(avatars.length).toBe(6);
+    const button = compiled.querySelector<HTMLAnchorElement>('.about__button');
+    expect(button?.getAttribute('href')).toBe('/login?returnUrl=%2Feditor');
+  });
+
+  it('renders the COPPSARY team and all six member avatars', () => {
+    const fixture = TestBed.createComponent(AboutPageComponent);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent).toContain('Built by COPPSARY');
+    expect(compiled.querySelectorAll('.about__team-member').length).toBe(6);
   });
 });

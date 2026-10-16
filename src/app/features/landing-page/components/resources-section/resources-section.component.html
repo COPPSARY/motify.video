@@ -3,34 +3,10 @@
     <div class="resources__cta" [appScrollReveal]="0">
       <div>
         <span>Start free. No card.</span>
-        <strong>Ready to ship?</strong>
-        <p>Paste a link, bring your brand context, and refine the result.</p>
+        <strong>Have an idea? Put it in motion.</strong>
+        <p>Describe it in plain words, attach your images or music, and refine the result by chatting.</p>
       </div>
-      <form class="resources__composer" (ngSubmit)="submitPrompt()">
-        <label class="sr-only" for="resources-prompt">Describe your video</label>
-        <textarea
-          id="resources-prompt"
-          name="resourcesPrompt"
-          [(ngModel)]="prompt"
-          rows="2"
-          placeholder="Describe your video..."
-          (keydown)="onPromptKeydown($event)"
-        ></textarea>
-        <div class="resources__composer-actions">
-          <div class="resources__asset-picker">
-            <button class="resources__round-button" type="button" aria-label="Add an asset" [attr.aria-expanded]="assetMenuOpen" (click)="toggleAssetMenu()"><svg lucidePlus aria-hidden="true"></svg></button>
-            @if (assetMenuOpen) {
-              <div class="resources__asset-menu">
-                <button type="button" (click)="chooseAsset('image')">Upload image</button>
-                <button type="button" (click)="chooseAsset('video')">Upload video</button>
-              </div>
-            }
-          </div>
-          @if (selectedAsset) { <span class="resources__asset-name" title="Attached asset">{{ selectedAsset }}</span> }
-          <button class="resources__enhance-button" type="button" aria-label="Enhance prompt" title="Enhance prompt" (click)="enhancePrompt()"><svg lucideSparkles aria-hidden="true"></svg></button>
-          <button class="resources__submit" type="submit" aria-label="Start creating"><svg lucideArrowUp aria-hidden="true"></svg></button>
-        </div>
-      </form>
+      <app-prompt-composer class="resources__composer" inputId="resources-prompt" placeholder="Describe your video..." />
     </div>
   </div>
 </section>

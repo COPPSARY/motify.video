@@ -10,9 +10,10 @@ export type TemplateLoadState = 'ready' | 'loading' | 'error';
 
 /**
  * The templates the pages render. The build bakes in the API's list (see
- * scripts/fetch-templates.mjs); when the build could not read it, the browser
- * asks GET /v1/prompt-templates instead, and the pages offer a retry if that
- * fails too.
+ * scripts/fetch-templates.mjs) so pages render at once and prerender; in the
+ * browser, GET /v1/prompt-templates then replaces it, so a template added in
+ * the admin shows up without a redeploy. When that request fails the baked
+ * copy stays, and with no baked copy the pages offer a retry.
  */
 @Injectable({ providedIn: 'root' })
 export class TemplateStore {
@@ -22,14 +23,16 @@ export class TemplateStore {
 
   readonly templates = signal<readonly MotionTemplate[]>(MOTION_TEMPLATES);
   readonly state = signal<TemplateLoadState>(MOTION_TEMPLATES.length ? 'ready' : 'loading');
+  /** True once the live list has answered (or failed); the server never asks, so it stays on the baked copy. */
+  readonly settled = signal(!this.browser);
 
   find(slug: string | null | undefined): MotionTemplate | undefined {
     return this.templates().find((template) => template.slug === slug);
   }
 
-  /** Resolves once the list is in, or has failed; the server never fetches. */
+  /** Resolves once the live list is in, or has failed. Asks the API once per visit. */
   load(): Promise<void> {
-    if (this.state() === 'ready' || !this.browser) return Promise.resolve();
+    if (!this.browser) return Promise.resolve();
     return (this.request ??= this.fetch());
   }
 
@@ -39,7 +42,7 @@ export class TemplateStore {
   }
 
   private async fetch(): Promise<void> {
-    this.state.set('loading');
+    if (!this.templates().length) this.state.set('loading');
     try {
       const { data } = await firstValueFrom(
         this.http.get<{ data: MotionTemplate[] }>(`${motifyApiUrl()}/v1/prompt-templates`),
@@ -48,7 +51,9 @@ export class TemplateStore {
       this.templates.set(data);
       this.state.set('ready');
     } catch {
-      this.state.set('error');
+      if (!this.templates().length) this.state.set('error');
+    } finally {
+      this.settled.set(true);
     }
   }
 }

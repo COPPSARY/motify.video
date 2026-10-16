@@ -27,6 +27,14 @@
       "handle": "filesystem"
     },
     {
+      "src": "/templates/customize/[^/]+/?",
+      "dest": "/index.csr.html"
+    },
+    {
+      "src": "/templates/[^/]+/?",
+      "dest": "/index.csr.html"
+    },
+    {
       "src": "/(.*)",
       "status": 404,
       "dest": "/404.html"

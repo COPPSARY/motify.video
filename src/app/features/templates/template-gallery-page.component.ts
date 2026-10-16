@@ -87,13 +87,15 @@ export class TemplateGalleryPageComponent implements OnDestroy {
         this.previousBodyOverflow = this.document.body.style.overflow;
         this.document.body.style.overflow = 'hidden';
         this.closeButton?.nativeElement.focus();
+        void this.store.load();
       });
       return;
     }
     afterNextRender(async () => {
+      // The live list replaces the baked one, so templates added since the build appear too.
       await this.store.load();
       if (!slug) return;
-      // The build had no templates, so the link resolves once the API answers.
+      // A template newer than the build resolves once the API answers.
       const late = this.store.find(slug);
       if (late) this.openTemplate(late);
       else if (this.store.state() === 'ready') this.location.replaceState('/templates');

@@ -33,13 +33,11 @@
               <span class="template-card__media" [style.aspect-ratio]="templateAspect(template).css">
                 <video
                   [appLazyVideo]="template.video"
-                  autoplay
                   muted
                   [muted]="true"
                   [volume]="0"
                   loop
                   playsinline
-                  preload="metadata"
                   aria-hidden="true"
                 ></video>
                 <span class="template-card__wash"></span>
@@ -87,7 +85,9 @@
 
       <div class="template-modal__media">
         <video
+          #modalVideo
           [src]="template.video"
+          (loadeddata)="modalVideo.classList.add('is-ready')"
           [style.aspect-ratio]="templateAspect(template).css"
           [class.is-tall]="templateAspect(template).tall"
           autoplay

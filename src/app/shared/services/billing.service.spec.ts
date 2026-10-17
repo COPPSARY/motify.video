@@ -58,6 +58,15 @@ describe('BillingService', () => {
     await expectAsync(result).toBeResolvedTo(jasmine.objectContaining({ kind: 'CREDIT_PACK', credits: 65 }));
   });
 
+  it('loads the buyer receipt with the session cookie', async () => {
+    const result = billing.getReceipt('payment-1');
+    const request = http.expectOne('https://api.example.test/v1/payments/payment-1/receipt');
+    expect(request.request.method).toBe('GET');
+    expect(request.request.withCredentials).toBeTrue();
+    request.flush({ data: { paymentId: 'payment-1', receiptNumber: 'ABCD-1234-EF56', total: 20 } });
+    await expectAsync(result).toBeResolvedTo(jasmine.objectContaining({ receiptNumber: 'ABCD-1234-EF56' }));
+  });
+
   it('settles a sandbox checkout with CSRF protection', async () => {
     const result = billing.simulatePayment('payment/1', 'paid', 'csrf-token');
     const request = http.expectOne('https://api.example.test/v1/payments/payment%2F1/sandbox');

@@ -1,0 +1,36 @@
+<div class="receipt-shell">
+  <app-navbar />
+  <main class="receipt-page" aria-live="polite">
+    @switch (state()) {
+      @case ('loading') {
+        <p class="receipt-page__status">Loading your receipt…</p>
+      }
+      @case ('ready') {
+        @if (receipt(); as paidReceipt) {
+          <app-payment-receipt [receipt]="paidReceipt" />
+        }
+      }
+      @case ('not-paid') {
+        <div class="receipt-page__message">
+          <h1>This payment is not complete yet</h1>
+          <p>A receipt is available once Bakong confirms the payment. If you just paid, wait a moment and reload this page.</p>
+          <a routerLink="/pricing">Back to pricing</a>
+        </div>
+      }
+      @case ('not-found') {
+        <div class="receipt-page__message">
+          <h1>Receipt not found</h1>
+          <p>This receipt does not exist, or it belongs to another account. Receipts are only visible to the person who paid.</p>
+          <a routerLink="/pricing">Back to pricing</a>
+        </div>
+      }
+      @default {
+        <div class="receipt-page__message">
+          <h1>We couldn’t load this receipt</h1>
+          <p>Please reload the page. If it keeps failing, email <a href="mailto:billing@motify.video">billing&#64;motify.video</a>.</p>
+        </div>
+      }
+    }
+  </main>
+  <app-footer />
+</div>

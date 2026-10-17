@@ -11,6 +11,7 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
+import { RECEIPT_SELLER } from '../../shared/config/receipt-seller';
 import { AuthService, type MotifyUser } from '../../shared/services/auth.service';
 import {
   BillingService,
@@ -20,12 +21,14 @@ import {
   type CheckoutInterval,
   type CreditPack,
   type MotifyWorkspace,
+  type PaymentReceipt,
   type PlanId,
   type Purchase,
   type SandboxOutcome,
   type WorkspaceSubscription,
 } from '../../shared/services/billing.service';
 import { SeoService } from '../../shared/services/seo.service';
+import { downloadReceiptPdf } from '../../shared/utils/receipt-pdf';
 
 type CheckoutState = 'idle' | 'confirming' | 'creating' | 'pending' | 'paid' | 'expired' | 'failed' | 'error';
 type CatalogStatus = 'loading' | 'ready' | 'unavailable';
@@ -103,6 +106,8 @@ export class PricingPageComponent implements OnDestroy {
   readonly selectedPaymentMethod = signal<PaymentMethodId>('bakong-khqr');
   readonly billingInterval = signal<CheckoutInterval>('month');
   readonly simulating = signal(false);
+  /** The paid payment's receipt, for its PDF; null until it loads, and when it cannot be loaded. */
+  readonly receipt = signal<PaymentReceipt | null>(null);
 
   private pollTimer?: number;
   private countdownTimer?: number;
@@ -317,7 +322,13 @@ export class PricingPageComponent implements OnDestroy {
     this.qrDataUrl.set('');
     this.checkoutError.set('');
     this.pollingNotice.set('');
+    this.receipt.set(null);
     this.clearCheckoutQuery();
+  }
+
+  async downloadReceipt(): Promise<void> {
+    const receipt = this.receipt();
+    if (receipt) await downloadReceiptPdf(receipt, RECEIPT_SELLER);
   }
 
   retryCheckout(): void {
@@ -548,6 +559,7 @@ export class PricingPageComponent implements OnDestroy {
       this.stopPolling();
       this.checkoutState.set('paid');
       if (payment.subscription) this.subscription.set(payment.subscription);
+      await this.loadReceipt(payment.id);
       return;
     }
     if (payment.status === 'EXPIRED') {
@@ -561,6 +573,17 @@ export class PricingPageComponent implements OnDestroy {
       return;
     }
     this.schedulePoll(4_000);
+  }
+
+  private async loadReceipt(paymentId: string): Promise<void> {
+    try {
+      const receipt = await this.billing.getReceipt(paymentId);
+      // The dialog may have been closed, or another checkout opened, while it loaded.
+      if (!this.destroyed && this.payment()?.id === paymentId) this.receipt.set(receipt);
+    } catch {
+      // The success message stands on its own; the receipt stays at /receipt?payment=<id>.
+      this.receipt.set(null);
+    }
   }
 
   private updateCountdown(): void {

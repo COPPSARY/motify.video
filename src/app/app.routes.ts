@@ -31,6 +31,9 @@ const loadTemplateCustomizePage = () =>
     (module) => module.TemplateCustomizePageComponent,
   );
 
+const loadReceiptPage = () =>
+  import('./features/receipt/receipt-page.component').then((module) => module.ReceiptPageComponent);
+
 const blogArticleRoutes: Routes = [
   ['best-ai-video-tools-product-hunt-launch', 'AI Video Tools for Product Hunt Launches (2026) | Motify'],
   ['best-ai-video-generators-product-launches', 'AI Video Generators for Product Launches (2026) | Motify'],
@@ -223,6 +226,12 @@ export const routes: Routes = [
     path: 'pricing',
     component: PricingPageComponent,
     title: 'AI Video Generator Pricing | Motify',
+  },
+  {
+    // One page for every receipt: the payment id is the `payment` query parameter.
+    path: 'receipt',
+    loadComponent: loadReceiptPage,
+    title: 'Receipt | Motify',
   },
   {
     path: 'terms',

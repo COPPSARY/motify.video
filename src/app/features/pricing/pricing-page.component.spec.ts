@@ -5,7 +5,9 @@ import { provideRouter } from '@angular/router';
 import { AuthService, type MotifyUser } from '../../shared/services/auth.service';
 import {
   BillingService,
+  type BillingPayment,
   type BillingPlan,
+  type PaymentReceipt,
   type MotifyWorkspace,
   type WorkspaceSubscription,
 } from '../../shared/services/billing.service';
@@ -61,7 +63,7 @@ describe('PricingPageComponent', () => {
     billing = Object.assign(
       jasmine.createSpyObj<BillingService>('BillingService', [
         'listPlans', 'listCreditPacks', 'listWorkspaces', 'getSubscription',
-        'createCheckout', 'getPayment', 'simulatePayment', 'clearSubscription',
+        'createCheckout', 'getPayment', 'getReceipt', 'simulatePayment', 'clearSubscription',
       ]),
       { subscription: signal<WorkspaceSubscription | null>(null) },
     );
@@ -259,5 +261,41 @@ describe('PricingPageComponent', () => {
     expect(component.planButton('starter')).toEqual({ label: 'Unavailable', type: 'disabled', disabled: true });
     expect(component.canPurchasePlan('pro')).toBeTrue();
     expect(component.planButton('pro').label).toBe('Renew Pro');
+  });
+
+  it('offers the receipt PDF once Bakong confirms the payment', async () => {
+    const pending: BillingPayment = {
+      id: 'payment-1', workspaceId: 'personal-1', mode: 'sandbox', kind: 'CREDIT_PACK', plan: null, interval: null,
+      creditPack: 'credits-65', credits: 65, bonusCredits: 13, listAmount: 5, discount: 0, amount: 5, currency: 'USD',
+      billNumber: 'MTF-TEST', status: 'PENDING', qr: '000201', expiresAt: '2026-10-15T08:10:00.000Z', paidAt: null,
+      createdAt: '2026-10-15T08:00:00.000Z',
+    };
+    const receipt: PaymentReceipt = {
+      paymentId: 'payment-1', mode: 'sandbox', kind: 'CREDIT_PACK', invoiceNumber: 'MTF-TEST', receiptNumber: 'HASH-1',
+      paidAt: '2026-10-15T08:01:00.000Z', currency: 'USD', billTo: { name: 'Founder', email: user.email },
+      paymentMethod: { type: 'Bakong KHQR', account: 'pa•••@abaa', transactionHash: 'hash-1' },
+      lineItems: [{ description: 'Motify credit pack · 65 credits', period: null, details: [], quantity: 1, unitPrice: 5, amount: 5 }],
+      subtotal: 5, discount: 0, total: 5, amountPaid: 5,
+    };
+    billing.simulatePayment.and.resolveTo({ ...pending, status: 'PAID', qr: null, paidAt: receipt.paidAt, creditBalance: 78 });
+    billing.getReceipt.and.resolveTo(receipt);
+    const fixture = TestBed.createComponent(PricingPageComponent);
+    const component = fixture.componentInstance;
+    component.payment.set(pending);
+    component.checkoutState.set('pending');
+
+    await component.simulateSandbox('paid');
+    fixture.detectChanges();
+
+    expect(billing.getReceipt).toHaveBeenCalledWith('payment-1');
+    expect(component.receipt()).toEqual(receipt);
+    const element = fixture.nativeElement as HTMLElement;
+    const actions = element.querySelector('.checkout-receipt-actions');
+    expect(actions?.textContent?.trim()).toBe('Download PDF');
+    expect(element.textContent).not.toContain('View receipt');
+    expect(element.querySelector('app-payment-receipt')).toBeNull();
+
+    component.closeCheckout();
+    expect(component.receipt()).toBeNull();
   });
 });

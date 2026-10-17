@@ -1468,3 +1468,12 @@ label.payment-method:hover,
     transform: none;
   }
 }
+
+.checkout-receipt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem 0.75rem;
+  margin-top: 1.25rem;
+}

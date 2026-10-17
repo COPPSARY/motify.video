@@ -95,6 +95,33 @@ export interface BillingPayment {
   readonly creditBalance?: number | null;
 }
 
+export interface ReceiptLineItem {
+  readonly description: string;
+  /** The plan period this line pays for; null for a credit pack. */
+  readonly period: { readonly start: string; readonly end: string } | null;
+  readonly details: readonly string[];
+  readonly quantity: number;
+  readonly unitPrice: number;
+  readonly amount: number;
+}
+
+export interface PaymentReceipt {
+  readonly paymentId: string;
+  readonly mode: PaymentMode;
+  readonly kind: PaymentKind;
+  readonly invoiceNumber: string;
+  readonly receiptNumber: string;
+  readonly paidAt: string;
+  readonly currency: 'USD' | 'KHR';
+  readonly billTo: { readonly name: string; readonly email: string };
+  readonly paymentMethod: { readonly type: string; readonly account: string | null; readonly transactionHash: string | null };
+  readonly lineItems: readonly ReceiptLineItem[];
+  readonly subtotal: number;
+  readonly discount: number;
+  readonly total: number;
+  readonly amountPaid: number;
+}
+
 interface DataResponse<T> {
   readonly data: T;
 }
@@ -153,6 +180,11 @@ export class BillingService {
     const payment = await this.get<BillingPayment>(`/v1/payments/${encodeURIComponent(paymentId)}`);
     if (payment.subscription) this.subscription.set(payment.subscription);
     return payment;
+  }
+
+  /** The signed-in buyer's receipt for a PAID payment. */
+  getReceipt(paymentId: string): Promise<PaymentReceipt> {
+    return this.get<PaymentReceipt>(`/v1/payments/${encodeURIComponent(paymentId)}/receipt`);
   }
 
   async simulatePayment(

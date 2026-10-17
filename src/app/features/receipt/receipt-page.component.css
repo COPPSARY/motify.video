@@ -1,0 +1,41 @@
+.receipt-shell {
+  min-height: 100svh;
+  background: var(--motify-bg);
+  color: var(--motify-text-primary);
+}
+
+.receipt-page {
+  width: min(52rem, 100%);
+  margin: 0 auto;
+  padding: 8rem 1rem 5rem;
+}
+
+.receipt-page__status {
+  color: var(--motify-text-secondary);
+  text-align: center;
+}
+
+.receipt-page__message {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.receipt-page__message h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.1;
+}
+
+.receipt-page__message p {
+  max-width: 32rem;
+  margin: 0;
+  color: var(--motify-text-secondary);
+}
+
+.receipt-page__message a {
+  color: var(--motify-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

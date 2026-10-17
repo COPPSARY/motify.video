@@ -1,0 +1,94 @@
+<article class="receipt" aria-labelledby="receipt-title">
+  <header class="receipt__top">
+    <div>
+      <h2 id="receipt-title" class="receipt__title">
+        Receipt
+        @if (receipt.mode === 'sandbox') { <span class="receipt__sandbox">Sandbox · no money moved</span> }
+      </h2>
+      <dl class="receipt__meta">
+        <div><dt>Invoice number</dt><dd>{{ receipt.invoiceNumber }}</dd></div>
+        <div><dt>Receipt number</dt><dd>{{ receipt.receiptNumber }}</dd></div>
+        <div><dt>Date paid</dt><dd>{{ paidOn() }}</dd></div>
+      </dl>
+    </div>
+    <svg class="receipt__logo" viewBox="24 24 72 72" width="36" height="36" aria-label="Motify" role="img">
+      <path d="M24 24L58 58H24Z" /><path d="M96 24V58H62Z" /><path d="M24 62H58V96H24Z" /><path d="M62 62H96V96A34 34 0 0 1 62 62Z" />
+    </svg>
+  </header>
+
+  <div class="receipt__parties">
+    <address>
+      <span class="receipt__seller"><strong>{{ seller.name }}</strong> <span class="receipt__handle">{{ seller.handle }}</span></span>
+      @for (line of seller.addressLines; track $index) { <span>{{ line }}</span> }
+      <span>{{ seller.email }}</span>
+    </address>
+    <address>
+      <strong>Bill to</strong>
+      <span>{{ receipt.billTo.name }}</span>
+      <span>{{ receipt.billTo.email }}</span>
+    </address>
+  </div>
+
+  <h3 class="receipt__headline">{{ money(receipt.amountPaid) }} paid on {{ paidOn() }}</h3>
+
+  <table class="receipt__table receipt__items">
+    <thead>
+      <tr>
+        <th scope="col">Description</th>
+        <th scope="col" class="receipt__num receipt__optional">Qty</th>
+        <th scope="col" class="receipt__num receipt__optional">Unit price</th>
+        <th scope="col" class="receipt__num">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of receipt.lineItems; track $index) {
+        <tr>
+          <td>
+            {{ item.description }}
+            @for (line of details(item); track $index) { <span class="receipt__detail">{{ line }}</span> }
+          </td>
+          <td class="receipt__num receipt__optional">{{ item.quantity }}</td>
+          <td class="receipt__num receipt__optional">{{ money(item.unitPrice) }}</td>
+          <td class="receipt__num">{{ money(item.amount) }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <dl class="receipt__totals">
+    <div><dt>Subtotal</dt><dd>{{ money(receipt.subtotal) }}</dd></div>
+    @if (receipt.discount > 0) { <div><dt>Discount</dt><dd>-{{ money(receipt.discount) }}</dd></div> }
+    <div><dt>Total</dt><dd>{{ money(receipt.total) }}</dd></div>
+    <div class="receipt__paid"><dt>Amount paid</dt><dd>{{ money(receipt.amountPaid) }}</dd></div>
+  </dl>
+
+  <h3 class="receipt__section">Payment history</h3>
+  <table class="receipt__table">
+    <thead>
+      <tr>
+        <th scope="col">Payment method</th>
+        <th scope="col" class="receipt__optional">Date</th>
+        <th scope="col" class="receipt__num">Amount paid</th>
+        <th scope="col" class="receipt__num">Receipt number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ paymentMethod() }}</td>
+        <td class="receipt__optional">{{ paidOn() }}</td>
+        <td class="receipt__num">{{ money(receipt.amountPaid) }}</td>
+        <td class="receipt__num">{{ receipt.receiptNumber }}</td>
+      </tr>
+    </tbody>
+  </table>
+  @if (receipt.paymentMethod.transactionHash) {
+    <p class="receipt__hash">Bakong transaction hash: {{ receipt.paymentMethod.transactionHash }}</p>
+  }
+</article>
+
+<div class="receipt-actions">
+  <button class="receipt-actions__download" type="button" [disabled]="downloading()" (click)="download()">
+    {{ downloading() ? 'Preparing PDF…' : 'Download PDF' }}
+  </button>
+  @if (downloadError()) { <p class="receipt-actions__error" role="alert">{{ downloadError() }}</p> }
+</div>

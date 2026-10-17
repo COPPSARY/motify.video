@@ -394,6 +394,11 @@
             @if (paidPayment.creditBalance !== null && paidPayment.creditBalance !== undefined) {
               <p class="checkout-balance">New balance: <strong>{{ paidPayment.creditBalance }} credits</strong></p>
             }
+            @if (receipt()) {
+              <div class="checkout-receipt-actions">
+                <button class="checkout-secondary" type="button" (click)="downloadReceipt()">Download PDF</button>
+              </div>
+            }
             <button class="checkout-primary" type="button" (click)="closeCheckout()">Done</button>
           </div>
         }

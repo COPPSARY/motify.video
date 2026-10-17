@@ -48,6 +48,7 @@ describe('app.routes', () => {
                 'templates',
                 'help',
                 'pricing',
+                'receipt',
                 'terms',
                 'privacy',
                 'refund-policy',

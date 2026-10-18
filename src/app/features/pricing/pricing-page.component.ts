@@ -440,9 +440,6 @@ export class PricingPageComponent implements OnDestroy {
     if (user) {
       await this.loadBillingWorkspaces();
       await this.refreshSubscription();
-      if (this.subscription()?.interval === 'YEAR' && !this.route.snapshot.queryParamMap.has('interval')) {
-        this.billingInterval.set('year');
-      }
     }
     this.initializing.set(false);
 

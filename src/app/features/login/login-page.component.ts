@@ -39,6 +39,7 @@ export class LoginPageComponent {
   email = '';
   password = '';
   otpCode = '';
+  acceptedTerms = false;
 
   constructor() {
     const signingUp = this.mode() === 'signup';
@@ -73,6 +74,10 @@ export class LoginPageComponent {
     }
     if (this.mode() === 'signup' && this.password.length < 8) {
       this.error.set('Choose a password of at least 8 characters.');
+      return;
+    }
+    if (this.mode() === 'signup' && !this.acceptedTerms) {
+      this.error.set('Agree to the Terms & Conditions and Privacy Policy to create an account.');
       return;
     }
     this.loading.set(true);

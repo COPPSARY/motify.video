@@ -84,6 +84,22 @@
 .login-divider { display: flex; align-items: center; gap: 1rem; color: var(--motify-text-muted); font-size: 0.9rem; }
 .login-divider::before, .login-divider::after { flex: 1; height: 1px; background: rgba(255, 255, 255, 0.1); content: ''; }
 
+.login-terms {
+  display: flex; gap: 0.6rem; align-items: flex-start;
+  color: var(--motify-text-secondary); font-size: 0.82rem; line-height: 1.45; cursor: pointer;
+}
+.login-terms input {
+  flex: none; width: 1rem; height: 1rem; margin: 0.1rem 0 0;
+  accent-color: var(--motify-cobalt); cursor: pointer;
+}
+.login-legal {
+  margin: -0.5rem 0 0; color: var(--motify-text-secondary);
+  font-size: 0.78rem; line-height: 1.5; text-align: center;
+}
+.login-terms a, .login-legal a {
+  color: var(--motify-cobalt-light); text-decoration: underline; text-underline-offset: 2px;
+}
+
 .login-switch { margin: 0; color: var(--motify-text-secondary); font-size: 0.9rem; text-align: center; }
 .login-switch button {
   padding: 0; border: 0; background: none; color: var(--motify-cobalt-light); font: inherit; font-weight: 700; cursor: pointer;

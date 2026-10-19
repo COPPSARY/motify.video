@@ -79,8 +79,17 @@
             </button>
           </span>
         </label>
+        @if (mode() === 'signup') {
+          <label class="login-terms" for="login-terms">
+            <input id="login-terms" name="acceptTerms" type="checkbox" [(ngModel)]="acceptedTerms" required />
+            <span>
+              I agree to the <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+              and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+            </span>
+          </label>
+        }
         @if (error()) { <p class="login-form__error" role="alert">{{ error() }}</p> }
-        <button class="login-card__button" type="submit" [disabled]="loading()">
+        <button class="login-card__button" type="submit" [disabled]="loading() || (mode() === 'signup' && !acceptedTerms)">
           @if (mode() === 'signup') {
             {{ loading() ? 'Creating account…' : 'Create account' }}
           } @else {
@@ -100,6 +109,12 @@
         </svg>
         {{ mode() === 'signup' ? 'Sign up with Google' : 'Log in with Google' }}
       </button>
+      <!-- Google can create an account from either mode, so the notice stays in both. -->
+      <p class="login-legal">
+        By continuing with Google, you agree to the
+        <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+      </p>
 
       <p class="login-switch">
         @if (mode() === 'signup') {

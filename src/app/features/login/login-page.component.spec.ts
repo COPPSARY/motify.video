@@ -44,6 +44,7 @@ describe('LoginPageComponent OTP flow', () => {
     const component = fixture.componentInstance;
     component.email = 'designer@example.com';
     component.password = 'secret123';
+    component.acceptedTerms = true;
 
     await component.continueToMotify();
     fixture.detectChanges();
@@ -51,6 +52,20 @@ describe('LoginPageComponent OTP flow', () => {
     expect(component.verificationSentTo()).toBe('designer@example.com');
     expect(fixture.nativeElement.querySelector('input[autocomplete="one-time-code"]')).not.toBeNull();
     expect(fixture.nativeElement.textContent).toContain('Verify email');
+  });
+
+  it('will not create an account until the terms are accepted', async () => {
+    const fixture = TestBed.createComponent(LoginPageComponent);
+    const component = fixture.componentInstance;
+    component.email = 'designer@example.com';
+    component.password = 'secret123';
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('input[name="acceptTerms"]')).not.toBeNull();
+    await component.continueToMotify();
+
+    expect(auth.signUp).not.toHaveBeenCalled();
+    expect(component.error()).toContain('Terms & Conditions');
   });
 
   it('verifies a valid OTP and continues to the requested page', async () => {

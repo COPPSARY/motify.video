@@ -4,6 +4,7 @@ import type { PaymentReceipt, ReceiptLineItem } from '../../services/billing.ser
 import {
   formatReceiptDate,
   formatReceiptMoney,
+  receiptDiscounts,
   receiptLineDetails,
   receiptPaymentMethod,
 } from '../../utils/receipt-format';
@@ -30,6 +31,10 @@ export class PaymentReceiptComponent {
 
   paidOn(): string {
     return formatReceiptDate(this.receipt.paidAt);
+  }
+
+  discounts(): { label: string; amount: number }[] {
+    return receiptDiscounts(this.receipt);
   }
 
   details(item: ReceiptLineItem): string[] {

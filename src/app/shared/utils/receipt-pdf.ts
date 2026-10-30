@@ -4,6 +4,7 @@ import type { PaymentReceipt } from '../services/billing.service';
 import {
   formatReceiptDate,
   formatReceiptMoney,
+  receiptDiscounts,
   receiptFileName,
   receiptLineDetails,
   receiptPaymentMethod,
@@ -92,7 +93,7 @@ export function drawReceipt(doc: jsPDF, receipt: PaymentReceipt, seller: Receipt
   // Totals, right-aligned under the table.
   const totalsX = 306;
   const totals: [string, string, boolean][] = [['Subtotal', money(receipt.subtotal), false]];
-  if (receipt.discount > 0) totals.push(['Discount', `-${money(receipt.discount)}`, false]);
+  for (const { label, amount } of receiptDiscounts(receipt)) totals.push([label, `-${money(amount)}`, false]);
   totals.push(['Total', money(receipt.total), false], ['Amount paid', money(receipt.amountPaid), true]);
   y += 4;
   for (const [label, value, bold] of totals) {

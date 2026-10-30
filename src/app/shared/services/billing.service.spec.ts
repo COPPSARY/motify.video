@@ -58,6 +58,21 @@ describe('BillingService', () => {
     await expectAsync(result).toBeResolvedTo(jasmine.objectContaining({ kind: 'CREDIT_PACK', credits: 65 }));
   });
 
+  it('sends an accepted promo code with the checkout and quotes codes per purchase', async () => {
+    const checkout = billing.createCheckout('workspace-1', { creditPack: 'credits-65' }, 'csrf-token', 'NEWYEAR');
+    const request = http.expectOne('https://api.example.test/v1/workspaces/workspace-1/billing/payments');
+    expect(request.request.body).toEqual({ creditPack: 'credits-65', promoCode: 'NEWYEAR' });
+    request.flush({ data: { id: 'payment-3', amount: 3.75, promoCode: 'NEWYEAR', promoDiscount: 1.25 } });
+    await expectAsync(checkout).toBeResolvedTo(jasmine.objectContaining({ promoCode: 'NEWYEAR' }));
+
+    const quote = billing.quotePromoCode('workspace-1', { plan: 'pro', interval: 'year' }, 'new year/26');
+    const quoteRequest = http.expectOne('https://api.example.test/v1/workspaces/workspace-1/billing/promo-codes/new%20year%2F26?plan=pro&interval=year');
+    expect(quoteRequest.request.method).toBe('GET');
+    expect(quoteRequest.request.withCredentials).toBeTrue();
+    quoteRequest.flush({ data: { code: 'NEWYEAR', amount: 144 } });
+    await expectAsync(quote).toBeResolvedTo(jasmine.objectContaining({ amount: 144 }));
+  });
+
   it('loads the buyer receipt with the session cookie', async () => {
     const result = billing.getReceipt('payment-1');
     const request = http.expectOne('https://api.example.test/v1/payments/payment-1/receipt');

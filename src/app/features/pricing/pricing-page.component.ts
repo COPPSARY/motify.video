@@ -23,6 +23,7 @@ import {
   type MotifyWorkspace,
   type PaymentReceipt,
   type PlanId,
+  type PromoQuote,
   type Purchase,
   type SandboxOutcome,
   type WorkspaceSubscription,
@@ -106,6 +107,11 @@ export class PricingPageComponent implements OnDestroy {
   readonly selectedPaymentMethod = signal<PaymentMethodId>('bakong-khqr');
   readonly billingInterval = signal<CheckoutInterval>('month');
   readonly simulating = signal(false);
+  /** What the buyer typed in the promo code field, the quote once a code is accepted, and why one was not. */
+  readonly promoInput = signal('');
+  readonly promoQuote = signal<PromoQuote | null>(null);
+  readonly promoError = signal('');
+  readonly promoChecking = signal(false);
   /** The paid payment's receipt, for its PDF; null until it loads, and when it cannot be loaded. */
   readonly receipt = signal<PaymentReceipt | null>(null);
 
@@ -295,6 +301,39 @@ export class PricingPageComponent implements OnDestroy {
     });
   }
 
+  setPromoInput(value: string): void {
+    this.promoInput.set(value);
+    this.promoError.set('');
+  }
+
+  /** Asks the API whether the typed code works on this purchase, and shows the new total if it does. */
+  async applyPromoCode(): Promise<void> {
+    const code = this.promoInput().trim();
+    const selection = this.selection();
+    const workspace = this.workspace();
+    if (!code || !selection || !workspace || this.promoChecking()) return;
+    this.promoChecking.set(true);
+    this.promoError.set('');
+    try {
+      const quote = await this.billing.quotePromoCode(workspace.id, selection.purchase, code);
+      // The buyer may have closed the dialog or picked another purchase while the code was checked.
+      if (this.selection() === selection) this.promoQuote.set(quote);
+    } catch (error: unknown) {
+      if (this.selection() === selection) {
+        this.promoQuote.set(null);
+        this.promoError.set(this.errorMessage(error, 'We could not check this promo code. Please try again.'));
+      }
+    } finally {
+      this.promoChecking.set(false);
+    }
+  }
+
+  removePromoCode(): void {
+    this.promoQuote.set(null);
+    this.promoInput.set('');
+    this.promoError.set('');
+  }
+
   async confirmCheckout(): Promise<void> {
     const selection = this.selection();
     if (selection && this.selectedPaymentMethod() === 'bakong-khqr') await this.createCheckout(selection);
@@ -323,6 +362,7 @@ export class PricingPageComponent implements OnDestroy {
     this.checkoutError.set('');
     this.pollingNotice.set('');
     this.receipt.set(null);
+    this.removePromoCode();
     this.clearCheckoutQuery();
   }
 
@@ -405,6 +445,7 @@ export class PricingPageComponent implements OnDestroy {
     this.checkoutError.set('');
     this.selectedPaymentMethod.set('bakong-khqr');
     this.payment.set(null);
+    this.removePromoCode();
     this.checkoutState.set('confirming');
   }
 
@@ -423,10 +464,19 @@ export class PricingPageComponent implements OnDestroy {
     this.checkoutState.set('creating');
     this.checkoutError.set('');
     try {
-      const payment = await this.billing.createCheckout(workspace.id, selection.purchase, csrfToken);
+      // Only a code the API accepted is sent, so a half-typed one never blocks the purchase.
+      const payment = await this.billing.createCheckout(workspace.id, selection.purchase, csrfToken, this.promoQuote()?.code);
       await this.showPendingPayment(payment);
       this.clearCheckoutQuery();
     } catch (error: unknown) {
+      // The code ran out or expired after it was applied. Back to the review with it removed, so the buyer
+      // sees the full price before paying it; retrying from the error screen would skip that step.
+      if (this.promoQuote() && this.errorCode(error)?.startsWith('PROMO_CODE_')) {
+        this.promoQuote.set(null);
+        this.promoError.set(this.errorMessage(error, 'This promo code can no longer be used.'));
+        this.checkoutState.set('confirming');
+        return;
+      }
       this.openError(this.errorMessage(error, 'We could not start the Bakong checkout. Please try again.'));
     }
   }
@@ -515,7 +565,8 @@ export class PricingPageComponent implements OnDestroy {
     this.payment.set(payment);
     this.checkoutState.set('pending');
     this.updateCountdown();
-    if (selected && (selected.amount !== payment.amount || selected.credits !== payment.credits)) {
+    const expectedAmount = this.promoQuote()?.amount ?? selected?.amount;
+    if (selected && (expectedAmount !== payment.amount || selected.credits !== payment.credits)) {
       this.pollingNotice.set('Resuming an existing checkout at the amount and credit grant shown on this QR.');
     } else {
       this.pollingNotice.set('');
@@ -614,6 +665,11 @@ export class PricingPageComponent implements OnDestroy {
 
   private isPlanId(value: string | null): value is KnownPlanId {
     return value !== null && PLAN_IDS.includes(value as KnownPlanId);
+  }
+
+  private errorCode(error: unknown): string | undefined {
+    if (!(error instanceof HttpErrorResponse)) return undefined;
+    return (error.error as { error?: { code?: string } } | null)?.error?.code;
   }
 
   private errorMessage(error: unknown, fallback: string): string {

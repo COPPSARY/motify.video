@@ -270,8 +270,8 @@
               <div class="checkout-confirm__heading">
                 <strong>{{ selected.label }}</strong>
                 <span>
-                  @if (selected.discount > 0) { <del>{{ formatMoney(selected.listAmount, selected.currency) }}</del> }
-                  {{ formatMoney(selected.amount, selected.currency) }}
+                  @if (selected.discount > 0 || promoQuote()) { <del>{{ formatMoney(selected.listAmount, selected.currency) }}</del> }
+                  {{ formatMoney(promoQuote()?.amount ?? selected.amount, selected.currency) }}
                 </span>
               </div>
               <dl>
@@ -282,7 +282,11 @@
                     @if (selected.bonusCredits > 0) { <span>+ {{ selected.bonusCredits }} bonus</span> }
                   </dd>
                 </div>
-                @if (selected.discount > 0) { <div><dt>You save</dt><dd>{{ formatMoney(selected.discount, selected.currency) }}</dd></div> }
+                @if (promoQuote(); as promo) {
+                  <div><dt>You save</dt><dd>{{ formatMoney(promo.discount + promo.promoDiscount, selected.currency) }}</dd></div>
+                } @else if (selected.discount > 0) {
+                  <div><dt>You save</dt><dd>{{ formatMoney(selected.discount, selected.currency) }}</dd></div>
+                }
                 @if (selected.periodDays !== null) {
                   <div><dt>Plan access</dt><dd>{{ selected.periodDays }} days</dd></div>
                   <div><dt>Credit delivery</dt><dd>{{ selected.interval === 'YEAR' ? 'Monthly for 12 months' : 'Added when payment clears' }}</dd></div>
@@ -295,6 +299,40 @@
             @if (purchaseChangesActivePlan()) {
               <p class="checkout-warning">Switching plans activates the new plan immediately. Remaining access time on your current plan will not carry over; existing credit grants keep their own expiry dates.</p>
             }
+
+            <div class="promo-code">
+              @if (promoQuote(); as promo) {
+                <div class="promo-code__applied" aria-live="polite">
+                  <span>
+                    <strong>{{ promo.code }}</strong> applied · −{{ formatMoney(promo.promoDiscount, selected.currency) }}
+                    @if (promo.description) { <small>{{ promo.description }}</small> }
+                  </span>
+                  <button type="button" class="promo-code__remove" (click)="removePromoCode()">Remove</button>
+                </div>
+              } @else {
+                <label for="promo-code-input">Promo code</label>
+                <div class="promo-code__row">
+                  <input
+                    id="promo-code-input"
+                    type="text"
+                    autocomplete="off"
+                    autocapitalize="characters"
+                    spellcheck="false"
+                    maxlength="40"
+                    placeholder="Enter code"
+                    [value]="promoInput()"
+                    [attr.aria-invalid]="promoError() ? 'true' : null"
+                    aria-describedby="promo-code-error"
+                    (input)="setPromoInput($any($event.target).value)"
+                    (keydown.enter)="$event.preventDefault(); applyPromoCode()"
+                  />
+                  <button type="button" class="checkout-secondary" [disabled]="!promoInput().trim() || promoChecking()" (click)="applyPromoCode()">
+                    {{ promoChecking() ? 'Checking…' : 'Apply' }}
+                  </button>
+                </div>
+                <p id="promo-code-error" class="promo-code__error" role="alert">{{ promoError() }}</p>
+              }
+            </div>
 
             <fieldset class="payment-methods">
               <legend>Payment method</legend>
@@ -315,7 +353,7 @@
             </p>
             <div class="checkout-confirm__actions">
               <button class="checkout-secondary" type="button" (click)="closeCheckout()">Cancel</button>
-              <button class="checkout-primary" type="submit">Continue with KHQR</button>
+              <button class="checkout-primary" type="submit" [disabled]="promoChecking()">Continue with KHQR</button>
             </div>
           </form>
         }

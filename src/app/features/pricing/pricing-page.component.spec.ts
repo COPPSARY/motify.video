@@ -1,5 +1,5 @@
 import { signal, type WritableSignal } from '@angular/core';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { AuthService, type MotifyUser } from '../../shared/services/auth.service';
@@ -63,7 +63,7 @@ describe('PricingPageComponent', () => {
     billing = Object.assign(
       jasmine.createSpyObj<BillingService>('BillingService', [
         'listPlans', 'listCreditPacks', 'listWorkspaces', 'getSubscription',
-        'createCheckout', 'getPayment', 'getReceipt', 'simulatePayment', 'clearSubscription',
+        'createCheckout', 'quotePromoCode', 'getPayment', 'getReceipt', 'simulatePayment', 'clearSubscription',
       ]),
       { subscription: signal<WorkspaceSubscription | null>(null) },
     );
@@ -207,6 +207,64 @@ describe('PricingPageComponent', () => {
       credits: 3600,
       interval: 'YEAR',
     }));
+  });
+
+  it('checks a promo code, shows the new total and sends only an accepted code to checkout', async () => {
+    const fixture = TestBed.createComponent(PricingPageComponent);
+    const component = fixture.componentInstance;
+    component.initializing.set(false);
+    component.planCatalogStatus.set('ready');
+    component.plans.set(plans);
+    component.workspaces.set(workspaces);
+    await component.beginCheckout('pro');
+
+    billing.quotePromoCode.and.rejectWith(new HttpErrorResponse({ status: 409, error: { error: { message: 'This promo code has expired.' } } }));
+    component.setPromoInput('oldcode');
+    await component.applyPromoCode();
+    expect(component.promoError()).toBe('This promo code has expired.');
+    expect(component.promoQuote()).toBeNull();
+
+    billing.quotePromoCode.and.resolveTo({
+      code: 'NEWYEAR', description: 'New Year 25% off', currency: 'USD', listAmount: 20, discount: 0, promoDiscount: 5, amount: 15,
+    });
+    component.setPromoInput(' newyear ');
+    await component.applyPromoCode();
+    expect(billing.quotePromoCode).toHaveBeenCalledWith('personal-1', { plan: 'pro', interval: 'month' }, 'newyear');
+    fixture.detectChanges();
+    const text = (fixture.nativeElement as HTMLElement).textContent ?? '';
+    expect(text).toContain('NEWYEAR applied');
+    expect(text).toContain('$15.00');
+
+    billing.createCheckout.and.returnValue(new Promise(() => undefined));
+    void component.confirmCheckout();
+    expect(billing.createCheckout).toHaveBeenCalledWith('personal-1', { plan: 'pro', interval: 'month' }, 'csrf-token', 'NEWYEAR');
+
+    component.closeCheckout();
+    expect(component.promoQuote()).toBeNull();
+    expect(component.promoInput()).toBe('');
+  });
+
+  it('returns to the review at full price when an applied code is refused at checkout', async () => {
+    const component = TestBed.createComponent(PricingPageComponent).componentInstance;
+    component.initializing.set(false);
+    component.planCatalogStatus.set('ready');
+    component.plans.set(plans);
+    component.workspaces.set(workspaces);
+    await component.beginCheckout('pro');
+    billing.quotePromoCode.and.resolveTo({
+      code: 'NEWYEAR', description: null, currency: 'USD', listAmount: 20, discount: 0, promoDiscount: 5, amount: 15,
+    });
+    component.setPromoInput('NEWYEAR');
+    await component.applyPromoCode();
+
+    billing.createCheckout.and.rejectWith(new HttpErrorResponse({
+      status: 409, error: { error: { code: 'PROMO_CODE_USED_UP', message: 'This promo code has been fully redeemed.' } },
+    }));
+    await component.confirmCheckout();
+
+    expect(component.checkoutState()).toBe('confirming');
+    expect(component.promoQuote()).toBeNull();
+    expect(component.promoError()).toBe('This promo code has been fully redeemed.');
   });
 
   it('shows the discounted monthly equivalent while billing the yearly total', () => {

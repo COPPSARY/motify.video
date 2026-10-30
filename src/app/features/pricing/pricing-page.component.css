@@ -836,6 +836,107 @@
   font-weight: var(--motify-weight-bold);
 }
 
+.promo-code {
+  display: grid;
+  gap: 0.5rem;
+  margin: 1.35rem 0 0;
+}
+
+.promo-code label {
+  color: var(--motify-text-primary);
+  font-size: var(--motify-type-body);
+  font-weight: var(--motify-weight-bold);
+}
+
+.promo-code__row {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.promo-code input {
+  min-width: 0;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--motify-border);
+  border-radius: var(--motify-radius-md);
+  background: transparent;
+  color: var(--motify-text-primary);
+  font: inherit;
+  font-size: var(--motify-type-small);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.promo-code input::placeholder {
+  color: var(--motify-text-muted);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.promo-code input:focus-visible {
+  border-color: var(--motify-border-strong);
+  outline: 2px solid var(--motify-cobalt);
+  outline-offset: 1px;
+}
+
+.promo-code input[aria-invalid='true'] {
+  border-color: rgba(255, 138, 138, 0.55);
+}
+
+.promo-code .checkout-secondary:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.promo-code__error {
+  min-height: 1.2em;
+  margin: 0;
+  color: #ff8a8a;
+  font-size: var(--motify-type-small);
+}
+
+.promo-code__error:empty {
+  min-height: 0;
+}
+
+.promo-code__applied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(124, 226, 168, 0.28);
+  border-radius: var(--motify-radius-md);
+  background: rgba(124, 226, 168, 0.07);
+  color: #7ce2a8;
+  font-size: var(--motify-type-small);
+}
+
+.promo-code__applied strong {
+  letter-spacing: 0.04em;
+}
+
+.promo-code__applied small {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--motify-text-secondary);
+}
+
+.promo-code__remove {
+  flex: 0 0 auto;
+  padding: 0.25rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--motify-text-secondary);
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+}
+
+.promo-code__remove:hover {
+  color: var(--motify-text-primary);
+}
+
 .payment-methods {
   display: grid;
   gap: 0.65rem;

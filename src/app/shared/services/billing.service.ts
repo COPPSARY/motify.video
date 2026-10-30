@@ -83,6 +83,9 @@ export interface BillingPayment {
   readonly bonusCredits: number;
   readonly listAmount: number;
   readonly discount: number;
+  /** The promo code fixed on this checkout, and the part of `discount` it gave. */
+  readonly promoCode?: string | null;
+  readonly promoDiscount?: number;
   readonly amount: number;
   readonly currency: 'USD' | 'KHR';
   readonly billNumber: string;
@@ -122,6 +125,18 @@ export interface PaymentReceipt {
   readonly amountPaid: number;
 }
 
+/** A purchase priced with a promo code, before its QR is made. */
+export interface PromoQuote {
+  readonly code: string;
+  readonly description: string | null;
+  readonly currency: 'USD';
+  readonly listAmount: number;
+  /** The catalog's own discounts (yearly, sale), before the code. */
+  readonly discount: number;
+  readonly promoDiscount: number;
+  readonly amount: number;
+}
+
 interface DataResponse<T> {
   readonly data: T;
 }
@@ -158,15 +173,26 @@ export class BillingService {
     return subscription;
   }
 
+  /** Checks a promo code against a purchase; rejects with the API's reason when it cannot be used. */
+  quotePromoCode(workspaceId: string, purchase: Purchase, code: string): Promise<PromoQuote> {
+    const query = new URLSearchParams('plan' in purchase
+      ? { plan: purchase.plan, interval: purchase.interval }
+      : { creditPack: purchase.creditPack });
+    return this.get<PromoQuote>(
+      `/v1/workspaces/${encodeURIComponent(workspaceId)}/billing/promo-codes/${encodeURIComponent(code)}?${query}`,
+    );
+  }
+
   async createCheckout(
     workspaceId: string,
     purchase: Purchase,
     csrfToken: string,
+    promoCode?: string,
   ): Promise<BillingPayment> {
     const response = await firstValueFrom(
       this.http.post<DataResponse<BillingPayment>>(
         `${this.apiUrl}/v1/workspaces/${encodeURIComponent(workspaceId)}/billing/payments`,
-        purchase,
+        promoCode ? { ...purchase, promoCode } : purchase,
         {
           withCredentials: true,
           headers: new HttpHeaders({ 'X-CSRF-Token': csrfToken }),

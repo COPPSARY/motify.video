@@ -24,6 +24,19 @@ export function formatReceiptPeriod(period: NonNullable<ReceiptLineItem['period'
 }
 
 /** The lines under a line item's description: its period, then credits and other details. */
+/**
+ * The discount rows under the subtotal: the plan's own discounts, then the promo code on a line of its own
+ * ("Promo code NEWYEAR"). The same rows as the API's PDF and email (packages/receipts/receipt-format.ts).
+ */
+export function receiptDiscounts(receipt: Pick<PaymentReceipt, 'discount' | 'promoCode' | 'promoDiscount'>): { label: string; amount: number }[] {
+  const promo = receipt.promoCode ? receipt.promoDiscount ?? 0 : 0;
+  const other = Math.round((receipt.discount - promo) * 100) / 100;
+  return [
+    ...(other > 0 ? [{ label: 'Discount', amount: other }] : []),
+    ...(promo > 0 ? [{ label: `Promo code ${receipt.promoCode}`, amount: promo }] : []),
+  ];
+}
+
 export function receiptLineDetails(item: ReceiptLineItem): string[] {
   return [...(item.period ? [formatReceiptPeriod(item.period)] : []), ...item.details];
 }

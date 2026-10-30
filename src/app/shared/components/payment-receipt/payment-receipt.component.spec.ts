@@ -50,6 +50,17 @@ describe('PaymentReceiptComponent', () => {
     expect(element.querySelector('.receipt__sandbox')).toBeNull();
   });
 
+  it('shows a promo code on its own line under the plan discount', () => {
+    const element = render({
+      ...base,
+      kind: 'PLAN',
+      lineItems: [{ description: 'Motify Pro · Yearly', period: null, details: [], quantity: 1, unitPrice: 240, amount: 240 }],
+      subtotal: 240, discount: 96, promoCode: 'NEWYEAR', promoDiscount: 48, total: 144, amountPaid: 144,
+    });
+    const rows = [...element.querySelectorAll('.receipt__totals > div')].map((row) => row.textContent?.replace(/\s+/g, ' ').trim());
+    expect(rows).toEqual(['Subtotal$240.00', 'Discount-$48.00', 'Promo code NEWYEAR-$48.00', 'Total$144.00', 'Amount paid$144.00']);
+  });
+
   it('renders a credit pack with its bonus line and marks sandbox receipts', () => {
     const element = render({
       ...base,

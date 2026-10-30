@@ -57,7 +57,7 @@
 
   <dl class="receipt__totals">
     <div><dt>Subtotal</dt><dd>{{ money(receipt.subtotal) }}</dd></div>
-    @if (receipt.discount > 0) { <div><dt>Discount</dt><dd>-{{ money(receipt.discount) }}</dd></div> }
+    @for (row of discounts(); track row.label) { <div><dt>{{ row.label }}</dt><dd>-{{ money(row.amount) }}</dd></div> }
     <div><dt>Total</dt><dd>{{ money(receipt.total) }}</dd></div>
     <div class="receipt__paid"><dt>Amount paid</dt><dd>{{ money(receipt.amountPaid) }}</dd></div>
   </dl>

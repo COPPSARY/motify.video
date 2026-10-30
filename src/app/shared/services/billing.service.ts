@@ -120,7 +120,11 @@ export interface PaymentReceipt {
   readonly paymentMethod: { readonly type: string; readonly account: string | null; readonly transactionHash: string | null };
   readonly lineItems: readonly ReceiptLineItem[];
   readonly subtotal: number;
+  /** Everything taken off the subtotal, the promo code's part included. */
   readonly discount: number;
+  /** The promo code used, and its part of `discount`. Missing from APIs older than promo receipts. */
+  readonly promoCode?: string | null;
+  readonly promoDiscount?: number;
   readonly total: number;
   readonly amountPaid: number;
 }

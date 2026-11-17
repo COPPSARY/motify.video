@@ -1,7 +1,20 @@
 <footer class="footer">
-  <div class="footer__wordmark" aria-hidden="true">MOTIFY</div>
+  <div class="footer__signoff" aria-hidden="true">
+    <div class="footer__signoff-still" [class.is-hidden]="signoffPlaying()">
+      <img [src]="logoSrc" alt="" width="64" height="64" />
+      <span>Motify</span>
+    </div>
+    <video
+      #signoff
+      class="footer__signoff-video"
+      [class.is-visible]="signoffPlaying()"
+      muted
+      playsinline
+      preload="none"
+    ></video>
+  </div>
 
-  <div class="footer__content" [appScrollReveal]="0">
+  <div class="footer__content">
     <div class="footer__brand">
       <a class="footer__brand-link" routerLink="/" aria-label="Motify home">
         <img class="footer__logo" [src]="logoSrc" alt="" width="30" height="30" />
@@ -34,6 +47,8 @@
         <a routerLink="/ai-saas-launch-video-generator">Product launch videos</a>
         <a routerLink="/ai-motion-graphics-generator">AI motion graphics</a>
         <a routerLink="/software-product-video-generator">Product animations</a>
+        <a routerLink="/ai-video-editor">AI video editor</a>
+        <a routerLink="/psd-to-video">PSD to video</a>
         <a routerLink="/compare/after-effects">vs After Effects</a>
         <a routerLink="/compare/canva">vs Canva</a>
         <a routerLink="/compare/synthesia">vs Synthesia</a>

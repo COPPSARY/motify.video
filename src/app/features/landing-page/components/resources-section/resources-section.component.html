@@ -1,12 +1,10 @@
-<section class="resources">
-  <div class="resources__inner">
-    <div class="resources__cta" [appScrollReveal]="0">
-      <div>
-        <span>Start free. No card.</span>
-        <strong>Have an idea? Put it in motion.</strong>
-        <p>Describe it in plain words, attach your images or music, and refine the result by chatting.</p>
-      </div>
-      <app-prompt-composer class="resources__composer" inputId="resources-prompt" placeholder="Describe your video..." />
-    </div>
+<section class="resources" aria-labelledby="closing-title">
+  <div class="resources__cta">
+    <h2 id="closing-title" class="lp-title">Your next launch video <span class="lp-dim">is one prompt away.</span></h2>
+    <a class="resources__button" href="#motion-prompt" (click)="toPrompt($event)">
+      Start creating free
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4-4 4" /></svg>
+    </a>
+    <p class="resources__note">No card required.</p>
   </div>
 </section>

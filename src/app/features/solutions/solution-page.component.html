@@ -7,7 +7,7 @@
 
     <header class="solution__hero">
       <div>
-        <p class="solution__eyebrow">{{ page.eyebrow }}</p>
+        <p class="solution__eyebrow">{{ page.eyebrow }}@if (page.beta) {<span class="solution__beta">Beta</span>}</p>
         <h1>{{ page.heading }}</h1>
         <p class="solution__lead">{{ page.lead }}</p>
         <div class="solution__actions">

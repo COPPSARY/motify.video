@@ -2,7 +2,9 @@ import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import * as fc from 'fast-check';
-import { FEATURED_TEMPLATES, LandingPageComponent } from './landing-page.component';
+import { DOCUMENT } from '@angular/common';
+import { FEATURED_TEMPLATES, LANDING_FAQS, LANDING_TITLE, LandingPageComponent } from './landing-page.component';
+import { TEAM_CARDS } from './components/teams-section/teams-section.component';
 import { getMotionTemplate } from '../templates/template-catalog';
 import { templateAspect } from '../templates/template-library.data';
 
@@ -56,7 +58,7 @@ describe('LandingPageComponent', () => {
     );
   });
 
-  it('keeps the final creation CTA without rendering the resource library cards', () => {
+  it('closes with one button back to the hero prompt, not a second prompt box', () => {
     const fixture = TestBed.createComponent(LandingPageComponent);
     fixture.detectChanges();
 
@@ -66,8 +68,47 @@ describe('LandingPageComponent', () => {
     expect(compiled.querySelector('app-resources-section')).not.toBeNull();
     expect(compiled.querySelector('.resources__cta')).not.toBeNull();
     expect(compiled.querySelectorAll('.resources__card').length).toBe(0);
-    expect(compiled.textContent).toContain('Have an idea? Put it in motion.');
+    expect(compiled.textContent).toContain('Your next launch video is one prompt away.');
+    expect(compiled.querySelectorAll('textarea').length).toBe(1);
+    expect(compiled.querySelector('.resources a[href="#motion-prompt"]')).not.toBeNull();
     expect(compiled.textContent).not.toContain('Resources for work that ships.');
+    expect(compiled.querySelector('app-features-section')).toBeNull();
+  });
+
+  it('targets the product and marketing teams keyword in the title and a section heading, with one h1', () => {
+    const fixture = TestBed.createComponent(LandingPageComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelectorAll('h1').length).toBe(1);
+    expect(compiled.querySelector('#teams-title')?.textContent).toContain(
+      'AI video generator for product and marketing teams',
+    );
+    expect(TestBed.inject(DOCUMENT).title).toBe(LANDING_TITLE);
+  });
+
+  it('mirrors the rendered FAQ into FAQPage JSON-LD', () => {
+    const fixture = TestBed.createComponent(LandingPageComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    const rendered = Array.from(compiled.querySelectorAll('#faq summary')).map((summary) => summary.textContent?.trim());
+    expect(rendered).toEqual(LANDING_FAQS.map((faq) => faq.question));
+
+    const scripts = Array.from(TestBed.inject(DOCUMENT).head.querySelectorAll('script[type="application/ld+json"]'));
+    const graph = scripts
+      .map((script) => JSON.parse(script.textContent ?? '{}'))
+      .flatMap((payload) => payload['@graph'] ?? []);
+    const faqPage = graph.find((node: { '@type'?: string }) => node['@type'] === 'FAQPage');
+    expect(faqPage).withContext('FAQPage JSON-LD').toBeDefined();
+    expect(faqPage.mainEntity.map((entry: { name: string }) => entry.name)).toEqual(rendered);
+  });
+
+  it('links each team card to the page written for that team', () => {
+    const fixture = TestBed.createComponent(LandingPageComponent);
+    fixture.detectChanges();
+    const links = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLAnchorElement>('a.teams__card'));
+    expect(links.map((link) => link.getAttribute('href'))).toEqual(TEAM_CARDS.map((card) => card.link));
   });
 
   it('features library templates in several formats, each linking to its gallery page', () => {

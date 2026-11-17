@@ -56,7 +56,7 @@ export const routes: Routes = [
   {
     path: '',
     component: LandingPageComponent,
-    title: 'Motify — AI Motion Graphics for Businesses & Agencies',
+    title: 'AI Video Generator for Product & Marketing Teams | Motify',
   },
   {
     path: 'login',
@@ -98,8 +98,21 @@ export const routes: Routes = [
     title: 'AI Product Animation Generator | Motify',
   },
   {
+    path: 'ai-video-editor',
+    component: SolutionPageComponent,
+    data: { solution: 'video-editor' },
+    title: 'AI Video Editor for Promo Videos | Motify',
+  },
+  {
+    path: 'psd-to-video',
+    component: SolutionPageComponent,
+    data: { solution: 'psd-to-video' },
+    title: 'PSD to Video: Animate Photoshop Designs | Motify',
+  },
+  // The old video editor URL keeps its search value by pointing at the new page.
+  {
     path: 'canvas-ai-video-editor',
-    redirectTo: 'ai-motion-graphics-generator',
+    redirectTo: 'ai-video-editor',
   },
   // Retired pages; vercel.json answers these with permanent redirects too.
   { path: 'resources/prompt-templates', redirectTo: 'templates' },

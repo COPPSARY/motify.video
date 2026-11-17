@@ -2,100 +2,54 @@
   <app-navbar />
   <main>
     <app-hero-section />
-    <app-spatial-showcase-section />
-    <section id="about" class="problem" aria-labelledby="problem-title">
-      <div class="problem__inner">
-        <div class="problem__heading" [appScrollReveal]="0">
-          <h2 id="problem-title">
-            <span class="problem__title-line">Your ideas shouldn’t get stuck</span>
-            <span class="problem__title-line">in production.</span>
-          </h2>
-          <p class="problem__lead">Motify handles the production, so you can spend less time on software and handoffs and more time shaping your message.</p>
-        </div>
-        <figure class="problem__product-image" [appScrollReveal]="70">
-          <img
-            src="/UI-2.webp"
-            alt="Motify turning a prompt into a motion graphics video"
-            width="1899"
-            height="934"
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
-        <app-value-points />
-      </div>
-    </section>
+    <app-hero-reel />
+    <app-trust-strip />
+    <app-highlights-carousel />
+    <app-start-from />
+    <app-feature-bento />
+
     <section id="get-started" class="workflow" aria-labelledby="workflow-title">
-      <div class="workflow__pin">
-        <div class="workflow__heading" [appScrollReveal]="0">
-          <div>
-            <h2 id="workflow-title">Explore templates</h2>
-            <p>Animated ads, product animations, explainers, and social content made with Motify, in every format, ready to make your own.</p>
-          </div>
-          <a class="workflow__view-all" routerLink="/templates">View all</a>
-        </div>
-        <div class="workflow__gallery" [appScrollReveal]="80">
-          @for (template of featuredTemplates; track template.slug) {
-            <a class="workflow__template" [routerLink]="['/templates', template.slug]">
-              <div class="workflow__template-media" [style.aspect-ratio]="template.aspect">
-                <video
-                  [appLazyVideo]="template.video"
-                  aria-hidden="true"
-                  muted
-                  [muted]="true"
-                  [volume]="0"
-                  loop
-                  playsinline
-                ></video>
-              </div>
-              <h3>{{ template.title }}</h3>
-            </a>
-          }
-        </div>
+      <div class="workflow__heading">
+        <h2 id="workflow-title" class="lp-title">Start from a template.</h2>
+        <a class="workflow__view-all" routerLink="/templates">
+          View all templates
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4-4 4" /></svg>
+        </a>
+      </div>
+      <div class="workflow__gallery">
+        @for (template of featuredTemplates; track template.slug) {
+          <a class="workflow__template" [routerLink]="['/templates', template.slug]">
+            <div class="workflow__template-media" [style.aspect-ratio]="template.aspect">
+              <video
+                [appLazyVideo]="template.video"
+                aria-hidden="true"
+                muted
+                [muted]="true"
+                [volume]="0"
+                loop
+                playsinline
+              ></video>
+            </div>
+            <h3>{{ template.title }}</h3>
+          </a>
+        }
       </div>
     </section>
-    <section>
-      <app-features-section />
-    </section>
+
+    <app-teams-section />
+
     <section id="faq" class="faq" aria-labelledby="faq-title">
-      <div class="faq__inner">
-        <h2 id="faq-title" [appScrollReveal]="0">Get to know Motify</h2>
-        <div class="faq__list">
+      <h2 id="faq-title" class="lp-title">Questions, answered.</h2>
+      <div class="faq__list">
+        @for (faq of faqs; track faq.question) {
           <details>
-            <summary>What can I make with Motify?</summary>
-            <p>Animated ads that bring campaign ideas to life, product animations that show features and how things work, explainer videos that make ideas and services easier to understand, and marketing and social content that adds motion to your message.</p>
+            <summary>{{ faq.question }}</summary>
+            <p>{{ faq.answer }}</p>
           </details>
-          <details>
-            <summary>Who is Motify for?</summary>
-            <p>Businesses, marketing teams, and agencies. Whether you are creating content for your own business or for clients, Motify makes motion graphics a more accessible part of your creative toolkit.</p>
-          </details>
-          <details>
-            <summary>How does it start?</summary>
-            <p>Describe your idea in plain words, or start from a template. Attach your images or music and choose the format, and Motify creates the first draft.</p>
-          </details>
-          <details>
-            <summary>Can I change the result?</summary>
-            <p>Yes. Ask Tiffy in plain language to change the hook, pacing, copy, music, or visual direction, and the video updates without starting over.</p>
-          </details>
-          <details>
-            <summary>Do I need motion-design experience?</summary>
-            <p>No. You don’t need to learn complex software. AI helps with the production; you bring the ideas, creative direction, and judgment.</p>
-          </details>
-          <details>
-            <summary>Can I use the videos for ads and client work?</summary>
-            <p>Yes. Use them in paid campaigns, social posts, websites, presentations, and the work you deliver to clients.</p>
-          </details>
-          <details>
-            <summary>Which formats can I make?</summary>
-            <p>Landscape 16:9, square 1:1, portrait 4:5, and vertical 9:16, from website videos to Reels, TikTok, and Stories.</p>
-          </details>
-          <details>
-            <summary>Do I need a card to try Motify?</summary>
-            <p>No. Start free, explore the workflow, and see the first draft before committing to anything.</p>
-          </details>
-        </div>
+        }
       </div>
     </section>
+
     <section id="resources">
       <app-resources-section />
     </section>

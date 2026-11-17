@@ -1,0 +1,71 @@
+<section id="showcase" class="hl" aria-labelledby="hl-title" aria-roledescription="carousel">
+  <h2 id="hl-title" class="lp-title hl__title">Made with Motify.</h2>
+
+  <div #track class="hl__track">
+    @for (clip of clips; track clip.video; let i = $index) {
+      <figure
+        #card
+        class="hl__card"
+        [class.is-active]="active() === i"
+        aria-roledescription="slide"
+        [attr.aria-label]="(i + 1) + ' of ' + clips.length + ': ' + clip.title"
+        (click)="active() !== i && go(i)"
+      >
+        <video
+          #video
+          [attr.poster]="clip.poster"
+          [attr.aria-label]="clip.title + ', made with Motify'"
+          muted
+          playsinline
+          preload="none"
+          (ended)="onEnded(i)"
+        ></video>
+      </figure>
+    }
+  </div>
+
+  <div class="hl__bar">
+    <p class="hl__caption" aria-live="polite">
+      <span class="hl__category">{{ clips[active()].category }}</span>
+      <span class="hl__sep" aria-hidden="true">·</span>
+      <span>{{ clips[active()].title }}</span>
+    </p>
+
+    <div class="hl__controls">
+      <div class="hl__dots" role="group" aria-label="Choose a video">
+        @for (clip of clips; track clip.video; let i = $index) {
+          <button
+            type="button"
+            class="hl__dot"
+            [class.is-active]="active() === i"
+            [attr.aria-current]="active() === i ? 'true' : null"
+            [attr.aria-label]="'Show ' + clip.title"
+            (click)="go(i)"
+          >
+            <span><i [style.transform]="active() === i ? 'scaleX(' + progress() + ')' : null"></i></span>
+          </button>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="hl__button"
+        [attr.aria-pressed]="!playing()"
+        [attr.aria-label]="playing() ? 'Pause videos' : 'Play videos'"
+        (click)="togglePlaying()"
+      >
+        @if (playing()) {
+          <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="3" height="10" rx="1" /><rect x="9" y="3" width="3" height="10" rx="1" /></svg>
+        } @else {
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9a.5.5 0 0 0 .77.42l7-4.5a.5.5 0 0 0 0-.84l-7-4.5A.5.5 0 0 0 5 3.5Z" /></svg>
+        }
+      </button>
+      <button type="button" class="hl__button" aria-label="Previous video" (click)="previous()">
+        <svg class="hl__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" /></svg>
+      </button>
+      <button type="button" class="hl__button" aria-label="Next video" (click)="next()">
+        <svg class="hl__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" /></svg>
+      </button>
+    </div>
+  </div>
+</section>

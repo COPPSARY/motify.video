@@ -1,0 +1,216 @@
+:host {
+  display: block;
+  --card-w: min(64rem, 84vw);
+}
+
+.hl {
+  padding-top: var(--motify-section-pad);
+  scroll-margin-top: 6rem;
+}
+
+.hl__title {
+  width: var(--card-w);
+  max-width: none;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+}
+
+/* One clip centred, neighbours peeking on both sides. */
+.hl__track {
+  display: flex;
+  gap: 1.25rem;
+  padding-inline: calc((100% - var(--card-w)) / 2);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.hl__track::-webkit-scrollbar {
+  display: none;
+}
+
+.hl__card {
+  flex: 0 0 var(--card-w);
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--motify-border);
+  border-radius: 1.25rem;
+  background: var(--motify-surface-solid);
+  opacity: 0.35;
+  scroll-snap-align: center;
+  cursor: pointer;
+  transition: opacity 300ms ease;
+}
+
+.hl__card.is-active {
+  opacity: 1;
+  cursor: default;
+}
+
+.hl__card:not(.is-active):hover {
+  opacity: 0.55;
+}
+
+.hl__card video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hl__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  width: var(--card-w);
+  margin: 1.5rem auto 0;
+}
+
+.hl__caption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+  margin: 0;
+  color: var(--motify-text-quiet);
+  font-size: 0.95rem;
+}
+
+.hl__category {
+  color: var(--motify-text-primary);
+  font-weight: 500;
+}
+
+.hl__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Progress dots: the active one widens and fills as its clip plays. */
+.hl__dots {
+  display: flex;
+  align-items: center;
+  margin-right: 0.75rem;
+}
+
+.hl__dot {
+  display: grid;
+  place-items: center;
+  height: 1.75rem;
+  padding: 0 0.2rem;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.hl__dot span {
+  position: relative;
+  display: block;
+  width: 0.45rem;
+  height: 0.45rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+  transition: width 300ms var(--motify-ease-premium), background-color 150ms ease;
+}
+
+.hl__dot:hover span {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.hl__dot.is-active span {
+  width: 2.5rem;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hl__dot i {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.hl__dot:focus-visible,
+.hl__button:focus-visible {
+  outline: 2px solid var(--motify-cobalt-hover);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+.hl__button {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--motify-border-strong);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--motify-text-primary);
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, transform 100ms ease;
+}
+
+.hl__button:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.hl__button:active {
+  transform: scale(0.97);
+}
+
+.hl__button svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: currentColor;
+}
+
+.hl__button .hl__chevron {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 720px) {
+  :host {
+    --card-w: calc(100vw - 3rem);
+  }
+
+  .hl__track {
+    gap: 0.75rem;
+  }
+
+  .hl__card {
+    border-radius: var(--motify-radius-md);
+  }
+
+  .hl__bar {
+    justify-content: center;
+  }
+
+  .hl__caption {
+    justify-content: center;
+    width: 100%;
+    font-size: 0.85rem;
+  }
+
+  /* Ten dots do not fit beside the buttons on a phone; swipe and the arrows remain. */
+  .hl__dots {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hl__card,
+  .hl__dot span,
+  .hl__button {
+    transition: none;
+  }
+}

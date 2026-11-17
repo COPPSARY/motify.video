@@ -25,6 +25,7 @@
     "@lucide/angular": "^1.26.0",
     "@vercel/analytics": "^2.0.1",
     "express": "^4.18.2",
+    "gsap": "^3.15.1",
     "jspdf": "^3.0.4",
     "ogl": "^1.0.11",
     "qrcode": "^1.5.4",

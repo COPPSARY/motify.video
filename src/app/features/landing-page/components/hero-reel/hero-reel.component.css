@@ -1,0 +1,87 @@
+:host {
+  display: block;
+}
+
+.reel {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding: 0 1.5rem;
+  perspective: 1600px;
+  scroll-margin-top: 6rem;
+}
+
+.reel__frame {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 72rem);
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.25rem;
+  background: var(--motify-surface-solid);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 40px 120px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+.reel__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: opacity 150ms ease;
+}
+
+/* Crossfade between examples: out quickly, back in once the new video plays. */
+.reel__video.is-swapping {
+  opacity: 0;
+}
+
+.reel__caption {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0 0;
+  color: var(--motify-text-quiet);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.reel__caption-kind {
+  color: var(--motify-text-primary);
+  font-weight: 500;
+}
+
+.reel__caption-mark {
+  flex: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--motify-cobalt-hover);
+}
+
+@media (max-width: 720px) {
+  .reel {
+    padding: 0 1rem;
+  }
+
+  .reel__frame {
+    border-radius: var(--motify-radius-md);
+  }
+
+  .reel__caption {
+    font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel__video {
+    transition: none;
+  }
+}

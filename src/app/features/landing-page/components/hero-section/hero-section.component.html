@@ -2,23 +2,46 @@
   <app-aurora
     class="hero__aurora"
     [colorStops]="auroraColors"
-    [amplitude]="1"
-    [blend]="0.5"
-    [height]="0.45"
-    [speed]="1"
-    [glow]="0.6"
+    [amplitude]="0.9"
+    [blend]="0.55"
+    [height]="0.42"
+    [speed]="0.7"
+    [glow]="0.55"
   />
-  <div class="hero__content" [appScrollReveal]="0">
+  <div class="hero__content">
     <h1 id="hero-title" class="hero__headline">
-      Create motion graphics in minutes.
+      <span class="hero__line"><span style="--rise-delay: 0ms">Ideas in.&#32;</span></span>
+      <span class="hero__line hero__line--motion"><span style="--rise-delay: 90ms"><span class="hero__word">@for (letter of motionLetters; track $index) {<span class="hero__letter" [style.--i]="$index">{{ letter }}</span>}</span>&#32;out.</span></span>
     </h1>
-    <p class="hero__subheadline">
-      For businesses, marketing teams, and agencies. Describe your idea and get an animated ad, product animation, or explainer you can refine and publish anywhere.
+    <p class="hero__subheadline hero__rise" style="--rise-delay: 420ms">
+      Turn a prompt into on-brand launch videos, product demos, and ads.
     </p>
-    <app-prompt-composer
-      class="hero__composer"
-      inputId="motion-prompt"
-      [placeholder]="typedPrompt() || 'Describe your video, or paste your script in plain words…'"
-    />
+
+    <app-prompt-composer class="hero__composer hero__rise" style="--rise-delay: 520ms" inputId="motion-prompt" />
+
+    <div
+      #chipRow
+      class="hero__chips hero__rise"
+      style="--rise-delay: 620ms"
+      role="group"
+      aria-label="Try an example"
+      [style.--pill-x.px]="pill().x"
+      [style.--pill-w.px]="pill().w"
+      [class.has-pill]="pill().w > 0"
+    >
+      <span class="hero__pill" aria-hidden="true"></span>
+      @for (demo of store.demos; track demo.id) {
+        <button
+          type="button"
+          class="hero__chip"
+          [class.is-active]="store.active().id === demo.id"
+          [attr.aria-pressed]="store.active().id === demo.id"
+          (click)="choose(demo.id, chip)"
+          #chip
+        >
+          {{ demo.label }}
+        </button>
+      }
+    </div>
   </div>
 </section>

@@ -18,7 +18,7 @@
     },
     {
       "source": "/canvas-ai-video-editor",
-      "destination": "/ai-motion-graphics-generator",
+      "destination": "/ai-video-editor",
       "permanent": true
     },
     {

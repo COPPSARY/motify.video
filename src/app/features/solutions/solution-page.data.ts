@@ -26,6 +26,8 @@ export interface SolutionPage {
   readonly bestFor: readonly string[];
   readonly notFor: string;
   readonly faqs: readonly SolutionFaq[];
+  /** A feature still in beta: the page says so next to its eyebrow. */
+  readonly beta?: boolean;
 }
 
 export const SOLUTION_PAGES: Record<string, SolutionPage> = {
@@ -173,6 +175,106 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
       {
         question: 'Can one project produce different aspect ratios?',
         answer: 'Motify supports landscape, square, portrait, and vertical formats, so the same direction can be adapted for each channel.',
+      },
+    ],
+  },
+  'video-editor': {
+    slug: 'ai-video-editor',
+    beta: true,
+    title: 'AI Video Editor for Promo Videos | Motify',
+    description:
+      'Upload your raw clips and the Motify AI video editor cuts them into a promo video with captions, title cards, and B-roll. Refine it by chatting.',
+    eyebrow: 'Edit your own footage',
+    heading: 'AI video editor',
+    lead:
+      'Upload the footage you already have, such as interviews, product demos, or event clips, and Motify cuts it into a promotional video you can refine and export.',
+    promise:
+      'Motify reads what is said in every clip and cuts in the pauses between words, never mid-sentence. Title cards and B-roll go over the talk, so the speaker is never cut off.',
+    outcome: 'A rough cut of your own footage, ready to refine.',
+    benefits: [
+      {
+        title: 'Cuts that respect the words',
+        body: 'Each clip is transcribed with word timings, so cut points land between words and the video fits the length you ask for.',
+      },
+      {
+        title: 'Captions, cards, and B-roll',
+        body: 'Add captions and translate them, put title cards and your own pictures over the talk, and fill gaps with stock B-roll.',
+      },
+      {
+        title: 'Change it by chatting',
+        body: 'Ask for a shorter cut, a different opening, or more B-roll in plain words, and the same edit updates.',
+      },
+    ],
+    steps: [
+      { number: '01', title: 'Upload your clips', body: 'Add the raw footage. Motify reads each clip once: what is said, the key moments, and the parts to leave out.' },
+      { number: '02', title: 'Get a rough cut', body: 'Describe the video you want and how long it should be. Motify plans the cut from your clips.' },
+      { number: '03', title: 'Refine and export', body: 'Ask for changes, adjust captions and cards, then export the finished video.' },
+    ],
+    bestFor: ['Customer testimonials', 'Founder and talking-head videos', 'Event recaps', 'Recorded product demos', 'Short social cut-downs'],
+    notFor:
+      'The AI video editor works with footage you upload. It does not film new shots or generate people. It is in beta, so expect it to keep improving.',
+    faqs: [
+      {
+        question: 'What footage can I use?',
+        answer: 'Your own video clips, such as interviews, demos, and event footage. Motify reads each clip once, so reusing a clip in another project does not process it again.',
+      },
+      {
+        question: 'Will the edit cut people off mid-sentence?',
+        answer: 'No. Cut points are moved into the pauses between words, and cards or B-roll are placed over the talk instead of interrupting it.',
+      },
+      {
+        question: 'Is the AI video editor available now?',
+        answer: 'Yes, in beta. You can use it in the Motify editor today; it may change as we improve it.',
+      },
+    ],
+  },
+  'psd-to-video': {
+    slug: 'psd-to-video',
+    beta: true,
+    title: 'PSD to Video: Animate Photoshop Designs | Motify',
+    description:
+      'Turn a Photoshop design into an animated video. Motify keeps every layer exactly as you designed it and adds the motion, for a flat 20 credits.',
+    eyebrow: 'Animate a Photoshop design',
+    heading: 'PSD to video',
+    lead:
+      'Import your Photoshop file and Motify animates the layers you already designed: your type, images, and groups, each in its exact position.',
+    promise:
+      'Your design stays your design. Motify does not redraw, restyle, or reword anything; it only writes the motion.',
+    outcome: 'Your Photoshop design, now in motion.',
+    benefits: [
+      {
+        title: 'Every layer kept',
+        body: 'Pixel layers, type layers, and groups come in at their exact Photoshop positions, with their names, sizes, opacity, and order.',
+      },
+      {
+        title: 'Motion only',
+        body: 'The animation is added on top of the finished design, so the layout, wording, and style your team approved stay untouched.',
+      },
+      {
+        title: 'One flat price',
+        body: 'Each PSD to Video run costs 20 credits, whatever the length of the video.',
+      },
+    ],
+    steps: [
+      { number: '01', title: 'Import your PSD', body: 'Open your Photoshop file in the Motify editor. Each layer becomes an element in its exact place.' },
+      { number: '02', title: 'Motify animates it', body: 'Choose PSD to Video and Motify writes the motion for the layers you have.' },
+      { number: '03', title: 'Export', body: 'Preview the animation and export the video for your channels.' },
+    ],
+    bestFor: ['Social posts designed in Photoshop', 'Ads and banners', 'Posters and key visuals', 'Menu and event graphics', 'Agency deliverables'],
+    notFor:
+      'PSD to Video animates the design as it is. If the layout or wording needs to change, change it in Photoshop first, or start a new video from a prompt.',
+    faqs: [
+      {
+        question: 'Will Motify change my design?',
+        answer: 'No. It keeps every layer, its position, size, text, and stacking order exactly as in Photoshop, and only adds the motion.',
+      },
+      {
+        question: 'How much does PSD to Video cost?',
+        answer: 'A flat 20 credits per run, whatever the length of the video.',
+      },
+      {
+        question: 'Is PSD to Video available now?',
+        answer: 'Yes, in beta. You can use it in the Motify editor today; it may change as we improve it.',
       },
     ],
   },

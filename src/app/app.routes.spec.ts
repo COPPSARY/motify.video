@@ -44,6 +44,8 @@ describe('app.routes', () => {
                 'ai-motion-graphics-generator',
                 'software-product-video-generator',
                 'canvas-ai-video-editor',
+                'ai-video-editor',
+                'psd-to-video',
                 'resources',
                 'templates',
                 'help',

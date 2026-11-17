@@ -1,28 +1,60 @@
 .footer {
   position: relative;
   overflow: hidden;
-  padding: 0 1.5rem 2.5rem;
+  padding: clamp(4rem, 9vw, 7rem) 1.5rem 2.5rem;
   border-top: 1px solid var(--motify-border);
   background: #030304;
   color: var(--motify-text-primary);
 }
 
-.footer__wordmark {
+.footer__signoff {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(36rem, 86%);
+  margin: 0 auto;
+  aspect-ratio: 32 / 9;
+}
+
+/* The still logo is the video's last frame: the mark, then the wordmark. */
+.footer__signoff-still {
   display: flex;
-  height: clamp(7rem, 21vw, 18rem);
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-bottom: 1px solid var(--motify-border);
-  color: rgba(255, 255, 255, 0.025);
-  font-size: clamp(5rem, 22vw, 20rem);
+  gap: 1.1rem;
+  height: clamp(2.6rem, 7.5vw, 4.4rem);
+  transition: opacity 200ms ease;
+}
+
+.footer__signoff-still img {
+  display: block;
+  width: auto;
+  height: 100%;
+}
+
+.footer__signoff-still span {
+  color: #fff;
+  font-size: clamp(2.3rem, 6.8vw, 4rem);
   font-weight: 700;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.03em;
   line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.09);
-  user-select: none;
+}
+
+.footer__signoff-still.is-hidden {
+  opacity: 0;
+}
+
+.footer__signoff-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.footer__signoff-video.is-visible {
+  opacity: 1;
 }
 
 .footer__content {
@@ -75,13 +107,12 @@
   border: 1px solid var(--motify-border-strong);
   border-radius: 50%;
   color: var(--motify-text-muted);
-  transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+  transition: border-color 150ms ease, color 150ms ease;
 }
 
 .footer__socials a:hover {
   border-color: rgba(255, 255, 255, 0.35);
   color: var(--motify-text-primary);
-  transform: translateY(-2px);
 }
 
 .footer__socials a:focus-visible {
@@ -193,12 +224,6 @@
     padding-inline: 1rem;
   }
 
-  .footer__wordmark {
-    height: 6rem;
-    font-size: clamp(4rem, 22vw, 6.5rem);
-    letter-spacing: -0.025em;
-  }
-
   .footer__content {
     padding-top: 3rem;
     margin-top: 1rem;
@@ -217,11 +242,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .footer__socials a,
-  .footer__columns a {
+  .footer__columns a,
+  .footer__signoff-still {
     transition: none;
-  }
-
-  .footer__socials a:hover {
-    transform: none;
   }
 }

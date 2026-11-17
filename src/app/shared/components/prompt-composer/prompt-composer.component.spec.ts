@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { PromptComposerComponent } from './prompt-composer.component';
 
@@ -14,7 +14,7 @@ describe('PromptComposerComponent', () => {
     const router = TestBed.inject(Router);
     const navigate = spyOn(router, 'navigate').and.resolveTo(true);
     const component = TestBed.createComponent(PromptComposerComponent).componentInstance;
-    component.prompt = 'Make a launch video & demo';
+    component.prompt.set('Make a launch video & demo');
 
     await component.submitPrompt();
 
@@ -23,54 +23,54 @@ describe('PromptComposerComponent', () => {
     });
   });
 
-  it('does not submit an empty prompt', async () => {
+  it('does not submit an empty prompt, and keeps the button disabled until there is text', async () => {
     const router = TestBed.inject(Router);
     const navigate = spyOn(router, 'navigate').and.resolveTo(true);
-    const component = TestBed.createComponent(PromptComposerComponent).componentInstance;
-    component.prompt = '   ';
+    const fixture = TestBed.createComponent(PromptComposerComponent);
+    const component = fixture.componentInstance;
+    component.prompt.set('   ');
+    fixture.detectChanges();
 
     await component.submitPrompt();
 
     expect(navigate).not.toHaveBeenCalled();
+    expect(fixture.nativeElement.querySelector('.composer__submit').disabled).toBeTrue();
   });
 
-  it('has no prompt enhancer', () => {
+  it('offers only text: no attachments, aspect, effort, or enhancer that would be lost on the way', () => {
     const fixture = TestBed.createComponent(PromptComposerComponent);
     fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
 
-    expect(fixture.nativeElement.querySelector('[aria-label="Enhance prompt"]')).toBeNull();
+    expect(element.querySelector('[aria-label="Attach an image or song"]')).toBeNull();
+    expect(element.querySelector('.composer__chip')).toBeNull();
+    expect(element.querySelector('[aria-label="Enhance prompt"]')).toBeNull();
+    expect(element.querySelectorAll('textarea').length).toBe(1);
   });
 
-  it('attaches pasted images and songs as removable chips, ignoring other files', () => {
+  it('types a suggestion into the box as real, sendable text', fakeAsync(() => {
     const fixture = TestBed.createComponent(PromptComposerComponent);
     const component = fixture.componentInstance;
-    const clipboardData = new DataTransfer();
-    clipboardData.items.add(new File(['img'], 'shot.png', { type: 'image/png' }));
-    clipboardData.items.add(new File(['mp3'], 'song.mp3', { type: 'audio/mpeg' }));
-    clipboardData.items.add(new File(['txt'], 'notes.txt', { type: 'text/plain' }));
-
-    component.onPaste(new ClipboardEvent('paste', { clipboardData, cancelable: true }));
     fixture.detectChanges();
 
-    expect(component.attachments().map(({ name, kind }) => ({ name, kind }))).toEqual([
-      { name: 'shot.png', kind: 'image' },
-      { name: 'song.mp3', kind: 'audio' },
-    ]);
-    expect(fixture.nativeElement.querySelectorAll('.composer__attachment').length).toBe(2);
+    component.fill('A launch video for our dashboard.');
+    tick(2000);
+    flush();
+    fixture.detectChanges();
 
-    component.removeAttachment(component.attachments()[0].id);
-    expect(component.attachments().map(({ name }) => name)).toEqual(['song.mp3']);
-  });
+    expect(component.prompt()).toBe('A launch video for our dashboard.');
+    expect(fixture.nativeElement.querySelector('.composer__submit').disabled).toBeFalse();
+  }));
 
-  it('switches the aspect ratio and effort from their pickers', () => {
+  it('stops typing a suggestion as soon as the visitor types', fakeAsync(() => {
     const component = TestBed.createComponent(PromptComposerComponent).componentInstance;
 
-    component.toggleMenu('aspect');
-    component.selectAspect('9:16');
-    component.selectEffort('high');
+    component.fill('A long suggestion that would keep typing for a while.');
+    tick(30);
+    component.onPromptInput('My own idea');
+    tick(2000);
+    flush();
 
-    expect(component.aspect()).toBe('9:16');
-    expect(component.effort()).toBe('high');
-    expect(component.openMenu()).toBeNull();
-  });
+    expect(component.prompt()).toBe('My own idea');
+  }));
 });

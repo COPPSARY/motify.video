@@ -93,6 +93,12 @@
   --motify-duration-fast: 180ms;
   --motify-duration-base: 300ms;
   --motify-ease-standard: cubic-bezier(0.2, 0.75, 0.25, 1);
+  /* Premium landing rhythm: long, soft deceleration; big display type; wide section spacing. */
+  --motify-ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --motify-type-hero: clamp(2.6rem, 5.6vw, 5.25rem);
+  --motify-section-pad: clamp(6rem, 14vw, 11rem);
+  --motify-text-quiet: #8a8a93;
+  --motify-cobalt-glow: rgba(39, 88, 230, 0.35);
 
   /* Radius */
   --motify-radius-xs: 0.4rem;
@@ -361,4 +367,41 @@ video {
   50% {
     transform: translate(8px, 8px);
   }
+}
+
+/*
+ * Landing section typography: one eyebrow, one big two-line title, one short lead.
+ * Shared so every section on the marketing pages speaks the same visual language.
+ */
+.lp-eyebrow {
+  margin: 0 0 1.1rem;
+  color: var(--motify-cobalt-hover);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lp-title {
+  max-width: 18ch;
+  margin: 0;
+  color: var(--motify-text-primary);
+  font-size: clamp(2.4rem, 5.2vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.lp-title .lp-dim {
+  color: var(--motify-text-quiet);
+}
+
+.lp-lead {
+  max-width: 38rem;
+  margin: 1.4rem 0 0;
+  color: var(--motify-text-quiet);
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.55;
+  text-wrap: pretty;
 }

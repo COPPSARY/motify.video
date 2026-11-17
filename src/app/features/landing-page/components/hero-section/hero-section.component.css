@@ -5,29 +5,30 @@
 .hero {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   justify-items: center;
   align-content: center;
   min-height: 100svh;
-  padding: 7rem 1.5rem 4rem;
+  padding: 8rem 1.5rem 5rem;
   overflow: hidden;
-  background: #07080a;
+  background: var(--motify-bg);
 }
 
-.hero::before {
+/* Fade the aurora into the page below so the hero has no hard bottom edge. */
+.hero::after {
   position: absolute;
-  inset: 0;
+  inset: auto 0 0;
+  height: 30%;
   pointer-events: none;
   content: '';
-  opacity: 0.1;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 0.6px, transparent 0.6px);
-  background-size: 14px 14px;
-  mask-image: linear-gradient(180deg, transparent 3%, #000 28%, #000 72%, transparent 98%);
+  background: linear-gradient(180deg, transparent, var(--motify-bg));
 }
 
 .hero__aurora {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  opacity: 0.9;
 }
 
 .hero__content {
@@ -36,51 +37,189 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(100%, 58rem);
+  width: min(100%, 76rem);
   text-align: center;
 }
 
 .hero__headline {
-  max-width: 50rem;
+  display: grid;
   margin: 0;
   color: var(--motify-text-primary);
-  font-size: clamp(2.75rem, 5vw, 4.75rem);
-  line-height: 1;
-  letter-spacing: -0.035em;
-  text-wrap: balance;
+  font-size: var(--motify-type-hero);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+/* Each line rises out of its own mask. Pure CSS, so it runs from first paint
+   and the server-rendered headline is never hidden waiting for JavaScript. */
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.hero__line > span {
+  display: block;
+  animation: hero-line 900ms var(--motify-ease-premium) var(--rise-delay, 0ms) both;
+}
+
+.hero__line + .hero__line {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* "Motion" assembles letter by letter, in full white, after its line has risen. */
+.hero__word {
+  color: var(--motify-text-primary);
+}
+
+.hero__letter {
+  display: inline-block;
+  animation: hero-letter 760ms var(--motify-ease-premium) calc(240ms + var(--i, 0) * 45ms) both;
+}
+
+@keyframes hero-letter {
+  from { opacity: 0; transform: translateY(0.45em) rotate(6deg); }
+  to { opacity: 1; transform: none; }
+}
+
+.hero__rise {
+  animation: hero-rise 900ms var(--motify-ease-premium) var(--rise-delay, 0ms) both;
+}
+
+@keyframes hero-line {
+  from { transform: translateY(105%); }
+  to { transform: none; }
+}
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
 }
 
 .hero__subheadline {
-  max-width: 43rem;
-  margin: 1.5rem 0 0;
+  max-width: 40rem;
+  margin: 1.75rem 0 0;
   color: var(--motify-text-secondary);
-  font-size: clamp(1rem, 1.7vw, 1.2rem);
-  line-height: 1.6;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  line-height: 1.55;
   text-wrap: balance;
 }
 
 .hero__composer {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+}
+
+/* Example chips: a segmented control whose indicator slides to the active chip. */
+.hero__chips {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  gap: 0.25rem;
+  margin-top: 1.25rem;
+  padding: 0.3rem;
+  overflow-x: auto;
+  border: 1px solid var(--motify-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  scrollbar-width: none;
+}
+
+.hero__chips::-webkit-scrollbar {
+  display: none;
+}
+
+.hero__pill {
+  position: absolute;
+  top: 0.3rem;
+  bottom: 0.3rem;
+  left: 0;
+  width: var(--pill-w, 0);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transform: translateX(var(--pill-x, 0));
+  transition:
+    transform 260ms var(--motify-ease-premium),
+    width 260ms var(--motify-ease-premium);
+}
+
+.hero__chips.has-pill .hero__pill {
+  opacity: 1;
+}
+
+.hero__chip {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--motify-text-muted);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.hero__chip:hover,
+.hero__chip.is-active {
+  color: var(--motify-text-primary);
+}
+
+/* Before the indicator is measured (server HTML), the active chip carries its own fill. */
+.hero__chips:not(.has-pill) .hero__chip.is-active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hero__chip:focus-visible {
+  outline: 2px solid var(--motify-cobalt-hover);
+  outline-offset: 2px;
 }
 
 @media (max-width: 720px) {
   .hero {
-    gap: 3.5rem;
     min-height: 0;
-    padding: 8rem 1rem 3.5rem;
+    padding: 8.5rem 1rem 4rem;
   }
 
   .hero__headline {
-    font-size: clamp(2.5rem, 12vw, 4rem);
+    font-size: clamp(2.35rem, 10.5vw, 3.4rem);
   }
 
   .hero__subheadline {
-    margin-top: 1.15rem;
+    margin-top: 1.25rem;
     font-size: 1rem;
   }
 
   .hero__composer {
     width: 100%;
-    margin-top: 1.5rem;
+    margin-top: 1.75rem;
+  }
+
+  .hero__chip {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  /* The row scrolls sideways here; fade the edge to show there is more. */
+  .hero__chips {
+    mask-image: linear-gradient(90deg, #000 85%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__line > span,
+  .hero__rise,
+  .hero__letter {
+    animation: none;
+  }
+
+  .hero__pill,
+  .hero__chip {
+    transition: none;
   }
 }

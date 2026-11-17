@@ -1,352 +1,81 @@
 #top {
   position: relative;
   isolation: isolate;
-  background: #07080a;
+  background: var(--motify-bg);
 }
 
 #top,
 #get-started,
-#about,
+#faq,
 #resources {
   scroll-margin-top: 7rem;
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  gap: var(--motify-section-gap);
-}
-
-main > app-features-section {
   display: block;
+  padding-bottom: var(--motify-section-pad);
 }
 
-main > app-spatial-showcase-section {
-  display: block;
-  margin-top: calc(-1 * var(--motify-section-gap));
-}
-
-.problem {
-  padding: 6rem 1.5rem;
-}
-
-.problem__inner {
-  display: grid;
-  justify-items: start;
-  gap: var(--motify-heading-content-gap);
-  width: min(74rem, 100%);
+/* Templates */
+.workflow {
+  width: min(78rem, calc(100% - 3rem));
   margin: 0 auto;
-}
-
-.problem__heading {
-  display: grid;
-  gap: 1rem;
-  width: 100%;
-}
-
-.problem h2 {
-  max-width: none;
-  margin: 0;
-  color: var(--motify-text-primary);
-  font-size: var(--motify-heading-section);
-  line-height: 1.02;
-  text-align: left;
-}
-
-.problem__title-line {
-  display: block;
-  white-space: nowrap;
-}
-
-.problem h2 .heading-swipe {
-  padding-bottom: 0.12em;
-}
-
-@media (max-width: 820px) {
-  .problem__title-line {
-    white-space: normal;
-  }
-}
-
-.problem__lead {
-  max-width: 36rem;
-  margin: 0;
-  color: var(--motify-text-secondary);
-  font-size: 1.15rem;
-  line-height: 1.6;
-  text-align: left;
-}
-
-.workflow { padding: 6rem 1.5rem 7rem; }
-.workflow__heading { display: grid; justify-items: center; gap: 0.8rem; max-width: 44rem; margin: 0 auto var(--motify-heading-content-gap); text-align: center; }
-
-.workflow__heading h2 { margin: 0; color: var(--motify-text-primary); font-size: var(--motify-heading-section); line-height: 1; letter-spacing: -0.025em; }
-.workflow__heading > p:last-child { max-width: 32rem; margin: 0; color: var(--motify-text-secondary); line-height: 1.6; }
-
-@media (max-width: 640px) {
-  .problem {
-    padding: 4rem 1rem;
-  }
-
-  .workflow { padding: 4rem 1rem 5rem; }
-  .workflow__heading { margin-bottom: 3rem; }
-  
-  
-  
-
-  .problem__inner {
-    gap: 1.5rem;
-  }
-}
-
-/* Pinned scroll-jack: vertical wheel input advances this full-screen storyboard sideways. */
-.workflow { display: grid; min-height: 100svh; height: 100svh; align-content: center; padding-block: 5rem; overflow: hidden; }
-.workflow__heading { align-self: end; margin-bottom: 1.5rem; }
-
-@media (max-width: 640px) {
-  .workflow { padding-block: 5rem 2rem; }
-  .workflow__heading { margin-bottom: 1rem; }
-}
-
-/* Full-screen storyboard: vertical wheel input advances each panel sideways. */
-.workflow {
-  display: block;
-  min-height: 100svh;
-  height: 100svh;
-  align-content: stretch;
-  padding-block: 3rem;
-  overflow: hidden;
-  overscroll-behavior: contain;
-}
-
-.workflow__heading { position: static; min-height: 0; margin-bottom: 1.5rem; pointer-events: auto; }
-
-@media (max-width: 640px) {
-  .workflow { padding-block: 3rem 2rem; }
-  .workflow__heading { margin-bottom: 1rem; }
-}
-
-/* One viewport storyboard: vertical wheel input advances the panels sideways. */
-.workflow {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  height: 100svh;
-  min-height: 100svh;
-  padding-block: 3rem;
-  overflow: hidden;
-}
-.workflow__pin {
-  position: static;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  height: 100svh;
-  padding-block: 3rem;
-  overflow: hidden;
-}
-
-@media (max-width: 640px) {
-  .workflow { height: 100svh; min-height: 100svh; }
-  .workflow__pin { padding-block: 3rem 2rem; }
-}
-
-/* Reference-inspired storyboard treatment: numbered copy left, process card right. */
-.workflow {
-  color: var(--motify-text-primary);
-  background: transparent;
-}
-.workflow__pin { padding-block: clamp(2rem, 5vw, 4.5rem); }
-.workflow__heading { gap: 0.7rem; }
-
-.workflow__heading h2 { color: var(--motify-text-primary); }
-.workflow__heading h2 .heading-accent {
-  display: inline-block;
-  padding-inline-end: 0.08em;
-  overflow: visible;
-}
-.workflow__heading > p:last-child { color: var(--motify-text-secondary); }
-
-
-.faq {
-  padding: 7rem 1.5rem 4rem;
-  background: transparent;
-}
-.faq__inner {
-  width: min(54rem, 100%);
-  margin: 0 auto;
-}
-
-.faq h2 {
-  margin: 0 0 2.5rem;
-  color: var(--motify-text-primary);
-  font-size: clamp(2.2rem, 5vw, 4rem);
-  letter-spacing: -0.025em;
-  text-align: center;
-}
-.faq__list { border-top: 1px solid var(--motify-border-strong); }
-.faq__list {
-  overflow: hidden;
-  border: 1px solid var(--motify-border-strong);
-  border-radius: var(--motify-radius-xl);
-  background: rgba(12, 14, 18, 0.78);
-  box-shadow: var(--motify-shell-shadow);
-  padding-inline: 1.8rem;
-}
-.faq details { border-bottom: 1px solid var(--motify-border); }
-.faq details:last-child { border-bottom: 0; }
-.faq summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.45rem 0;
-  color: var(--motify-text-primary);
-  cursor: pointer;
-  font-size: 1.05rem;
-  font-weight: 400;
-  list-style: none;
-}
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: '⌄'; color: var(--motify-text-muted); font-size: 1.1rem; font-weight: 400; transition: color 200ms ease, transform 200ms ease; }
-.faq details[open] summary::after { color: var(--motify-logo-end); transform: rotate(180deg); }
-.faq details p { max-width: 42rem; margin: -0.4rem 2.5rem 1.35rem 0; color: var(--motify-text-secondary); line-height: 1.65; }
-
-@media (max-width: 640px) {
-  .faq { padding-inline: 1rem; }
-  .faq__list { padding-inline: 1.1rem; border-radius: var(--motify-radius-lg); }
-}
-
-/* Natural page flow: the storyboard is no longer scroll-jacked. */
-.workflow {
-  display: block;
-  height: auto;
-  min-height: 0;
-  padding-block: 6rem 7rem;
-  overflow: visible;
-}
-.workflow__pin {
-  display: block;
-  height: auto;
-  padding: 0;
-  overflow: visible;
-}
-
-.workflow__heading { margin-bottom: 2rem; }
-
-@media (max-width: 760px) {
-  .workflow { padding-block: 5rem; }
-  .workflow__heading { margin-bottom: 1.25rem; }
-}
-
-.workflow { position: relative; isolation: isolate; display: block; height: auto; min-height: 0; padding: 6rem 1.5rem 7rem; overflow: hidden; overscroll-behavior: auto; background: #07080a; }
-.workflow__pin { position: relative; z-index: 1; width: min(74rem, 100%); margin: 0 auto; padding: 0; }
-.workflow__heading { display: grid; grid-template-columns: 1fr auto; align-items: end; justify-items: stretch; gap: 2rem; width: 100%; max-width: none; margin: 0 0 var(--motify-heading-content-gap); text-align: left; }
-.workflow__heading h2 { margin: 0; font-size: clamp(2.5rem, 5vw, 4.5rem); }
-.workflow__heading > p:last-child { margin: 0 0 0.3rem; text-align: right; }
-
-@media (max-width: 640px) {
-  .workflow { padding: 5rem 1rem; }
-  .workflow__heading { grid-template-columns: 1fr; gap: 0.65rem; }
-  .workflow__heading > p:last-child { margin: 0; text-align: left; }
-}
-
-
-/* Customer-facing workflow: calm, repeatable, and focused on control. */
-.workflow {
-  padding: clamp(5rem, 9vw, 8rem) 1.5rem;
-  background: #07080a;
-}
-
-.workflow__pin {
-  width: min(74rem, 100%);
+  padding-top: var(--motify-section-pad);
 }
 
 .workflow__heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 2rem;
-  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
-  text-align: left;
-}
-
-.problem__product-image {
-  width: 100%;
-  margin: 0 0 clamp(-5rem, -6vw, -3rem);
-  overflow: hidden;
-  border-radius: var(--motify-radius-lg);
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
-}
-
-.problem__product-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.problem__inner app-value-points {
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 640px) {
-  .problem__product-image {
-    margin-bottom: -1.5rem;
-  }
-}
-
-.workflow__heading h2 {
-  max-width: 46rem;
-  font-size: clamp(2.1rem, 4vw, 3.5rem);
-  font-weight: 500;
-  line-height: 1.08;
-  text-wrap: balance;
-}
-
-.workflow__heading p {
-  max-width: 34rem;
-  margin: 0.8rem 0 0;
-  color: var(--motify-text-secondary);
-  line-height: 1.65;
-  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
 }
 
 .workflow__view-all {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.5rem;
   min-height: 2.75rem;
-  padding: 0.7rem 1.2rem;
+  padding: 0 1.2rem;
   border: 1px solid var(--motify-border-strong);
-  border-radius: 999px;
+  border-radius: var(--motify-radius-pill);
   color: var(--motify-text-primary);
-  background: rgba(255, 255, 255, 0.04);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 500;
   text-decoration: none;
-  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.workflow__view-all svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .workflow__view-all:hover {
   border-color: rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.09);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .workflow__view-all:focus-visible {
-  outline: 2px solid var(--motify-text-primary);
+  outline: 2px solid var(--motify-cobalt-hover);
   outline-offset: 3px;
 }
 
 /* Masonry: every preview keeps its own format, so cards flow down columns. */
 .workflow__gallery {
   columns: 4;
-  column-gap: clamp(1rem, 2vw, 1.5rem);
+  column-gap: 1rem;
 }
 
 .workflow__template {
   display: block;
-  margin-bottom: clamp(1.25rem, 2.4vw, 1.75rem);
+  margin-bottom: 1.5rem;
   break-inside: avoid;
   color: inherit;
   text-decoration: none;
@@ -355,10 +84,10 @@ main > app-spatial-showcase-section {
 .workflow__template-media {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 1px solid var(--motify-border);
   border-radius: var(--motify-radius-lg);
-  background: #0c0d10;
-  transition: border-color 180ms ease;
+  background: var(--motify-surface-solid);
+  transition: border-color 150ms ease;
 }
 
 /* Skeleton shimmer behind the preview until its first frame is decoded. */
@@ -371,7 +100,9 @@ main > app-spatial-showcase-section {
   animation: workflow-skeleton 1.4s ease-in-out infinite;
 }
 
-.workflow__template-media:has(video.is-ready)::before { display: none; }
+.workflow__template-media:has(video.is-ready)::before {
+  display: none;
+}
 
 @keyframes workflow-skeleton {
   from { background-position: 150% 0; }
@@ -385,58 +116,163 @@ main > app-spatial-showcase-section {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 320ms ease, transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 200ms ease;
 }
 
-.workflow__template video.is-ready { opacity: 1; }
+.workflow__template video.is-ready {
+  opacity: 1;
+}
 
-.workflow__template:hover .workflow__template-media { border-color: rgba(255, 255, 255, 0.28); }
-.workflow__template:hover video { transform: scale(1.025); }
-.workflow__template:focus-visible { outline: none; }
-.workflow__template:focus-visible .workflow__template-media { outline: 2px solid var(--motify-text-primary); outline-offset: 3px; }
+.workflow__template:hover .workflow__template-media {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.workflow__template:hover h3 {
+  color: var(--motify-text-primary);
+}
+
+.workflow__template:focus-visible {
+  outline: none;
+}
+
+.workflow__template:focus-visible .workflow__template-media {
+  outline: 2px solid var(--motify-cobalt-hover);
+  outline-offset: 3px;
+}
 
 .workflow__template h3 {
   margin: 0.75rem 0 0;
-  color: var(--motify-text-primary);
-  font-size: 0.9rem;
-  font-weight: 450;
+  color: var(--motify-text-secondary);
+  font-size: 0.92rem;
+  font-weight: 500;
   line-height: 1.35;
+  transition: color 150ms ease;
+}
+
+/* FAQ */
+.faq {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  width: min(78rem, calc(100% - 3rem));
+  margin: 0 auto;
+  padding-top: var(--motify-section-pad);
+}
+
+.faq__list {
+  border-top: 1px solid var(--motify-border-strong);
+}
+
+.faq details {
+  border-bottom: 1px solid var(--motify-border);
+  interpolate-size: allow-keywords;
+}
+
+.faq details::details-content {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: height 220ms var(--motify-ease-premium), opacity 220ms ease, content-visibility 220ms allow-discrete;
+}
+
+.faq details[open]::details-content {
+  height: auto;
+  opacity: 1;
+}
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  color: var(--motify-text-primary);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  list-style: none;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+/* A plus that turns into a minus when open. */
+.faq summary::after {
+  flex: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  content: '';
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+  color: var(--motify-text-quiet);
+  transition: transform 200ms var(--motify-ease-premium);
+}
+
+.faq details[open] summary::after {
+  transform: rotate(90deg);
+  background:
+    linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+}
+
+.faq summary:hover {
+  color: #c7d5ff;
+}
+
+.faq summary:focus-visible {
+  outline: 2px solid var(--motify-cobalt-hover);
+  outline-offset: 4px;
+}
+
+.faq details p {
+  max-width: 40rem;
+  margin: 0 2.5rem 1.6rem 0;
+  color: var(--motify-text-quiet);
+  font-size: 1rem;
+  line-height: 1.65;
 }
 
 @media (max-width: 960px) {
-  .workflow__heading {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
   .workflow__gallery {
     columns: 3;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .workflow__template video { transition: none; }
-  .workflow__template-media::before { animation: none; }
+  .faq {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 600px) {
-  .workflow {
-    padding: 5rem 1rem;
-  }
-
-  .workflow__heading {
-    align-items: start;
-  }
-
-  .workflow__view-all {
-    justify-self: start;
+  .workflow,
+  .faq {
+    width: calc(100% - 2rem);
   }
 
   .workflow__gallery {
     columns: 2;
+    column-gap: 0.75rem;
   }
 
   .workflow__template-media {
     border-radius: var(--motify-radius-md);
+  }
+
+  .faq details p {
+    margin-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workflow__template video,
+  .faq details::details-content,
+  .faq summary::after {
+    transition: none;
+  }
+
+  .workflow__template-media::before {
+    animation: none;
   }
 }

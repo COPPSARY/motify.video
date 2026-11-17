@@ -116,4 +116,20 @@ describe('FooterComponent', () => {
     expect(compiled.querySelector('a[href="/privacy"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/refund-policy"]')).not.toBeNull();
   });
+
+  it('signs off with the still logo in server HTML, the video loading nothing until it is seen', () => {
+    const fixture = TestBed.createComponent(FooterComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    const signoff = compiled.querySelector('.footer__signoff');
+    expect(signoff?.getAttribute('aria-hidden')).toBe('true');
+    expect(signoff?.querySelector('.footer__signoff-still img')?.getAttribute('src')).toBe('logo.svg');
+    expect(signoff?.querySelector('.footer__signoff-still.is-hidden')).toBeNull();
+
+    const video = signoff?.querySelector<HTMLVideoElement>('video.footer__signoff-video');
+    expect(video?.getAttribute('preload')).toBe('none');
+    expect(video?.getAttribute('src')).toBeNull();
+    expect(compiled.querySelector('.footer__wordmark')).toBeNull();
+  });
 });

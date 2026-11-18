@@ -11,15 +11,15 @@ describe('HeroSectionComponent', () => {
     }).compileComponents();
   });
 
-  it('leads with one short h1, a subhead that says what Motify makes, then the aurora and the composer', () => {
+  it('leads with one h1, a subhead that says who Motify is for and what it makes, then the aurora and the composer', () => {
     const fixture = TestBed.createComponent(HeroSectionComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
 
     const headings = compiled.querySelectorAll('h1');
     expect(headings.length).toBe(1);
-    expect(headings[0].textContent?.replace(/\s+/g, ' ').trim()).toBe('Ideas in. Motion out.');
-    expect(compiled.textContent).toContain('on-brand launch videos, product demos, and ads');
+    expect(headings[0].textContent?.replace(/\s+/g, ' ').trim()).toBe('Create motion graphics in minutes.');
+    expect(compiled.textContent).toContain('For businesses, marketing teams, and agencies.');
     expect(compiled.querySelector('app-aurora')).not.toBeNull();
     expect(compiled.querySelector('app-prompt-composer textarea#motion-prompt')).not.toBeNull();
     expect(compiled.querySelectorAll('.composer__submit').length).toBe(1);

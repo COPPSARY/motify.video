@@ -16,19 +16,19 @@ describe('FooterComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should render the GitHub link with EXTERNAL_LINKS.github, target="_blank" and rel="noopener noreferrer"', () => {
+  it('should render the LinkedIn link with EXTERNAL_LINKS.linkedin, target="_blank" and rel="noopener noreferrer"', () => {
     const fixture = TestBed.createComponent(FooterComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    const githubLink = compiled.querySelector<HTMLAnchorElement>(
-      `a[href="${EXTERNAL_LINKS.github}"]`,
+    const linkedinLink = compiled.querySelector<HTMLAnchorElement>(
+      `a[href="${EXTERNAL_LINKS.linkedin}"]`,
     );
 
-    expect(githubLink).withContext('GitHub anchor should exist').not.toBeNull();
-    expect(githubLink?.getAttribute('href')).toBe(EXTERNAL_LINKS.github);
-    expect(githubLink?.getAttribute('target')).toBe('_blank');
-    expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(linkedinLink).withContext('LinkedIn anchor should exist').not.toBeNull();
+    expect(linkedinLink?.getAttribute('href')).toBe('https://www.linkedin.com/company/motifyai/');
+    expect(linkedinLink?.getAttribute('target')).toBe('_blank');
+    expect(linkedinLink?.getAttribute('rel')).toBe('noopener noreferrer');
   });
 
   it('should render the copyright line including the current year', () => {
@@ -88,7 +88,9 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.querySelector('a[href="/ai-saas-launch-video-generator"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/ai-saas-launch-video-generator"]')).toBeNull();
+    expect(compiled.querySelector('a[href="/ai-video-editor"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/psd-to-video"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/ai-motion-graphics-generator"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/software-product-video-generator"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/compare/after-effects"]')).not.toBeNull();
@@ -97,12 +99,13 @@ describe('FooterComponent', () => {
     expect(compiled.querySelector('a[href="/compare/video-agency"]')).toBeNull();
   });
 
-  it('should link the GitHub, Facebook, and TikTok social profiles', () => {
+  it('should link the LinkedIn, Facebook, and TikTok social profiles, and not GitHub', () => {
     const fixture = TestBed.createComponent(FooterComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.querySelector('a[aria-label="Motify on GitHub"]')).not.toBeNull();
+    expect(compiled.querySelector('a[aria-label="Motify on LinkedIn"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href*="github.com"]')).toBeNull();
     expect(compiled.querySelector('a[href="https://facebook.com/motify.video/"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="https://www.tiktok.com/@motify855"]')).not.toBeNull();
   });
@@ -117,19 +120,12 @@ describe('FooterComponent', () => {
     expect(compiled.querySelector('a[href="/refund-policy"]')).not.toBeNull();
   });
 
-  it('signs off with the still logo in server HTML, the video loading nothing until it is seen', () => {
+  it('ends on the big MOTIFY wordmark, hidden from screen readers', () => {
     const fixture = TestBed.createComponent(FooterComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
+    const wordmark = (fixture.nativeElement as HTMLElement).querySelector('.footer__wordmark');
 
-    const signoff = compiled.querySelector('.footer__signoff');
-    expect(signoff?.getAttribute('aria-hidden')).toBe('true');
-    expect(signoff?.querySelector('.footer__signoff-still img')?.getAttribute('src')).toBe('logo.svg');
-    expect(signoff?.querySelector('.footer__signoff-still.is-hidden')).toBeNull();
-
-    const video = signoff?.querySelector<HTMLVideoElement>('video.footer__signoff-video');
-    expect(video?.getAttribute('preload')).toBe('none');
-    expect(video?.getAttribute('src')).toBeNull();
-    expect(compiled.querySelector('.footer__wordmark')).toBeNull();
+    expect(wordmark?.textContent?.trim()).toBe('MOTIFY');
+    expect(wordmark?.getAttribute('aria-hidden')).toBe('true');
   });
 });

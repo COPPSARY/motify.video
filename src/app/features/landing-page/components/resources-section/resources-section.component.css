@@ -18,47 +18,12 @@
   display: block;
 }
 
-.resources__button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  height: 3.25rem;
+.resources__composer {
   margin-top: 2.5rem;
-  padding: 0 1.6rem;
-  border-radius: 999px;
-  background: var(--motify-cobalt);
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background-color 150ms ease, transform 100ms ease;
-}
-
-.resources__button svg {
-  width: 1.05rem;
-  height: 1.05rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.resources__button:hover {
-  background: var(--motify-cobalt-hover);
-}
-
-.resources__button:active {
-  transform: scale(0.97);
-}
-
-.resources__button:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
 }
 
 .resources__note {
-  margin: 1rem 0 0;
+  margin: 1.1rem 0 0;
   color: var(--motify-text-quiet);
   font-size: 0.9rem;
 }
@@ -67,10 +32,9 @@
   .resources {
     padding-inline: 1rem;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .resources__button {
-    transition: none;
+  .resources__composer {
+    width: 100%;
+    margin-top: 1.75rem;
   }
 }

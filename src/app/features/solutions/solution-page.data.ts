@@ -1,3 +1,10 @@
+import {
+  MOTION_GRAPHICS_SHOT,
+  type ProductShot,
+  PSD_TO_VIDEO_SHOT,
+  VIDEO_EDITOR_SHOT,
+} from '../../shared/data/product-shots';
+
 export interface SolutionStep {
   readonly number: string;
   readonly title: string;
@@ -9,11 +16,15 @@ export interface SolutionFaq {
   readonly answer: string;
 }
 
+export interface SolutionCapability {
+  readonly title: string;
+  readonly body: string;
+}
+
 export interface SolutionPage {
   readonly slug: string;
   readonly title: string;
   readonly description: string;
-  readonly eyebrow: string;
   readonly heading: string;
   readonly lead: string;
   readonly promise: string;
@@ -26,66 +37,23 @@ export interface SolutionPage {
   readonly bestFor: readonly string[];
   readonly notFor: string;
   readonly faqs: readonly SolutionFaq[];
-  /** A feature still in beta: the page says so next to its eyebrow. */
+  /** A feature still in beta: the page says so next to its heading. */
   readonly beta?: boolean;
+  /** A screenshot of the real editor, shown full width under the hero. */
+  readonly shot?: ProductShot;
+  /** The glow behind the screenshot. */
+  readonly accent?: string;
+  /** What the feature can do, in the editor's own terms. */
+  readonly capabilities?: readonly SolutionCapability[];
 }
 
+
 export const SOLUTION_PAGES: Record<string, SolutionPage> = {
-  'saas-launch': {
-    slug: 'ai-saas-launch-video-generator',
-    title: 'AI Launch Video Generator | Motify',
-    description:
-      'Create launch and announcement videos for a new product, feature, menu, event, or offer. Refine the story, pacing, and brand by chatting, then export.',
-    eyebrow: 'Launches and announcements',
-    heading: 'AI launch video generator',
-    lead:
-      'Turn something new—a product, a feature, a menu, an event, or an offer—into a polished launch video built around your real visuals and brand, not generic stock footage.',
-    promise:
-      'Motify plans the story and creates the motion. When feedback arrives, ask Tiffy for the change and keep the same project instead of starting over.',
-    outcome: 'A launch-ready video your team, or your client, can refine together.',
-    benefits: [
-      {
-        title: 'Start with what is new',
-        body: 'Describe the launch, who it is for, why it matters, and the one thing viewers should do next, in plain language.',
-      },
-      {
-        title: 'Show the real thing',
-        body: 'Attach product photos, screenshots, logos, and music, and build scenes around the details your audience needs to see.',
-      },
-      {
-        title: 'Revise without rebuilding',
-        body: 'Ask for changes to the hook, copy, pacing, music, or visual direction in plain language, and the same video updates.',
-      },
-    ],
-    steps: [
-      { number: '01', title: 'Describe the launch', body: 'Tell Motify what is launching, who it is for, and the one action the viewer should take.' },
-      { number: '02', title: 'Review the direction', body: 'Check the story, scenes, emphasis, and visual hierarchy before you polish the details.' },
-      { number: '03', title: 'Refine and export', body: 'Ask Tiffy to adjust the message and motion, apply your Brand DNA, and export the format each channel needs.' },
-    ],
-    bestFor: ['Product launches', 'Feature announcements', 'New menus and offers', 'Event promos', 'Paid launch campaigns'],
-    notFor:
-      'Motify makes designed motion graphics. A live-action campaign with actors, locations, or complex visual effects may still need a production studio.',
-    faqs: [
-      {
-        question: 'Can Motify create a launch video from my website?',
-        answer: 'Yes. Share your website link and describe the launch, then attach photos, screenshots, or music when the video needs to show specific details.',
-      },
-      {
-        question: 'Can I change the launch video after it is made?',
-        answer: 'Yes. Describe what should change, such as the headline, a scene, the pacing, or the music, and Tiffy revises the same project instead of handing you a fixed render.',
-      },
-      {
-        question: 'Does the launch video stay on brand?',
-        answer: 'Motify uses your Brand DNA—including logo, colors, typefaces, voice, visual style, and audience—to guide the composition.',
-      },
-    ],
-  },
   'motion-graphics': {
     slug: 'ai-motion-graphics-generator',
     title: 'AI Motion Graphics Generator | Motify',
     description:
       'Generate motion graphics from a prompt. Direct scenes, copy, and pacing in plain language, refine by chatting, and export a polished video.',
-    eyebrow: 'Idea to polished motion',
     heading: 'AI motion graphics generator',
     lead:
       'Describe the message you want to share and get a structured motion composition with typography, shapes, your visuals, and intentional pacing.',
@@ -111,7 +79,7 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
       { number: '02', title: 'Get the first draft', body: 'Motify plans and creates the scenes, then checks the result for creative and technical problems.' },
       { number: '03', title: 'Direct the details', body: 'Ask for broad revisions or small, specific changes in plain language, then preview and export.' },
     ],
-    bestFor: ['Animated ads', 'Product animations', 'Explainer videos', 'Social content', 'Kinetic typography'],
+    bestFor: ['Animated ads', 'Launch videos', 'Product animations', 'Explainer videos', 'Social content', 'Kinetic typography'],
     notFor:
       'Motify focuses on designed, brand-controlled motion graphics. It is not intended to replace a photorealistic text-to-video model for cinematic live-action scenes.',
     faqs: [
@@ -128,13 +96,40 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
         answer: 'No. Start in plain language or from a template. Every refinement is a conversation, so there is no timeline or keyframe tool to learn.',
       },
     ],
+    shot: MOTION_GRAPHICS_SHOT,
+    accent: '#2758e6',
+    capabilities: [
+      {
+        title: 'Brand DNA',
+        body: 'Save your logo, colors, typefaces, and voice once, or let Motify read them from your website. Every video uses them.',
+      },
+      {
+        title: 'Scenes you can name',
+        body: 'Each video is planned as named scenes, like Hook, Statement, and End card, so you can change one without touching the rest.',
+      },
+      {
+        title: 'Tiffy, your editor',
+        body: 'Ask in plain words for a shorter intro, a new headline, or a slower reveal, and the same project updates.',
+      },
+      {
+        title: 'Your real visuals',
+        body: 'Attach product photos, app screenshots, and logos, and Motify builds the scenes around them.',
+      },
+      {
+        title: 'Voice-over when you need it',
+        body: 'Add a voice-over that reads your script, or keep the video to music, type, and motion.',
+      },
+      {
+        title: 'Every format',
+        body: 'Make it 16:9, 1:1, 4:5, or 9:16 and export MP4 for your website, ads, and social channels.',
+      },
+    ],
   },
   'software-product': {
     slug: 'software-product-video-generator',
     title: 'AI Product Animation Generator | Motify',
     description:
       'Create product animations that show features, details, and how things work. Use your real product visuals and brand, then refine every scene by chatting.',
-    eyebrow: 'Product animations',
     heading: 'AI product animation generator',
     lead:
       'Create product animations that show what your product does, the details that make it different, and what a viewer should do next—built from your real product visuals.',
@@ -184,7 +179,6 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
     title: 'AI Video Editor for Promo Videos | Motify',
     description:
       'Upload your raw clips and the Motify AI video editor cuts them into a promo video with captions, title cards, and B-roll. Refine it by chatting.',
-    eyebrow: 'Edit your own footage',
     heading: 'AI video editor',
     lead:
       'Upload the footage you already have, such as interviews, product demos, or event clips, and Motify cuts it into a promotional video you can refine and export.',
@@ -206,9 +200,9 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
       },
     ],
     steps: [
-      { number: '01', title: 'Upload your clips', body: 'Add the raw footage. Motify reads each clip once: what is said, the key moments, and the parts to leave out.' },
-      { number: '02', title: 'Get a rough cut', body: 'Describe the video you want and how long it should be. Motify plans the cut from your clips.' },
-      { number: '03', title: 'Refine and export', body: 'Ask for changes, adjust captions and cards, then export the finished video.' },
+      { number: '01', title: 'Upload your clips', body: 'Add the raw footage and pick a starting style, such as Talking head, Studio explainer, Paper documentary, Shop promo, or Product launch.' },
+      { number: '02', title: 'Get a first cut', body: 'Motify reads what is said in every clip, picks the best moments, and cuts them into a video with captions and titles.' },
+      { number: '03', title: 'Refine and export', body: 'Tap a suggested edit, ask Tiffy for your own, or adjust it by hand, then export in 9:16, 16:9, or 1:1.' },
     ],
     bestFor: ['Customer testimonials', 'Founder and talking-head videos', 'Event recaps', 'Recorded product demos', 'Short social cut-downs'],
     notFor:
@@ -227,14 +221,41 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
         answer: 'Yes, in beta. You can use it in the Motify editor today; it may change as we improve it.',
       },
     ],
+    shot: VIDEO_EDITOR_SHOT,
+    accent: '#e8a317',
+    capabilities: [
+      {
+        title: 'Cuts between words',
+        body: 'Every clip is transcribed with word timings, so cuts land in the pauses and nobody is cut off mid-sentence.',
+      },
+      {
+        title: 'Silences and fillers, gone',
+        body: 'Remove dead air and filler words from the whole video in one click.',
+      },
+      {
+        title: 'Captions that move',
+        body: 'Stacked kinetic captions and more styles that blur, pop, or fade in, in English, Khmer, or both.',
+      },
+      {
+        title: 'Titles and motion cards',
+        body: 'Add a headline, a price badge, a name and place, or a call to action. Motify makes the motion graphics and plays them over the talk.',
+      },
+      {
+        title: 'B-roll and your pictures',
+        body: 'Search stock B-roll in the Clips tab, upload your logo and product photos, or paste a picture straight into the chat.',
+      },
+      {
+        title: 'By hand or by chat',
+        body: 'Trim, split, and reorder on the timeline yourself for free, or ask Tiffy. Every change can be undone.',
+      },
+    ],
   },
   'psd-to-video': {
     slug: 'psd-to-video',
     beta: true,
     title: 'PSD to Video: Animate Photoshop Designs | Motify',
     description:
-      'Turn a Photoshop design into an animated video. Motify keeps every layer exactly as you designed it and adds the motion, for a flat 20 credits.',
-    eyebrow: 'Animate a Photoshop design',
+      'Turn a Photoshop design into an animated video. Motify keeps every layer exactly as you designed it and adds only the motion.',
     heading: 'PSD to video',
     lead:
       'Import your Photoshop file and Motify animates the layers you already designed: your type, images, and groups, each in its exact position.',
@@ -251,14 +272,14 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
         body: 'The animation is added on top of the finished design, so the layout, wording, and style your team approved stay untouched.',
       },
       {
-        title: 'One flat price',
-        body: 'Each PSD to Video run costs 20 credits, whatever the length of the video.',
+        title: 'Change it by asking',
+        body: 'Pick any layer, even one hidden under another, and ask Tiffy to change how it moves.',
       },
     ],
     steps: [
-      { number: '01', title: 'Import your PSD', body: 'Open your Photoshop file in the Motify editor. Each layer becomes an element in its exact place.' },
-      { number: '02', title: 'Motify animates it', body: 'Choose PSD to Video and Motify writes the motion for the layers you have.' },
-      { number: '03', title: 'Export', body: 'Preview the animation and export the video for your channels.' },
+      { number: '01', title: 'Import your PSD', body: 'Upload the Photoshop file. It is read in your browser, and each layer becomes an element in its exact place.' },
+      { number: '02', title: 'Say how it should move', body: 'Pick a length and, if you like, describe the motion. Motify animates the layers you have.' },
+      { number: '03', title: 'Refine and export', body: 'Preview the animation, ask Tiffy to change any layer’s motion, and export the video.' },
     ],
     bestFor: ['Social posts designed in Photoshop', 'Ads and banners', 'Posters and key visuals', 'Menu and event graphics', 'Agency deliverables'],
     notFor:
@@ -269,12 +290,40 @@ export const SOLUTION_PAGES: Record<string, SolutionPage> = {
         answer: 'No. It keeps every layer, its position, size, text, and stacking order exactly as in Photoshop, and only adds the motion.',
       },
       {
-        question: 'How much does PSD to Video cost?',
-        answer: 'A flat 20 credits per run, whatever the length of the video.',
+        question: 'Which Photoshop files work?',
+        answer: 'Standard .psd files. Save them with Maximize PSD Compatibility turned on, so Motify can match every layer to Photoshop’s own preview of the design.',
       },
       {
         question: 'Is PSD to Video available now?',
         answer: 'Yes, in beta. You can use it in the Motify editor today; it may change as we improve it.',
+      },
+    ],
+    shot: PSD_TO_VIDEO_SHOT,
+    accent: '#8b5cf6',
+    capabilities: [
+      {
+        title: 'Every layer, in place',
+        body: 'Pixel, type, and group layers keep their names, positions, sizes, opacity, visibility, and stacking order.',
+      },
+      {
+        title: 'Layer styles kept',
+        body: 'Drop and inner shadows, glows, strokes, color and gradient overlays, satin, and bevel are drawn the way Photoshop draws them.',
+      },
+      {
+        title: 'Masks and adjustments',
+        body: 'Layer, vector, and clipping masks come through, and adjustment layers like Levels, Curves, and Hue/Saturation still apply.',
+      },
+      {
+        title: 'Matched to Photoshop',
+        body: 'After import, Motify compares the layers with the preview Photoshop saved in your file and corrects any difference.',
+      },
+      {
+        title: 'Say how it should move',
+        body: 'Add an optional note, like “slow and premium” or “the logo lands last”, or let Motify decide. Re-animate from the chat any time.',
+      },
+      {
+        title: 'Pick any layer',
+        body: 'The Design panel lists every layer, even one hidden under another, so you can select it and ask for a change.',
       },
     ],
   },

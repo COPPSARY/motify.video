@@ -23,11 +23,10 @@ Key facts:
 
 ## Solutions
 
-- [AI launch video generator](https://motify.video/ai-saas-launch-video-generator): Launch and announcement videos for products, features, menus, events, and offers
 - [AI motion graphics generator](https://motify.video/ai-motion-graphics-generator): Prompt-to-motion workflow refined in plain language
 - [AI product animation generator](https://motify.video/software-product-video-generator): Product animations that show features, details, and how things work
 - [AI video editor](https://motify.video/ai-video-editor) (beta): Upload raw clips and get a promo video cut between words, with captions, title cards, and B-roll
-- [PSD to video](https://motify.video/psd-to-video) (beta): Animate a Photoshop design layer by layer without changing it, for a flat 20 credits
+- [PSD to video](https://motify.video/psd-to-video) (beta): Animate a Photoshop design layer by layer without changing it
 
 ## Comparisons
 
@@ -62,4 +61,4 @@ Key facts:
 - [Terms & Conditions](https://motify.video/terms)
 - [Privacy Policy](https://motify.video/privacy)
 - [Refund Policy](https://motify.video/refund-policy)
-- [GitHub](https://github.com/COPPSARY/Motify)
+- [LinkedIn](https://www.linkedin.com/company/motifyai/)

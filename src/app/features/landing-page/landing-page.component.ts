@@ -6,7 +6,7 @@ import { HeroSectionComponent } from './components/hero-section/hero-section.com
 import { HeroReelComponent } from './components/hero-reel/hero-reel.component';
 import { TrustStripComponent } from './components/trust-strip/trust-strip.component';
 import { HighlightsCarouselComponent } from './components/highlights-carousel/highlights-carousel.component';
-import { StartFromComponent } from './components/start-from/start-from.component';
+import { SolutionsSectionComponent } from './components/solutions-section/solutions-section.component';
 import { FeatureBentoComponent } from './components/feature-bento/feature-bento.component';
 import { TeamsSectionComponent } from './components/teams-section/teams-section.component';
 import { ResourcesSectionComponent } from './components/resources-section/resources-section.component';
@@ -59,12 +59,12 @@ export const LANDING_FAQS: readonly LandingFaq[] = [
   {
     question: 'What is Motify?',
     answer:
-      'Motify is an AI video generator for product and marketing teams. Describe an idea in plain words and Motify creates an on-brand motion graphics video, such as a launch video, product demo, animated ad, or explainer, that you refine by chatting and export as MP4.',
+      'Motify is an AI-powered tool that lets businesses, agencies, and marketing teams create animated ads, product videos, and explainers. Describe an idea, upload your footage, or import a Photoshop design, and Motify makes an on-brand video you refine by chatting and export as MP4.',
   },
   {
     question: 'Who is Motify for?',
     answer:
-      'Product teams announcing launches and features, marketing teams producing ads and social content, and agencies delivering motion graphics for clients. No motion-design experience is needed.',
+      'Businesses that need to show what they sell, marketing teams producing ads and launch videos for every channel, and agencies delivering motion work for many clients. No motion-design experience is needed.',
   },
   {
     question: 'Can Motify make videos in my brand’s style?',
@@ -79,7 +79,7 @@ export const LANDING_FAQS: readonly LandingFaq[] = [
   {
     question: 'Can I animate a Photoshop design?',
     answer:
-      'Yes, in beta. PSD to Video imports your Photoshop file and animates its layers exactly where you designed them, without redrawing anything, for a flat 20 credits per video.',
+      'Yes, in beta. PSD to Video imports your Photoshop file and animates its layers exactly where you designed them, without redrawing anything.',
   },
   {
     question: 'Can I change the result?',
@@ -97,10 +97,10 @@ export const LANDING_FAQS: readonly LandingFaq[] = [
   },
 ];
 
-export const LANDING_TITLE = 'AI Video Generator for Product & Marketing Teams | Motify';
+export const LANDING_TITLE = 'AI Video Generator for Ads, Product Videos & Explainers | Motify';
 const SITE = 'https://motify.video/';
 const DESCRIPTION =
-  'Motify is the AI video generator for product and marketing teams. Turn an idea into on-brand launch videos, product demos, and ads in every format. Start free.';
+  'Motify helps businesses, agencies, and marketing teams make animated ads, product videos, and explainers with AI, from an idea, your footage, or a PSD.';
 
 @Component({
   selector: 'app-landing-page',
@@ -112,7 +112,7 @@ const DESCRIPTION =
     HeroReelComponent,
     TrustStripComponent,
     HighlightsCarouselComponent,
-    StartFromComponent,
+    SolutionsSectionComponent,
     FeatureBentoComponent,
     TeamsSectionComponent,
     ResourcesSectionComponent,
@@ -145,7 +145,7 @@ export class LandingPageComponent {
             url: SITE,
             image: 'https://motify.video/social-preview.jpg?v=2',
             description: DESCRIPTION,
-            audience: { '@type': 'BusinessAudience', audienceType: 'Product teams, marketing teams, and agencies' },
+            audience: { '@type': 'BusinessAudience', audienceType: 'Businesses, marketing teams, and agencies' },
             featureList: [
               'AI video generation from a text prompt',
               'Brand DNA: brand colors, type, logo, and voice applied automatically',
@@ -156,7 +156,16 @@ export class LandingPageComponent {
               'PSD to Video: animate Photoshop designs layer by layer (beta)',
             ],
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-            creator: { '@type': 'Organization', name: 'COPPSARY', url: 'https://github.com/COPPSARY' },
+            creator: {
+            '@type': 'Organization',
+            name: 'Motify',
+            url: 'https://motify.video/',
+            sameAs: [
+              'https://www.linkedin.com/company/motifyai/',
+              'https://facebook.com/motify.video/',
+              'https://www.tiktok.com/@motify855',
+            ],
+          },
           },
           {
             '@type': 'FAQPage',

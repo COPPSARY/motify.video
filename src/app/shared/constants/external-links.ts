@@ -1,7 +1,6 @@
 export const EXTERNAL_LINKS = {
-  github: 'https://github.com/COPPSARY/Motify',
+  linkedin: 'https://www.linkedin.com/company/motifyai/',
   editor: 'https://app.motify.video/',
-  contactProfile: 'https://github.com/COPPSARY',
   contactEmail: 'mailto:support@motify.video',
 } as const;
 

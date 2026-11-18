@@ -56,7 +56,7 @@ export const routes: Routes = [
   {
     path: '',
     component: LandingPageComponent,
-    title: 'AI Video Generator for Product & Marketing Teams | Motify',
+    title: 'AI Video Generator for Ads, Product Videos & Explainers | Motify',
   },
   {
     path: 'login',
@@ -78,12 +78,6 @@ export const routes: Routes = [
     path: 'partners',
     component: PartnersPageComponent,
     title: 'Partner with Motify | Agencies, Creators & Tech Partners',
-  },
-  {
-    path: 'ai-saas-launch-video-generator',
-    component: SolutionPageComponent,
-    data: { solution: 'saas-launch' },
-    title: 'AI Launch Video Generator | Motify',
   },
   {
     path: 'ai-motion-graphics-generator',
@@ -115,6 +109,7 @@ export const routes: Routes = [
     redirectTo: 'ai-video-editor',
   },
   // Retired pages; vercel.json answers these with permanent redirects too.
+  { path: 'ai-saas-launch-video-generator', redirectTo: 'ai-motion-graphics-generator' },
   { path: 'resources/prompt-templates', redirectTo: 'templates' },
   { path: 'resources/storyboard-generator', redirectTo: 'resources' },
   { path: 'compare/video-agency', redirectTo: '' },

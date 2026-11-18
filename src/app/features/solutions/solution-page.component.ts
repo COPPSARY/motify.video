@@ -2,21 +2,23 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { NavbarComponent } from '../landing-page/components/navbar/navbar.component';
+import { ProductWindowComponent } from '../../shared/components/product-window/product-window.component';
 import { SeoService } from '../../shared/services/seo.service';
 import { SOLUTION_PAGES } from './solution-page.data';
 
 @Component({
   selector: 'app-solution-page',
   standalone: true,
-  imports: [RouterLink, NavbarComponent, FooterComponent],
+  imports: [RouterLink, NavbarComponent, FooterComponent, ProductWindowComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './solution-page.component.html',
   styleUrl: './solution-page.component.css',
 })
 export class SolutionPageComponent {
   private readonly route = inject(ActivatedRoute);
-  readonly page = SOLUTION_PAGES[this.route.snapshot.data['solution'] as string] ?? SOLUTION_PAGES['saas-launch'];
+  readonly page = SOLUTION_PAGES[this.route.snapshot.data['solution'] as string] ?? SOLUTION_PAGES['motion-graphics'];
   readonly related = Object.values(SOLUTION_PAGES).filter((item) => item.slug !== this.page.slug);
+  readonly shots = this.page.shot ? [this.page.shot] : [];
 
   constructor() {
     inject(SeoService).apply({

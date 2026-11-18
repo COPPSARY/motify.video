@@ -10,11 +10,12 @@
   />
   <div class="hero__content">
     <h1 id="hero-title" class="hero__headline">
-      <span class="hero__line"><span style="--rise-delay: 0ms">Ideas in.&#32;</span></span>
-      <span class="hero__line hero__line--motion"><span style="--rise-delay: 90ms"><span class="hero__word">@for (letter of motionLetters; track $index) {<span class="hero__letter" [style.--i]="$index">{{ letter }}</span>}</span>&#32;out.</span></span>
+      <span class="hero__line"><span style="--rise-delay: 0ms">Create <span class="hero__word">@for (letter of motionLetters; track $index) {<span class="hero__letter" [style.--i]="$index">{{ letter }}</span>}</span></span></span>
+      <span class="hero__line"><span style="--rise-delay: 90ms">&#32;graphics <span class="hero__dim">in minutes.</span></span></span>
     </h1>
     <p class="hero__subheadline hero__rise" style="--rise-delay: 420ms">
-      Turn a prompt into on-brand launch videos, product demos, and ads.
+      For businesses, marketing teams, and agencies. Describe your idea and get an animated ad, product animation, or
+      explainer you can refine and publish anywhere.
     </p>
 
     <app-prompt-composer class="hero__composer hero__rise" style="--rise-delay: 520ms" inputId="motion-prompt" />

@@ -23,8 +23,8 @@ import { LandingDemoStore } from '../../landing-demo';
 export class HeroSectionComponent {
   /** Ink into the brand cobalt, so the hero glow carries the brand color. */
   readonly auroraColors = ['#081233', '#1f45b0', '#0b1f5c'];
-  /** "Motion" assembles letter by letter, the page's one entrance moment. */
-  readonly motionLetters = [...'Motion'];
+  /** "motion" assembles letter by letter, the page's one entrance moment. */
+  readonly motionLetters = [...'motion'];
   protected readonly store = inject(LandingDemoStore);
 
   /** Position of the sliding indicator behind the active chip. */

@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { ResourcesSectionComponent } from './resources-section.component';
 
 describe('ResourcesSectionComponent', () => {
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [ResourcesSectionComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [ResourcesSectionComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
   });
 
-  it('closes the page with one button back to the hero prompt, not a second prompt box', () => {
+  it('closes the page with its own prompt box, like the hero’s', () => {
     const fixture = TestBed.createComponent(ResourcesSectionComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -14,21 +18,9 @@ describe('ResourcesSectionComponent', () => {
     expect(compiled.querySelector('h2')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
       'Your next launch video is one prompt away.',
     );
-    expect(compiled.querySelector('a.resources__button')?.getAttribute('href')).toBe('#motion-prompt');
+    expect(compiled.querySelector('app-prompt-composer textarea#closing-prompt')).not.toBeNull();
+    expect(compiled.querySelectorAll('.composer__submit').length).toBe(1);
+    expect(compiled.querySelector('a.resources__button')).toBeNull();
     expect(compiled.textContent).toContain('No card required.');
-    expect(compiled.querySelector('textarea')).toBeNull();
-  });
-
-  it('moves focus to the hero prompt box when the button is pressed', () => {
-    const prompt = document.createElement('textarea');
-    prompt.id = 'motion-prompt';
-    document.body.appendChild(prompt);
-    const fixture = TestBed.createComponent(ResourcesSectionComponent);
-    fixture.detectChanges();
-
-    (fixture.nativeElement as HTMLElement).querySelector<HTMLAnchorElement>('a.resources__button')!.click();
-
-    expect(document.activeElement).toBe(prompt);
-    prompt.remove();
   });
 });

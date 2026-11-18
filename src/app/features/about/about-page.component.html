@@ -106,20 +106,13 @@
       <h2 id="about-team-title">Built by COPPSARY</h2>
       <p class="about__team-subtitle">A focused team making motion graphics easier for teams everywhere.</p>
       <div class="about__team-avatars" aria-label="COPPSARY members">
-        @for (member of members; track member.github) {
-          <a
-            class="about__team-member"
-            [href]="member.url"
-            target="_blank"
-            rel="noopener noreferrer"
-            [attr.aria-label]="member.name + ' on GitHub'"
-          >
+        @for (member of members; track member.name) {
+          <span class="about__team-member">
             <span class="about__team-tooltip" aria-hidden="true">
               <strong>{{ member.name }}</strong>
-              <span>{{ member.github }}</span>
             </span>
             <img [src]="member.avatar" [alt]="member.name" width="56" height="56" loading="lazy" />
-          </a>
+          </span>
         }
       </div>
     </section>

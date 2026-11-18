@@ -52,7 +52,7 @@
   margin: 0;
   color: var(--motify-text-primary);
   font-size: clamp(1.3rem, 2vw, 1.65rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.025em;
 }
@@ -115,7 +115,7 @@
   border-radius: 0.65rem;
   background: var(--motify-cobalt);
   color: #fff;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .brand__kit b {
@@ -155,7 +155,7 @@
 .fmt small {
   color: #c7d5ff;
   font-size: 0.66rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .fmt--wide { width: 5.6rem; aspect-ratio: 16 / 9; }
@@ -222,7 +222,7 @@
 
 .export__row b {
   color: var(--motify-text-primary);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .export__row em {
@@ -232,7 +232,7 @@
   color: #6ee7b7;
   font-size: 0.7rem;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .export__bar {

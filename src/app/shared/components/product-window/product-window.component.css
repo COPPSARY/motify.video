@@ -1,0 +1,155 @@
+@property --accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #2758e6;
+}
+
+:host {
+  display: block;
+}
+
+.pw {
+  position: relative;
+  perspective: 1800px;
+  transition: --accent 700ms ease;
+}
+
+/* A soft pool of the accent color behind the window. */
+.pw__glow {
+  position: absolute;
+  inset: 8% 4% -10%;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 60% at 30% 50%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 70%),
+    radial-gradient(45% 55% at 75% 60%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 70%);
+  filter: blur(60px);
+  opacity: 0.75;
+}
+
+.pw__window {
+  position: relative;
+  overflow: visible;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.25rem;
+  background: #0d0e12;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 50px 120px -20px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform-origin: 50% 100%;
+}
+
+.pw__bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 2.4rem;
+  padding: 0 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1.25rem 1.25rem 0 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+}
+
+.pw__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.pw__dots i {
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.pw__url {
+  padding: 0.2rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+}
+
+.pw__screen {
+  position: relative;
+  border-radius: 0 0 1.25rem 1.25rem;
+  background: #0a0a0b;
+}
+
+/* Every shot sits centered at full height; only the active one is visible. */
+.pw__shot {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  transform: scale(1.015);
+  transition: opacity 600ms ease, transform 900ms var(--motify-ease-premium, ease);
+  pointer-events: none;
+}
+
+.pw__shot.is-active {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.pw__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 1.2rem 1.2rem;
+}
+
+/* The window tilts up into place as it scrolls into view. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pw__window {
+      animation: pw-tilt linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+
+@keyframes pw-tilt {
+  from { opacity: 0.4; transform: rotateX(24deg) scale(0.9) translateY(4%); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 720px) {
+  .pw__bar {
+    height: 1.7rem;
+  }
+
+  .pw__dots i {
+    width: 0.45rem;
+    height: 0.45rem;
+  }
+
+  .pw__url {
+    font-size: 0.6rem;
+  }
+
+  .pw__window,
+  .pw__bar {
+    border-radius: 0.8rem 0.8rem 0 0;
+  }
+
+  .pw__window {
+    border-radius: 0.8rem;
+  }
+
+  .pw__screen,
+  .pw__shot img {
+    border-radius: 0 0 0.75rem 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pw,
+  .pw__shot {
+    transition: none;
+  }
+}

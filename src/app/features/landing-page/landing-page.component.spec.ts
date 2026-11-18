@@ -58,7 +58,7 @@ describe('LandingPageComponent', () => {
     );
   });
 
-  it('closes with one button back to the hero prompt, not a second prompt box', () => {
+  it('closes with a second prompt box, like the hero’s', () => {
     const fixture = TestBed.createComponent(LandingPageComponent);
     fixture.detectChanges();
 
@@ -67,23 +67,20 @@ describe('LandingPageComponent', () => {
     expect(compiled.querySelector('app-product-hunt-badge')).toBeNull();
     expect(compiled.querySelector('app-resources-section')).not.toBeNull();
     expect(compiled.querySelector('.resources__cta')).not.toBeNull();
-    expect(compiled.querySelectorAll('.resources__card').length).toBe(0);
     expect(compiled.textContent).toContain('Your next launch video is one prompt away.');
-    expect(compiled.querySelectorAll('textarea').length).toBe(1);
-    expect(compiled.querySelector('.resources a[href="#motion-prompt"]')).not.toBeNull();
-    expect(compiled.textContent).not.toContain('Resources for work that ships.');
+    expect(compiled.querySelector('textarea#motion-prompt')).not.toBeNull();
+    expect(compiled.querySelector('.resources textarea#closing-prompt')).not.toBeNull();
+    expect(compiled.querySelectorAll('textarea').length).toBe(2);
     expect(compiled.querySelector('app-features-section')).toBeNull();
   });
 
-  it('targets the product and marketing teams keyword in the title and a section heading, with one h1', () => {
+  it('names who Motify is for in a section heading, with one h1 and the landing title', () => {
     const fixture = TestBed.createComponent(LandingPageComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.querySelectorAll('h1').length).toBe(1);
-    expect(compiled.querySelector('#teams-title')?.textContent).toContain(
-      'AI video generator for product and marketing teams',
-    );
+    expect(compiled.querySelector('#teams-title')?.textContent).toContain('Built for businesses, marketing teams, and agencies.');
     expect(TestBed.inject(DOCUMENT).title).toBe(LANDING_TITLE);
   });
 

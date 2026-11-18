@@ -1,0 +1,41 @@
+<section id="solutions" class="sol" aria-labelledby="sol-title">
+  <header class="sol__intro">
+    <h2 id="sol-title" class="lp-title">Make animated ads, product videos, and explainers. <span class="lp-dim">From an idea, your footage, or a Photoshop file.</span></h2>
+  </header>
+
+  @for (item of solutions; track item.id) {
+    <article class="sol__block" [id]="'sol-' + item.id" [attr.aria-labelledby]="'sol-' + item.id + '-title'">
+      <div class="sol__head" [appScrollReveal]="0">
+        <h3 [id]="'sol-' + item.id + '-title'">{{ item.title }}</h3>
+        <div class="sol__copy">
+          <p>
+            <strong>{{ item.name }}@if (item.beta) {<span class="sol__beta">Beta</span>}</strong>
+            {{ item.body }}
+          </p>
+          <div class="sol__actions">
+            @if (item.id === 'motion-graphics') {
+              <a class="sol__cta" href="#motion-prompt" (click)="toPrompt($event)">{{ item.cta }}</a>
+            } @else {
+              <a class="sol__cta" routerLink="/signup" [queryParams]="{ returnUrl: '/editor' }">{{ item.cta }}</a>
+            }
+            <a class="sol__more" [routerLink]="item.link">
+              {{ item.linkLabel }}
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4-4 4" /></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <app-product-window class="sol__window" [shots]="[item.shot]" [accent]="item.accent" />
+
+      <ul class="sol__features">
+        @for (feature of item.features; track feature.title; let f = $index) {
+          <li [appScrollReveal]="f * 80">
+            <h4>{{ feature.title }}</h4>
+            <p>{{ feature.body }}</p>
+          </li>
+        }
+      </ul>
+    </article>
+  }
+</section>

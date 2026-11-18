@@ -4,14 +4,7 @@ import { NavbarComponent } from '../landing-page/components/navbar/navbar.compon
 import { FooterComponent } from '../landing-page/components/footer/footer.component';
 import { SeoService } from '../../shared/services/seo.service';
 
-const COPPSARY_MEMBERS = [
-  { name: 'Reaksa', github: 'PromSereyreaksa' },
-  { name: 'Davann', github: 'imposter-dot-com' },
-  { name: 'Ilong', github: 'Chea-Ilong' },
-  { name: 'Panha', github: 'Nhaaa4' },
-  { name: 'Sophanith', github: 'nithkidd' },
-  { name: 'Heang', github: 'Bunheang360' },
-] as const;
+const COPPSARY_MEMBERS = ['Reaksa', 'Davann', 'Ilong', 'Panha', 'Sophanith', 'Heang'] as const;
 
 @Component({
   selector: 'app-about-page',
@@ -22,10 +15,9 @@ const COPPSARY_MEMBERS = [
   styleUrl: './about-page.component.css',
 })
 export class AboutPageComponent {
-  readonly members = COPPSARY_MEMBERS.map((member) => ({
-    ...member,
-    url: `https://github.com/${member.github}`,
-    avatar: `https://github.com/${member.github}.png`,
+  readonly members = COPPSARY_MEMBERS.map((name) => ({
+    name,
+    avatar: `assets/team/${name.toLowerCase()}.webp`,
   }));
 
   constructor() {
@@ -43,8 +35,9 @@ export class AboutPageComponent {
           'Motify is a Cambodian-led startup making motion graphics easier for businesses and agencies, from animated ads to product animations and explainer videos.',
         publisher: {
           '@type': 'Organization',
-          name: 'COPPSARY',
-          url: 'https://github.com/COPPSARY',
+          name: 'Motify',
+          url: 'https://motify.video/',
+          sameAs: ['https://www.linkedin.com/company/motifyai/'],
         },
       },
     });

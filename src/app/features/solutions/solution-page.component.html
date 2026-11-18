@@ -1,74 +1,95 @@
 <div id="top">
   <app-navbar />
-  <main class="solution">
+  <main class="solution" [style.--accent]="page.accent ?? '#2758e6'">
     <nav class="solution__crumbs" aria-label="Breadcrumb">
-      <a routerLink="/">Home</a><span aria-hidden="true">/</span><span>Solutions</span>
+      <a routerLink="/">Home</a><span aria-hidden="true">/</span><span>{{ page.heading }}</span>
     </nav>
 
-    <header class="solution__hero">
-      <div>
-        <p class="solution__eyebrow">{{ page.eyebrow }}@if (page.beta) {<span class="solution__beta">Beta</span>}</p>
-        <h1>{{ page.heading }}</h1>
+    <header class="solution__hero" [class.solution__hero--wide]="page.shot">
+      <div class="solution__intro">
+        <h1>
+          {{ page.heading }}
+          @if (page.beta) {
+            <span class="solution__beta">Beta</span>
+          }
+        </h1>
         <p class="solution__lead">{{ page.lead }}</p>
         <div class="solution__actions">
-          <a class="solution__primary" routerLink="/login" [queryParams]="{ returnUrl: '/editor' }">Create a video</a>
+          <a class="solution__primary" routerLink="/login" [queryParams]="{ returnUrl: '/editor' }">
+            Create a video
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4-4 4" /></svg>
+          </a>
           <a class="solution__secondary" routerLink="/pricing">View pricing</a>
         </div>
       </div>
-      <aside class="solution__preview" aria-label="Motify prompt workflow">
-        <div class="solution__preview-bar"><span></span><span></span><span></span><strong>Motify</strong></div>
-        <div class="solution__preview-stage">
-          <span class="solution__preview-label">Scene 02</span>
-          <strong>{{ page.outcome }}</strong>
-          <div class="solution__preview-lines"><i></i><i></i><i></i></div>
-        </div>
-        <div class="solution__prompt" aria-hidden="true"><span>Ask Tiffy to refine…</span><b></b></div>
-      </aside>
+      @if (!page.shot) {
+        <aside class="solution__preview" aria-label="Motify prompt workflow">
+          <div class="solution__preview-bar"><span></span><span></span><span></span><strong>Motify</strong></div>
+          <div class="solution__preview-stage">
+            <strong>{{ page.outcome }}</strong>
+            <div class="solution__preview-lines"><i></i><i></i><i></i></div>
+          </div>
+          <div class="solution__prompt" aria-hidden="true"><span>Ask Tiffy to refine…</span><b></b></div>
+        </aside>
+      }
     </header>
 
-    <section class="solution__statement" aria-labelledby="solution-promise">
-      <p>Why Motify</p>
-      <h2 id="solution-promise">{{ page.promise }}</h2>
+    @if (shots.length) {
+      <app-product-window class="solution__window" [shots]="shots" [accent]="page.accent ?? '#2758e6'" [eager]="true" />
+    }
+
+    <section class="solution__statement" aria-label="Why Motify">
+      <h2>{{ page.promise }}</h2>
     </section>
 
     <section class="solution__benefits" aria-label="Key benefits">
       @for (benefit of page.benefits; track benefit.title) {
         <article>
-          <span aria-hidden="true">0{{ $index + 1 }}</span>
-          <h2>{{ benefit.title }}</h2>
+          <h3>{{ benefit.title }}</h3>
           <p>{{ benefit.body }}</p>
         </article>
       }
     </section>
 
     <section class="solution__workflow" aria-labelledby="workflow-title">
-      <div class="solution__section-heading">
-        <p>Workflow</p>
-        <h2 id="workflow-title">From product context to final cut</h2>
-      </div>
+      <h2 id="workflow-title">How it works</h2>
       <ol>
         @for (step of page.steps; track step.number) {
           <li>
-            <span>{{ step.number }}</span>
-            <div><h3>{{ step.title }}</h3><p>{{ step.body }}</p></div>
+            <span class="solution__step" aria-hidden="true">{{ $index + 1 }}</span>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.body }}</p>
           </li>
         }
       </ol>
     </section>
 
+    @if (page.capabilities?.length) {
+      <section class="solution__caps" aria-labelledby="caps-title">
+        <h2 id="caps-title">What it can do</h2>
+        <div class="solution__caps-grid">
+          @for (cap of page.capabilities; track cap.title) {
+            <article>
+              <h3>{{ cap.title }}</h3>
+              <p>{{ cap.body }}</p>
+            </article>
+          }
+        </div>
+      </section>
+    }
+
     <section class="solution__fit" aria-labelledby="fit-title">
+      <h2 id="fit-title">Made for</h2>
       <div>
-        <p>Built for</p>
-        <h2 id="fit-title">Motion work that needs clarity and control</h2>
+        <ul>
+          @for (item of page.bestFor; track item) { <li>{{ item }}</li> }
+        </ul>
+        <p class="solution__boundary">{{ page.notFor }}</p>
       </div>
-      <ul>
-        @for (item of page.bestFor; track item) { <li>{{ item }}</li> }
-      </ul>
-      <aside><strong>Know the boundary</strong><p>{{ page.notFor }}</p></aside>
     </section>
 
     <section class="solution__faq" aria-labelledby="faq-title">
-      <div class="solution__section-heading"><p>FAQ</p><h2 id="faq-title">Questions about this workflow</h2></div>
+      <h2 id="faq-title">Questions, answered</h2>
       <div>
         @for (faq of page.faqs; track faq.question) {
           <details><summary>{{ faq.question }}</summary><p>{{ faq.answer }}</p></details>
@@ -77,17 +98,23 @@
     </section>
 
     <section class="solution__related" aria-labelledby="related-title">
-      <p>Explore more</p>
-      <h2 id="related-title">Other Motify workflows</h2>
+      <h2 id="related-title">More ways to make video</h2>
       <div>
         @for (item of related; track item.slug) {
-          <a [routerLink]="'/' + item.slug"><span>{{ item.eyebrow }}</span><strong>{{ item.heading }}</strong><i aria-hidden="true">→</i></a>
+          <a [routerLink]="'/' + item.slug">
+            <strong>{{ item.heading }}</strong>
+            <span>{{ item.outcome }}</span>
+            <i aria-hidden="true">→</i>
+          </a>
         }
       </div>
     </section>
 
     <section class="solution__cta" aria-labelledby="cta-title">
-      <div><p>Start free. No card required.</p><h2 id="cta-title">Turn your next product story into motion.</h2></div>
+      <div>
+        <h2 id="cta-title">Turn your next idea into motion.</h2>
+        <p>Start free. No card required.</p>
+      </div>
       <a routerLink="/login" [queryParams]="{ returnUrl: '/editor' }">Start creating <span aria-hidden="true">→</span></a>
     </section>
   </main>

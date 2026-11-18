@@ -87,7 +87,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
     .trust__logos strong {
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 500;
       letter-spacing: -0.01em;
     }
 

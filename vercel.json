@@ -17,6 +17,11 @@
       "permanent": true
     },
     {
+      "source": "/ai-saas-launch-video-generator",
+      "destination": "/ai-motion-graphics-generator",
+      "permanent": true
+    },
+    {
       "source": "/canvas-ai-video-editor",
       "destination": "/ai-video-editor",
       "permanent": true

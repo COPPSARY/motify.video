@@ -1,14 +1,11 @@
 <main class="login-page">
-  <a class="login-page__brand" routerLink="/" aria-label="Motify home">
-    <img src="logo.svg" alt="" width="30" height="30" />
-    <span>Motify</span>
-  </a>
   <section class="login-card" aria-labelledby="login-title">
-    <a class="login-card__skip" routerLink="/">Back</a>
-    <div class="login-card__mark"><img src="logo.svg" alt="" width="26" height="26" /></div>
+    <a class="login-card__brand" routerLink="/" aria-label="Motify home">
+      <img src="logo.svg" alt="" width="34" height="34" />
+    </a>
 
     @if (verificationSentTo(); as address) {
-      <header class="login-card__head">
+      <header class="login-head">
         <h1 id="login-title">Check your inbox</h1>
         <p>
           Enter the verification code sent to <strong>{{ address }}</strong>.
@@ -33,36 +30,53 @@
         </label>
         @if (error()) { <p class="login-form__error" role="alert">{{ error() }}</p> }
         @if (otpStatus()) { <p class="login-form__status" role="status">{{ otpStatus() }}</p> }
-        <button class="login-card__button" type="submit" [disabled]="loading()">
+        <button class="login-google" type="submit" [disabled]="loading()">
           {{ loading() ? 'Verifying…' : 'Verify email' }}
         </button>
       </form>
-      <button class="login-google" type="button" [disabled]="loading()" (click)="resendOtp()">Resend code</button>
-      <button class="login-google" type="button" [disabled]="loading()" (click)="setMode('signin')">Back to log in</button>
+      <div class="login-rule"></div>
+      <p class="login-switch">
+        No code? <button type="button" [disabled]="loading()" (click)="resendOtp()">Resend it</button>
+        <span aria-hidden="true">·</span>
+        <button type="button" [disabled]="loading()" (click)="setMode('signin')">Back to log in</button>
+      </p>
     } @else {
-      <header class="login-card__head">
-        <small>{{ mode() === 'signup' ? 'Welcome to Motify' : 'Welcome back' }}</small>
+      <header class="login-head">
         <h1 id="login-title">
-          {{ hasPendingPrompt ? 'Your prompt is waiting' : mode() === 'signup' ? 'Create your account' : 'Log in to your account' }}
+          {{ hasPendingPrompt ? 'Your prompt is waiting' : mode() === 'signup' ? 'Turn a prompt into a video' : 'Welcome back' }}
         </h1>
-        @if (hasPendingPrompt) {
-          <p>Log in or create an account and Tiffy starts on it right away.</p>
-        }
+        <p>
+          {{ hasPendingPrompt
+            ? 'Log in or create an account and Tiffy starts on it right away.'
+            : mode() === 'signup' ? 'You describe it. Motify makes it.' : 'Log in to keep making videos with Motify.' }}
+        </p>
       </header>
+
+      <button class="login-google" type="button" (click)="loginWithGoogle()">
+        <svg class="login-google__logo" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.4-.18-2.05H12v3.88h5.38a4.6 4.6 0 0 1-1.99 3.02v2.51h3.22c1.89-1.74 2.99-4.3 2.99-7.36Z" />
+          <path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.61-2.41l-3.22-2.51c-.9.6-2.05.96-3.39.96-2.61 0-4.82-1.76-5.61-4.13H3.06v2.59A9.98 9.98 0 0 0 12 22Z" />
+          <path fill="#FBBC05" d="M6.39 13.91A6 6 0 0 1 6.08 12c0-.66.11-1.3.31-1.91V7.5H3.06A10 10 0 0 0 2 12c0 1.61.39 3.13 1.06 4.5l3.33-2.59Z" />
+          <path fill="#EA4335" d="M12 5.96c1.47 0 2.79.51 3.83 1.51l2.87-2.87C16.96 2.96 14.7 2 12 2a9.98 9.98 0 0 0-8.94 5.5l3.33 2.59C7.18 7.72 9.39 5.96 12 5.96Z" />
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="login-divider"><span>or use email</span></div>
 
       <form class="login-form" (ngSubmit)="continueToMotify()">
         <label class="login-field" for="login-email">
-          <span>Email</span>
-          <input id="login-email" name="email" type="email" placeholder="you@studio.com" autocomplete="email" [(ngModel)]="email" required />
+          <span class="login-sr">Email</span>
+          <input id="login-email" name="email" type="email" placeholder="Email address" autocomplete="email" [(ngModel)]="email" required />
         </label>
         <label class="login-field" for="login-password">
-          <span>Password</span>
+          <span class="login-sr">Password</span>
           <span class="login-field__password">
             <input
               id="login-password"
               name="password"
               [type]="showPassword() ? 'text' : 'password'"
-              [placeholder]="mode() === 'signup' ? 'At least 8 characters' : 'Your password'"
+              [placeholder]="mode() === 'signup' ? 'Password (8+ characters)' : 'Password'"
               [autocomplete]="mode() === 'signup' ? 'new-password' : 'current-password'"
               minlength="8"
               [(ngModel)]="password"
@@ -83,46 +97,41 @@
           <label class="login-terms" for="login-terms">
             <input id="login-terms" name="acceptTerms" type="checkbox" [(ngModel)]="acceptedTerms" required />
             <span>
-              I agree to the <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+              I agree to the <a href="/terms" target="_blank" rel="noopener">Terms of Service</a>
               and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
             </span>
           </label>
         }
         @if (error()) { <p class="login-form__error" role="alert">{{ error() }}</p> }
-        <button class="login-card__button" type="submit" [disabled]="loading() || (mode() === 'signup' && !acceptedTerms)">
+        <button class="login-submit" type="submit" [disabled]="loading() || (mode() === 'signup' && !acceptedTerms)">
           @if (mode() === 'signup') {
             {{ loading() ? 'Creating account…' : 'Create account' }}
           } @else {
-            {{ loading() ? 'Logging in…' : 'Log in' }}
+            {{ loading() ? 'Logging in…' : 'Log in with email' }}
           }
         </button>
       </form>
 
-      <div class="login-divider"><span>Or</span></div>
-
-      <button class="login-google" type="button" (click)="loginWithGoogle()">
-        <svg class="login-google__logo" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.4-.18-2.05H12v3.88h5.38a4.6 4.6 0 0 1-1.99 3.02v2.51h3.22c1.89-1.74 2.99-4.3 2.99-7.36Z" />
-          <path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.61-2.41l-3.22-2.51c-.9.6-2.05.96-3.39.96-2.61 0-4.82-1.76-5.61-4.13H3.06v2.59A9.98 9.98 0 0 0 12 22Z" />
-          <path fill="#FBBC05" d="M6.39 13.91A6 6 0 0 1 6.08 12c0-.66.11-1.3.31-1.91V7.5H3.06A10 10 0 0 0 2 12c0 1.61.39 3.13 1.06 4.5l3.33-2.59Z" />
-          <path fill="#EA4335" d="M12 5.96c1.47 0 2.79.51 3.83 1.51l2.87-2.87C16.96 2.96 14.7 2 12 2a9.98 9.98 0 0 0-8.94 5.5l3.33 2.59C7.18 7.72 9.39 5.96 12 5.96Z" />
-        </svg>
-        {{ mode() === 'signup' ? 'Sign up with Google' : 'Log in with Google' }}
-      </button>
       <!-- Google can create an account from either mode, so the notice stays in both. -->
       <p class="login-legal">
-        By continuing with Google, you agree to the
-        <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        By continuing{{ mode() === 'signup' ? ' with Google' : '' }}, you agree to the
+        <a href="/terms" target="_blank" rel="noopener">Terms of Service</a>
         and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
       </p>
+
+      <div class="login-rule"></div>
 
       <p class="login-switch">
         @if (mode() === 'signup') {
           Already have an account? <button type="button" (click)="setMode('signin')">Log in</button>
         } @else {
-          Don't have an account? <button type="button" (click)="setMode('signup')">Create account</button>
+          New to Motify? <button type="button" (click)="setMode('signup')">Create account</button>
         }
       </p>
     }
   </section>
+
+  <div class="login-showcase" aria-hidden="true">
+    <canvas #globe class="login-showcase__globe"></canvas>
+  </div>
 </main>

@@ -1,8 +1,11 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, signal, viewChild,
+} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LucideEye, LucideEyeOff } from '@lucide/angular';
+import { mountGlobe } from './globe';
 import { AuthService } from '../../shared/services/auth.service';
 import { SeoService } from '../../shared/services/seo.service';
 import { editorUrlForReturnPath } from '../../shared/config/runtime-config';
@@ -20,6 +23,7 @@ type AuthMode = 'signin' | 'signup';
 export class LoginPageComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
   readonly auth = inject(AuthService);
 
   readonly returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/editor';
@@ -41,6 +45,9 @@ export class LoginPageComponent {
   otpCode = '';
   acceptedTerms = false;
 
+  /** The dark globe beside the form. */
+  private readonly globe = viewChild<ElementRef<HTMLCanvasElement>>('globe');
+
   constructor() {
     const signingUp = this.mode() === 'signup';
     inject(SeoService).apply({
@@ -56,7 +63,16 @@ export class LoginPageComponent {
       void this.auth.currentUser().then((user) => {
         if (user) this.finishLogin(this.arrivedAsNewAccount);
       });
+      this.startGlobe();
     });
+  }
+
+  private startGlobe(): void {
+    const canvas = this.globe()?.nativeElement;
+    if (!canvas) return;
+    const still = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? true;
+    const stop = mountGlobe(canvas, { still });
+    this.destroyRef.onDestroy(stop);
   }
 
   setMode(mode: AuthMode): void {

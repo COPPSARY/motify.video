@@ -497,6 +497,141 @@
   box-shadow: 0 0 1.2rem rgba(255, 31, 64, 0.18);
 }
 
+/* Compare plans: every plan side by side, feature by feature. */
+.plan-compare {
+  margin-top: var(--motify-space-16);
+}
+
+.plan-compare__title {
+  margin: 0;
+  color: var(--motify-text-primary);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: var(--motify-weight-heavy);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  text-align: center;
+}
+
+.plan-compare__scroll {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  border: 1px solid var(--motify-border-strong);
+  border-radius: var(--motify-radius-md);
+  background: rgba(3, 4, 5, 0.84);
+  -webkit-overflow-scrolling: touch;
+}
+
+.plan-compare__scroll:focus-visible {
+  outline: 2px solid var(--motify-logo-end);
+  outline-offset: 2px;
+}
+
+.plan-compare__table {
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: var(--motify-text-secondary);
+  font-size: 0.92rem;
+}
+
+.plan-compare__table th,
+.plan-compare__table td {
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--motify-border);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.plan-compare__table thead th {
+  padding-block: 1.3rem;
+  border-bottom-color: var(--motify-border-strong);
+}
+
+.plan-compare__table th[scope='row'],
+.plan-compare__corner {
+  width: 30%;
+  text-align: left;
+}
+
+/* The feature names stay in view while a phone scrolls the plans sideways. */
+.plan-compare__table th[scope='row'],
+.plan-compare__corner,
+.plan-compare__section th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #050608;
+}
+
+.plan-compare__table th[scope='row'] {
+  color: var(--motify-text-primary);
+  font-weight: var(--motify-weight-regular);
+}
+
+.plan-compare__plan {
+  display: block;
+  color: var(--motify-text-primary);
+  font-size: 1.05rem;
+  font-weight: var(--motify-weight-bold);
+}
+
+.plan-compare__price {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--motify-text-muted);
+  font-size: var(--motify-type-small);
+  font-weight: var(--motify-weight-regular);
+  white-space: nowrap;
+}
+
+.plan-compare__section th {
+  padding-top: 1.6rem;
+  color: var(--motify-text-muted);
+  font-size: var(--motify-type-small);
+  font-weight: var(--motify-weight-bold);
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.plan-compare__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.plan-compare__label img {
+  box-sizing: content-box;
+  flex: none;
+  padding: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.4rem;
+  background: #1d1d20;
+}
+
+.plan-compare__featured {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.plan-compare__table thead .plan-compare__featured .plan-compare__plan {
+  color: var(--motify-logo-end);
+}
+
+.plan-compare__yes {
+  display: inline-block;
+  color: var(--motify-logo-end);
+  vertical-align: middle;
+}
+
+.plan-compare__no {
+  color: var(--motify-text-muted);
+  opacity: 0.6;
+}
+
+.plan-compare__table tbody:last-child tr:last-child > * {
+  border-bottom: 0;
+}
+
 .credit-packs {
   margin-top: var(--motify-space-16);
 }
@@ -1487,7 +1622,8 @@ label.payment-method:hover,
 
 @media (max-width: 640px) {
   .pricing-page__intro h1,
-  .credit-packs__title {
+  .credit-packs__title,
+  .plan-compare__title {
     font-size: clamp(2.5rem, 13vw, 3.6rem);
   }
 

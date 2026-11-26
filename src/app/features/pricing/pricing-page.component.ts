@@ -307,6 +307,7 @@ export class PricingPageComponent implements OnDestroy {
           { label: 'Claude Opus 5.5', logo: '/models/claude.svg', cells: [false, true, true, true] },
           { label: 'GPT-6.1 Sol', logo: '/models/openai.svg', cells: [false, true, true, true] },
           { label: 'Gemini 4 Argon', logo: '/models/gemini.svg', cells: [false, true, true, true] },
+          { label: 'Gemini 4 Neon', logo: '/models/gemini.svg', cells: [false, true, true, true] },
         ],
       },
       {

@@ -170,6 +170,7 @@ describe('PricingPageComponent', () => {
     expect(cells('Credits')).toEqual(['30 on sign up', '150 a month', '300 a month', 'Custom allowance']);
     expect(cells('Claude Opus 5.5')).toEqual(['Not included', 'Included', 'Included', 'Included']);
     expect(cells('Claude Sonnet 5.5')).toEqual(['Included', 'Included', 'Included', 'Included']);
+    expect(cells('Gemini 4 Neon')).toEqual(['Not included', 'Included', 'Included', 'Included']);
   });
 
   it('offers a personalized enterprise plan through sales', async () => {

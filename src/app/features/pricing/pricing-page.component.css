@@ -1733,3 +1733,18 @@ label.payment-method:hover,
   gap: 0.6rem 0.75rem;
   margin-top: 1.25rem;
 }
+
+.pricing-card__promo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  margin: 0.6rem 0 0;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid rgba(39, 88, 230, 0.45);
+  border-radius: 999px;
+  background: rgba(31, 69, 176, 0.18);
+  color: #b9c9ff;
+  font-size: 0.78rem;
+  font-weight: 600;
+}

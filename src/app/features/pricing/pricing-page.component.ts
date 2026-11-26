@@ -29,6 +29,9 @@ import {
   type WorkspaceSubscription,
 } from '../../shared/services/billing.service';
 import { SeoService } from '../../shared/services/seo.service';
+import { PromotionService } from '../../shared/services/promotion.service';
+import { PromoHeroComponent } from '../../shared/components/promo-hero/promo-hero.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { downloadReceiptPdf } from '../../shared/utils/receipt-pdf';
 
 type CheckoutState = 'idle' | 'confirming' | 'creating' | 'pending' | 'paid' | 'expired' | 'failed' | 'error';
@@ -103,7 +106,7 @@ const FALLBACK_PLANS: readonly BillingPlan[] = [
 @Component({
   selector: 'app-pricing-page',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, RouterLink],
+  imports: [NavbarComponent, FooterComponent, RouterLink, PromoHeroComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pricing-page.component.html',
   styleUrl: './pricing-page.component.css',
@@ -113,6 +116,7 @@ export class PricingPageComponent implements OnDestroy {
   private readonly billing = inject(BillingService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  protected readonly promo = inject(PromotionService);
 
   readonly plans = signal<readonly BillingPlan[]>(FALLBACK_PLANS);
   readonly planCatalogStatus = signal<CatalogStatus>('loading');
@@ -153,6 +157,11 @@ export class PricingPageComponent implements OnDestroy {
       path: '/pricing',
     });
     afterNextRender(() => void this.initialize());
+    // A sale banner link (/pricing?promo=CODE) claims its code for the cards and checkout.
+    this.route.queryParamMap.pipe(takeUntilDestroyed()).subscribe((params) => {
+      const code = params.get('promo')?.trim();
+      if (code) this.promo.claim(code);
+    });
   }
 
   ngOnDestroy(): void {
@@ -222,6 +231,24 @@ export class PricingPageComponent implements OnDestroy {
     return this.billingInterval() === 'year' ? quote.listPrice / 12 : quote.listPrice;
   }
 
+  /** The card price with the claimed sale code taken off; the API prices the real checkout. */
+  planPromoPrice(id: KnownPlanId): number {
+    return this.withPromo(this.planDisplayPrice(id));
+  }
+
+  planPromoTotal(id: KnownPlanId): number {
+    return this.withPromo(this.planQuote(id).price);
+  }
+
+  private withPromo(amount: number): number {
+    const applied = this.promo.applied();
+    return applied ? Math.round(amount * (100 - applied.percent)) / 100 : amount;
+  }
+
+  onPromoClaimed(): void {
+    document.querySelector('.pricing-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   planCredits(id: KnownPlanId): number {
     const plan = this.plan(id);
     return this.billingInterval() === 'year' ? plan.year.credits : plan.creditsPerMonth;
@@ -277,7 +304,7 @@ export class PricingPageComponent implements OnDestroy {
   /** The comparison table's plans, priced for the billing period shown above it. */
   comparisonColumns(): readonly ComparisonColumn[] {
     const price = (id: KnownPlanId) => this.planCatalogStatus() === 'ready'
-      ? `${this.formatMoney(this.planDisplayPrice(id), this.plan(id).currency)} / month`
+      ? `${this.formatMoney(this.planPromoPrice(id), this.plan(id).currency)} / month`
       : '—';
     return [
       { id: 'free', name: 'Free', price: `${this.formatMoney(0, 'USD')} / month` },
@@ -514,7 +541,8 @@ export class PricingPageComponent implements OnDestroy {
       const query = 'plan' in selection.purchase
         ? `checkout=${selection.purchase.plan}&interval=${selection.purchase.interval}`
         : `pack=${encodeURIComponent(selection.purchase.creditPack)}`;
-      const returnUrl = `/pricing?${query}`;
+      const claimed = this.promo.applied()?.code;
+      const returnUrl = `/pricing?${query}${claimed ? `&promo=${encodeURIComponent(claimed)}` : ''}`;
       this.auth.setPendingReturnUrl(returnUrl);
       await this.router.navigate(['/signup'], { queryParams: { returnUrl } });
       return;
@@ -538,6 +566,12 @@ export class PricingPageComponent implements OnDestroy {
     this.payment.set(null);
     this.removePromoCode();
     this.checkoutState.set('confirming');
+    // A code claimed from a sale banner is entered and checked for the buyer.
+    const claimed = this.promo.applied()?.code;
+    if (claimed) {
+      this.promoInput.set(claimed);
+      void this.applyPromoCode();
+    }
   }
 
   private async createCheckout(selection: CheckoutSelection): Promise<void> {

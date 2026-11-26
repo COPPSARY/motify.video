@@ -18,6 +18,7 @@ import {
 import { EDITOR_AUTH_PATH, editorUrlForReturnPath } from '../../../../shared/config/runtime-config';
 import { AuthService, type MotifyUser } from '../../../../shared/services/auth.service';
 import { BillingService } from '../../../../shared/services/billing.service';
+import { PromoBarComponent } from '../../../../shared/components/promo-bar/promo-bar.component';
 
 @Component({
   selector: 'app-navbar',
@@ -26,6 +27,7 @@ import { BillingService } from '../../../../shared/services/billing.service';
   imports: [
     RouterLink,
     RouterLinkActive,
+    PromoBarComponent,
     LucideArrowUpRight,
     LucideChevronDown,
     LucideLogOut,

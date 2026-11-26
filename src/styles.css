@@ -405,3 +405,8 @@ video {
   line-height: 1.55;
   text-wrap: pretty;
 }
+
+/* Sale bar over the navbar (PromoBarComponent): push the navbar and page down while it shows. */
+:root { --promo-bar-h: 0px; }
+html.has-promo-bar { --promo-bar-h: 3.25rem; }
+html.has-promo-bar body { padding-top: var(--promo-bar-h); }

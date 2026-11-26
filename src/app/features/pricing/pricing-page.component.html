@@ -1,6 +1,8 @@
 <div class="pricing-page-shell">
   <app-navbar />
   <main class="pricing-page" aria-labelledby="pricing-title">
+    <app-promo-hero (claimed)="onPromoClaimed()" />
+
     <section class="pricing-page__intro">
       <h1 id="pricing-title">Pricing</h1>
       <div class="billing-toggle" role="group" aria-label="Billing period">
@@ -60,10 +62,13 @@
           </div>
           @if (planCatalogStatus() === 'ready') {
             <p class="pricing-card__price">
-              @if (planDisplayListPrice('starter') > planDisplayPrice('starter')) { <del>{{ formatMoney(planDisplayListPrice('starter'), plan('starter').currency) }}</del> }
-              <strong>{{ formatMoney(planDisplayPrice('starter'), plan('starter').currency) }}</strong><span>/ month</span>
+              @if (planDisplayListPrice('starter') > planPromoPrice('starter')) { <del>{{ formatMoney(planDisplayListPrice('starter'), plan('starter').currency) }}</del> }
+              <strong>{{ formatMoney(planPromoPrice('starter'), plan('starter').currency) }}</strong><span>/ month</span>
             </p>
-            @if (billingInterval() === 'year') { <p class="pricing-card__billing-total">Billed yearly: {{ formatMoney(planQuote('starter').price, plan('starter').currency) }}</p> }
+            @if (promo.applied(); as applied) {
+              <p class="pricing-card__promo"><span aria-hidden="true">✓</span> {{ applied.code }} applied · {{ applied.percent }}% off</p>
+            }
+            @if (billingInterval() === 'year') { <p class="pricing-card__billing-total">Billed yearly: {{ formatMoney(planPromoTotal('starter'), plan('starter').currency) }}</p> }
             <p class="pricing-card__credits"><strong>{{ planCredits('starter') }} credits</strong></p>
           } @else {
             <p class="pricing-card__price"><strong>—</strong><span>{{ planCatalogMessage() }}</span></p>
@@ -106,10 +111,13 @@
           </div>
           @if (planCatalogStatus() === 'ready') {
             <p class="pricing-card__price">
-              @if (planDisplayListPrice('pro') > planDisplayPrice('pro')) { <del>{{ formatMoney(planDisplayListPrice('pro'), plan('pro').currency) }}</del> }
-              <strong>{{ formatMoney(planDisplayPrice('pro'), plan('pro').currency) }}</strong><span>/ month</span>
+              @if (planDisplayListPrice('pro') > planPromoPrice('pro')) { <del>{{ formatMoney(planDisplayListPrice('pro'), plan('pro').currency) }}</del> }
+              <strong>{{ formatMoney(planPromoPrice('pro'), plan('pro').currency) }}</strong><span>/ month</span>
             </p>
-            @if (billingInterval() === 'year') { <p class="pricing-card__billing-total">Billed yearly: {{ formatMoney(planQuote('pro').price, plan('pro').currency) }}</p> }
+            @if (promo.applied(); as applied) {
+              <p class="pricing-card__promo"><span aria-hidden="true">✓</span> {{ applied.code }} applied · {{ applied.percent }}% off</p>
+            }
+            @if (billingInterval() === 'year') { <p class="pricing-card__billing-total">Billed yearly: {{ formatMoney(planPromoTotal('pro'), plan('pro').currency) }}</p> }
             <p class="pricing-card__credits"><strong>{{ planCredits('pro') }} credits</strong></p>
           } @else {
             <p class="pricing-card__price"><strong>—</strong><span>{{ planCatalogMessage() }}</span></p>

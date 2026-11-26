@@ -389,6 +389,25 @@
   font-weight: 800;
 }
 
+/* A plan's AI models, named in the line and shown by their makers' marks. */
+.pricing-card__model-line {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.pricing-card__models {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.pricing-card__models img {
+  box-sizing: content-box;
+  padding: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.45rem;
+  background: #1d1d20;
+}
+
 .pricing-card__button {
   display: inline-flex;
   width: fit-content;

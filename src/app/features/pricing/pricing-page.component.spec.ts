@@ -139,6 +139,39 @@ describe('PricingPageComponent', () => {
     expect((fixture.nativeElement as HTMLElement).querySelector('.credit-pack__bonus-note')?.textContent).toContain('first purchase only');
   });
 
+  it('states each plan’s video length and drops HD exports from Starter', async () => {
+    const fixture = TestBed.createComponent(PricingPageComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const cards = [...(fixture.nativeElement as HTMLElement).querySelectorAll('.pricing-card')];
+    expect(cards[0]?.textContent).toContain('Videos up to 10 seconds');
+    expect(cards[1]?.textContent).toContain('Videos up to 3 minutes');
+    expect(cards[1]?.textContent).toContain('AI voiceovers');
+    expect(cards[1]?.textContent).not.toContain('HD MP4 exports');
+  });
+
+  it('compares every plan side by side, priced from the catalog', async () => {
+    const fixture = TestBed.createComponent(PricingPageComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const table = (fixture.nativeElement as HTMLElement).querySelector('.plan-compare__table')!;
+    const headers = [...table.querySelectorAll('thead th')].slice(1)
+      .map((cell) => `${cell.querySelector('.plan-compare__plan')?.textContent?.trim()}: ${cell.querySelector('.plan-compare__price')?.textContent?.trim()}`);
+    expect(headers).toEqual(['Free: $0.00 / month', 'Starter: $10.00 / month', 'Pro: $20.00 / month', 'Enterprise: Custom']);
+    const row = (label: string) => [...table.querySelectorAll('tbody tr')]
+      .find((tr) => tr.querySelector('th')?.textContent?.trim() === label);
+    const cells = (label: string) => [...row(label)!.querySelectorAll('td')]
+      .map((cell) => (cell.querySelector('.sr-only') ?? cell).textContent?.trim());
+    expect(cells('Video length')).toEqual(['Up to 10 seconds', 'Up to 3 minutes', 'Up to 3 minutes', 'Up to 3 minutes']);
+    expect(cells('Credits')).toEqual(['30 on sign up', '150 a month', '300 a month', 'Custom allowance']);
+    expect(cells('Claude Opus 5.5')).toEqual(['Not included', 'Included', 'Included', 'Included']);
+    expect(cells('Claude Sonnet 5.5')).toEqual(['Included', 'Included', 'Included', 'Included']);
+  });
+
   it('offers a personalized enterprise plan through sales', async () => {
     const fixture = TestBed.createComponent(PricingPageComponent);
     fixture.detectChanges();

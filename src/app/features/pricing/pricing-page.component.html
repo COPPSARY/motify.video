@@ -42,6 +42,7 @@
                 <img src="/models/claude.svg" alt="" width="14" height="14" />
               </span>
             </li>
+            <li>Videos up to 10 seconds</li>
             <li>Unlimited exports</li>
           </ul>
         </div>
@@ -80,8 +81,9 @@
                 <img src="/models/gemini.svg" alt="" width="14" height="14" />
               </span>
             </li>
+            <li>Videos up to 3 minutes</li>
+            <li>AI voiceovers</li>
             <li>Brand DNA</li>
-            <li>HD MP4 exports</li>
             <li>Version history</li>
             <li>No watermark</li>
             <li>Priority support</li>
@@ -125,7 +127,6 @@
                 <img src="/models/gemini.svg" alt="" width="14" height="14" />
               </span>
             </li>
-            <li>AI voiceovers</li>
             <li>Multi-format exports</li>
             <li>Templates and reference videos</li>
             <li>Site Intelligence</li>
@@ -190,6 +191,55 @@
       Yearly plans are billed upfront and credits are delivered monthly. Plan credits expire on their individual expiry dates and do not roll over.
       <a routerLink="/terms">Terms &amp; Conditions apply.</a>
     </p>
+
+    <section class="plan-compare" aria-labelledby="plan-compare-title">
+      <h2 class="plan-compare__title" id="plan-compare-title">Compare plans</h2>
+      <div class="plan-compare__scroll" role="region" aria-labelledby="plan-compare-title" tabindex="0">
+        <table class="plan-compare__table">
+          <thead>
+            <tr>
+              <th scope="col" class="plan-compare__corner"><span class="sr-only">Feature</span></th>
+              @for (column of comparisonColumns(); track column.id) {
+                <th scope="col" [class.plan-compare__featured]="column.id === 'pro'">
+                  <span class="plan-compare__plan">{{ column.name }}</span>
+                  <span class="plan-compare__price">{{ column.price }}</span>
+                </th>
+              }
+            </tr>
+          </thead>
+          @for (section of comparisonSections(); track section.title) {
+            <tbody>
+              <tr class="plan-compare__section">
+                <th scope="colgroup" colspan="5">{{ section.title }}</th>
+              </tr>
+              @for (row of section.rows; track row.label) {
+                <tr>
+                  <th scope="row">
+                    <span class="plan-compare__label">
+                      @if (row.logo) { <img [src]="row.logo" alt="" width="14" height="14" /> }
+                      {{ row.label }}
+                    </span>
+                  </th>
+                  @for (cell of row.cells; track $index) {
+                    <td [class.plan-compare__featured]="$index === 2">
+                      @if (cell === true) {
+                        <svg class="plan-compare__yes" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        <span class="sr-only">Included</span>
+                      } @else if (cell === false) {
+                        <span class="plan-compare__no" aria-hidden="true">—</span>
+                        <span class="sr-only">Not included</span>
+                      } @else {
+                        {{ cell }}
+                      }
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          }
+        </table>
+      </div>
+    </section>
 
     @if (packCatalogStatus() === 'ready' && creditPacks().length) {
       <section class="credit-packs" aria-labelledby="credit-packs-title">

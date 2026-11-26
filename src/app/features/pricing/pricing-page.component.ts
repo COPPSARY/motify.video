@@ -57,6 +57,32 @@ interface CheckoutSelection {
 }
 
 type KnownPlanId = 'starter' | 'pro' | 'studio';
+
+/** One plan's cell in the comparison: included, not included, or what it gets. */
+export type ComparisonCell = boolean | string;
+
+export interface ComparisonRow {
+  readonly label: string;
+  /** A model maker's mark beside the label. */
+  readonly logo?: string;
+  /** Free, Starter, Pro, Enterprise. */
+  readonly cells: readonly [ComparisonCell, ComparisonCell, ComparisonCell, ComparisonCell];
+}
+
+export interface ComparisonSection {
+  readonly title: string;
+  readonly rows: readonly ComparisonRow[];
+}
+
+export interface ComparisonColumn {
+  readonly id: 'free' | KnownPlanId | 'enterprise';
+  readonly name: string;
+  readonly price: string;
+}
+
+/** The longest video each plan can make, as the API enforces it (film-limits.ts, film-length.ts). */
+const FREE_VIDEO_LENGTH = 'Up to 10 seconds';
+const PAID_VIDEO_LENGTH = 'Up to 3 minutes';
 const PLAN_IDS: readonly KnownPlanId[] = ['starter', 'pro', 'studio'];
 
 function fallbackPlan(id: KnownPlanId, name: string, price: number, credits: number, available: boolean): BillingPlan {
@@ -246,6 +272,70 @@ export class PricingPageComponent implements OnDestroy {
     const seconds = this.secondsRemaining();
     const minutes = Math.floor(seconds / 60);
     return `${minutes}:${String(seconds % 60).padStart(2, '0')}`;
+  }
+
+  /** The comparison table's plans, priced for the billing period shown above it. */
+  comparisonColumns(): readonly ComparisonColumn[] {
+    const price = (id: KnownPlanId) => this.planCatalogStatus() === 'ready'
+      ? `${this.formatMoney(this.planDisplayPrice(id), this.plan(id).currency)} / month`
+      : '—';
+    return [
+      { id: 'free', name: 'Free', price: `${this.formatMoney(0, 'USD')} / month` },
+      { id: 'starter', name: this.plan('starter').name, price: price('starter') },
+      { id: 'pro', name: this.plan('pro').name, price: price('pro') },
+      { id: 'enterprise', name: 'Enterprise', price: 'Custom' },
+    ];
+  }
+
+  /** What each plan includes, kept in step with the cards above it. */
+  comparisonSections(): readonly ComparisonSection[] {
+    const monthly = (id: KnownPlanId) => `${this.plan(id).creditsPerMonth} a month`;
+    return [
+      {
+        title: 'Making videos',
+        rows: [
+          { label: 'Credits', cells: ['30 on sign up', monthly('starter'), monthly('pro'), 'Custom allowance'] },
+          { label: 'Video length', cells: [FREE_VIDEO_LENGTH, PAID_VIDEO_LENGTH, PAID_VIDEO_LENGTH, PAID_VIDEO_LENGTH] },
+          { label: 'AI video editor', cells: [true, true, true, true] },
+          { label: 'AI voiceovers', cells: [false, true, true, true] },
+        ],
+      },
+      {
+        title: 'AI models',
+        rows: [
+          { label: 'Claude Sonnet 5.5', logo: '/models/claude.svg', cells: [true, true, true, true] },
+          { label: 'Claude Opus 5.5', logo: '/models/claude.svg', cells: [false, true, true, true] },
+          { label: 'GPT-6.1 Sol', logo: '/models/openai.svg', cells: [false, true, true, true] },
+          { label: 'Gemini 4 Argon', logo: '/models/gemini.svg', cells: [false, true, true, true] },
+        ],
+      },
+      {
+        title: 'Brand and workflow',
+        rows: [
+          { label: 'Brand DNA', cells: [false, true, true, 'Multiple'] },
+          { label: 'Version history', cells: [false, true, true, true] },
+          { label: 'Templates and reference videos', cells: [false, false, true, true] },
+          { label: 'Site Intelligence', cells: [false, false, true, true] },
+        ],
+      },
+      {
+        title: 'Exports',
+        rows: [
+          { label: 'Exports', cells: ['Unlimited', 'Unlimited', 'Unlimited', 'Unlimited'] },
+          { label: 'Export quality', cells: ['Up to 4K', 'Up to 4K', 'Up to 4K', 'Up to 4K'] },
+          { label: 'No watermark', cells: [false, true, true, true] },
+          { label: 'Multi-format exports', cells: [false, false, true, true] },
+        ],
+      },
+      {
+        title: 'Support',
+        rows: [
+          { label: 'Support', cells: ['Standard', 'Priority', 'Priority', 'Priority team'] },
+          { label: 'Personalized onboarding', cells: [false, false, false, true] },
+          { label: 'Lowest cost per credit', cells: [false, false, false, true] },
+        ],
+      },
+    ];
   }
 
   planCatalogMessage(): string {
